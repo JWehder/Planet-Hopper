@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hello <%= @user.first_name %></h1> 
+    <hr>
+    <p>
+        You are receiving this email because you requested a password change.
+        If this request did not come from you, please make sure you secure your account. 
+    <p>
+      To login to the site, use the following username & code: 
+      <br>
+      username: <%= @user.username%>
+      <br>
+      code: <%= @code %>
+    </p>
+    <p>Thank you,<br>
+    Spoiled Potatoes
+    </p>
+  </body>
+</html>
