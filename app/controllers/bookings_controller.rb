@@ -16,10 +16,16 @@ class BookingsController < ApplicationController
     end
 
     def update
-        user = find_booking
-        user.update!(user_params)
-        render json: user, status: :ok
+        booking = find_booking
+        booking.update!(booking_params)
+        render json: booking, status: :ok
     end
+
+    def destroy
+        booking = find_booking
+        booking.destroy
+    end
+
 
     private
 

@@ -9,20 +9,12 @@
     <p>
         Congratulations, space explorer!
 
-        You have successfully booked your interstellar adventure on Planet Hopper and are now one step closer to your journey to <%= @planet %>. Our team of extraterrestrial experts are preparing your accommodation on the [type of accommodation] you have selected, complete with [unique feature of the accommodation].
+        You have successfully booked your interstellar adventure on Planet Hopper and are now one step closer to your journey to <%= @planet %>. Our team of extraterrestrial experts are preparing your accommodation on the <%= @type_of_accomodation %>% you have selected.
 
         We are thrilled to have you on board for this cosmic experience and look forward to seeing you blast off soon. As always, please do not hesitate to contact us if you have any questions or concerns.
 
         Safe travels!
-    <p>
-      To login to the site, use the following username & code: 
-      <br>
-      username: <%= @user.username%>
-      <br>
-      code: <%= @code %>
-    </p>
-    <p>Thank you,<br>
-    Spoiled Potatoes
+        Planet Hopper
     </p>
   </body>
 </html>
