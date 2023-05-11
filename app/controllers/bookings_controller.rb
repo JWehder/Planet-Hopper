@@ -2,7 +2,8 @@ class BookingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response("Booking")
 
     def create
-        booking = Booking.create!(booking_params)
+        user = current_user
+        booking = user.bookings.create!(booking_params)
         # find the number of days stayed minus checkout day
         number_of_days = (booking_params[:start_date] - booking_params[:end_date]).to_i + 1
         booking.price = number_of_days * booking.listing.unit_price
@@ -11,26 +12,43 @@ class BookingsController < ApplicationController
     end
 
     def show
-        booking = find_booking
-        render json: booking, status: :ok
+        user = current_user
+        booking = find_booking(user)
+        if booking
+            render json: booking, status: :ok
+        else
+            render_unauthorized_user_response("booking")
+        end
     end
 
     def update
-        booking = find_booking
-        booking.update!(booking_params)
-        render json: booking, status: :ok
+        user = current_user
+        booking = find_booking(user) 
+        if booking
+            booking.update!(booking_params)
+            render json: booking, status: :ok
+        else
+            render_unauthorized_user_response("booking")
+        end
+    end
+
     end
 
     def destroy
-        booking = find_booking
-        booking.destroy
+        user = current_user
+        booking = find_booking(user)
+        if booking
+            booking = find_booking
+            booking.destroy
+        else
+            render_unauthorized_user_response("booking")
+        end
     end
-
 
     private
 
-    def find_booking
-        Booking.find(params[:id])
+    def find_booking(user)
+        user.bookings.find_by(id: params[:id])
     end
 
     def booking_params
