@@ -5,7 +5,8 @@ class BookingsMailer < ApplicationMailer
         @user = user
         @booking = booking
         @receipt_number = generate_booking_receipt
-        mail(:to => user.email, :subject => "Your PlanetHopper Booking Receipt# #{receipt_number} Summary")
+        @planet = booking.listing.planet.name
+        mail(:to => user.email, :subject => "Your Planet Hopper Booking Receipt# #{receipt_number} Summary")
     end
 
     def generate_booking_receipt
