@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_many :bookings
     has_many :listings, through: :bookings
+    has_many :owned_listings, foreign_key: :owner_id, class: Listing
 
     has_secure_password
     validates :username, presence: true, uniqueness: true, length: { maximum: 25 }

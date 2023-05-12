@@ -10,7 +10,7 @@ class ListingsController < ApplicationController
     def create
         user = current_user
         listing = user.listings.create!(listing_params)
-        # find the number of days stayed minus checkout day
+        listing.owner_id = user.id
         render json: listing, status: :created
     end
 
