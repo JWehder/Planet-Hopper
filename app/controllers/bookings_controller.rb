@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response("Booking")
-
+    
     def create
         user = current_user
         booking = user.bookings.create!(booking_params)
@@ -38,8 +38,8 @@ class BookingsController < ApplicationController
         user = current_user
         booking = find_booking(user)
         if booking
-            booking = find_booking
             booking.destroy
+            head :no_content
         else
             render_unauthorized_user_response("booking")
         end
