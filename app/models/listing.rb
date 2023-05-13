@@ -10,28 +10,32 @@ class Listing < ApplicationRecord
     validates :planet_id, presence: true
     validates :user_id, presence: true
     validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
+    validates :max_guests_allowed, presence: true, numericality: {min: 1}
 
-    # def not_available_dates
-    #     # I need an iterator to query through the listings bookings and provide
-    #     not_available_dates = []
-    #     self.bookings.map do |booking|
-    #         not_available_dates << (booking.start_date...booking.end_date)
-    #     end
-    #     # find periods of times where there is no booking
-    #     # find listings that house less than or equal the number of guests
-    #     # find listing where the particular location is
-    #     # upon initial rendering of the page, the user should see which dates are taken
-    #     not_available_dates
-    # end
-
-    def self.query_listing(search_term, date)
+    def self.query_listing(search_term, date, guests)
         search_results = self.joins(:planets)
             .joins(:booked_dates)
-            .where(.where("listings.city ILIKE ? OR listings.state ILIKE ? OR planets.name ILIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"))
-            .where("booked_dates.date != ?", date)
+            .where("listings.city ILIKE ? OR listings.state ILIKE ? OR planets.name ILIKE ? AND listings.max_guests_allowed >= ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{guests}%")
+            .where.not(booked_dates: { date: date })
         search_results
     end
         
+    def self.query_users_listings(longitude, latitude)
+        results = Geocoder.search([longitude, latitude])
+        results = results.first.city
+        users_listings_results = self.where(city: results).limit(10)
     end
 
+    def self.query_city_listings(city)
+        city_listings = self.where(city: city).limit(10)
+    end
+
+    def self.query_types_of_accomodations
+        self.group(:type_of_accomodation).count
+    end
+
+    private
+
+    def query_not_found_response
+        render json: {}
 end

@@ -2,13 +2,28 @@ class ListingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response("Listing")
     skip_before_action :authorize, only: [:index]
 
-    def index
-        listings = Listing.all
-        render json: listings
+    def render_homepage_listings
+        if params[:latitude] && params[:longitude]
+            users_location_listings = Listing.query_users_listings(params[:longitude], params[:latitude])
+        else
+            users_location_listings = []
+        end
+        render json: {
+                users_location_listings: users_location_listings,
+                new_york: Listing.query_city_listings("New York"),
+                los_angeles: Listing.query_city_listings("Los Angeles"),
+                nashville: Listing.query_city_listings("Nashville"),
+                types_of_accomodations: Listing.query_types_of_accomodations
+        }
     end
 
     def search
-        
+        search_results = Listing.query_listing(params[:search_value], params[:date], params[:guests])
+        if search_results > 0
+            render json: search_results, status: :ok
+        else 
+            render json: { error: "No results were found, please try again." }, status: :not_found
+        end
     end
 
     def create
@@ -59,6 +74,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:name, :city, :state_province, :country, :planet_id, :user_id, :description, :unit_price, :type_of_accomodation)
+        params.permit(:name, :city, :state_province, :country, :planet_id, :user_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed)
     end
 end
