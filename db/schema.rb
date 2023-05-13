@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_11_213313) do
+ActiveRecord::Schema.define(version: 2023_05_12_202757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "booked_dates", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.bigint "listing_id", null: false
+    t.datetime "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_booked_dates_on_booking_id"
+    t.index ["date"], name: "index_booked_dates_on_date"
+    t.index ["listing_id"], name: "index_booked_dates_on_listing_id"
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.integer "user_id"
@@ -39,6 +50,7 @@ ActiveRecord::Schema.define(version: 2023_05_11_213313) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "type_of_accomodation"
+    t.integer "owner_id"
   end
 
   create_table "planets", force: :cascade do |t|
@@ -64,4 +76,6 @@ ActiveRecord::Schema.define(version: 2023_05_11_213313) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "booked_dates", "bookings"
+  add_foreign_key "booked_dates", "listings"
 end

@@ -1,0 +1,2 @@
+class BookedDatesController < ApplicationController
+end
