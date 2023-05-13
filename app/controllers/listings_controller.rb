@@ -7,6 +7,10 @@ class ListingsController < ApplicationController
         render json: listings
     end
 
+    def search
+        
+    end
+
     def create
         user = current_user
         listing = user.listings.create!(listing_params)
