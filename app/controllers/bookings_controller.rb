@@ -5,8 +5,8 @@ class BookingsController < ApplicationController
         user = current_user
         booking = user.bookings.create!(booking_params)
         # find the number of days stayed minus checkout day
-        number_of_days = (booking_params[:start_date] - booking_params[:end_date]).to_i + 1
-        booking.price = number_of_days * booking.listing.unit_price
+        booking.determine_price
+        booking.book_dates
         BookingsMailer.booked_listing_email(booking, booking.user).deliver_now
         render json: booking, status: :created
     end
