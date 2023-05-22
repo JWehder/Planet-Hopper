@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response("Booking")
+    rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Booking") }
     
     def create
         user = current_user

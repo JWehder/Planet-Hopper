@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response("User")
+    rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("User") }
     skip_before_action :authorize, only: [:create, :forgot_password, :reset_password]
 
     def create

@@ -1,5 +1,5 @@
 class Listing < ApplicationRecord
-    has_many :bookings
+    has_many :bookings, dependent: :destroy
     has_many :users, through: :bookings
     belongs_to :planet
 
@@ -37,5 +37,6 @@ class Listing < ApplicationRecord
     private
 
     def query_not_found_response
-        render json: {}
+        render json: {errors: "listing not found"}, status: :not_found
+    end
 end

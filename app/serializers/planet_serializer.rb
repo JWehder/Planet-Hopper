@@ -1,3 +1,3 @@
 class PlanetSerializer < ActiveModel::Serializer
-  attributes :id, :name, :age, :"", :description
+  attributes :id, :name, :age, :description
 end
