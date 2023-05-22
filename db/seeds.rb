@@ -235,10 +235,11 @@ listings = [
 #     User.create(user)
 # end
 
-20.times do 
+1.times do 
     latitude = Faker::Address.latitude.to_d 
     longitude = Faker::Address.longitude.to_d
     results = Geocoder.search([latitude, longitude])
+    puts results.first
     puts longitude
     puts latitude
     location = results.first
@@ -252,9 +253,9 @@ end
 #     booking = Booking.create(user_id: User.all.sample.id, listing_id: listing.id, start_date: DateTime.now + rand(1..30), end_date: DateTime.now + rand(31..60), number_of_guests: listing.max_guests_allowed)
 # end
 
-Booking.all.each do |booking|
-    booking.determine_price
-    booking.book_dates
-end
+# Booking.all.each do |booking|
+#     booking.determine_price
+#     booking.book_dates
+# end
 
 puts "done seeding"
