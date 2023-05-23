@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
-    skip_before_action :authorize, only: [:render_homepage_listings]
+    # rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
+    skip_before_action :authorize, only: [:index, :render_homepage_listings]
 
     def render_homepage_listings
         if listing_params[:latitude] && listing_params[:longitude]
@@ -8,14 +8,20 @@ class ListingsController < ApplicationController
         else
             users_location_listings = []
         end
-        render json: {
-            users_location_listings: users_location_listings,
-            new_york: Listing.query_city_listings("New York"),
-            los_angeles: Listing.query_city_listings("Los Angeles"),
-            nashville: Listing.query_city_listings("Nashville"),
-            types_of_accomodations: Listing.query_types_of_accomodations
-        }
         byebug
+        render json: { key: "value" }
+        # render json: { 
+        #     # users_location_listings: users_location_listings,
+        #     # new_york: Listing.query_city_listings("New York"),
+        #     # los_angeles: Listing.query_city_listings("Los Angeles"),
+        #     # nashville: Listing.query_city_listings("Nashville"),
+        #     # types_of_accomodations: Listing.query_types_of_accomodations
+        # }
+        byebug
+    end
+
+    def index
+        render json: Listing.all
     end
 
     def search

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_18_232614) do
+ActiveRecord::Schema.define(version: 2023_05_23_200051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 2023_05_18_232614) do
     t.integer "owner_id"
     t.integer "max_guests_allowed"
     t.string "photos"
-    t.decimal "longitude", precision: 10, scale: 6
-    t.decimal "latitude", precision: 10, scale: 6
+    t.float "longitude"
+    t.float "latitude"
+    t.string "street_address"
+    t.string "full_address"
   end
 
   create_table "planets", force: :cascade do |t|

@@ -1,4 +1,6 @@
 require 'date'
+require 'faker'
+require 'geocoder'
 
 puts "seeding..."
 users = [
@@ -235,17 +237,30 @@ listings = [
 #     User.create(user)
 # end
 
+puts ENV['GOOGLE_API_KEY']
+
 1.times do 
-    latitude = Faker::Address.latitude.to_d 
-    longitude = Faker::Address.longitude.to_d
-    results = Geocoder.search([latitude, longitude])
-    puts results.first
-    puts longitude
-    puts latitude
-    location = results.first
+    address = Faker::Address
     user_id = User.all.sample.id
+    puts address.city
+    puts address.state
     listing = listings.sample
-    Listing.create(name: listing[:title], city: location.city, state_province: location.state, country: location.country, planet_id: Planet.all.sample.id, user_id: user_id, description: listing[:description], unit_price: rand(125..1250), type_of_accomodation: listing[:type_of_accomodation], owner_id: user_id, max_guests_allowed: rand(1..12), longitude: longitude, latitude: latitude, photos: photos.sample(3))
+    Listing.create(
+        name: listing[:title],
+        city: address.city,
+        state_province: address.state,
+        country: address.country,
+        planet_id: Planet.all.sample.id,
+        user_id: user_id,
+        description: listing[:description],
+        unit_price: rand(125..1250),
+        type_of_accomodation: listing[:type_of_accomodation],
+        owner_id: user_id,
+        max_guests_allowed: rand(1..12),
+        longitude: address.longitude,
+        latitude: address.latitude,
+        photos: photos.sample(3)
+      )
 end
 
 # 12.times do 

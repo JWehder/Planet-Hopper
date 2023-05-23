@@ -11,6 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorize
+    byebug
     render json: { error: "not authorized" }, status: :unauthorized unless session.include? :user_id
   end
 
@@ -19,10 +20,12 @@ class ApplicationController < ActionController::API
   end
 
   def render_not_found_response(model_name)
+    byebug
     render json: { error: ["#{model_name} not found"]}, status: :not_found
   end
 
   def current_user
+    byebug
     User.find(session[:user_id])
   end
 
