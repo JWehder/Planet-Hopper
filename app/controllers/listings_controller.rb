@@ -13,14 +13,10 @@ class ListingsController < ApplicationController
             users_location_listings: users_location_listings,
             new_york: Listing.query_city_listings("New York"),
             los_angeles: Listing.query_city_listings("Los Angeles"),
-            nashville: Listing.query_city_listings("Nashville"),
+            nashville: Listing.query_city_listings("Nashville-Davidson"),
             types_of_accomodations: Listing.query_types_of_accomodations
         }
         byebug
-    end
-
-    def index
-        render json: Listing.all
     end
 
     def search
@@ -78,6 +74,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:name, :city, :state_province, :country, :planet_id, :user_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude)
+        params.permit(:name, :city, :state_province, :country, :planet_id, :user_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :street_address)
     end
 end
