@@ -32,8 +32,6 @@ class BookingsController < ApplicationController
         end
     end
 
-    end
-
     def destroy
         user = current_user
         booking = find_booking(user)
@@ -51,11 +49,14 @@ class BookingsController < ApplicationController
         user.bookings.find_by(id: params[:id])
     end
 
+    def current_user
+        User.find_by(id: session[:user_id])
+    end
+
     def booking_params
         parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
         parsed_params[:start_date] = Datetime.parse(parsed_params[:start_date])
         parsed_params[:end_date] = Datetime.parse(parsed_params[:end_date])
         parsed_params
     end
-
 end

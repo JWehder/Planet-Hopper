@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-    # rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
+    rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
     skip_before_action :authorize, only: [:index, :render_homepage_listings]
 
     def render_homepage_listings
@@ -9,14 +9,13 @@ class ListingsController < ApplicationController
             users_location_listings = []
         end
         byebug
-        render json: { key: "value" }
-        # render json: { 
-        #     # users_location_listings: users_location_listings,
-        #     # new_york: Listing.query_city_listings("New York"),
-        #     # los_angeles: Listing.query_city_listings("Los Angeles"),
-        #     # nashville: Listing.query_city_listings("Nashville"),
-        #     # types_of_accomodations: Listing.query_types_of_accomodations
-        # }
+        render json: { 
+            users_location_listings: users_location_listings,
+            new_york: Listing.query_city_listings("New York"),
+            los_angeles: Listing.query_city_listings("Los Angeles"),
+            nashville: Listing.query_city_listings("Nashville"),
+            types_of_accomodations: Listing.query_types_of_accomodations
+        }
         byebug
     end
 
@@ -34,14 +33,14 @@ class ListingsController < ApplicationController
     end
 
     def create
-        user = current_user
+        user = User.find(session[:user_id])
         listing = user.listings.create!(listing_params)
         listing.owner_id = user.id
         render json: listing, status: :created
     end
 
     def show
-        user = current_user
+        user = User.find(session[:user_id])
         listing = find_listing(user)
         if listing
             render json: listing, status: :ok
@@ -51,7 +50,7 @@ class ListingsController < ApplicationController
     end
 
     def update
-        user = current_user
+        user = User.find(session[:user_id])
         listing = find_listing(user) 
         if booking
             listing.update!(listing_params)
@@ -62,7 +61,7 @@ class ListingsController < ApplicationController
     end
 
     def destroy
-        user = current_user
+        user = User.find(session[:user_id])
         listing = find_listing(user)
         if listing
             listing.destroy
