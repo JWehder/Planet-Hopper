@@ -6,15 +6,16 @@ class Listing < ApplicationRecord
     belongs_to :owner, class_name: "User", foreign_key: "owner_id"
 
     validate :validate_if_host
+    validate :photos_count
 
-    # validates :name, presence: true, length: {minimum: 8}
-    # validates :city, presence: true
-    # validates :state_province, presence: true
-    # validates :country, presence: true
-    # validates :planet_id, presence: true
-    # validates :user_id, presence: true
-    # validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
-    # validates :max_guests_allowed, presence: true, numericality: {min: 1}
+    validates :name, presence: true, length: {minimum: 8}
+    validates :city, presence: true
+    validates :state_province, presence: true
+    validates :country, presence: true
+    validates :planet_id, presence: true
+    validates :owner_id, presence: true
+    validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
+    validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
 
     def self.query_listing(search_term, date, guests)
         parsed_date = DateTime.parse(date)
@@ -41,8 +42,16 @@ class Listing < ApplicationRecord
 
     private
 
+    def photos_count
+        puts self.photos
+        if self.photos.size > 10 || self.photos.size < 1
+            puts self.photos.size
+            errors.add(:photos, "we require a minimum of one photo and impose a maximum of ten photos on one listing")
+        end
+    end
+
     def validate_if_host
-        errors.add(:owner, "not a host") unless self.user.host?
+        errors.add(:owner, "owner is not a host.") unless self.owner.host?
     end
 
     def query_not_found_response

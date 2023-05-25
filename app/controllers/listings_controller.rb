@@ -31,7 +31,6 @@ class ListingsController < ApplicationController
     def create
         user = User.find(session[:user_id])
         listing = user.listings.create!(listing_params)
-        listing.owner_id = user.id
         render json: listing, status: :created
     end
 
@@ -74,6 +73,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:name, :city, :state_province, :country, :planet_id, :user_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :street_address, :date, :guests, :search_value)
+        params.permit(:name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :street_address, :date, :guests, :search_value, photos: [])
     end
 end
