@@ -3,6 +3,9 @@ class Listing < ApplicationRecord
     has_many :booked_dates, through: :bookings
     has_many :users, through: :bookings
     belongs_to :planet
+    belongs_to :owner, class_name: "User", foreign_key: "owner_id"
+
+    validate :validate_if_host
 
     # validates :name, presence: true, length: {minimum: 8}
     # validates :city, presence: true
@@ -37,6 +40,10 @@ class Listing < ApplicationRecord
     end
 
     private
+
+    def validate_if_host
+        errors.add(:owner, "not a host") unless self.user.host?
+    end
 
     def query_not_found_response
         render json: {errors: "listing not found"}, status: :not_found
