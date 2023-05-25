@@ -14,10 +14,11 @@ class Listing < ApplicationRecord
     # validates :max_guests_allowed, presence: true, numericality: {min: 1}
 
     def self.query_listing(search_term, date, guests)
+        parsed_date = DateTime.parse(date)
         search_results = self.joins(:planets)
             .joins(:booked_dates)
             .where("listings.city ILIKE ? OR listings.state ILIKE ? OR planets.name ILIKE ? AND listings.max_guests_allowed >= ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{guests}%")
-            .where.not(booked_dates: { date: date })
+            .where.not(booked_dates: { date: parsed_date })
         search_results
     end
         

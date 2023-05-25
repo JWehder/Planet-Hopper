@@ -256,3 +256,38 @@ $listings = [
     type_of_accomodation: "Cabin"
     }
 ]
+
+testingObjs = [
+    {
+      "name": "Luxurious Mansion on Planet X",
+      "city": "Galactic City",
+      "state_province": "Neptune",
+      "country": "Alpha Centauri",
+      "planet_id": 97,
+      "user_id": 8,
+      "description": "Indulge in opulence and grandeur at this luxurious hotel nestled in the heart of Galactic City on Planet Aurora. With its expansive living spaces, futuristic decor, and advanced amenities, this hotel is the epitome of interstellar luxury. Enjoy the breathtaking views of nebulae, host extravagant cosmic events in the grand ballroom, and experience the wonders of the universe during your stay.",
+      "unit_price": 1200,
+      "type_of_accommodation": "House",
+      "owner_id": 8,
+      "max_guests_allowed": 10,
+      "photos": [
+        "https://cdn.discordapp.com/attachments/1106022073605832748/1111110820626190356/Jake_Wehder_fancy_hotel_room_4f054df6-a6b7-454d-808a-968a4e293ef8.png",
+        "https://cdn.discordapp.com/attachments/1106022073605832748/1111111237699379290/Jake_Wehder_what_a_pool_would_look_like_at_this_hotel_fe686b92-feca-4db1-93eb-d86cf095503a.png",
+        "https://cdn.discordapp.com/attachments/1106022073605832748/1111107569986044004/Jake_Wehder_generate_a_hyper_realistic_image_of_a_luxurious_dow_df1b0063-765a-4562-b932-30098cbd074d.png"
+      ],
+      "longitude": -42.875309,
+      "latitude": 25.743876,
+      "street_address": "Stardust Avenue, Galactic City, Neptune, Alpha Centauri, Aurora"
+    }
+    {
+      "first_name": "Jake",
+      "last_name": "Wehder",
+      "username": "jake_wehder2",
+      "password": "Weedwacker15!",
+      "password_confirmation": "Weedwacker15!",
+     "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "email": "jake_wehder@example.com",
+      "profile_picture": "profile.jpg",
+      "host": false
+    }
+]

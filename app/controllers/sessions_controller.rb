@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("User") }
 
     def create
-        user = User.find_by(username: params[:username])
-        if user&.authenticate(params[:password])
+        user = User.find_by(username: session_params[:username])
+        if user&.authenticate(session_params[:password])
             session[:user_id] = user.id 
             render json: user, methods: [:unique_movies], status: :created
         else
@@ -21,5 +21,9 @@ class SessionsController < ApplicationController
 
     def find_user
         user = User.find_by(id: session[:user_id])
+    end
+
+    def session_params
+        params.permit(:username, :password)
     end
 end
