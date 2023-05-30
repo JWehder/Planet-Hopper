@@ -8,7 +8,6 @@ class ListingsController < ApplicationController
         else
             users_location_listings = []
         end
-        byebug
         render json: { 
             users_location_listings: users_location_listings,
             new_york: Listing.query_city_listings("New York"),
@@ -16,7 +15,6 @@ class ListingsController < ApplicationController
             nashville: Listing.query_city_listings("Nashville-Davidson"),
             types_of_accomodations: Listing.query_types_of_accomodations
         }
-        byebug
     end
 
     def search
@@ -38,7 +36,7 @@ class ListingsController < ApplicationController
         user = User.find(session[:user_id])
         listing = find_listing(user)
         if listing
-            render json: listing, status: :ok
+            render json: listing, status: :ok, serializer: CustomListingSerializer
         else
             render_unauthorized_user_response("listing")
         end
@@ -47,7 +45,7 @@ class ListingsController < ApplicationController
     def update
         user = User.find(session[:user_id])
         listing = find_listing(user) 
-        if booking
+        if listing
             listing.update!(listing_params)
             render json: listing, status: :ok
         else

@@ -4,31 +4,31 @@ $locations = [
     { latitude: 36.1627, longitude: -86.7816 },
     { latitude: 36.1566, longitude: -86.7882 },
     { latitude: 36.1473, longitude: -86.777 },
-    # { latitude: 36.1523, longitude: -86.7892 },
-    # { latitude: 36.1515, longitude: -86.7982 }
-    # { latitude: 40.7128, longitude: -74.0060 },   # New York City, USA
-    # { latitude: 34.0522, longitude: -118.2437 },  # Los Angeles, USA
-    # { latitude: 51.5074, longitude: -0.1278 },    # London, UK
-    # { latitude: 48.8566, longitude: 2.3522 },     # Paris, France
-    # { latitude: -33.8688, longitude: 151.2093 },
-    # { latitude: 34.0522, longitude: -118.2437 },
-    # { latitude: 40.7128, longitude: -74.0060 },
-    # { latitude: 51.5074, longitude: -0.1278 },
-    # { latitude: 48.8566, longitude: 2.3522 },
-    # { latitude: 41.3851, longitude: 2.1734 },
-    # { latitude: 35.6895, longitude: 139.6917 },
-    # { latitude: -33.8651, longitude: 151.2099 },
-    # { latitude: -37.8136, longitude: 144.9631 },
-    # { latitude: -22.9068, longitude: -43.1729 },
-    # { latitude: 55.7558, longitude: 37.6176 },
-    # { latitude: 52.5200, longitude: 13.4050 },
-    # { latitude: 59.3293, longitude: 18.0686 },
-    # { latitude: 40.4168, longitude: -3.7038 },
-    # { latitude: -22.9519, longitude: -43.2105 },
-    # { latitude: 25.2048, longitude: 55.2708 },
-    # { latitude: -33.8688, longitude: 151.2093 },
-    # { latitude: -34.6037, longitude: -58.3816 },
-    # { latitude: -23.5505, longitude: -46.6333 }
+    { latitude: 36.1523, longitude: -86.7892 },
+    { latitude: 36.1515, longitude: -86.7982 },
+    { latitude: 40.7128, longitude: -74.0060 },   # New York City, USA
+    { latitude: 34.0522, longitude: -118.2437 },  # Los Angeles, USA
+    { latitude: 51.5074, longitude: -0.1278 },    # London, UK
+    { latitude: 48.8566, longitude: 2.3522 },     # Paris, France
+    { latitude: -33.8688, longitude: 151.2093 },
+    { latitude: 34.0522, longitude: -118.2437 },
+    { latitude: 40.7128, longitude: -74.0060 },
+    { latitude: 51.5074, longitude: -0.1278 },
+    { latitude: 48.8566, longitude: 2.3522 },
+    { latitude: 41.3851, longitude: 2.1734 },
+    { latitude: 35.6895, longitude: 139.6917 },
+    { latitude: -33.8651, longitude: 151.2099 },
+    { latitude: -37.8136, longitude: 144.9631 },
+    { latitude: -22.9068, longitude: -43.1729 },
+    { latitude: 55.7558, longitude: 37.6176 },
+    { latitude: 52.5200, longitude: 13.4050 },
+    { latitude: 59.3293, longitude: 18.0686 },
+    { latitude: 40.4168, longitude: -3.7038 },
+    { latitude: -22.9519, longitude: -43.2105 },
+    { latitude: 25.2048, longitude: 55.2708 },
+    { latitude: -33.8688, longitude: 151.2093 },
+    { latitude: -34.6037, longitude: -58.3816 },
+    { latitude: -23.5505, longitude: -46.6333 }
 ]
 
 $users = [
@@ -36,7 +36,8 @@ $users = [
       first_name: "John",
       last_name: "Doe",
       username: "johndoe123",
-      password_digest: BCrypt::Password.create("password"),
+      password: "RosieMarie23!",
+      password_confirmation: "RosieMarie23!",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "johndoe@example.com",
       profile_picture: "profile.jpg",
@@ -46,7 +47,8 @@ $users = [
       first_name: "Jane",
       last_name: "Smith",
       username: "janesmith456",
-      password_digest: BCrypt::Password.create("password"),
+      password: "Passwordboy23#",
+      password_confirmation: "Passwordboy23#",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "janesmith@example.com",
       profile_picture: "profile.jpg",
@@ -56,7 +58,8 @@ $users = [
       first_name: "Michael",
       last_name: "Johnson",
       username: "michaeljohn",
-      password_digest: BCrypt::Password.create("password"),
+      password: "Cooooooldude!34",
+      password_confirmation: "Cooooooldude!34",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "michael@example.com",
       profile_picture: "profile.jpg",
@@ -66,7 +69,8 @@ $users = [
       first_name: "Emily",
       last_name: "Brown",
       username: "emilybrown",
-      password_digest: BCrypt::Password.create("password"),
+      password: "JuliaWehder23!",
+      password_confirmation: "JuliaWehder23!",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "emily@example.com",
       profile_picture: "profile.jpg",
@@ -76,7 +80,8 @@ $users = [
       first_name: "David",
       last_name: "Wilson",
       username: "davidwilson",
-      password_digest: BCrypt::Password.create("password"),
+      password: "Rosiebabypup232!",
+      password_confirmation: "Rosiebabypup232!",
       code: SecureRandom.hex(10),
       request_time: Time.now,
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -88,7 +93,8 @@ $users = [
       first_name: "Olivia",
       last_name: "Davis",
       username: "oliviadavis",
-      password_digest: BCrypt::Password.create("password"),
+      password: "OliviaDavisBrow@56",
+      password_confirmation: "OliviaDavisBrow@56",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "olivia@example.com",
       profile_picture: "profile.jpg",
@@ -98,7 +104,8 @@ $users = [
       first_name: "William",
       last_name: "Miller",
       username: "williammiller",
-      password_digest: BCrypt::Password.create("password"),
+      password: "Goatedguyman47#",
+      password_confirmation: "Goatedguyman47#",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "william@example.com",
       profile_picture: "profile.jpg",
@@ -108,7 +115,8 @@ $users = [
       first_name: "Sophia",
       last_name: "Anderson",
       username: "sophiaanderson",
-      password_digest: BCrypt::Password.create("password"),
+      password: "SophiasexyAnderson!89",
+      password_confirmation: "SophiasexyAnderson!89",
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       email: "sophia@example.com",
       profile_picture: "profile.jpg",
@@ -118,7 +126,8 @@ $users = [
         first_name: "James",
         last_name: "Taylor",
         username: "jamestaylor",
-        password_digest: BCrypt::Password.create("password"),
+        password: "JamesTBaby5892@#",
+        password_confirmation: "JamesTBaby5892@#",
         bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "james@example.com",
         profile_picture: "profile.jpg",
@@ -128,7 +137,8 @@ $users = [
         first_name: "Isabella",
         last_name: "Thomas",
         username: "isabellathomas",
-        password_digest: BCrypt::Password.create("password"),
+        password: "IsabellaThomas45$$",
+        password_confirmation: "IsabellaThomas45$$",
         bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         email: "isabella@example.com",
         profile_picture: "profile.jpg",
@@ -151,83 +161,82 @@ $planets = [
 
 
 $listings = [
-#     {
-#         title: "Luxury Villa with Breathtaking Ocean Views",
-#         description: "Experience the epitome of luxury in this stunning villa boasting breathtaking ocean views. Indulge in the lavish amenities, relax by the infinity pool, and savor the tranquility of the private gardens. This elegant villa offers spacious living areas, state-of-the-art facilities, and impeccable service. Whether you're seeking a romantic getaway or a family retreat, this luxury villa provides an unforgettable experience.",
-#         type_of_accomodation: "Villa"
-#     },
-#     {
-#         title: "Charming House in the Heart of the City",
-#         description: "Discover the charm of this cozy house nestled in the heart of the city. With its convenient location and stylish interiors, this house is perfect for exploring the vibrant streets, trendy cafes, and cultural attractions. Unwind in the comfortable living spaces, enjoy the well-equipped kitchen, and experience the vibrant city life just outside your door.",
-#         type_of_accomodation: "House"
-#     }
-# ]
-    # {
-    #     title: "Modern Apartment with Stunning Skyline Views",
-    #     description: "Immerse yourself in the modern elegance of this apartment boasting stunning skyline views. The sleek design, high-end amenities, and floor-to-ceiling windows create a sophisticated and comfortable living space. Indulge in the nearby shopping districts, dine at the finest restaurants, and experience the vibrant city nightlife.",
-    #     type_of_accomodation: "Apartment"
-    # },
-    # {
-    #     title: "Boutique Hotel Room in a Historic Building",
-    #     description: "Step into a world of luxury and elegance in this boutique hotel room located in a historic building. Experience personalized service, exquisite decor, and a range of amenities for your comfort. Immerse yourself in the city's culture, visit nearby landmarks, and relax in the charming ambiance of this unique hotel room.",
-    #     type_of_accomodation: "Hotel Room"
-    # },
-    # {
-    #     title: "Stylish Townhouse in a Quaint Neighborhood",
-    #     description: "Escape to this stylish townhouse located in a quaint neighborhood, offering a perfect blend of comfort and charm. With its spacious layout, modern furnishings, and private courtyard, this townhouse provides a cozy retreat. Explore the local shops, dine at neighborhood cafes, and immerse yourself in the relaxed atmosphere of this welcoming community.",
-    #     type_of_accomodation: "Townhouse"
-    # },
-    # {
-    #     title: "Cozy Cottage with Garden Oasis",
-    #     description: "Find serenity in this cozy cottage surrounded by a peaceful garden oasis. Escape the hustle and bustle of daily life as you relax on the charming porch, enjoy a cup of tea in the tranquil garden, or cozy up by the fireplace. This idyllic cottage offers a retreat from the world and a chance to reconnect with nature.",
-    #     type_of_accomodation: "Cottage"
-    # },
-    # {
-    #     title: "Seaside Resort with All-Inclusive Amenities",
-    #     description: "Experience the ultimate beach getaway at this seaside resort offering all-inclusive amenities. Enjoy direct access to the pristine beach, indulge in the luxurious spa treatments, and savor delectable cuisine at the resort's restaurants. Whether you're seeking relaxation, adventure, or quality time with loved ones, this seaside resort has everything you need for an unforgettable vacation.",
-    #     type_of_accomodation: "Hotel Room"
-    # },
-    # {
-    #     title: "Spacious Penthouse with Panoramic Mountain Views",
-    #     description: "Elevate your stay in this spacious penthouse boasting panoramic mountain views. With its modern design,
-    # expansive terrace, and luxurious features, this penthouse offers a sophisticated retreat. Take in the breathtaking vistas, unwind in the rooftop jacuzzi, and experience the ultimate indulgence in this exclusive accommodation.",
-    # type_of_accomodation: "Apartment"
-    # },
-    # {
-    # title: "Rustic Cabin Retreat in a Tranquil Forest",
-    # description: "Escape to a rustic cabin retreat nestled in a tranquil forest, surrounded by nature's beauty. Embrace the cozy ambiance, relax by the crackling fireplace, and take leisurely walks through the forest trails. This charming cabin offers a peaceful sanctuary where you can reconnect with the simplicity of life and rejuvenate your soul.",
-    # type_of_accomodation: "Cabin"
-    # },
-    # {
-    # title: "Historic Manor House with Grand Architecture",
-    # description: "Step back in time and experience the grandeur of a historic manor house with its magnificent architecture and timeless elegance. From the opulent interiors to the meticulously landscaped gardens, this manor house exudes sophistication and charm. Immerse yourself in the history, indulge in luxurious amenities, and create unforgettable memories in this regal accommodation.",
-    # type_of_accomodation: "House"
-    # },
-    # {
-    # title: "Secluded Beach Bungalow with Private Access",
-    # description: "Find your own slice of paradise in this secluded beach bungalow, offering a private escape with direct access to pristine shores. Wake up to the sound of waves, unwind in the hammock under swaying palm trees, and enjoy breathtaking sunsets from your veranda. This beach bungalow is a tranquil haven where you can truly unwind and rejuvenate.",
-    # type_of_accomodation: "Bungalow"
-    # },
-    # {
-    # title: "Chic Studio in the Heart of a Vibrant Neighborhood",
-    # description: "Immerse yourself in the vibrant energy of a lively neighborhood with a stay in this chic studio apartment. From its trendy decor to its convenient location, this studio offers a comfortable and stylish retreat. Explore the eclectic shops, indulge in local cuisine, and discover the unique character of the neighborhood.",
-    # type_of_accomodation: "Apartment"
-    # },
-    # {
-    # title: "Serenity Cottage with Panoramic Lake Views",
-    # description: "Escape to a serene cottage with panoramic lake views, where tranquility and natural beauty surround you. Relax on the porch overlooking the shimmering waters, take a leisurely kayak ride, or simply unwind in the comfortable interiors. This idyllic cottage provides a peaceful sanctuary for those seeking a retreat from the world.",
-    # type_of_accomodation: "Cottage"
-    # },
-    # {
-    # title: "Luxury Villa with Private Pool and Stunning Gardens",
-    # description: "Indulge in luxury and sophistication at this exquisite villa featuring a private pool and stunning gardens. With its spacious layout, upscale amenities, and impeccable design, this villa offers a truly indulgent experience. Bask in the sunshine by the pool, host memorable gatherings in the expansive outdoor areas, and create lasting memories in this luxurious retreat.",
-    # type_of_accomodation: "Villa"
-    # },
-    # {
-    # title: "Modern Apartment in a Hip and Artistic District",
-    # description: "Immerse yourself in the creativity and vibrancy of a hip and artistic district with a stay in this modern apartment. From its sleek design to its proximity to art galleries, trendy cafes, and local boutiques, this apartment offers an inspiring retreat. Experience the neighborhood's unique charm, indulge in local flavors, and be inspired by the artistic ambiance.",
-    # type_of_accomodation: "Apartment"
-    # },
+    {
+        title: "Luxury Villa with Breathtaking Ocean Views",
+        description: "Experience the epitome of luxury in this stunning villa boasting breathtaking ocean views. Indulge in the lavish amenities, relax by the infinity pool, and savor the tranquility of the private gardens. This elegant villa offers spacious living areas, state-of-the-art facilities, and impeccable service. Whether you're seeking a romantic getaway or a family retreat, this luxury villa provides an unforgettable experience.",
+        type_of_accomodation: "Villa"
+    },
+    {
+        title: "Charming House in the Heart of the City",
+        description: "Discover the charm of this cozy house nestled in the heart of the city. With its convenient location and stylish interiors, this house is perfect for exploring the vibrant streets, trendy cafes, and cultural attractions. Unwind in the comfortable living spaces, enjoy the well-equipped kitchen, and experience the vibrant city life just outside your door.",
+        type_of_accomodation: "House"
+    },
+    {
+        title: "Modern Apartment with Stunning Skyline Views",
+        description: "Immerse yourself in the modern elegance of this apartment boasting stunning skyline views. The sleek design, high-end amenities, and floor-to-ceiling windows create a sophisticated and comfortable living space. Indulge in the nearby shopping districts, dine at the finest restaurants, and experience the vibrant city nightlife.",
+        type_of_accomodation: "Apartment"
+    },
+    {
+        title: "Boutique Hotel Room in a Historic Building",
+        description: "Step into a world of luxury and elegance in this boutique hotel room located in a historic building. Experience personalized service, exquisite decor, and a range of amenities for your comfort. Immerse yourself in the city's culture, visit nearby landmarks, and relax in the charming ambiance of this unique hotel room.",
+        type_of_accomodation: "Hotel Room"
+    },
+    {
+        title: "Stylish Townhouse in a Quaint Neighborhood",
+        description: "Escape to this stylish townhouse located in a quaint neighborhood, offering a perfect blend of comfort and charm. With its spacious layout, modern furnishings, and private courtyard, this townhouse provides a cozy retreat. Explore the local shops, dine at neighborhood cafes, and immerse yourself in the relaxed atmosphere of this welcoming community.",
+        type_of_accomodation: "Townhouse"
+    },
+    {
+        title: "Cozy Cottage with Garden Oasis",
+        description: "Find serenity in this cozy cottage surrounded by a peaceful garden oasis. Escape the hustle and bustle of daily life as you relax on the charming porch, enjoy a cup of tea in the tranquil garden, or cozy up by the fireplace. This idyllic cottage offers a retreat from the world and a chance to reconnect with nature.",
+        type_of_accomodation: "Cottage"
+    },
+    {
+        title: "Seaside Resort with All-Inclusive Amenities",
+        description: "Experience the ultimate beach getaway at this seaside resort offering all-inclusive amenities. Enjoy direct access to the pristine beach, indulge in the luxurious spa treatments, and savor delectable cuisine at the resort's restaurants. Whether you're seeking relaxation, adventure, or quality time with loved ones, this seaside resort has everything you need for an unforgettable vacation.",
+        type_of_accomodation: "Hotel Room"
+    },
+    {
+        title: "Spacious Penthouse with Panoramic Mountain Views",
+        description: "Elevate your stay in this spacious penthouse boasting panoramic mountain views. With its modern design,
+    expansive terrace, and luxurious features, this penthouse offers a sophisticated retreat. Take in the breathtaking vistas, unwind in the rooftop jacuzzi, and experience the ultimate indulgence in this exclusive accommodation.",
+    type_of_accomodation: "Apartment"
+    },
+    {
+    title: "Rustic Cabin Retreat in a Tranquil Forest",
+    description: "Escape to a rustic cabin retreat nestled in a tranquil forest, surrounded by nature's beauty. Embrace the cozy ambiance, relax by the crackling fireplace, and take leisurely walks through the forest trails. This charming cabin offers a peaceful sanctuary where you can reconnect with the simplicity of life and rejuvenate your soul.",
+    type_of_accomodation: "Cabin"
+    },
+    {
+    title: "Historic Manor House with Grand Architecture",
+    description: "Step back in time and experience the grandeur of a historic manor house with its magnificent architecture and timeless elegance. From the opulent interiors to the meticulously landscaped gardens, this manor house exudes sophistication and charm. Immerse yourself in the history, indulge in luxurious amenities, and create unforgettable memories in this regal accommodation.",
+    type_of_accomodation: "House"
+    },
+    {
+    title: "Secluded Beach Bungalow with Private Access",
+    description: "Find your own slice of paradise in this secluded beach bungalow, offering a private escape with direct access to pristine shores. Wake up to the sound of waves, unwind in the hammock under swaying palm trees, and enjoy breathtaking sunsets from your veranda. This beach bungalow is a tranquil haven where you can truly unwind and rejuvenate.",
+    type_of_accomodation: "Bungalow"
+    },
+    {
+    title: "Chic Studio in the Heart of a Vibrant Neighborhood",
+    description: "Immerse yourself in the vibrant energy of a lively neighborhood with a stay in this chic studio apartment. From its trendy decor to its convenient location, this studio offers a comfortable and stylish retreat. Explore the eclectic shops, indulge in local cuisine, and discover the unique character of the neighborhood.",
+    type_of_accomodation: "Apartment"
+    },
+    {
+    title: "Serenity Cottage with Panoramic Lake Views",
+    description: "Escape to a serene cottage with panoramic lake views, where tranquility and natural beauty surround you. Relax on the porch overlooking the shimmering waters, take a leisurely kayak ride, or simply unwind in the comfortable interiors. This idyllic cottage provides a peaceful sanctuary for those seeking a retreat from the world.",
+    type_of_accomodation: "Cottage"
+    },
+    {
+    title: "Luxury Villa with Private Pool and Stunning Gardens",
+    description: "Indulge in luxury and sophistication at this exquisite villa featuring a private pool and stunning gardens. With its spacious layout, upscale amenities, and impeccable design, this villa offers a truly indulgent experience. Bask in the sunshine by the pool, host memorable gatherings in the expansive outdoor areas, and create lasting memories in this luxurious retreat.",
+    type_of_accomodation: "Villa"
+    },
+    {
+    title: "Modern Apartment in a Hip and Artistic District",
+    description: "Immerse yourself in the creativity and vibrancy of a hip and artistic district with a stay in this modern apartment. From its sleek design to its proximity to art galleries, trendy cafes, and local boutiques, this apartment offers an inspiring retreat. Experience the neighborhood's unique charm, indulge in local flavors, and be inspired by the artistic ambiance.",
+    type_of_accomodation: "Apartment"
+    },
     {
     title: "Traditional Townhouse with Old-World Charm",
     description: "
@@ -264,21 +273,20 @@ testingObjs = [
       "state_province": "Neptune",
       "country": "Alpha Centauri",
       "planet_id": 97,
-      "user_id": 8,
+      "owner_id": 32,
       "description": "Indulge in opulence and grandeur at this luxurious hotel nestled in the heart of Galactic City on Planet Aurora. With its expansive living spaces, futuristic decor, and advanced amenities, this hotel is the epitome of interstellar luxury. Enjoy the breathtaking views of nebulae, host extravagant cosmic events in the grand ballroom, and experience the wonders of the universe during your stay.",
       "unit_price": 1200,
-      "type_of_accommodation": "House",
-      "owner_id": 8,
+      "type_of_accomodation": "House",
       "max_guests_allowed": 10,
       "photos": [
-        "https://cdn.discordapp.com/attachments/1106022073605832748/1111110820626190356/Jake_Wehder_fancy_hotel_room_4f054df6-a6b7-454d-808a-968a4e293ef8.png",
-        "https://cdn.discordapp.com/attachments/1106022073605832748/1111111237699379290/Jake_Wehder_what_a_pool_would_look_like_at_this_hotel_fe686b92-feca-4db1-93eb-d86cf095503a.png",
-        "https://cdn.discordapp.com/attachments/1106022073605832748/1111107569986044004/Jake_Wehder_generate_a_hyper_realistic_image_of_a_luxurious_dow_df1b0063-765a-4562-b932-30098cbd074d.png"
+      "https://cdn.discordapp.com/attachments/1106022073605832748/1111110820626190356/Jake_Wehder_fancy_hotel_room_4f054df6-a6b7-454d-808a-968a4e293ef8.png",
+      "https://cdn.discordapp.com/attachments/1106022073605832748/1111111237699379290/Jake_Wehder_what_a_pool_would_look_like_at_this_hotel_fe686b92-feca-4db1-93eb-d86cf095503a.png",
+      "https://cdn.discordapp.com/attachments/1106022073605832748/1111107569986044004/Jake_Wehder_generate_a_hyper_realistic_image_of_a_luxurious_dow_df1b0063-765a-4562-b932-30098cbd074d.png"
       ],
       "longitude": -42.875309,
       "latitude": 25.743876,
       "street_address": "Stardust Avenue, Galactic City, Neptune, Alpha Centauri, Aurora"
-    }
+    },
     {
       "first_name": "Jake",
       "last_name": "Wehder",

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_25_132449) do
+ActiveRecord::Schema.define(version: 2023_05_25_235929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2023_05_25_132449) do
     t.string "type_of_accomodation"
     t.integer "owner_id"
     t.integer "max_guests_allowed"
-    t.string "photos"
+    t.string "photos", default: [], array: true
     t.float "longitude"
     t.float "latitude"
     t.string "street_address"

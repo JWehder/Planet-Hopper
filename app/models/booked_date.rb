@@ -8,7 +8,7 @@ class BookedDate < ApplicationRecord
     private 
 
     def check_listing_availability
-        if self.listing.booked_dates.includes?(self.date)
+        if self.listing.booked_dates.include?(self.date)
             errors.add(:date, "this date is booked.")
         end
     end

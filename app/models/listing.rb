@@ -43,15 +43,13 @@ class Listing < ApplicationRecord
     private
 
     def photos_count
-        puts self.photos
         if self.photos.size > 10 || self.photos.size < 1
-            puts self.photos.size
             errors.add(:photos, "we require a minimum of one photo and impose a maximum of ten photos on one listing")
         end
     end
 
     def validate_if_host
-        errors.add(:owner, "owner is not a host.") unless self.owner.host?
+        errors.add(:owner, "owner is not a host.") unless self.owner&.host?
     end
 
     def query_not_found_response
