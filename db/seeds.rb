@@ -51,4 +51,9 @@ require_relative 'seed_data.rb'
 #     booking.book_dates
 # end
 
+# Listing.all.each do |listing|
+#     guests = listing.max_guests_allowed
+#     listing.update!(bedrooms: guests, beds: guests + 2, bathrooms: guests)
+# end
+
 puts "done seeding"
