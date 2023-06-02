@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { StyledForm, CustomButton } from "../../styles/Styles";
-import { Col, Row, FloatingLabel } from "react-bootstrap";
+import { Col, Row, FloatingLabel, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "./state/authSlice";
 import { displayErrors } from "../../utils/helpers";
@@ -124,7 +124,7 @@ function SignupForm({ setShowLogin }) {
                 </FloatingLabel>  
                 <FloatingLabel
                 controlId="floatingInput"
-                label="Favorite Movie"
+                label="Profile Picture"
                 className="mb-3"
                 >
                 <StyledForm.Control 
@@ -151,6 +151,16 @@ function SignupForm({ setShowLogin }) {
                 />
                 {error && error.bio && displayErrors(error.bio)}
                 </FloatingLabel>
+                <Form.Check 
+                type="switch"
+                id="custom-switch"
+                label="Would you like to be a host?"
+                value={userObject.host}
+                onClick={() => {
+                    setUserObject({...userObject, host: !userObject.host})
+                }
+                }
+                />
                 <CustomButton variant= "primary" type="submit">Sign Up</CustomButton>
             </StyledForm>
         </>

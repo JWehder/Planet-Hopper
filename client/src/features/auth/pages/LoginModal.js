@@ -6,8 +6,9 @@ import SignupForm from "../SignupForm";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button"
 
-function LoginModal({ show, handleClose }) {
+function LoginModal({ show, setShow }) {
     const [showLogin, setShowLogin] = useState(true)
+    const handleClose = () => setShow(false)
 
     function handleToggleLogin() {
         setShowLogin(!showLogin)
