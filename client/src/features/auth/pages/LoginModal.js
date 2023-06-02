@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import LoginForm from "../LoginForm";
-import CustomButton from "../styles/Button";
-import SignupForm from "../components/SignupForm";
-import { Button, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom"
+import styled from "styled-components"
+import { CustomButton } from "../../../styles/Styles";
+import SignupForm from "../SignupForm";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button"
 
-function LoginPage() {
+function LoginModal({ show, handleClose }) {
     const [showLogin, setShowLogin] = useState(true)
 
     function handleToggleLogin() {
@@ -14,14 +14,18 @@ function LoginPage() {
     }
 
     return (
-        <>  
-            <Modal>
+            <div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Please sign up or log in</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                 {showLogin ? (
                     <>
                     <LoginForm />
                     <ButtonContainer>
-                    <Button style={{paddingLeft: "3px"}} variant="link"><Link to="/forgot_password/enter_email">Forgot password?</Link></Button>
-                    </ButtonContainer>
+                    {/* <Button style={{paddingLeft: "3px"}} variant="link"><Link to="/forgot_password/enter_email">Forgot password?</Link></Button>  */}
+                    </ButtonContainer> 
                     <hr />
                     <ButtonContainer>
                     <p>Don't have an account?</p>
@@ -38,8 +42,9 @@ function LoginPage() {
                     <CustomButton onClick={handleToggleLogin}variant="secondary">Sign In</CustomButton>
                     </>
                 )}
+                </Modal.Body>
             </Modal>
-        </>
+        </div>
     )
 }
 
@@ -48,4 +53,4 @@ const ButtonContainer = styled.div`
     display: inline-block;
 `
 
-export default LoginPage;
+export default LoginModal;

@@ -11,10 +11,12 @@ class ApplicationController < ActionController::API
   end
 
   def authorize
+    byebug
     render json: { error: "not authorized" }, status: :unauthorized unless session.include? :user_id
   end
 
   def render_unauthorized_user_response(model_name)
+    byebug
     render json: {error: "You are unauthorized to alter this #{model_name}"}, status: :unauthorized
   end
 

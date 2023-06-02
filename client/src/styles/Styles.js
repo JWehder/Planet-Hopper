@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components"
-import { Button, Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
 
 const COLORS = {
     primary: {

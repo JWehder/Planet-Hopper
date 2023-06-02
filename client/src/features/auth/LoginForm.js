@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FloatingLabel, Form } from 'react-bootstrap';
-import { StyledForm, CustomButton } from '../../styles/Styles'
-import { withRouter } from "react-router-dom";
+import { CustomButton, StyledForm } from '../../styles/Styles'
 import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "./state/authSlice";
 
 function LoginForm(props) {
     const dispatch = useDispatch();
@@ -10,7 +10,7 @@ function LoginForm(props) {
         username: "",
         password: ""
     })
-    const authError = useSelector((state) => state.auth.error)
+    const authError = useSelector((state) => state.auth.loginError)
 
     function onChange(e) {
         setUserCredentials({
@@ -21,7 +21,7 @@ function LoginForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(loginUser(loginUser))
+        dispatch(loginUser(userCredentials))
     }
 
     return (
@@ -45,7 +45,7 @@ function LoginForm(props) {
                 type="password" 
                 placeholder="Password"
                 name="password"
-                value={userCredentials.passwowrd}
+                value={userCredentials.password}
                 onChange={(e) => onChange(e)}
                 isInvalid={!!authError}
                 />
@@ -61,4 +61,4 @@ function LoginForm(props) {
     )
 }
 
-export default withRouter(LoginForm);
+export default LoginForm

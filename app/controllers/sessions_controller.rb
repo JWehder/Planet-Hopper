@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
             session[:user_id] = user.id 
             render json: user, methods: [:unique_movies], status: :created
         else
-            render json: { errors: ["Username or Password is incorrect"]}, status: :unauthorized
+            render json: { errors: ["Username or Password is incorrect"] }, status: :unauthorized
         end
     end
 
