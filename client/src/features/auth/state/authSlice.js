@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../../../utils/helpers";
 
-export const loginUser = () => createAsyncThunk("auth/loginUser", () => {
+export const loginUser = (loginUser) => createAsyncThunk("auth/loginUser", () => {
     return fetchWrapper.post("/login", loginUser)
 })
 
 export const getUser = createAsyncThunk("auth/getUser", () => {
     return fetchWrapper.get("/me")
+})
+
+export const signupUser = (user) => createAsyncThunk("auth/loginUser", () => {
+    return fetchWrapper.post("/login", loginUser)
 })
 
 const authSlice = createSlice({

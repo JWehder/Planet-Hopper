@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { FloatingLabel, Form } from 'react-bootstrap';
-import StyledForm from '../../styles/StyledForm'
-import CustomButton from "../../styles/Button";
+import { StyledForm, CustomButton } from '../../styles/Styles'
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 function LoginForm(props) {
     const dispatch = useDispatch();
-    const [loginUser, setLoginUser] = useState({
+    const [userCredentials, setUserCredentials] = useState({
         username: "",
         password: ""
     })
     const authError = useSelector((state) => state.auth.error)
 
     function onChange(e) {
-        setLoginUser({
-            ...loginUser,
+        setUserCredentials({
+            ...userCredentials,
             [e.target.name]: e.target.value
         })
     }
@@ -35,7 +34,7 @@ function LoginForm(props) {
                 <StyledForm.Control 
                 type="text" 
                 placeholder="Username" 
-                value= {loginUser.username}
+                value= {userCredentials.username}
                 name="username"
                 onChange={(e) => onChange(e)}
                 isInvalid={!!authError}
@@ -46,7 +45,7 @@ function LoginForm(props) {
                 type="password" 
                 placeholder="Password"
                 name="password"
-                value={loginUser.passwowrd}
+                value={userCredentials.passwowrd}
                 onChange={(e) => onChange(e)}
                 isInvalid={!!authError}
                 />

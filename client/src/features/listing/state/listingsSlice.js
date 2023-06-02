@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { fetchWrapper } from "../../../utils/helpers";
 
 export const fetchListings = createAsyncThunk("listings/fetchListings", () => {
-    return fetch("")
-        .then((response) => response.json())
-        .then((listings) => listings.data)
+    return fetchWrapper.get("/listings/homepage_listings")
 });
 
 const listingsSlice = createSlice({
