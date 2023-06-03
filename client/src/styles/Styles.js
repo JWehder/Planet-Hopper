@@ -83,4 +83,14 @@ const Wrapper = styled.section`
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
 `
 
-export { CustomButton, ErrorMessage, Container, StyledForm, Wrapper };
+const ListingContainer = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    height: 400px;
+    overflow: scroll;
+    margin: 10px;
+`
+
+
+export { ListingContainer, CustomButton, ErrorMessage, Container, StyledForm, Wrapper };

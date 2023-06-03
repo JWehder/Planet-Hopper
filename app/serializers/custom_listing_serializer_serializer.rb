@@ -6,6 +6,8 @@ class CustomListingSerializer < ActiveModel::Serializer
 
   private
 
+  def
+
   def owner
     "#{object.owner.first_name} #{object.owner.last_name}"
   end

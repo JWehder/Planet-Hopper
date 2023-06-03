@@ -11,6 +11,7 @@ const post = async(url, obj, thunkAPI) => {
         }); 
         const data = await response.json()
         if (response.ok) {
+            console.log(data)
             return data
         } else {
             console.log(data.errors)
@@ -22,9 +23,9 @@ const post = async(url, obj, thunkAPI) => {
 }
 
 const get = url => {
-    fetch(`${url}`)
+    return fetch(`${url}`)
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => console.log(data))
 }
 
 const displayErrors = (errors, errorKey = null) => {

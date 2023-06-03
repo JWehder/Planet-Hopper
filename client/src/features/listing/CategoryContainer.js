@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import MovieContainer from "../styles/MovieContainer"
+import { ListingContainer } from "../../styles/Styles"
 import { Button } from "react-bootstrap"
 
 function CategoryContainer({ children, category, setShow }) {
@@ -41,9 +41,9 @@ function CategoryContainer({ children, category, setShow }) {
         </span>
         </CategoryTitleDiv>
 
-        <MovieContainer>
+        <ListingContainer>
             {children}
-        </MovieContainer>
+        </ListingContainer>
         </>
     )
 }
