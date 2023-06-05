@@ -21,6 +21,7 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [fetchListings.fulfilled]: (state, action) => {
+            console.log(action.payload)
             state.entities = action.payload
             state.status = "idle";
         },

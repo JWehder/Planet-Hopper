@@ -8,40 +8,57 @@ function HomePage() {
     const dispatch = useDispatch();
     const [show, setShow] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [locationObj, setLocationObj] = useState({
-        latitude: "",
-        longitude: "",
-    })
+    const [locationObj, setLocationObj] = useState()
 
     const homepageListingsObj = useSelector((state) => state.listings.entities)
 
-    useEffect(() => {
-        if (navigator.geolocation) {
+    console.log(homepageListingsObj)
 
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLocationObj({...locationObj, latitude: position.coords.latitude})
-                    setLocationObj({...locationObj, longitude: position.coords.longitude})
-                }
-            )
+    useEffect(() => {
+        fetchCoordinates()
+      }, []);
+
+    const fetchCoordinates = async () => {
+        if (navigator.geolocation) {
+            try {
+                const coordinates = await usersCoordinates();
+                dispatch(fetchListings(coordinates))
+                setLocationObj(coordinates)
+            } catch (error) {
+                console.error("Error:", error)
+            }
         } else {
+            dispatch(fetchListings({latitude: 0.0, longitude: 0.0}))
             console.log("Geolocation is not supported by this browser")
         }
-        dispatch(fetchListings(locationObj));
-      }, [dispatch, locationObj]);
+    }
 
-    const categoryContainers = Object.keys(homepageListingsObj).map((category) => {
-          const listings = homepageListingsObj[category];
-          return (
-          <CategoryContainer category= {category} key={category}>
-            {listings.map((listing) => {
-                return (
-                <ListingCard name= {listing.name} city={listing.city} state_province={listing.state_province} planet={listing.poster} key={movie.title} />
-                )
-            })}
-          </CategoryContainer>
-          );
-    })
+      const usersCoordinates = () => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    resolve({ latitude, longitude });
+                },
+                (error) => {
+                    reject(error)
+                }
+            );
+        });
+      };
+
+    // const categoryContainers = Object.keys(homepageListingsObj).map((category) => {
+    //       const listings = homepageListingsObj[category];
+    //       return (
+    //       <CategoryContainer category= {category} key={category}>
+    //         {listings.map((listing) => {
+    //             return (
+    //             <ListingCard name= {listing.name} city={listing.city} state_province={listing.state_province} planet={listing.planet} key={listing.name} />
+    //             )
+    //         })}
+    //       </CategoryContainer>
+    //       );
+    // })
 
     // const userListings = () => {
     //     return (

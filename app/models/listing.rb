@@ -25,6 +25,15 @@ class Listing < ApplicationRecord
             .where.not(booked_dates: { date: parsed_date })
         search_results
     end
+
+    def self.homepage_listings(users_location_listings)
+        {
+        users_location_listings: users_location_listings,
+        new_york: Listing.query_city_listings("New York"),
+        los_angeles: Listing.query_city_listings("Los Angeles"),
+        nashville: Listing.query_city_listings("Nashville-Davidson"),
+        }
+    end
         
     def self.query_users_listings(longitude, latitude)
         results = Geocoder.search([longitude, latitude])
@@ -32,12 +41,12 @@ class Listing < ApplicationRecord
         users_listings_results = self.where(city: results).limit(10)
     end
 
-    def self.query_city_listings(city)
-        city_listings = self.where(city: city).limit(10)
+    def distance_between
+        Geocoder::Calculations.distance_between([instance_options[:latitude], instance_options[:longitude], [object.latitude, object.longitude]])
     end
 
-    def self.query_types_of_accomodations
-        self.group(:type_of_accomodation).count
+    def self.query_city_listings(city)
+        city_listings = self.where(city: city).limit(10)
     end
 
     private

@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap"
 
 const post = async(url, obj, thunkAPI) => {
+    console.log(obj)
     try {
         const response = await fetch(url, {
             method: "POST",
