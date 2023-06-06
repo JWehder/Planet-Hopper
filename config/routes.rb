@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post "/forgot_password", to: "users#forgot_password"
   post "/reset_password", to: "users#reset_password"
   get "/listings/search", to: "listings#search"
-  post "/homepage_listings", to: "listings#render_homepage_listings"
+  post "listings/homepage_listings", to: "listings#render_homepage_listings"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

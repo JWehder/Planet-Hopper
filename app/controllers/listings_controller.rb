@@ -2,15 +2,17 @@ class ListingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
     skip_before_action :authorize, only: [:index, :render_homepage_listings]
 
+    def index
+        render json: Listing.all, status: :ok
+    end
+
     def render_homepage_listings
         users_location_listings = []
         if listing_params[:latitude] > 0 && listing_params[:longitude] > 0
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
         end
-        homepage_listings = Listing.homepage_listings(users_location_listings)
-        render json: Listing.first, status: :ok, serializer: CustomListingSerializer
-        # Listing.homepage_listings(users_location_listings), status: :ok, each_serializer: CustomListingSerializer
-        #latitude: listing_params[:latitude], longitude: listing_params[:longitude]
+        homepage_listings = Listing.where(city: ["New York", "Los Angeles", "Nashville-Davidson"])
+        render json: homepage_listings, status: :ok, each_serializer: CustomListingSerializer
     end
 
     def search

@@ -26,6 +26,10 @@ class Listing < ApplicationRecord
         search_results
     end
 
+    def query_types_of_accomodations
+        Listing.group(:type_of_accomodation).count
+    end
+
     def self.homepage_listings(users_location_listings)
         {
         users_location_listings: users_location_listings,
@@ -41,8 +45,8 @@ class Listing < ApplicationRecord
         users_listings_results = self.where(city: results).limit(10)
     end
 
-    def distance_between
-        Geocoder::Calculations.distance_between([instance_options[:latitude], instance_options[:longitude], [object.latitude, object.longitude]])
+    def distance_between(users_latitude, users_longitude)
+        Geocoder::Calculations.distance_between([[users_latitude, users_longitude], [self.latitude, self.longitude]])
     end
 
     def self.query_city_listings(city)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CategoryContainer from "../CategoryContainer";
-import { fetchListings } from "../state/listingsSlice";
+import { fetchAllListings, fetchListings } from "../state/listingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../ListingCard";
 
@@ -12,7 +12,9 @@ function HomePage() {
 
     const homepageListingsObj = useSelector((state) => state.listings.entities)
 
-    console.log(homepageListingsObj)
+    useEffect(() => {
+        dispatch(fetchAllListings())
+    }, [])
 
     useEffect(() => {
         fetchCoordinates()
