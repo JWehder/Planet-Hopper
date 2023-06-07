@@ -5,20 +5,26 @@ class Listing < ApplicationRecord
     belongs_to :planet
     belongs_to :owner, class_name: "User", foreign_key: "owner_id"
 
+    before_destroy :destroy_booked_dates
+
     reverse_geocoded_by :latitude, :longitude
     after_validation :reverse_geocode
 
     validate :validate_if_host
     validate :photos_count
 
-    validates :name, presence: true, length: {minimum: 8}
-    validates :city, presence: true
-    validates :state_province, presence: true
-    validates :country, presence: true
-    validates :planet_id, presence: true
-    validates :owner_id, presence: true
-    validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
-    validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
+    # validates :name, presence: true, length: {minimum: 8}
+    # validates :city, presence: true
+    # validates :state_province, presence: true
+    # validates :country, presence: true
+    # validates :planet_id, presence: true
+    # validates :owner_id, presence: true
+    # validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
+    # validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
+
+    def destroy_booked_dates
+        self.booked_dates.destroy_all
+    end
 
     def self.query_listing(search_term, date, guests)
         parsed_date = DateTime.parse(date)
@@ -29,7 +35,7 @@ class Listing < ApplicationRecord
         search_results
     end
 
-    def query_types_of_accomodations
+    def self.query_types_of_accomodations
         Listing.group(:type_of_accomodation).count
     end
 

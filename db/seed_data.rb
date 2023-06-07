@@ -1,34 +1,39 @@
 puts "seeding..."
 
-$locations = [
-    { latitude: 36.1627, longitude: -86.7816 },
-    { latitude: 36.1566, longitude: -86.7882 },
-    { latitude: 36.1473, longitude: -86.777 },
-    { latitude: 36.1523, longitude: -86.7892 },
-    { latitude: 36.1515, longitude: -86.7982 },
-    { latitude: 40.7128, longitude: -74.0060 },   # New York City, USA
-    { latitude: 34.0522, longitude: -118.2437 },  # Los Angeles, USA
-    { latitude: 51.5074, longitude: -0.1278 },    # London, UK
-    { latitude: 48.8566, longitude: 2.3522 },     # Paris, France
-    { latitude: -33.8688, longitude: 151.2093 },
-    { latitude: 34.0522, longitude: -118.2437 },
-    { latitude: 40.7128, longitude: -74.0060 },
-    { latitude: 51.5074, longitude: -0.1278 },
-    { latitude: 48.8566, longitude: 2.3522 },
-    { latitude: 41.3851, longitude: 2.1734 },
-    { latitude: 35.6895, longitude: 139.6917 },
-    { latitude: -33.8651, longitude: 151.2099 },
-    { latitude: -37.8136, longitude: 144.9631 },
-    { latitude: -22.9068, longitude: -43.1729 },
-    { latitude: 55.7558, longitude: 37.6176 },
-    { latitude: 52.5200, longitude: 13.4050 },
-    { latitude: 59.3293, longitude: 18.0686 },
-    { latitude: 40.4168, longitude: -3.7038 },
-    { latitude: -22.9519, longitude: -43.2105 },
-    { latitude: 25.2048, longitude: 55.2708 },
-    { latitude: -33.8688, longitude: 151.2093 },
-    { latitude: -34.6037, longitude: -58.3816 },
-    { latitude: -23.5505, longitude: -46.6333 }
+$cities = [
+  "New York",
+  "Los Angeles",
+  "Chicago",
+  "Houston",
+  "Philadelphia",
+  "Phoenix",
+  "San Antonio",
+  "San Diego",
+  "Dallas",
+  "San Jose",
+  "Paris",
+  "London",
+  "Rome",
+  "Berlin",
+  "Madrid",
+  "Tokyo",
+  "Seoul",
+  "Beijing",
+  "Shanghai",
+  "Bangkok",
+  "Mumbai",
+  "Kuala Lumpur",
+  "Jakarta",
+  "Dubai",
+  "Abu Dhabi",
+  "Doha",
+  "Riyadh",
+  "Cairo",
+  "Istanbul",
+  "Amman",
+  "Tel Aviv",
+  "Beirut",
+  "Muscat"
 ]
 
 $users = [

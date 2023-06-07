@@ -16,30 +16,33 @@ require_relative 'seed_data.rb'
 #     User.create!(user)
 # end
 
-# $listings.each do |listing| 
-#     location = $locations.sample
-#     address = Geocoder.search([location[:latitude], location[:longitude]]).first
-#     user_id = User.where(host: true).sample.id
-#     puts location[:latitude], location[:longitude]
-#     puts address.city
-#     puts address.state
-#     Listing.create!(
-#         name: listing[:title],
-#         street_address: address.address,
-#         city: address.city,
-#         state_province: address.state,
-#         country: address.country,
-#         planet_id: Planet.all.sample.id,
-#         owner_id: user_id,
-#         description: listing[:description],
-#         unit_price: rand(125..1250),
-#         type_of_accomodation: listing[:type_of_accomodation],
-#         max_guests_allowed: rand(1..12),
-#         longitude: address.longitude,
-#         latitude: address.latitude,
-#         photos: $photos.sample(3)
-#       )
-# end
+$listings.each do |listing|
+    city = $cities.sample
+    puts city
+    address = Geocoder.search(city).first
+    user_id = User.where(host: true).sample.id
+    puts "here"
+    puts address.latitude, address.longitude
+    puts address.city
+    puts address.state
+    puts address.address
+    Listing.create!(
+        name: listing[:title],
+        address: address.address,
+        city: address.city,
+        state_province: address.state,
+        country: address.country,
+        planet_id: Planet.all.sample.id,
+        owner_id: user_id,
+        description: listing[:description],
+        unit_price: rand(125..1250),
+        type_of_accomodation: listing[:type_of_accomodation],
+        max_guests_allowed: rand(1..12),
+        latitude: address.latitude,
+        longitude: address.longitude,
+        photos: $photos.sample(3)
+    )
+end
 
 # 12.times do 
 #     listing = Listing.all.sample
@@ -56,46 +59,10 @@ require_relative 'seed_data.rb'
 #     listing.update!(bedrooms: guests, beds: guests + 2, bathrooms: guests)
 # end
 
-cities = [
-    "New York",
-    "Los Angeles",
-    "Chicago",
-    "Houston",
-    "Philadelphia",
-    "Phoenix",
-    "San Antonio",
-    "San Diego",
-    "Dallas",
-    "San Jose",
-    "Paris",
-    "London",
-    "Rome",
-    "Berlin",
-    "Madrid",
-    "Tokyo",
-    "Seoul",
-    "Beijing",
-    "Shanghai",
-    "Bangkok",
-    "Mumbai",
-    "Kuala Lumpur",
-    "Jakarta",
-    "Dubai",
-    "Abu Dhabi",
-    "Doha",
-    "Riyadh",
-    "Cairo",
-    "Istanbul",
-    "Amman",
-    "Tel Aviv",
-    "Beirut",
-    "Muscat"
-]
-
-cities.each do |city|
-    results = Geocoder.search(city)
-    puts results.first.coordinates
-    puts results.first.address
-end
+# cities.each do |city|
+#     results = Geocoder.search(city)
+#     puts results.first.coordinates
+#     puts results.first.address
+# end
 
 puts "done seeding"
