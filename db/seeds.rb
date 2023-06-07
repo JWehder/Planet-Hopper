@@ -72,8 +72,10 @@ require_relative 'seed_data.rb'
 
 24.times do 
     listing = Listing.all.sample
-    date = Datetime.now + rand(1..365)
+    
     booking = Booking.create(user_id: User.all.sample.id, listing_id: listing.id, start_date: DateTime.now + rand(1..30), end_date: DateTime.now + rand(31..60), number_of_guests: listing.max_guests_allowed)
+    booking.determine_price
+    booking.book_dates
 end
 
 # Booking.all.each do |booking|

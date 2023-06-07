@@ -62,6 +62,20 @@ class Listing < ApplicationRecord
         city_listings = self.where(city: city).limit(10)
     end
 
+    def self.find_dates
+        found_dates = false
+        nights_staying = rand(1..45)
+        date = Date.today + rand(1..365)
+        until found_dates
+            if self.booked_dates.exists?(date: (date..date + nights_staying))
+                found_dates = false
+            else
+                found_dates = true
+            end
+        end
+        date..date + nights_staying
+    end
+
     private
 
     def photos_count
