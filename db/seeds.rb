@@ -56,4 +56,46 @@ require_relative 'seed_data.rb'
 #     listing.update!(bedrooms: guests, beds: guests + 2, bathrooms: guests)
 # end
 
+cities = [
+    "New York",
+    "Los Angeles",
+    "Chicago",
+    "Houston",
+    "Philadelphia",
+    "Phoenix",
+    "San Antonio",
+    "San Diego",
+    "Dallas",
+    "San Jose",
+    "Paris",
+    "London",
+    "Rome",
+    "Berlin",
+    "Madrid",
+    "Tokyo",
+    "Seoul",
+    "Beijing",
+    "Shanghai",
+    "Bangkok",
+    "Mumbai",
+    "Kuala Lumpur",
+    "Jakarta",
+    "Dubai",
+    "Abu Dhabi",
+    "Doha",
+    "Riyadh",
+    "Cairo",
+    "Istanbul",
+    "Amman",
+    "Tel Aviv",
+    "Beirut",
+    "Muscat"
+]
+
+cities.each do |city|
+    results = Geocoder.search(city)
+    puts results.first.coordinates
+    puts results.first.address
+end
+
 puts "done seeding"

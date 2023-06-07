@@ -6,7 +6,6 @@ import ListingCard from "../components/ListingCard";
 
 function HomePage() {
     const dispatch = useDispatch();
-    const [show, setShow] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
     const homepageListings = useSelector((state) => state.listings.entities)

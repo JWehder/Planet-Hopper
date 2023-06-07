@@ -5,6 +5,8 @@ class Listing < ApplicationRecord
     belongs_to :planet
     belongs_to :owner, class_name: "User", foreign_key: "owner_id"
 
+    include ActiveModel::Serialization
+
     validate :validate_if_host
     validate :photos_count
 
