@@ -87,7 +87,7 @@ const ListingContainer = styled.div`
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    height: 400px;
+    height: 250px;
     overflow: scroll;
     margin: 10px;
 `

@@ -3,6 +3,8 @@ import LoginModal from './features/auth/pages/LoginModal';
 import './App.css';
 import HomePage from './features/listing/pages/Homepage';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import ListingPage from './features/listing/pages/ListingPage';
+import Button from '@mui/material/Button';
 
 function App() {
   const [show, setShow] = useState(true)
@@ -13,12 +15,12 @@ function App() {
     <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
     <Switch>
       <Route exact path='/'>
-          <button onClick={handleClick}>show modal</button>
+          <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
       <Route exact path='listings/:id'>
-          
+          <ListingPage />
       </Route>
       <Route exact path='listings/search_results/:value'>
 

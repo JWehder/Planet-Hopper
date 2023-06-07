@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import { ListingContainer } from "../../styles/Styles"
-import { Button } from "react-bootstrap"
+import { ListingContainer } from "../../../styles/Styles"
+import Button from "react-bootstrap/Button"
 
 function CategoryContainer({ children, category, setShow }) {
 
@@ -16,19 +16,7 @@ function CategoryContainer({ children, category, setShow }) {
         <h3 style={{ width: 'auto', marginRight: '20px'}}>{category}</h3>
 
         <span style={{ display: 'flex', textAlign: 'right', marginRight: '10px' }}>
-            { category === "movies you have reviewed" ?
-            <Button variant="link" onClick={handleReviewsClick} style=
-            {{ position: 'absolute', 
-            top: '0', 
-            right: '0', 
-            textDecoration:'none', 
-            fontSize: "15px"}}
-            >
-                view reviews
-            </Button>
-
-            :
-            <Link to= "/movies" style=
+            <Link to= "/listings/" style=
             {{ position: 'absolute', 
             top: '0', 
             right: '0', 
@@ -37,7 +25,6 @@ function CategoryContainer({ children, category, setShow }) {
             >
                 view all movies
             </Link>
-            }
         </span>
         </CategoryTitleDiv>
 

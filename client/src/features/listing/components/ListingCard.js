@@ -1,21 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PhotoCarousel from "./PhotosCarousel";
 
-function ListingCard({ name, city, stateProvince, typeOfAccomodation, unitPrice,  }) {
+function ListingCard({ name, city, stateProvince, typeOfAccomodation, unitPrice, photos }) {
 
     return (
             <ListingContainer>
-                {/* <LinkStyle to={`/listings/${id}`}> */}
+                <LinkStyle to={`/listings/${name}`}>
                 <ListingButton>
-                        <ListingImg src={poster} alt={poster} />
+                        <PhotoGallery photos={photos} />
                 </ListingButton>
                 <div style={{ paddingLeft: '10px'}}>
                     <ListingContent>
-                        <img src="/potato-5-16.png" alt="potato"></img>
-                        <ListingPara>{overall_rating}%</ListingPara>
+                        <ListingPara>{city}, {stateProvince}</ListingPara>
                     </ListingContent>
-                        <ListingPara>{title}</ListingPara>
+                        <ListingPara>{typeOfAccomodation}</ListingPara>
+                        <ListingPara>${unitPrice} per night</ListingPara>
                 </div>
                 </LinkStyle>
             </ListingContainer>
@@ -23,22 +24,22 @@ function ListingCard({ name, city, stateProvince, typeOfAccomodation, unitPrice,
 }
 
 const ListingButton = styled.button`
-    width: 180px;
-    height: 258px;
+    width: 150px;
+    height: 100px;
     background: transparent;
     border: none;
     border-radius: 10px;
 `
 
-const ListingImg = styled.img`
-    width: 180px;
-    height: 258px;
-    border: none;
+const PhotoGallery = styled(PhotoCarousel)`
+    width: 100px;
+    margin: auto;
     border-radius: 10px;
 
     &:hover {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     }
+
 `
 
 const ListingContainer = styled.div`

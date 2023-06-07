@@ -1,9 +1,13 @@
 import React from "react";
+import SearchResults from "../components/SearchResults";
+import ListingInfo from "../components/ListingInfo";
 
 function ListingPage() {
     return (
-        <SearchResults />
-        <ListingInfo />
+        <div>
+            <SearchResults />
+            <ListingInfo />
+        </div>
     )
 }
 
