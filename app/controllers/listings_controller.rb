@@ -12,7 +12,7 @@ class ListingsController < ApplicationController
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
         end
         homepage_listings = Listing.where(city: ["New York", "Los Angeles", "Nashville-Davidson"])
-        render json: homepage_listings, status: :ok, each_serializer: CustomListingSerializer
+        render json: homepage_listings, status: :ok
     end
 
     def search

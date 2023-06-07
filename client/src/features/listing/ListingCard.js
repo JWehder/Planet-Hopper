@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function ListingCard({ overall_rating, id, title, poster }) {
+function ListingCard({ name, city, stateProvince, typeOfAccomodation, unitPrice,  }) {
 
     return (
             <ListingContainer>
-                <LinkStyle to={`/movies/${id}`}>
+                {/* <LinkStyle to={`/listings/${id}`}> */}
                 <ListingButton>
                         <ListingImg src={poster} alt={poster} />
                 </ListingButton>

@@ -49,18 +49,18 @@ function HomePage() {
         });
       };
 
-    // const categoryContainers = Object.keys(homepageListingsObj).map((category) => {
-    //       const listings = homepageListingsObj[category];
-    //       return (
-    //       <CategoryContainer category= {category} key={category}>
-    //         {listings.map((listing) => {
-    //             return (
-    //             <ListingCard name= {listing.name} city={listing.city} state_province={listing.state_province} planet={listing.planet} key={listing.name} />
-    //             )
-    //         })}
-    //       </CategoryContainer>
-    //       );
-    // })
+    const categoryContainers = Object.keys(homepageListingsObj).map((category) => {
+          const listings = homepageListingsObj[category];
+          return (
+          <CategoryContainer category= {category} key={category}>
+            {listings.map((listing) => {
+                return (
+                <ListingCard name= {listing.name} city={listing.city} stateProvince={listing.state_province} typeOfAccomodation={listing.type_of_accomodation} unitPrice={listing.unit_price} key={listing.name} />
+                )
+            })}
+          </CategoryContainer>
+          );
+    })
 
     // const userListings = () => {
     //     return (
@@ -80,6 +80,7 @@ function HomePage() {
 
     return (
             <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+                {categoryContainers}
             </div>
     )
 }
