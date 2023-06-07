@@ -4,6 +4,7 @@ class Booking < ApplicationRecord
     has_many :booked_dates, dependent: :destroy
 
     validate :check_listing_max_guests
+    validate :check_listing_availability
 
     validates :user_id, presence: true
     validates :listing_id, presence: true
@@ -23,6 +24,12 @@ class Booking < ApplicationRecord
     end
 
     private
+
+    def check_listing_availability
+        if self.listing.booked_dates.exists?(date: (self.start_date..self.end_date))
+            errors.add(:base, "those dates are booked.")
+        end
+    end
 
     def check_listing_max_guests
         if self.number_of_guests > self.listing.max_guests_allowed

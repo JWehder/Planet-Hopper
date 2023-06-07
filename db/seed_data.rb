@@ -304,3 +304,126 @@ testingObjs = [
       "host": false
     }
 ]
+
+$listings2 = [
+  {
+    title: "Modern Apartment in the Heart of the City",
+    description: "Experience urban living at its finest in this modern apartment located in the vibrant city center. Enjoy the convenience of nearby attractions, trendy restaurants, and bustling nightlife. This stylish apartment offers contemporary design, comfortable furnishings, and all the amenities you need for a memorable stay.",
+    type_of_accommodation: "Apartment"
+  },
+  {
+    title: "Cozy Bungalow with Garden Retreat",
+    description: "Escape to this cozy bungalow surrounded by a serene garden retreat. Relax on the porch, enjoy the peaceful atmosphere, and unwind in nature's embrace. This charming bungalow offers a comfortable stay, rustic decor, and a tranquil escape from the everyday hustle.",
+    type_of_accommodation: "Bungalow"
+  },
+  {
+    title: "Luxury Hotel Room with Panoramic Views",
+    description: "Indulge in luxury and treat yourself to a stay in this upscale hotel room with panoramic views. Admire the breathtaking scenery, enjoy the impeccable service, and unwind in style. This elegant hotel room offers plush amenities, modern design, and a truly lavish experience.",
+    type_of_accommodation: "Hotel Room"
+  },
+  {
+    title: "Charming Cottage by the Lakeside",
+    description: "Experience the charm of a lakeside retreat in this charming cottage. Enjoy the tranquility of the waterfront, go fishing, and relax in a cozy atmosphere. This delightful cottage offers comfortable accommodations, scenic views, and a peaceful getaway from the city.",
+    type_of_accommodation: "Cottage"
+  },
+  {
+    title: "Luxurious Villa with Private Pool and Ocean Views",
+    description: "Indulge in luxury and unwind in this stunning villa boasting a private pool and breathtaking ocean views. Enjoy the spacious living areas, upscale amenities, and the ultimate relaxation. This luxurious villa offers an opulent retreat, impeccable design, and a memorable stay.",
+    type_of_accommodation: "Villa"
+  },
+  {
+    title: "Rustic Cabin Retreat in the Woods",
+    description: "Escape to this rustic cabin retreat nestled in the woods. Immerse yourself in nature, cozy up by the fireplace, and enjoy the peaceful surroundings. This cabin offers a rustic charm, modern comforts, and an opportunity to reconnect with the beauty of the outdoors.",
+    type_of_accommodation: "Cabin"
+  },
+  {
+    title: "Spacious House with Garden Oasis",
+    description: "Enjoy a spacious stay in this lovely house featuring a beautiful garden oasis. Relax on the patio, have a barbecue, and create lasting memories with your loved ones. This comfortable house offers ample space, modern amenities, and a home-like atmosphere.",
+    type_of_accommodation: "House"
+  },
+  {
+    title: "Townhouse in Historic District",
+    description: "Step back in time and experience the charm of a townhouse located in a historic district. Explore the rich heritage, admire the architectural details, and immerse yourself in the local culture. This townhouse offers a blend of history and modern comforts, providing a unique and memorable stay.",
+    type_of_accommodation: "Townhouse"
+  },
+  {
+    title: "Stylish Apartment in the City Center",
+    description: "Immerse yourself in the vibrant energy of the city in this stylish apartment located in the heart of downtown. Discover trendy cafes, explore local attractions, and experience the urban lifestyle. This modern apartment offers sleek design, convenient amenities, and an ideal base for city explorations.",
+    type_of_accommodation: "Apartment"
+  },
+  {
+    title: "Secluded Cabin with Mountain Views",
+    description: "Escape to this secluded cabin offering stunning mountain views. Embrace the tranquility of nature, go hiking, and relax in the cozy ambiance. This cabin provides a peaceful retreat, rustic charm, and an opportunity to unwind in the beauty of the mountains.",
+    type_of_accommodation: "Cabin"
+  },
+  {
+    title: "Charming Cottage with Countryside Serenity",
+    description: "Experience the tranquility of the countryside in this charming cottage surrounded by serene landscapes. Enjoy the fresh air, take leisurely walks, and appreciate the simple pleasures of life. This delightful cottage offers a cozy stay, authentic charm, and a break from the hectic pace of everyday life.",
+    type_of_accommodation: "Cottage"
+  },
+  {
+    title: "Comfortable Hotel Room in the Heart of the City",
+    description: "Enjoy a comfortable stay in this hotel room located in the heart of the city. Explore nearby attractions, dine at local restaurants, and experience the vibrant city life. This hotel room offers convenience, modern amenities, and a hassle-free accommodation option.",
+    type_of_accommodation: "Hotel Room"
+  },
+  {
+    title: "Modern Villa with Private Garden and Pool",
+    description: "Indulge in luxury and relax in this modern villa featuring a private garden and pool. Enjoy the spacious outdoor area, bask in the sun, and savor the privacy and tranquility. This elegant villa offers contemporary design, upscale amenities, and a truly lavish retreat.",
+    type_of_accommodation: "Villa"
+  },
+  {
+    title: "Cozy Cabin Retreat in a Scenic Wilderness",
+    description: "Escape to this cozy cabin retreat surrounded by a scenic wilderness. Disconnect from the world, embrace nature's beauty, and recharge your senses. This cabin offers a rustic charm, comfortable furnishings, and an opportunity to immerse yourself in the great outdoors.",
+    type_of_accommodation: "Cabin"
+  },
+  {
+    title: "Spacious House with Modern Amenities",
+    description: "Experience a comfortable stay in this spacious house equipped with modern amenities. Enjoy the open layout, relax in the living areas, and feel right at home. This house offers ample space, contemporary design, and a perfect retreat for families or groups.",
+    type_of_accommodation: "House"
+  },
+  {
+    title: "Townhouse in a Quaint Historic Neighborhood",
+    description: "Immerse yourself in the charm of a townhouse located in a quaint historic neighborhood. Explore the local shops, stroll through tree-lined streets, and soak up the nostalgic atmosphere. This townhouse offers a blend of old-world charm, modern comforts, and a unique stay.",
+    type_of_accommodation: "Townhouse"
+  },
+  {
+    title: "Urban Apartment with Stunning City Views",
+    description: "Enjoy breathtaking city views from this urban apartment located in a prime location. Watch the city lights, explore nearby attractions, and experience the dynamic energy of the urban environment. This apartment offers contemporary design, convenient amenities, and an ideal base for city adventures.",
+    type_of_accommodation: "Apartment"
+  },
+  {
+    title: "Rustic Cabin Getaway in a Peaceful Setting",
+    description: "Escape to this rustic cabin getaway situated in a peaceful setting. Immerse yourself in nature, enjoy outdoor activities, and disconnect from the demands of daily life. This cabin provides a serene retreat, rustic charm, and an opportunity to rejuvenate in a natural environment.",
+    type_of_accommodation: "Cabin"
+  },
+  {
+    title: "Cozy Cottage with Scenic Countryside Views",
+    description: "Experience the beauty of the countryside in this cozy cottage with scenic views. Relax on the porch, take leisurely walks, and appreciate the serenity of the rural landscapes. This cottage offers a comfortable stay, rustic decor, and a chance to unwind in a peaceful setting.",
+    type_of_accommodation: "Cottage"
+  },
+  {
+    title: "Modern Hotel Room with All-Inclusive Amenities",
+    description: "Indulge in a luxurious stay in this modern hotel room equipped with all-inclusive amenities. Enjoy world-class service, access to exclusive facilities, and a truly pampering experience. This hotel room offers comfort, convenience, and a touch of opulence.",
+    type_of_accommodation: "Hotel Room"
+  },
+  {
+    title: "Elegant Villa with Private Pool and Oceanfront",
+    description: "Discover true luxury in this elegant villa featuring a private pool and stunning oceanfront views. Immerse yourself in the beauty of the sea, unwind in the lavish surroundings, and create unforgettable memories. This villa offers sophistication, upscale amenities, and an extraordinary coastal retreat.",
+    type_of_accommodation: "Villa"
+  },
+  {
+    title: "Spacious Cabin with Mountain Retreat Vibes",
+    description: "Escape to this spacious cabin offering a mountain retreat ambiance. Surround yourself with nature, breathe in the fresh air, and recharge your spirit. This cabin provides ample space, cozy furnishings, and an opportunity to reconnect with the tranquility of the mountains.",
+    type_of_accommodation: "Cabin"
+  },
+  {
+    title: "Stylish House with Modern Design",
+    description: "Experience contemporary living in this stylish house with modern design. Enjoy the sleek interiors, relax in the outdoor spaces, and appreciate the attention to detail. This house offers comfort, sophistication, and a chic retreat for your stay.",
+    type_of_accommodation: "House"
+  },
+  {
+    title: "Charming Townhouse in a Historic Enclave",
+    description: "Step back in time and stay in this charming townhouse located in a historic enclave. Discover the local heritage, visit historic sites, and immerse yourself in the rich history. This townhouse offers character, cozy accommodations, and a memorable stay in a storied setting.",
+    type_of_accommodation: "Townhouse"
+  }
+]
