@@ -1,3 +1,5 @@
 class BookingSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :listing_id, :start_date, :end_date, :price, :number_of_guests
+  attributes :start_date, :end_date, :price, :number_of_guests
+
+  has_many :booked_dates
 end

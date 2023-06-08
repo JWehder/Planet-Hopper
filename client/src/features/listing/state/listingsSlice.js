@@ -6,8 +6,6 @@ export const fetchListings = createAsyncThunk("listings/fetchListings", (locatio
     return fetchWrapper.post("/listings/homepage_listings", locationObj, thunkAPI)
 });
 
-export const fetchAllListings = createAsyncThunk("listings/fetchAllListings", () => fetchWrapper.get("/listings"))
-
 const listingsSlice = createSlice({
     name: "listings",
     initialState: {
@@ -28,19 +26,6 @@ const listingsSlice = createSlice({
             state.status = "idle";
         },
         [fetchListings.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
-            state.signupError = action.payload
-        },
-        [fetchAllListings.pending]: (state) => {
-            state.status = "loading";
-        },
-        [fetchAllListings.fulfilled]: (state, action) => {
-            console.log(action.payload)
-            state.entities = action.payload
-            state.status = "idle";
-        },
-        [fetchAllListings.rejected]: (state, action) => {
             console.log("rejected!")
             console.log(action.payload)
             state.signupError = action.payload

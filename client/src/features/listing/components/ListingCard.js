@@ -44,7 +44,7 @@ const PhotoGallery = styled(PhotoCarousel)`
 
 const ListingContainer = styled.div`
     width: 180px;
-    height: 340px;
+    height: 250px;
     border-radius: 10px;
     margin: 20px;
     margin-left: 10px;

@@ -45,10 +45,10 @@ class Listing < ApplicationRecord
         Listing.group(:type_of_accomodation).count
     end
 
-    def distance_between(users_latitude, users_longitude)
-        Geocoder::Calculations.distance_between([[users_latitude, users_longitude], [self.latitude, self.longitude]])
+    def distance_to_listing(users_latitude, users_longitude)
+        Geocoder::Calculations.distance_between([users_latitude, users_longitude], [self.latitude, self.longitude])
     end
-
+    
     def self.query_city_listings(city)
         city_listings = self.where(city: city).limit(10)
     end

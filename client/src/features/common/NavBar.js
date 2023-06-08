@@ -8,13 +8,14 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { useSelector } from "react-redux";
+import { ReactComponent as WebsiteIcon } from '../../images/house_logo.svg'
 
-const settings = ['Profile', 'Account', 'My Listings', 'Logout'];
+const settings = ['Profile', 'Account', 'My Listings'];
 
 function NavBar() {
 const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,10 +39,11 @@ setAnchorElUser(null);
 };
 
 return (
-    <AppBar position="static">
+    <AppBar style={{backgroundColor: "black"}} position="static">
         <Container maxWidth="xl">
         <Toolbar disableGutters>
-            <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            {/* <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+            <WebsiteIcon style={{width: "48px", height:"48px", paddingRight:"10px"}} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
             <Typography
             variant="h6"
             noWrap

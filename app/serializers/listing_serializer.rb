@@ -1,10 +1,10 @@
 class ListingSerializer < ActiveModel::Serializer
-  attributes :name, :city, :state_province, :country, :planet, :unit_price, :max_guests_allowed, :photos, :type_of_accomodation, :listing_distance
+  attributes :name, :city, :state_province, :country, :planet_name, :unit_price, :max_guests_allowed, :photos, :type_of_accomodation, :distance_from_user, :listing_owner
   
   has_many :bookings
 
-  def listing_distance
-    self.object.distance_between(instance_options[:latitude], instance_options[:longitude])
+  def distance_from_user
+    self.object.distance_to([instance_options[:latitude], instance_options[:longitude]])
   end
 
   def planet_name

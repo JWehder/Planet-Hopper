@@ -13,7 +13,7 @@ function App() {
   const handleClick = () => setShow(!show)
 
   return (
-    <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+    <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
     <NavBar />
     <Switch>
       <Route exact path='/'>

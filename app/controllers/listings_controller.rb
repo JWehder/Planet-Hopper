@@ -12,7 +12,7 @@ class ListingsController < ApplicationController
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
         end
         homepage_listings = Listing.query_homepage_listings(listing_params[:latitude], listing_params[:longitude])
-        render json: homepage_listings, status: :ok, methods: [:query_types_of_accomodations]
+        render json: homepage_listings, status: :ok, methods: [:query_types_of_accomodations], latitude: listing_params[:latitude], longitude: listing_params[:longitude]
     end
 
     def search

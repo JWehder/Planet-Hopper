@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CategoryContainer from "../components/CategoryContainer";
-import { fetchAllListings, fetchListings } from "../state/listingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
+import SearchForm from "../components/SearchForm"
 
 function HomePage() {
     const dispatch = useDispatch();
@@ -27,10 +26,6 @@ function HomePage() {
             } 
         })
     }
-
-    useEffect(() => {
-        dispatch(fetchAllListings())
-    }, [])
 
     useEffect(() => {
         fetchCoordinates()
@@ -65,18 +60,11 @@ function HomePage() {
         });
       };
 
-    const categoryContainers = Object.keys(categories).map((category) => {
-          const listings = categories[category];
+    const listingCards = homepageListings.map((listing) => {
           return (
-          <CategoryContainer category= {category} key={category}>
-            {listings.map((listing) => {
-                return (
                 <ListingCard name= {listing.name} city={listing.city} stateProvince={listing.state_province} photos= {listing.photos} typeOfAccomodation={listing.type_of_accomodation} unitPrice={listing.unit_price} key={listing.name} />
                 )
-            })}
-          </CategoryContainer>
-          );
-    })
+    });
 
     if (isLoading) {
         return <div style={{textAlign: 'center'}}>Loading...</div>
@@ -84,7 +72,8 @@ function HomePage() {
 
     return (
             <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
-                {categoryContainers}
+                <SearchForm />
+                {listingCards}
             </div>
     )
 }
