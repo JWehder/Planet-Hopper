@@ -16,33 +16,33 @@ require_relative 'seed_data.rb'
 #     User.create!(user)
 # end
 
-# $listings.each do |listing|
-#     city = $cities.sample
-#     puts city
-#     address = Geocoder.search(city).first
-#     user_id = User.where(host: true).sample.id
-#     puts "here"
-#     puts address.latitude, address.longitude
-#     puts address.city
-#     puts address.state
-#     puts address.address
-#     Listing.create!(
-#         name: listing[:title],
-#         address: address.address,
-#         city: address.city,
-#         state_province: address.state,
-#         country: address.country,
-#         planet_id: Planet.all.sample.id,
-#         owner_id: user_id,
-#         description: listing[:description],
-#         unit_price: rand(125..1250),
-#         type_of_accomodation: listing[:type_of_accomodation],
-#         max_guests_allowed: rand(1..12),
-#         latitude: address.latitude,
-#         longitude: address.longitude,
-#         photos: $photos.sample(3)
-#     )
-# end
+$listings.each do |listing|
+    city = $cities.sample
+    puts city
+    address = Geocoder.search(city).first
+    user_id = User.where(host: true).sample.id
+    puts "here"
+    puts address.latitude, address.longitude
+    puts address.city
+    puts address.state
+    puts address.address
+    Listing.create!(
+        name: listing[:title],
+        address: address.address,
+        city: address.city,
+        state_province: address.state,
+        country: address.country,
+        planet_id: Planet.all.sample.id,
+        owner_id: user_id,
+        description: listing[:description],
+        unit_price: rand(125..1250),
+        type_of_accomodation: listing[:type_of_accomodation],
+        max_guests_allowed: rand(1..12),
+        latitude: address.latitude,
+        longitude: address.longitude,
+        photos: $photos.sample(3)
+    )
+end
 
 # $listings2.each do |listing|
 #     city = $cities.sample
@@ -70,13 +70,14 @@ require_relative 'seed_data.rb'
 #     )
 # end
 
-24.times do 
-    listing = Listing.all.sample
-    
-    booking = Booking.create(user_id: User.all.sample.id, listing_id: listing.id, start_date: DateTime.now + rand(1..30), end_date: DateTime.now + rand(31..60), number_of_guests: listing.max_guests_allowed)
-    booking.determine_price
-    booking.book_dates
-end
+# Listing.all.each do |listing|
+#     12.times do
+#         dates = listing.find_dates
+#         booking = Booking.create(user_id: User.all.sample.id, listing_id: listing.id, start_date: dates.first, end_date: dates.last, number_of_guests: listing.max_guests_allowed)
+#         booking.determine_price
+#         booking.book_dates
+#     end
+# end
 
 # Booking.all.each do |booking|
 #     booking.determine_price

@@ -34,24 +34,15 @@ class Listing < ApplicationRecord
             .where.not(booked_dates: { date: parsed_date })
         search_results
     end
-
-    def self.query_types_of_accomodations
-        Listing.group(:type_of_accomodation).count
-    end
-
-    def self.homepage_listings(users_location_listings)
-        {
-        users_location_listings: users_location_listings,
-        new_york: Listing.query_city_listings("New York"),
-        los_angeles: Listing.query_city_listings("Los Angeles"),
-        nashville: Listing.query_city_listings("Nashville-Davidson"),
-        }
-    end
         
     def self.query_users_listings(longitude, latitude)
         results = Geocoder.search([longitude, latitude])
         results = results.first.city
         users_listings_results = self.where(city: results).limit(10)
+    end
+
+    def self.query_types_of_accomodations
+        Listing.group(:type_of_accomodation).count
     end
 
     def distance_between(users_latitude, users_longitude)
@@ -62,18 +53,37 @@ class Listing < ApplicationRecord
         city_listings = self.where(city: city).limit(10)
     end
 
-    def self.find_dates
+    def self.query_homepage_listings(latitude, longitude)
+        homepage_listings_query = Listing
+        .where(city: ["Paris", "New York", "Phoenix"])
+        .group(:city, :id)
+        .having('COUNT(*) <= 4')
+        .limit(12)
+        .to_a
+
+        user_listings_query = Listing
+        .near([latitude, longitude], 400, units: :mi)
+        .limit(16 - homepage_listings_query.count)
+        .to_a
+
+        merged_listings = homepage_listings_query + user_listings_query
+        merged_listings
+    end
+
+    def find_dates
+        available_dates = nil
         found_dates = false
-        nights_staying = rand(1..45)
-        date = Date.today + rand(1..365)
+
         until found_dates
-            if self.booked_dates.exists?(date: (date..date + nights_staying))
-                found_dates = false
-            else
+            nights_staying = rand(1..45)
+            date = Date.today + rand(1..365)
+            booked_dates = self.booked_dates.where(date: (date..date + nights_staying))
+            if booked_dates.empty?
+                available_dates = date..date + nights_staying
                 found_dates = true
             end
         end
-        date..date + nights_staying
+        available_dates
     end
 
     private

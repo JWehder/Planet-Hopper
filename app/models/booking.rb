@@ -18,8 +18,8 @@ class Booking < ApplicationRecord
     end
 
     def book_dates
-        (self.start_date.to_date..self.end_date.to_date).each do |date|
-            BookedDate.create(listing_id: self.listing_id, booking_id: self.id, date: date.to_datetime)
+        (self.start_date...self.end_date).each do |date|
+            BookedDate.create(listing_id: self.listing_id, booking_id: self.id, date: date)
         end
     end
 

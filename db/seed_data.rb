@@ -1,39 +1,39 @@
 puts "seeding..."
 
 $cities = [
-  "New York",
-  "Los Angeles",
-  "Chicago",
-  "Houston",
-  "Philadelphia",
-  "Phoenix",
-  "San Antonio",
-  "San Diego",
-  "Dallas",
-  "San Jose",
+  # "New York",
+  # "Los Angeles",
+  # "Chicago",
+  # "Houston",
+  # "Philadelphia",
+  # "Phoenix",
+  # "San Antonio",
+  # "San Diego",
+  # "Dallas",
+  # "San Jose",
   "Paris",
   "London",
   "Rome",
   "Berlin",
-  "Madrid",
-  "Tokyo",
-  "Seoul",
-  "Beijing",
-  "Shanghai",
-  "Bangkok",
-  "Mumbai",
-  "Kuala Lumpur",
-  "Jakarta",
-  "Dubai",
-  "Abu Dhabi",
-  "Doha",
-  "Riyadh",
-  "Cairo",
-  "Istanbul",
-  "Amman",
-  "Tel Aviv",
-  "Beirut",
-  "Muscat"
+  "Madrid"
+  # "Tokyo",
+  # "Seoul",
+  # "Beijing",
+  # "Shanghai",
+  # "Bangkok",
+  # "Mumbai",
+  # "Kuala Lumpur",
+  # "Jakarta",
+  # "Dubai",
+  # "Abu Dhabi",
+  # "Doha",
+  # "Riyadh",
+  # "Cairo",
+  # "Istanbul",
+  # "Amman",
+  # "Tel Aviv",
+  # "Beirut",
+  # "Muscat"
 ]
 
 $users = [
@@ -201,74 +201,74 @@ $listings = [
         description: "Experience the ultimate beach getaway at this seaside resort offering all-inclusive amenities. Enjoy direct access to the pristine beach, indulge in the luxurious spa treatments, and savor delectable cuisine at the resort's restaurants. Whether you're seeking relaxation, adventure, or quality time with loved ones, this seaside resort has everything you need for an unforgettable vacation.",
         type_of_accomodation: "Hotel Room"
     },
-    {
-        title: "Spacious Penthouse with Panoramic Mountain Views",
-        description: "Elevate your stay in this spacious penthouse boasting panoramic mountain views. With its modern design,
-    expansive terrace, and luxurious features, this penthouse offers a sophisticated retreat. Take in the breathtaking vistas, unwind in the rooftop jacuzzi, and experience the ultimate indulgence in this exclusive accommodation.",
-    type_of_accomodation: "Apartment"
-    },
-    {
-    title: "Rustic Cabin Retreat in a Tranquil Forest",
-    description: "Escape to a rustic cabin retreat nestled in a tranquil forest, surrounded by nature's beauty. Embrace the cozy ambiance, relax by the crackling fireplace, and take leisurely walks through the forest trails. This charming cabin offers a peaceful sanctuary where you can reconnect with the simplicity of life and rejuvenate your soul.",
-    type_of_accomodation: "Cabin"
-    },
-    {
-    title: "Historic Manor House with Grand Architecture",
-    description: "Step back in time and experience the grandeur of a historic manor house with its magnificent architecture and timeless elegance. From the opulent interiors to the meticulously landscaped gardens, this manor house exudes sophistication and charm. Immerse yourself in the history, indulge in luxurious amenities, and create unforgettable memories in this regal accommodation.",
-    type_of_accomodation: "House"
-    },
-    {
-    title: "Secluded Beach Bungalow with Private Access",
-    description: "Find your own slice of paradise in this secluded beach bungalow, offering a private escape with direct access to pristine shores. Wake up to the sound of waves, unwind in the hammock under swaying palm trees, and enjoy breathtaking sunsets from your veranda. This beach bungalow is a tranquil haven where you can truly unwind and rejuvenate.",
-    type_of_accomodation: "Bungalow"
-    },
-    {
-    title: "Chic Studio in the Heart of a Vibrant Neighborhood",
-    description: "Immerse yourself in the vibrant energy of a lively neighborhood with a stay in this chic studio apartment. From its trendy decor to its convenient location, this studio offers a comfortable and stylish retreat. Explore the eclectic shops, indulge in local cuisine, and discover the unique character of the neighborhood.",
-    type_of_accomodation: "Apartment"
-    },
-    {
-    title: "Serenity Cottage with Panoramic Lake Views",
-    description: "Escape to a serene cottage with panoramic lake views, where tranquility and natural beauty surround you. Relax on the porch overlooking the shimmering waters, take a leisurely kayak ride, or simply unwind in the comfortable interiors. This idyllic cottage provides a peaceful sanctuary for those seeking a retreat from the world.",
-    type_of_accomodation: "Cottage"
-    },
-    {
-    title: "Luxury Villa with Private Pool and Stunning Gardens",
-    description: "Indulge in luxury and sophistication at this exquisite villa featuring a private pool and stunning gardens. With its spacious layout, upscale amenities, and impeccable design, this villa offers a truly indulgent experience. Bask in the sunshine by the pool, host memorable gatherings in the expansive outdoor areas, and create lasting memories in this luxurious retreat.",
-    type_of_accomodation: "Villa"
-    },
-    {
-    title: "Modern Apartment in a Hip and Artistic District",
-    description: "Immerse yourself in the creativity and vibrancy of a hip and artistic district with a stay in this modern apartment. From its sleek design to its proximity to art galleries, trendy cafes, and local boutiques, this apartment offers an inspiring retreat. Experience the neighborhood's unique charm, indulge in local flavors, and be inspired by the artistic ambiance.",
-    type_of_accomodation: "Apartment"
-    },
-    {
-    title: "Traditional Townhouse with Old-World Charm",
-    description: "
+    # {
+    #     title: "Spacious Penthouse with Panoramic Mountain Views",
+    #     description: "Elevate your stay in this spacious penthouse boasting panoramic mountain views. With its modern design,
+    # expansive terrace, and luxurious features, this penthouse offers a sophisticated retreat. Take in the breathtaking vistas, unwind in the rooftop jacuzzi, and experience the ultimate indulgence in this exclusive accommodation.",
+    # type_of_accomodation: "Apartment"
+    # },
+    # {
+    # title: "Rustic Cabin Retreat in a Tranquil Forest",
+    # description: "Escape to a rustic cabin retreat nestled in a tranquil forest, surrounded by nature's beauty. Embrace the cozy ambiance, relax by the crackling fireplace, and take leisurely walks through the forest trails. This charming cabin offers a peaceful sanctuary where you can reconnect with the simplicity of life and rejuvenate your soul.",
+    # type_of_accomodation: "Cabin"
+    # },
+    # {
+    # title: "Historic Manor House with Grand Architecture",
+    # description: "Step back in time and experience the grandeur of a historic manor house with its magnificent architecture and timeless elegance. From the opulent interiors to the meticulously landscaped gardens, this manor house exudes sophistication and charm. Immerse yourself in the history, indulge in luxurious amenities, and create unforgettable memories in this regal accommodation.",
+    # type_of_accomodation: "House"
+    # },
+    # {
+    # title: "Secluded Beach Bungalow with Private Access",
+    # description: "Find your own slice of paradise in this secluded beach bungalow, offering a private escape with direct access to pristine shores. Wake up to the sound of waves, unwind in the hammock under swaying palm trees, and enjoy breathtaking sunsets from your veranda. This beach bungalow is a tranquil haven where you can truly unwind and rejuvenate.",
+    # type_of_accomodation: "Bungalow"
+    # },
+    # {
+    # title: "Chic Studio in the Heart of a Vibrant Neighborhood",
+    # description: "Immerse yourself in the vibrant energy of a lively neighborhood with a stay in this chic studio apartment. From its trendy decor to its convenient location, this studio offers a comfortable and stylish retreat. Explore the eclectic shops, indulge in local cuisine, and discover the unique character of the neighborhood.",
+    # type_of_accomodation: "Apartment"
+    # },
+    # {
+    # title: "Serenity Cottage with Panoramic Lake Views",
+    # description: "Escape to a serene cottage with panoramic lake views, where tranquility and natural beauty surround you. Relax on the porch overlooking the shimmering waters, take a leisurely kayak ride, or simply unwind in the comfortable interiors. This idyllic cottage provides a peaceful sanctuary for those seeking a retreat from the world.",
+    # type_of_accomodation: "Cottage"
+    # },
+    # {
+    # title: "Luxury Villa with Private Pool and Stunning Gardens",
+    # description: "Indulge in luxury and sophistication at this exquisite villa featuring a private pool and stunning gardens. With its spacious layout, upscale amenities, and impeccable design, this villa offers a truly indulgent experience. Bask in the sunshine by the pool, host memorable gatherings in the expansive outdoor areas, and create lasting memories in this luxurious retreat.",
+    # type_of_accomodation: "Villa"
+    # },
+    # {
+    # title: "Modern Apartment in a Hip and Artistic District",
+    # description: "Immerse yourself in the creativity and vibrancy of a hip and artistic district with a stay in this modern apartment. From its sleek design to its proximity to art galleries, trendy cafes, and local boutiques, this apartment offers an inspiring retreat. Experience the neighborhood's unique charm, indulge in local flavors, and be inspired by the artistic ambiance.",
+    # type_of_accomodation: "Apartment"
+    # },
+    # {
+    # title: "Traditional Townhouse with Old-World Charm",
+    # description: "
     
-    Step into a world of old-world charm and elegance with a stay in this traditional townhouse. With its rich history, classic architecture, and tasteful furnishings, this townhouse offers a glimpse into the past. Relax in the cozy living spaces, explore the neighborhood's historic landmarks, and immerse yourself in the timeless beauty of this townhouse.",
-    type_of_accomodation: "Townhouse"
-    },
-    {
-    title: "Secluded Mountain Retreat with Panoramic Views",
-    description: "Escape to a secluded mountain retreat and immerse yourself in the beauty of nature with panoramic views stretching as far as the eye can see. Unwind in the outdoor hot tub, embark on hiking adventures, and savor the tranquility of the mountain setting. This retreat offers a peaceful respite where you can disconnect from the world and reconnect with yourself.",
-    type_of_accomodation: "Cabin"
-    },
-    {
-    title: "Stylish Beachfront Condo with Ocean Breezes",
-    description: "Experience the ultimate beachfront lifestyle in this stylish condo with refreshing ocean breezes and stunning coastal views. From the modern interiors to the proximity to the beach, this condo offers the perfect blend of luxury and relaxation. Soak up the sun on the private balcony, stroll along the sandy shores, and create unforgettable memories by the sea.",
-    type_of_accomodation: "Apartment"
-    },
-    {
-    title: "Luxurious Mansion in a Prestigious Neighborhood",
-    description: "Indulge in opulence and grandeur at this luxurious mansion nestled in a prestigious neighborhood. With its expansive living spaces, elegant decor, and top-notch amenities, this mansion is the epitome of sophistication. Enjoy the beautifully landscaped gardens, host memorable events in the grand ballroom, and live like royalty during your stay.",
-    type_of_accomodation: "House"
-    },
-    {
-    title: "Cozy Log Cabin in a Picturesque Forest Setting",
-    description: "Find comfort and charm in this cozy log cabin tucked away in a picturesque forest setting. Embrace the warmth of the fireplace, immerse yourself in the peaceful surroundings, and reconnect with nature. This log cabin offers a tranquil retreat where you can unwind, recharge, and create lasting memories with loved ones.",
-    type_of_accomodation: "Cabin"
-    }
+    # Step into a world of old-world charm and elegance with a stay in this traditional townhouse. With its rich history, classic architecture, and tasteful furnishings, this townhouse offers a glimpse into the past. Relax in the cozy living spaces, explore the neighborhood's historic landmarks, and immerse yourself in the timeless beauty of this townhouse.",
+    # type_of_accomodation: "Townhouse"
+    # },
+    # {
+    # title: "Secluded Mountain Retreat with Panoramic Views",
+    # description: "Escape to a secluded mountain retreat and immerse yourself in the beauty of nature with panoramic views stretching as far as the eye can see. Unwind in the outdoor hot tub, embark on hiking adventures, and savor the tranquility of the mountain setting. This retreat offers a peaceful respite where you can disconnect from the world and reconnect with yourself.",
+    # type_of_accomodation: "Cabin"
+    # },
+    # {
+    # title: "Stylish Beachfront Condo with Ocean Breezes",
+    # description: "Experience the ultimate beachfront lifestyle in this stylish condo with refreshing ocean breezes and stunning coastal views. From the modern interiors to the proximity to the beach, this condo offers the perfect blend of luxury and relaxation. Soak up the sun on the private balcony, stroll along the sandy shores, and create unforgettable memories by the sea.",
+    # type_of_accomodation: "Apartment"
+    # },
+    # {
+    # title: "Luxurious Mansion in a Prestigious Neighborhood",
+    # description: "Indulge in opulence and grandeur at this luxurious mansion nestled in a prestigious neighborhood. With its expansive living spaces, elegant decor, and top-notch amenities, this mansion is the epitome of sophistication. Enjoy the beautifully landscaped gardens, host memorable events in the grand ballroom, and live like royalty during your stay.",
+    # type_of_accomodation: "House"
+    # },
+    # {
+    # title: "Cozy Log Cabin in a Picturesque Forest Setting",
+    # description: "Find comfort and charm in this cozy log cabin tucked away in a picturesque forest setting. Embrace the warmth of the fireplace, immerse yourself in the peaceful surroundings, and reconnect with nature. This log cabin offers a tranquil retreat where you can unwind, recharge, and create lasting memories with loved ones.",
+    # type_of_accomodation: "Cabin"
+    # }
 ]
 
 testingObjs = [
