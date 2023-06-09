@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
 import SearchForm from "../components/SearchForm"
+import { fetchListings } from "../state/listingsSlice";
 
 function HomePage() {
     const dispatch = useDispatch();

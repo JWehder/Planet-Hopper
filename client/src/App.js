@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage';
 import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
+import Map from './features/listing/components/Map';
 
 function App() {
   const [show, setShow] = useState(true)
@@ -16,6 +17,9 @@ function App() {
     <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
     <NavBar />
     <Switch>
+      <Route exact path='/map'>
+        <Map />
+      </Route>
       <Route exact path='/'>
           <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
           <LoginModal show={show} setShow={setShow} />
