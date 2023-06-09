@@ -3,30 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
 import SearchForm from "../components/SearchForm"
 import { fetchListings } from "../state/listingsSlice";
+import Spinner from "react-bootstrap/Spinner"
 
 function HomePage() {
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const homepageListings = useSelector((state) => state.listings.entities)
-
-    const categories = {
-        nashville: [],
-        newYork: [],
-        losAngeles: []
-    }
-
-    if (homepageListings) {
-        homepageListings.forEach((listing) => {
-            if (listing.city === "New York") {
-                categories.newYork.push(listing)
-            } else if (listing.city === "Nashville-Davidson") {
-                categories.nashville.push(listing)
-            } else if (listing.city === "Los Angeles") {
-                categories.losAngeles.push(listing)
-            } 
-        })
-    }
 
     useEffect(() => {
         fetchCoordinates()
@@ -37,7 +20,7 @@ function HomePage() {
             try {
                 const coordinates = await usersCoordinates();
                 dispatch(fetchListings(coordinates))
-                setIsLoading(false)
+                setIsLoaded(true)
             } catch (error) {
                 console.error("Error:", error)
             }
@@ -67,9 +50,11 @@ function HomePage() {
                 )
     });
 
-    if (isLoading) {
-        return <div style={{textAlign: 'center'}}>Loading...</div>
-    }
+    if (!isLoaded) return <div>    
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+  </div>
 
     return (
             <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>

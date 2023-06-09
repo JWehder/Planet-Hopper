@@ -1,5 +1,5 @@
 class ListingSerializer < ActiveModel::Serializer
-  attributes :name, :city, :state_province, :country, :planet_name, :unit_price, :max_guests_allowed, :photos, :type_of_accomodation, :distance_from_user, :listing_owner
+  attributes :name, :city, :state_province, :country, :planet_name, :unit_price, :max_guests_allowed, :photos, :type_of_accomodation, :distance_from_user, :listing_owner, :latitude, :longitude
   
   has_many :bookings
 

@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { useSelector } from "react-redux";
 import { ReactComponent as WebsiteIcon } from '../../images/house_logo.svg'
+import { Link } from "react-router-dom"
 
 const settings = ['Profile', 'Account', 'My Listings'];
 
@@ -54,12 +55,12 @@ return (
                 display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '.3rem',
+                // letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
             }}
             >
-            Planet Hopper
+            PlanetHopper
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,7 +111,7 @@ return (
                 textDecoration: 'none',
             }}
             >
-            LOGO
+            Planet Hopper
             </Typography>
 
             <Box sx={{ flexGrow: 0 }}>
@@ -136,9 +137,11 @@ return (
                 onClose={handleCloseUserMenu}
             >
                 {settings.map((setting) => (
+                <Link to="/map">
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
+                </Link>
                 ))}
             </Menu>
             </Box>
