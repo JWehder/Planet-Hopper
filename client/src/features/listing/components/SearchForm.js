@@ -1,4 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useRef } from "react";
+import { keys } from "../../../config"
+import { LoadScript } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -15,8 +17,11 @@ import Divider from '@mui/material/Divider';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import Box from '@mui/material/Box';
 import Grow from "@mui/material/Grow";
+import Spinner from 'react-bootstrap/Spinner'
 
 function SearchForm() {
+    const inputRef = useRef();
+
     const [selected, setSelected] = useState(null);
 
     const {
@@ -28,14 +33,15 @@ function SearchForm() {
       } = usePlacesAutocomplete();
 
 
-    const ref = useOnclickOutside(() => {
+    const clickOutside = useOnclickOutside(() => {
         // When user clicks outside of the component, we can dismiss
         // the searched suggestions by calling this method
         clearSuggestions();
     });
 
     const handleSelect = async (address) => {
-        setValue(address, false);
+        const selectedAddress = String(address)
+        setValue(selectedAddress, false);
         clearSuggestions();
     
         const results = await getGeocode({ address });
@@ -43,17 +49,42 @@ function SearchForm() {
         setSelected({ lat, lng });
     };
 
+    // if (!isLoaded) return <div>    
+    // <Spinner animation="border" role="status">
+    //     <span className="visually-hidden">Loading...</span>
+    // </Spinner>
+    // </div>
+
+    const handleChange = (e) => {
+        const inputValue = e.target.value;
+        setValue(inputValue);
+      };
+
+    const handlePlaceChanged = () => { 
+    const [ place ] = inputRef.current.getPlaces();
+    if(place) { 
+        console.log(place.formatted_address)
+        console.log(place.geometry.location.lat())
+        console.log(place.geometry.location.lng())
+    } 
+    }
+
+
     return(
-        <Box ref={ref} onSelect={handleSelect} sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <TextField
-            id="standard-search"
-            label="Search field"
-            type="search"
-            variant="standard"
-            disabled={!ready}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            />
+        // <LoadScript googleMapsApiKey={keys["GOOGLE_API_KEY"]} libraries={["places"]}>
+        <Box ref={clickOutside} sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <form 
+            onLoad={ref => inputRef.current = ref} 
+            onPlacesChanged={handlePlaceChanged}
+            >
+                <TextField
+                id="standard-search"
+                label="Search field"
+                type="search"
+                disabled={!ready}
+                variant="standard"
+                />
+            </form>
             <Popover
                 id='simple-popover'
                 anchorOrigin={{
@@ -66,8 +97,7 @@ function SearchForm() {
                 data.map(({ place_id, description }) => {
                 return (
                     <>
-                    <Grow>
-                    <ListItem key={place_id} disablePadding>
+                    <ListItem onSelect={handleSelect} key={place_id} disablePadding>
                         <ListItemButton>
                         <ListItemIcon>
                             <AddLocationIcon />
@@ -76,13 +106,13 @@ function SearchForm() {
                         </ListItemButton>
                     </ListItem>   
                     <Divider/>
-                    </Grow>
                     </>
                 )           
                 })}
             </List>
             </Popover>
         </Box>
+        // </LoadScript>
     )
 }
 

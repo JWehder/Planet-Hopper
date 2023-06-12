@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
-import SearchForm from "../components/SearchForm"
+import Autocomplete from "../components/Autocomplete";
 import { fetchListings } from "../state/listingsSlice";
 import Spinner from "react-bootstrap/Spinner"
+import DateRangePickerValue from "../components/DateRangePicker";
+import styled from "styled-components";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function HomePage() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false)
+    const [guests, setGuests] = useState('');
 
     const homepageListings = useSelector((state) => state.listings.entities)
+
+    const handleChange = (event) => {
+      setGuests(event.target.value);
+    };
 
     useEffect(() => {
         fetchCoordinates()
@@ -51,17 +62,39 @@ function HomePage() {
     });
 
     if (!isLoaded) return <div>    
-        <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <Spinner animation="border" role="status" />
   </div>
 
     return (
             <div style={{ width: '900px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
-                <SearchForm />
+                <SearchContainer>
+                    <FormControl>
+                        <Autocomplete />
+                        <DateRangePickerValue />
+                        <InputLabel id="select-label">Age</InputLabel>
+                        <Select
+                        labelId="select-label"
+                        id="demo-simple-select"
+                        value={guests}
+                        label="Guests"
+                        onChange={handleChange}
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                </SearchContainer>
                 {listingCards}
             </div>
     )
 }
+
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center; /* horizontally center */
+  align-items: center; /* vertically center */
+  height: 10vh; /* adjust the height to fit your requirements */
+`
 
 export default HomePage;

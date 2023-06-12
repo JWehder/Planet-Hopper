@@ -11,10 +11,10 @@ const containerStyle = {
 };
 
 function Map({ center, listings }) {
-    const { isLoaded } = useLoadScript({
-        id: 'google-map-script',
-        googleMapsApiKey: keys["GOOGLE_API_KEY"]
-      })
+    // const { isLoaded } = useLoadScript({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: keys["GOOGLE_API_KEY"]
+    // })
     
     const [map, setMap] = React.useState(null)
     
@@ -30,11 +30,11 @@ function Map({ center, listings }) {
     setMap(null)
     }, [])
 
-    if (!isLoaded) return <div>    
-        <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </Spinner>
-  </div>
+//     if (!isLoaded) return <div>    
+//         <Spinner animation="border" role="status">
+//             <span className="visually-hidden">Loading...</span>
+//         </Spinner>
+//   </div>
 
     const markers = () => {
         if (listings.length > 1) {
@@ -46,7 +46,7 @@ function Map({ center, listings }) {
         }
     }
     
-    return isLoaded ? (
+    return (
         <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -54,10 +54,9 @@ function Map({ center, listings }) {
         onLoad={onLoad}
         onUnmount={onUnmount}
         >
-        
-        <></>
+            
         </GoogleMap>
-    ) : <></>
+    )
 }
 
 export default React.memo(Map)
