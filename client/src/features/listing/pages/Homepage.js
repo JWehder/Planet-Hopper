@@ -15,6 +15,10 @@ import Select from '@mui/material/Select';
 function HomePage() {
     const dispatch = useDispatch();
     const inputRef = useRef();
+    const [latlng, setLatLng] = useState({
+        latitude: "",
+        longitude: ""
+    })
     const [isLoaded, setIsLoaded] = useState(false)
     const [guests, setGuests] = useState('');
     const [startDate, setStartDate] = React.useState(dayjs());
@@ -33,9 +37,10 @@ function HomePage() {
     const handlePlaceChanged = () => { 
     const [ place ] = inputRef.current.getPlaces();
     if(place) { 
-        console.log(place.formatted_address)
-        console.log(place.geometry.location.lat())
-        console.log(place.geometry.location.lng())
+        setLatLng({...latlng,
+            latitude: place.geometry.location.lat(),
+            longitude: place.geometry.location.lng()      
+        })
     } 
 }
 
@@ -44,7 +49,7 @@ function HomePage() {
 
         console.log(guests)
         console.log(startDate)
-        console.log()
+        console.log(latlng.latitude, latlng.longitude)
     }
 
     const fetchCoordinates = async () => {
@@ -88,7 +93,7 @@ function HomePage() {
 
     return (
             <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
-                <form onSubmit={() => console.log("submitted!")}>
+                <form onSubmit={handleSubmit}>
                 <SearchContainer>
                     <Autocomplete 
                     inputRef={inputRef}
@@ -108,12 +113,15 @@ function HomePage() {
                     label="Guests"
                     onChange={handleChange}
                     >
+                        {
+                            
+                        }
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </SearchContainer>
-                <button onSubmit={(e) => handleSubmit(e)}>submit</button>
+                <button type="submit">submit</button>
                 </form>
                 {listingCards}
             </div>
