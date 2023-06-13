@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import styled from "styled-components";
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
+import Fab from '@mui/material/Fab';
 
 function SearchBarButtonGroup() {
+    const [clicked, setClicked] = useState(false)
+
     return (
         <>
             <SearchButton>
-                <TextSection>Option 1</TextSection>
+                <TextSection>Destination</TextSection>
                 <span className="vertical-line" />
-                <TextSection>Option 2</TextSection>
+                <TextSection>Dates</TextSection>
                 <span className="vertical-line" />
-                <TextSection>Option 3</TextSection>
+                <TextSection>
+                    <span style={{marginRight: "10px"}}>
+                        Guests
+                    </span>
+                    
+                    <span>
+                    <Fab size="small" color="secondary" aria-label="edit">
+                        <TravelExploreIcon />
+                    </Fab>
+                    </span>
+                </TextSection>
             </SearchButton>
         </>
     )
@@ -24,8 +38,8 @@ const SearchButton = styled.button`
   height: 60px;
   padding: 20px;
   background-color: white;
-  border: none;
-  border-radius: 50px;
+  border: 3px;
+  border-radius: 100px;
   cursor: pointer;
   transition: box-shadow 0.3s ease-in-out;
 
@@ -36,7 +50,7 @@ const SearchButton = styled.button`
     .vertical-line {
     height: 100%;
     width: 1px;
-    background-color: black;
+    background-color: #D1D1D1;
     margin: 0 5px;
   }
 `;
@@ -44,8 +58,12 @@ const SearchButton = styled.button`
 const TextSection = styled.span`
   flex: 1;
   text-align: center;
-  font-size: 8px;
+  font-size: 12px;
   position: relative;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   /* &:not(:last-child)::after {
     content: "";
