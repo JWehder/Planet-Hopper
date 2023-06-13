@@ -8,12 +8,16 @@ import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
 import Map from './features/listing/components/Map';
 import MapModal from './features/listing/pages/MapModal';
-import SearchForm from './features/listing/components/SearchForm';
+import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
 
 function App() {
   const [show, setShow] = useState(true)
   
   const handleClick = () => setShow(!show)
+
+  // one button with a button group inside of it that are all disabled buttons but there for esthetics, needs to be hoverable
+  // when clicked, it shows another button group with each being clickable. When clicked, they will show a popover with the input
+  // how will I have a description underneath the button title 
 
   return (
     <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
@@ -23,6 +27,7 @@ function App() {
         <MapModal />
       </Route>
       <Route exact path='/'>
+          <SearchBarButtonGroup />
           <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
