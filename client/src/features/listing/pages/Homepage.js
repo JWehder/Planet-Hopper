@@ -15,8 +15,6 @@ function HomePage() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false)
     const [guests, setGuests] = useState('');
-    const [startDate, setStartDate] = React.useState(dayjs());
-    const [endDate, setEndDate] = React.useState(dayjs(dayjs().add(1, 'day')));
 
     const homepageListings = useSelector((state) => state.listings.entities)
 
@@ -71,12 +69,6 @@ function HomePage() {
             <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
                 <form>
                 <SearchContainer>
-                    <DateRangePickerValue 
-                    startDate={startDate}
-                    endDate={endDate}
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    />
                     <InputLabel id="select-label">Guests</InputLabel>
                     <Select
                     labelId="select-label"
