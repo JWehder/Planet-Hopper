@@ -5,36 +5,57 @@ import styled from "styled-components";
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import Fab from '@mui/material/Fab';
 import Fade from 'react-bootstrap/Fade';
-import { Autocomplete } from "@react-google-maps/api";
+import Autocomplete from "./Autocomplete";
+import ClickAwayListener from '@mui/base/ClickAwayListener';
+import { LoadScript } from "@react-google-maps/api";
+import { keys } from "../../../config";
 
 function SearchBarButtonGroup() {
     const [clicked, setClicked] = useState(false)
-    const [destinationClicked, setDestinationClicked] = useState(false)
+    const [destinationClicked, setDestinationClicked] = useState(true)
+    const [latlng, setLatLng] = useState({
+        latitude: "",
+        longitude: ""
+    })
 
-    const handleSearchButtonClick = () => setClicked(!clicked)
+    const handleSearchButtonClick = () =>  setClicked(!clicked)
     const handleDestinationClick = () => setDestinationClicked(!destinationClicked)
+    
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        console.log(latlng.latitude, latlng.longitude)
+    }
 
     return (
         <>
             { clicked ? 
             <Fade in={clicked}>
+            <ClickAwayListener onClickAway={handleSearchButtonClick}>
+            <form>
             <SearchContainer>
                 <TextSection>
+                    
                     { destinationClicked ?
-                    <Autocomplete />
-                        
-                    }
+                    <LoadScript googleMapsApiKey={keys["GOOGLE_API_KEY"]} libraries={["places"]}>
+                    <Autocomplete 
+                    setLatLng={setLatLng} 
+                    latlng={latlng} 
+                    />
+                    </LoadScript>
+                        :
                     <SearchInputButton onClick={handleDestinationClick}>
                         Destination
                     </SearchInputButton>
+                    }
                 </TextSection>
-                <span className="vertical-line" />
+                <VerticalLine />
                 <TextSection>
                     <SearchInputButton>
-                        Dates
+                        Check in / Check out
                     </SearchInputButton>
                 </TextSection>
-                <span className="vertical-line" />
+                <VerticalLine />
                 <TextSection>
                     <span style={{marginRight: "10px"}}>
                         <SearchInputButton>
@@ -49,13 +70,15 @@ function SearchBarButtonGroup() {
                     </span>
                 </TextSection>
             </SearchContainer>
+            </form>
+            </ClickAwayListener>
             </Fade>
                 :
             <SearchButton onClick={handleSearchButtonClick}>
                 <TextSection>Destination</TextSection>
-                <span className="vertical-line" />
+                <VerticalLine />
                 <TextSection>Dates</TextSection>
-                <span className="vertical-line" />
+                <VerticalLine />
                 <TextSection>
                     <span style={{marginRight: "10px"}}>
                         Guests
@@ -77,7 +100,7 @@ const SearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 20px;
+  height: 40px;
   padding: 20px;
   background-color: white;
   border: 3px;
@@ -88,14 +111,14 @@ const SearchButton = styled.button`
     &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
+`;
 
-    .vertical-line {
+const VerticalLine = styled.span`
     height: 100%;
     width: 1px;
-    background-color: #D1D1D1;
+    background-color: rgba(0, 0, 0, 0.3);
     margin: 0 5px;
-  }
-`;
+`
 
 const SearchInputButton = styled.button`
     display: flex;
@@ -148,17 +171,10 @@ const TextSection = styled.span`
   padding: 20px;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
+  height: 100%;
 
-  /* &:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 90%;
-    width: 1px;
-    background-color: #ccc;
-  } */
 `;
 
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import ListingCard from "../components/ListingCard";
-import Autocomplete from "../components/Autocomplete";
 import { fetchListings } from "../state/listingsSlice";
 import Spinner from "react-bootstrap/Spinner"
 import DateRangePickerValue from "../components/DateRangePicker";
@@ -14,11 +13,6 @@ import Select from '@mui/material/Select';
 
 function HomePage() {
     const dispatch = useDispatch();
-    const inputRef = useRef();
-    const [latlng, setLatLng] = useState({
-        latitude: "",
-        longitude: ""
-    })
     const [isLoaded, setIsLoaded] = useState(false)
     const [guests, setGuests] = useState('');
     const [startDate, setStartDate] = React.useState(dayjs());
@@ -33,24 +27,6 @@ function HomePage() {
     useEffect(() => {
         fetchCoordinates()
       }, []);
-
-    const handlePlaceChanged = () => { 
-    const [ place ] = inputRef.current.getPlaces();
-    if(place) { 
-        setLatLng({...latlng,
-            latitude: place.geometry.location.lat(),
-            longitude: place.geometry.location.lng()      
-        })
-    } 
-}
-
-    function handleSubmit(e) {
-        e.preventDefault()
-
-        console.log(guests)
-        console.log(startDate)
-        console.log(latlng.latitude, latlng.longitude)
-    }
 
     const fetchCoordinates = async () => {
         if (navigator.geolocation) {
@@ -93,12 +69,8 @@ function HomePage() {
 
     return (
             <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
-                <form onSubmit={handleSubmit}>
+                <form>
                 <SearchContainer>
-                    <Autocomplete 
-                    inputRef={inputRef}
-                    handlePlaceChanged={handlePlaceChanged}
-                    />
                     <DateRangePickerValue 
                     startDate={startDate}
                     endDate={endDate}
