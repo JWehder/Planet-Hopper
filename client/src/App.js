@@ -22,12 +22,19 @@ function App() {
   return (
     <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
     <NavBar />
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      margin: "15px"
+    }}>
+      <SearchBarButtonGroup />
+    </div>
     <Switch>
       <Route exact path='/maps'>
         <MapModal />
       </Route>
       <Route exact path='/'>
-          <SearchBarButtonGroup />
           <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
           <LoginModal show={show} setShow={setShow} />
           <HomePage />

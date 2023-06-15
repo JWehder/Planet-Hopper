@@ -6,6 +6,11 @@ export const fetchListings = createAsyncThunk("listings/fetchListings", (locatio
     return fetchWrapper.post("/listings/homepage_listings", locationObj, thunkAPI)
 });
 
+export const searchForListings = createAsyncThunk("listings/searchForListings",
+(locationEntry, thunkAPI) => {
+    return fetchWrapper.post("/listings/search", locationEntry, thunkAPI)
+});
+ 
 const listingsSlice = createSlice({
     name: "listings",
     initialState: {

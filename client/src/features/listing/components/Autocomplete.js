@@ -3,22 +3,27 @@ import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 import { keys } from "../../../config";
 import { TextField } from "@mui/material";
 
-const Autocomplete = ({ setLatLng, latlng }) => {
+const Autocomplete = ({ setSearchAddress, searchAddress }) => {
   const searchBoxRef = useRef(null);
 
   const handlePlaceChanged = () => {
     const [place] = searchBoxRef.current.getPlaces();
     if (place) {
-        console.log(place.formatted_address)
-        console.log(place.geometry.location.lat())
-        console.log(place.geometry.location.lng())
-    //   setLatLng({
-    //     ...latlng,
-    //     latitude: place.geometry.location.lat(),
-    //     longitude: place.geometry.location.lng(),
-    //   });
+      setSearchAddress({
+        ...searchAddress,
+        address: place.formatted_address,
+        latitude: place.geometry.location.lat(),
+        longitude: place.geometry.location.lng(),
+      });
     }
   };
+
+  function handleAddressChange(e) {
+    setSearchAddress({
+        ...searchAddress,
+        address: e.target.value
+    })
+  }
 
   return (
     // <LoadScript googleMapsApiKey={keys["GOOGLE_API_KEY"]} libraries={["places"]}>
@@ -33,9 +38,14 @@ const Autocomplete = ({ setLatLng, latlng }) => {
             type="search"
             variant="standard"
             size="small"
+            onChange={handleAddressChange}
+            value={searchAddress.address}
+            style={{
+                width: "250px"
+            }}
             InputProps={{
                 style: {
-                    fontSize: "10px"
+                    fontSize: "11px"
                 }, 
             }}
             />

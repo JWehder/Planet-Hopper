@@ -6,8 +6,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-function DateRangePicker({ startDate, endDate, setStartDate, setEndDate
+function DateRangePickerValue({ startDate, endDate, setStartDate, setEndDate
 }) {
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -29,4 +30,4 @@ function DateRangePicker({ startDate, endDate, setStartDate, setEndDate
   );
 }
 
-export default DateRangePicker;
+export default DateRangePickerValue;

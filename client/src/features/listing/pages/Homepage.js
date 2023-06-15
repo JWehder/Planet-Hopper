@@ -69,23 +69,7 @@ function HomePage() {
             <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
                 <form>
                 <SearchContainer>
-                    <InputLabel id="select-label">Guests</InputLabel>
-                    <Select
-                    labelId="select-label"
-                    id="demo-simple-select"
-                    value={guests}
-                    label="Guests"
-                    onChange={handleChange}
-                    >
-                        {
-                            
-                        }
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
                 </SearchContainer>
-                <button type="submit">submit</button>
                 </form>
                 {listingCards}
             </div>
