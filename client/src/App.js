@@ -43,7 +43,7 @@ function App() {
       <Route exact path='listings/:id'>
           <ListingPage />
       </Route>
-      <Route exact path='listings/search_results'>
+      <Route exact path='/search_results/:value'>
           <SearchResults />
       </Route>
     </Switch>

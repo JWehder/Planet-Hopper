@@ -15,11 +15,13 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useDispatch } from "react-redux";
-import { searchForListings } from "../state/listingsSlice";
-import { Link } from "react-router-dom"
+import axios from 'axios';
+import { setListings, setErrors } from "../state/listingsSlice";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [clicked, setClicked] = useState(false)
     const [destinationClicked, setDestinationClicked] = useState(true)
@@ -79,14 +81,23 @@ function SearchBarButtonGroup() {
         const searchEntry = {
             latitude: searchAddress.latitude,
             longitude: searchAddress.longitude,
-            startDate: dayjs(startDate).format('YYYY-MM-DD'),
-            endDate: dayjs(endDate).format('YYYY-MM-DD'),
+            start_date: dayjs(startDate).format('YYYY-MM-DD'),
+            end_date: dayjs(endDate).format('YYYY-MM-DD'),
             guests: guests
         }
 
-        try
-
-        dispatch(searchForListings(searchEntry))
+        try {
+            history.push(`/search_results/${searchAddress.address}`)
+            const response = await axios.post("/listings/search", searchEntry)
+            if (response.statusText !== "OK") {
+                dispatch(setErrors(response.data))
+                return
+            }
+            dispatch(setListings(response.data))
+            
+        } catch (error) {
+            console.error("error occurred", error);
+        }
 
     }
 
@@ -252,13 +263,11 @@ function SearchBarButtonGroup() {
                             </div>
                         </Popover>
                     </span>
-                    <Link to="/search_results">
                     <span>
                     <Fab type="submit" size="small" color="secondary" aria-label="edit">
                         <TravelExploreIcon />
                     </Fab>
                     </span>
-                    </Link>
                     
                 </TextSection>
             </SearchContainer>

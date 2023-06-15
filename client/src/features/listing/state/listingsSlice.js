@@ -22,6 +22,12 @@ const listingsSlice = createSlice({
     initialState,
     // sync reducers
     reducers: {
+        setListings(state, action) {
+            state.entities = action.payload
+        },
+        setErrors(state, action) {
+            state.listingError = action.payload
+        }
     },
     // async reducers
     extraReducers: {
@@ -38,20 +44,23 @@ const listingsSlice = createSlice({
             console.log(action.payload)
             state.listingError = action.payload
         },
-        [searchForListings.pending]: (state) => {
-            state.status = "loading";
-        },
-        [searchForListings.fulfilled]: (state, action) => {
-            console.log(action.payload)
-            state.entities = action.payload
-            state.status = "idle";
-        },
-        [searchForListings.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
-            state.listingError = action.payload
-        },
+        
+        // [searchForListings.pending]: (state) => {
+        //     state.status = "loading";
+        // },
+        // [searchForListings.fulfilled]: (state, action) => {
+        //     console.log(action.payload)
+        //     state.entities = action.payload
+        //     state.status = "idle";
+        // },
+        // [searchForListings.rejected]: (state, action) => {
+        //     console.log("rejected!")
+        //     console.log(action.payload)
+        //     state.listingError = action.payload
+        // },
     },
 });
+
+export const { setListings, setErrors } = listingsSlice.actions
 
 export default listingsSlice.reducer;

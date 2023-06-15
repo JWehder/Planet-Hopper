@@ -8,7 +8,9 @@ function SearchResults() {
     const listings = useSelector((state) => state.listings.entities)
     const errors = useSelector((state) => state.listings.listingError)
 
-    if (!listings || !errors) {
+    console.log(listings)
+
+    if (!listings) {
         return <div>    
         <Spinner animation="border" role="status" />
         </div>
@@ -25,11 +27,10 @@ function SearchResults() {
         <div>
             <h1>Search Results</h1>
             {listings ?
-            {listingCards} 
+            listingCards
             :
             <h3>{errors.error}</h3>
         }
-            
         </div>
     )
 }

@@ -17,7 +17,8 @@ class ListingsController < ApplicationController
 
     def search
         search_results = Listing.query_listing(listing_params[:latitude], listing_params[:longitude], listing_params[:start_date], listing_params[:end_date], listing_params[:guests])
-        if search_results > 0
+        center = Geocoder::Calculations.geographic_center(search_results)
+        if search_results.length > 0
             render json: search_results, status: :ok
         else 
             render json: { error: "No results were found, please try again." }, status: :not_found
