@@ -11,6 +11,7 @@ function LoginForm(props) {
         password: ""
     })
     const authError = useSelector((state) => state.auth.loginError)
+    const user = useSelector((state) => state.auth.user)
 
     function onChange(e) {
         setUserCredentials({
@@ -22,6 +23,13 @@ function LoginForm(props) {
     function handleSubmit(e) {
         e.preventDefault()
         dispatch(loginUser(userCredentials))
+    }
+
+    if (user) {
+        setUserCredentials({
+            username: "",
+            password: ""
+        })
     }
 
     return (

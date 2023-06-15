@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
 import Map from './features/listing/components/Map';
 import MapModal from './features/listing/pages/MapModal';
+import SearchResults from './features/listing/components/SearchResults';
 import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
 
 function App() {
@@ -42,8 +43,8 @@ function App() {
       <Route exact path='listings/:id'>
           <ListingPage />
       </Route>
-      <Route exact path='listings/search_results/:value'>
-
+      <Route exact path='listings/search_results'>
+          <SearchResults />
       </Route>
     </Switch>
     </div>

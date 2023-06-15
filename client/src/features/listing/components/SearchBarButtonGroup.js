@@ -16,6 +16,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useDispatch } from "react-redux";
 import { searchForListings } from "../state/listingsSlice";
+import { Link } from "react-router-dom"
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
@@ -72,7 +73,7 @@ function SearchBarButtonGroup() {
     const idEnd = openEnd ? 'simple-popover' : undefined;
 
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         const searchEntry = {
@@ -82,6 +83,8 @@ function SearchBarButtonGroup() {
             endDate: dayjs(endDate).format('YYYY-MM-DD'),
             guests: guests
         }
+
+        try
 
         dispatch(searchForListings(searchEntry))
 
@@ -199,7 +202,7 @@ function SearchBarButtonGroup() {
                         anchorEl={anchorGuests}
                         onClose={handleCloseGuests}
                         anchorReference="anchorPosition"
-                        anchorPosition={{ top: 150, left: 780 }}
+                        anchorPosition={{ top: 140, left: 770 }}
                         anchorOrigin={{
                           vertical: 'center',
                           horizontal: 'center',
@@ -233,6 +236,8 @@ function SearchBarButtonGroup() {
                                 >
                                     Guests: {guests}
                                 </span>
+
+                                
                                 <span
                                     onClick={() => setGuests(guests + 1)} 
                                     style={{
@@ -242,16 +247,18 @@ function SearchBarButtonGroup() {
                                     }}
                                 >
                                     <ControlPointIcon />
-                                </span>
+                                    
+                                </span>                                
                             </div>
                         </Popover>
                     </span>
-                    
+                    <Link to="/search_results">
                     <span>
                     <Fab type="submit" size="small" color="secondary" aria-label="edit">
                         <TravelExploreIcon />
                     </Fab>
                     </span>
+                    </Link>
                     
                 </TextSection>
             </SearchContainer>
