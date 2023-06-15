@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
     end
 
     def search
-        search_results = Listing.query_listing(listing_params[:search_value], listing_params[:date], listing_params[:guests])
+        search_results = Listing.query_listing(listing_params[:latitude], listing_params[:longitude], listing_params[:start_date], listing_params[:end_date], listing_params[:guests])
         if search_results > 0
             render json: search_results, status: :ok
         else 
@@ -69,6 +69,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :address, :date, :guests, :search_value, photos: [])
+        params.permit(:name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :address, :date, :start_date, :end_date, :guests, photos: [])
     end
 end

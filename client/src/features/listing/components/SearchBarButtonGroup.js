@@ -15,6 +15,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useDispatch } from "react-redux";
+import { searchForListings } from "../state/listingsSlice";
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
@@ -74,10 +75,15 @@ function SearchBarButtonGroup() {
     function handleSubmit(e) {
         e.preventDefault()
 
-        console.log(searchAddress.latitude, searchAddress.longitude)
-        console.log(searchAddress.address)
-        console.log(dayjs(startDate).format('YYYY-MM-DD'), dayjs(endDate).format('YYYY-MM-DD'))
-        console.log(guests)
+        const searchEntry = {
+            latitude: searchAddress.latitude,
+            longitude: searchAddress.longitude,
+            startDate: dayjs(startDate).format('YYYY-MM-DD'),
+            endDate: dayjs(endDate).format('YYYY-MM-DD'),
+            guests: guests
+        }
+
+        dispatch(searchForListings(searchEntry))
 
     }
 
@@ -321,7 +327,7 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   height: 70px;
-  width: 750px;
+  width: 800px;
   padding: 20px;
   background-color: white;
   border: 3px;

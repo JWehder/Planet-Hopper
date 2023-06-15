@@ -13,26 +13,36 @@ class Listing < ApplicationRecord
     validate :validate_if_host
     validate :photos_count
 
-    # validates :name, presence: true, length: {minimum: 8}
-    # validates :city, presence: true
-    # validates :state_province, presence: true
-    # validates :country, presence: true
-    # validates :planet_id, presence: true
-    # validates :owner_id, presence: true
-    # validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
-    # validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
+    validates :name, presence: true, length: {minimum: 8}
+    validates :city, presence: true
+    validates :state_province, presence: true
+    validates :country, presence: true
+    validates :planet_id, presence: true
+    validates :owner_id, presence: true
+    validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
+    validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
 
     def destroy_booked_dates
         self.booked_dates.destroy_all
     end
 
-    def self.query_listing(search_term, date, guests)
-        parsed_date = DateTime.parse(date)
-        search_results = self.joins(:planets)
-            .joins(:booked_dates)
-            .where("listings.city ILIKE ? OR listings.state ILIKE ? OR planets.name ILIKE ? AND listings.max_guests_allowed >= ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{guests}%")
-            .where.not(booked_dates: { date: parsed_date })
-        search_results
+    def self.query_listing(latitude, longitude, start_date, end_date, guests)
+        # listings = Listing.near([latitude, longitude], 100, units: :mi)
+        # .where('max_guests_allowed >= ?', guests)
+        # .where.not(id: Listing.joins(bookings: :booked_dates)
+        #                      .where(booked_dates: { date: start_date..end_date })
+        #                      .select('listings.id'))
+        # listings = Listing.select(:id, :other_attributes) 
+        #           .near([41.8933203, 12.4829321], 100, units: :mi)
+        #           .where('max_guests_allowed >= ?', 5)
+        #           .left_outer_joins(:booked_dates)
+        #           .where.not(booked_dates: { date: "2023-08-09".."2023-08-12" })
+        listings = Listing.near([latitude, longitude], 100, units: :mi)
+        .where('max_guests_allowed >= ?', guests)
+        .where.not(id: Listing.joins(bookings: :booked_dates)
+                            .where(booked_dates: { date: start_date..end_date })
+                            .select('listings.id'))
+        listings
     end
         
     def self.query_users_listings(longitude, latitude)

@@ -10,13 +10,16 @@ export const searchForListings = createAsyncThunk("listings/searchForListings",
 (locationEntry, thunkAPI) => {
     return fetchWrapper.post("/listings/search", locationEntry, thunkAPI)
 });
+
+const initialState = {
+    entities: [],
+    listingError: null,
+    status: "idle"
+}
  
 const listingsSlice = createSlice({
     name: "listings",
-    initialState: {
-        entities: [],
-        status: "idle"
-    },
+    initialState,
     // sync reducers
     reducers: {
     },
@@ -33,7 +36,20 @@ const listingsSlice = createSlice({
         [fetchListings.rejected]: (state, action) => {
             console.log("rejected!")
             console.log(action.payload)
-            state.signupError = action.payload
+            state.listingError = action.payload
+        },
+        [searchForListings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [searchForListings.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.entities = action.payload
+            state.status = "idle";
+        },
+        [searchForListings.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.listingError = action.payload
         },
     },
 });
