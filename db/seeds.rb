@@ -96,7 +96,7 @@ require_relative 'seed_data.rb'
 # end
 
 Listing.all.each do |listing|
-    listing.update!(photos: $photos.sample(2))
+    listing.update!(photos: $photos.sample(5))
 end
 
 puts "done seeding"

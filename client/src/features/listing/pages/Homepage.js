@@ -57,7 +57,7 @@ function HomePage() {
 
     const listingCards = homepageListings.map((listing) => {
           return (
-                <ListingCard name= {listing.name} city={listing.city} stateProvince={listing.state_province} photos= {listing.photos} typeOfAccomodation={listing.type_of_accomodation} unitPrice={listing.unit_price} key={listing.name} />
+                <ListingCard listing={listing} />
                 )
     });
 

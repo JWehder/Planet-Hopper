@@ -2,21 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PhotoCarousel from "./PhotosCarousel";
+import { useDispatch } from "react-redux";
 
-function ListingCard({ name, city, stateProvince, typeOfAccomodation, unitPrice, photos }) {
+function ListingCard({ listing }) {
+    const dispatch = useDispatch()
 
     return (
-            <ListingContainer>
-                <LinkStyle to={`/listings/${name}`}>
+            <ListingContainer onClick={() => dispatch()}>
+                <LinkStyle to={`/listings/${listing.name}`}>
                 <ListingButton>
-                        <PhotoGallery photos={photos} />
+                        <PhotoGallery photos={listing.photos} />
                 </ListingButton>
                 <div style={{ paddingLeft: '10px'}}>
                     <ListingContent>
-                        <ListingPara>{city}, {stateProvince}</ListingPara>
+                        <ListingPara>{listing.city}, {listing.stateProvince}</ListingPara>
                     </ListingContent>
-                        <ListingPara>{typeOfAccomodation}</ListingPara>
-                        <ListingPara>${unitPrice} per night</ListingPara>
+                        <ListingPara>{listing.typeOfAccomodation}</ListingPara>
+                        <ListingPara>${listing.unitPrice} per night</ListingPara>
                 </div>
                 </LinkStyle>
             </ListingContainer>

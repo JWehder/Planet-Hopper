@@ -14,7 +14,8 @@ export const searchForListings = createAsyncThunk("listings/searchForListings",
 const initialState = {
     entities: [],
     listingError: null,
-    status: "idle"
+    status: "idle",
+    currentListing: null
 }
  
 const listingsSlice = createSlice({
@@ -27,6 +28,9 @@ const listingsSlice = createSlice({
         },
         setErrors(state, action) {
             state.listingError = action.payload
+        },
+        setCurrentListing(state, action) {
+            state.currentListing = action.payload
         }
     },
     // async reducers
