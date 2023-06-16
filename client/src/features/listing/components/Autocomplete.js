@@ -55,4 +55,4 @@ const Autocomplete = ({ setSearchAddress, searchAddress }) => {
   );
 };
 
-export default Autocomplete;
+export default React.memo(Autocomplete)

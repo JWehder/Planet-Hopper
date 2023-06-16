@@ -6,7 +6,6 @@ import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage';
 import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
-import Map from './features/listing/components/Map';
 import MapModal from './features/listing/pages/MapModal';
 import SearchResults from './features/listing/components/SearchResults';
 import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
@@ -40,7 +39,7 @@ function App() {
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
-      <Route exact path='listings/:id'>
+      <Route exact path='listings/:name'>
           <ListingPage />
       </Route>
       <Route exact path='/search_results/:value'>

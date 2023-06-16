@@ -10,11 +10,13 @@ const containerStyle = {
 
 };
 
-function Map({ center, listings }) {
-    // const { isLoaded } = useLoadScript({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: keys["GOOGLE_API_KEY"]
-    // })
+function Map({ center, listings, zoom }) {
+    const { isLoaded } = useLoadScript({
+        id: 'google-map-script',
+        googleMapsApiKey: keys["GOOGLE_API_KEY"]
+    })
+
+    const memoCenter = React.useMemo(() => (center), [center]);
     
     const [map, setMap] = React.useState(null)
     
@@ -30,31 +32,34 @@ function Map({ center, listings }) {
     setMap(null)
     }, [])
 
-//     if (!isLoaded) return <div>    
-//         <Spinner animation="border" role="status">
-//             <span className="visually-hidden">Loading...</span>
-//         </Spinner>
-//   </div>
-
-    const markers = () => {
-        if (listings.length > 1) {
-            return listings.map((listing) => 
-            <Marker position={{ lat: listing.latitude, lng: listing.longitude }} />
-            )
-        } else {
-            return <Marker position={{ lat: listings.latitude, lng: listings.longitude }} />
-        }
-    }
+    if (!isLoaded) return <div>    
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+  </div>
     
     return (
         <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={12}
+        center={memoCenter}
+        zoom={zoom}
         onLoad={onLoad}
         onUnmount={onUnmount}
         >
-            
+            {listings.length > 1 ?
+                listings.map((listing) => 
+                <Marker key={listing.name} position={{ lat: listing.latitude, lng: listing.longitude }} />
+                )
+                :
+                ""
+            }
+
+            {listings.length < 1 ?  
+                <Marker position={{ lat: listings.latitude, lng: listings.longitude }} />
+            :
+            ""
+            }
+
         </GoogleMap>
     )
 }
