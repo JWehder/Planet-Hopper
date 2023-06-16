@@ -1,11 +1,14 @@
 import React from "react";
-import ListingInfo from "../components/ListingInfo";
+import { Link } from "react-router-dom";
 
 function ListingPage() {
 
+    console.log("listings page!")
+
     return (
-        <div>
-            <ListingInfo />
+        <div style={{ textAlign: "left" }}>
+            <h1>Title of Listing</h1>
+            <p><Link>city</Link></p>
         </div>
     )
 }

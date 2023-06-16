@@ -3,7 +3,7 @@ import LoginModal from './features/auth/pages/LoginModal';
 import './App.css';
 import HomePage from './features/listing/pages/Homepage';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-import ListingPage from './features/listing/pages/ListingPage';
+import ListingPage from './features/listing/pages/ListingPage'
 import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
 import MapModal from './features/listing/pages/MapModal';
@@ -39,7 +39,7 @@ function App() {
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
-      <Route exact path='listings/:name'>
+      <Route exact path='/listings/:value'>
           <ListingPage />
       </Route>
       <Route exact path='/search_results/:value'>
