@@ -1,6 +1,5 @@
 class CustomListingSerializer < ActiveModel::Serializer
-  attributes :name, :city, :state_province, :country, :planet, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :address, :stringified_booked_dates, :distance_from_user
-  # , :custom_method
+  attributes :name, :city, :state_province, :country, :planet, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :stringified_booked_dates, :distance_from_user, :bedrooms, :bathrooms, :beds
   
   has_many :bookings
   has_many :booked_dates

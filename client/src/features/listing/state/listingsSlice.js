@@ -65,6 +65,6 @@ const listingsSlice = createSlice({
     },
 });
 
-export const { setListings, setErrors } = listingsSlice.actions
+export const { setListings, setErrors, setCurrentListing } = listingsSlice.actions
 
 export default listingsSlice.reducer;

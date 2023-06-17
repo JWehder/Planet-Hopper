@@ -3,22 +3,23 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PhotoCarousel from "./PhotosCarousel";
 import { useDispatch } from "react-redux";
+import { setCurrentListing } from "../state/listingsSlice";
 
 function ListingCard({ listing }) {
     const dispatch = useDispatch()
 
     return (
-            <ListingContainer onClick={() => dispatch()}>
+            <ListingContainer onClick={() => dispatch(setCurrentListing(listing))}>
                 <LinkStyle to={`/listings/${listing.name}`}>
                 <ListingButton>
                         <PhotoGallery photos={listing.photos} />
                 </ListingButton>
                 <div style={{ paddingLeft: '10px'}}>
                     <ListingContent>
-                        <ListingPara>{listing.city}, {listing.stateProvince}</ListingPara>
+                        <ListingPara>{listing.city}, {listing.state_province}</ListingPara>
                     </ListingContent>
-                        <ListingPara>{listing.typeOfAccomodation}</ListingPara>
-                        <ListingPara>${listing.unitPrice} per night</ListingPara>
+                        <ListingPara>{listing.type_of_accomodation}</ListingPara>
+                        <ListingPara>${listing.unit_price} per night</ListingPara>
                 </div>
                 </LinkStyle>
             </ListingContainer>
