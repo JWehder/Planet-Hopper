@@ -17,7 +17,6 @@ class ListingsController < ApplicationController
 
     def search
         search_results = Listing.query_listing(listing_params[:latitude], listing_params[:longitude], listing_params[:start_date], listing_params[:end_date], listing_params[:guests])
-        center = Geocoder::Calculations.geographic_center(search_results)
         if search_results.length > 0
             render json: search_results, status: :ok
         else 
@@ -32,8 +31,9 @@ class ListingsController < ApplicationController
     end
 
     def show
-        user = User.find(session[:user_id])
-        listing = find_listing(user)
+        listing = Listing.find(listing_params[:id])
+        # user = User.find(session[:user_id])
+        # listing = find_listing(user)
         if listing
             render json: listing, status: :ok, serializer: CustomListingSerializer
         else
@@ -70,6 +70,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :address, :date, :start_date, :end_date, :guests, photos: [])
+        params.permit(:id, :name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :address, :date, :start_date, :end_date, :guests, photos: [])
     end
 end

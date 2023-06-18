@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SearchForm from "../components/SearchForm";
 import Map from "../components/Map";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";

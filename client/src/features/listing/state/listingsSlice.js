@@ -15,7 +15,7 @@ const initialState = {
     entities: [],
     listingError: null,
     status: "idle",
-    currentListing: null
+    currentListing: null,
 }
  
 const listingsSlice = createSlice({
@@ -31,6 +31,12 @@ const listingsSlice = createSlice({
         },
         setCurrentListing(state, action) {
             state.currentListing = action.payload
+        },
+        setStatusToLoading(state) {
+            state.status = "loading"
+        },
+        setStatusToFulfilled(state) {
+            state.status = "fulfilled"
         }
     },
     // async reducers
@@ -65,6 +71,6 @@ const listingsSlice = createSlice({
     },
 });
 
-export const { setListings, setErrors, setCurrentListing } = listingsSlice.actions
+export const { setListings, setErrors, setCurrentListing, setStatusToFulfilled, setStatusToLoading } = listingsSlice.actions
 
 export default listingsSlice.reducer;

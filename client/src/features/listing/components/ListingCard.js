@@ -3,14 +3,34 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PhotoCarousel from "./PhotosCarousel";
 import { useDispatch } from "react-redux";
-import { setCurrentListing } from "../state/listingsSlice";
+import axios from "axios";
+import { setCurrentListing, setErrors } from "../state/listingsSlice";
+import { useHistory, withRouter } from "react-router-dom";
 
-function ListingCard({ listing }) {
+function ListingCard({ listing }, props) {
+    const history = useHistory()
     const dispatch = useDispatch()
+    console.log(listing)
+
+    async function handleClick() {
+        try {
+            const response = await axios.get(`/listings/${listing.id}`)
+            console.log(response)
+            if (response.statusText !== "OK") {
+                dispatch(setErrors(response.data))
+                return
+            }
+            dispatch(setCurrentListing(response.data))
+            props.history.push(`/listings/${listing.name}`)
+
+        } catch (error) {
+            console.error("error occurred", error);
+        }
+    }
 
     return (
-            <ListingContainer onClick={() => dispatch(setCurrentListing(listing))}>
-                <LinkStyle to={`/listings/${listing.name}`}>
+            <ListingContainer onClick={handleClick}>
+                <LinkStyle to={`/listings/${listing.id}`}>
                 <ListingButton>
                         <PhotoGallery photos={listing.photos} />
                 </ListingButton>
@@ -69,4 +89,4 @@ const LinkStyle = styled(Link)`
     color: inherit;
 `
 
-export default ListingCard;
+export default withRouter(ListingCard);

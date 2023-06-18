@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Map from "../components/Map";
+import axios from "axios";
 
 function ListingPage() {
 
     const listing = useSelector((state) => state.listings.currentListing)
+    console.log(listing)
 
     function srcset(image, size, rows = 1, cols = 1) {
         return {
@@ -60,14 +62,15 @@ function ListingPage() {
             }}
             >
                 <div style={{flex: 1}}>
-                    <p>${listing.unit_price}</p>
-                    <p>{listing.bedrooms}</p>
-                    <p>{listing.bathrooms}</p>
+                    <span>${listing.unit_price}</span>
+                    <span>{listing.bedrooms}</span>
+                    <span>{listing.bathrooms}</span>
+                    <span>{listing.beds}</span>
                 </div>
-                <div style={{flex: 1}}>
+                {/* <div style={{flex: 1}}>
                     <h4>Where you are staying</h4>
                     <Map zoom={10.5} center={{ lat: listing.latitude, lng: listing.longitude }} listings={listing} />
-                </div>
+                </div> */}
             </div>
 
         </div>

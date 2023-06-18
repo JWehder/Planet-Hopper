@@ -2,18 +2,24 @@ import React, { useState } from 'react';
 import LoginModal from './features/auth/pages/LoginModal';
 import './App.css';
 import HomePage from './features/listing/pages/Homepage';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage'
 import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
 import MapModal from './features/listing/pages/MapModal';
 import SearchResults from './features/listing/components/SearchResults';
 import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
+import { getUser } from './features/auth/state/authSlice';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const history = useHistory();
+  const dispatch = useDispatch()
   const [show, setShow] = useState(true)
   
   const handleClick = () => setShow(!show)
+
+  dispatch(getUser())
 
   // one button with a button group inside of it that are all disabled buttons but there for esthetics, needs to be hoverable
   // when clicked, it shows another button group with each being clickable. When clicked, they will show a popover with the input

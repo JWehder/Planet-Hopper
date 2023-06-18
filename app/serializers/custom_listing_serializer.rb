@@ -1,5 +1,5 @@
 class CustomListingSerializer < ActiveModel::Serializer
-  attributes :name, :city, :state_province, :country, :planet, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :stringified_booked_dates, :distance_from_user, :bedrooms, :bathrooms, :beds
+  attributes :id, :name, :city, :state_province, :country, :planet, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :photos, :longitude, :latitude, :stringified_booked_dates, :distance_from_user, :bedrooms, :bathrooms, :beds
   
   has_many :bookings
   has_many :booked_dates
@@ -10,7 +10,7 @@ class CustomListingSerializer < ActiveModel::Serializer
   end
 
   def distance_from_user
-    self.object.distance_between([instance_options[:latitude], instance_options[:longitude]])
+    self.object.distance_to([instance_options[:latitude], instance_options[:longitude]])
   end
 
   def planet

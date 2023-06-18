@@ -17,6 +17,7 @@ function HomePage() {
     const [guests, setGuests] = useState('');
 
     const homepageListings = useSelector((state) => state.listings.entities)
+    const status = useSelector((state) => state.listings.status)
 
     const handleChange = (event) => {
       setGuests(event.target.value);
@@ -61,9 +62,9 @@ function HomePage() {
                 )
     });
 
-    if (!isLoaded) return <div>    
-        <Spinner animation="border" role="status" />
-  </div>
+    if (status === "loading") return <div>    
+    <Spinner animation="border" role="status" />
+    </div>
 
     return (
             <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>

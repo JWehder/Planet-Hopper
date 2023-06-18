@@ -16,7 +16,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useDispatch } from "react-redux";
 import axios from 'axios';
-import { setListings, setErrors } from "../state/listingsSlice";
+import { setListings, setErrors, setStatusToLoading, setStatusToFulfilled } from "../state/listingsSlice";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function SearchBarButtonGroup() {
@@ -87,14 +87,15 @@ function SearchBarButtonGroup() {
         }
 
         try {
-            history.push(`/search_results/${searchAddress.address}`)
+            dispatch(setStatusToLoading())
             const response = await axios.post("/listings/search", searchEntry)
+            dispatch(setStatusToFulfilled())
             if (response.statusText !== "OK") {
                 dispatch(setErrors(response.data))
                 return
             }
             dispatch(setListings(response.data))
-            
+            history.push(`/search_results/${searchAddress.address}`)
         } catch (error) {
             console.error("error occurred", error);
         }
