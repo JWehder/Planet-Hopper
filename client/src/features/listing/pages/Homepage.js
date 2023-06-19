@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import dayjs from "dayjs";
 import ListingCard from "../components/ListingCard";
 import { fetchListings } from "../state/listingsSlice";
 import Spinner from "react-bootstrap/Spinner"
-import DateRangePickerValue from "../components/DateRangePicker";
 import styled from "styled-components";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 
 function HomePage() {
     const dispatch = useDispatch();

@@ -24,9 +24,10 @@ const post = async(url, obj, thunkAPI) => {
 }
 
 const get = url => {
+    console.log(url)
     return fetch(`${url}`)
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => (data))
 }
 
 const displayErrors = (errors, errorKey = null) => {

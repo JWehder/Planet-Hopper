@@ -11,6 +11,12 @@ export const searchForListings = createAsyncThunk("listings/searchForListings",
     return fetchWrapper.post("/listings/search", locationEntry, thunkAPI)
 });
 
+export const getListing = createAsyncThunk("listings/getListing", (id) => {
+    return fetch(`/listings/${id}`)
+    .then((response) => response.json())
+    .then((data) =>  data);
+})
+
 const initialState = {
     entities: [],
     listingError: null,
@@ -28,9 +34,6 @@ const listingsSlice = createSlice({
         },
         setErrors(state, action) {
             state.listingError = action.payload
-        },
-        setCurrentListing(state, action) {
-            state.currentListing = action.payload
         },
         setStatusToLoading(state) {
             state.status = "loading"
@@ -54,23 +57,23 @@ const listingsSlice = createSlice({
             console.log(action.payload)
             state.listingError = action.payload
         },
-        
-        // [searchForListings.pending]: (state) => {
-        //     state.status = "loading";
-        // },
-        // [searchForListings.fulfilled]: (state, action) => {
-        //     console.log(action.payload)
-        //     state.entities = action.payload
-        //     state.status = "idle";
-        // },
-        // [searchForListings.rejected]: (state, action) => {
-        //     console.log("rejected!")
-        //     console.log(action.payload)
-        //     state.listingError = action.payload
-        // },
+        [getListing.pending]: (state) => {
+            state.status = "loading";
+        },
+        [getListing.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.currentListing = action.payload
+            console.log(state.currentListing)
+            state.status = "idle";
+        },
+        [getListing.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.listingError = action.payload
+        },
     },
 });
 
-export const { setListings, setErrors, setCurrentListing, setStatusToFulfilled, setStatusToLoading } = listingsSlice.actions
+export const { setListings, setErrors, setStatusToFulfilled, setStatusToLoading } = listingsSlice.actions
 
 export default listingsSlice.reducer;

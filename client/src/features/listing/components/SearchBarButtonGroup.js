@@ -12,12 +12,11 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useDispatch } from "react-redux";
 import axios from 'axios';
 import { setListings, setErrors, setStatusToLoading, setStatusToFulfilled } from "../state/listingsSlice";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import GuestsInputBox from "./GuestsInputBox"
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
@@ -32,10 +31,9 @@ function SearchBarButtonGroup() {
     })
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs(dayjs().add(1, 'day')));
-    
     const [anchorEnd, setAnchorEnd] = useState(null);
     const [anchorStart, setAnchorStart] = useState(null)
-    const [anchorGuests, setAnchorGuests] = useState(null)
+    
     const [guests, setGuests] = useState(1)
 
     const handleSearchButtonClick = () =>  setClicked(!clicked)
@@ -51,13 +49,6 @@ function SearchBarButtonGroup() {
             setGuests(guests - 1)
         }
     }
-
-    const handleCloseGuests = () => {
-        setAnchorGuests(null)
-    }
-  
-    const openGuests = Boolean(anchorGuests);
-    const idGuests = openGuests ? 'simple-popover' : undefined;
 
     // calendar and date handlers
   
@@ -204,72 +195,16 @@ function SearchBarButtonGroup() {
                 </TextSection>
                 <VerticalLine />
                 <TextSection>
-                    <span style={{marginRight: "10px"}}>
-                        <SearchInputBox onClick={() => setAnchorGuests(true)}>
-                        Guests
-                        </SearchInputBox>
-                        <Popover
-                        id={idGuests}
-                        open={openGuests}
-                        anchorEl={anchorGuests}
-                        onClose={handleCloseGuests}
-                        anchorReference="anchorPosition"
-                        anchorPosition={{ top: 140, left: 770 }}
-                        anchorOrigin={{
-                          vertical: 'center',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                        >
-                            <div style={{
-                                height: "35px", 
-                                width: "130px", 
-                                borderRadius: "70%", 
-                                padding: "2px",
-                                textAlign: "center"
-                                }}>
-                                <span
-                                    onClick={handleDecreaseGuests} 
-                                    style={{
-                                        marginRight: "10px",
-                                        cursor: "pointer",
-                                        transition: "box-shadow 0.3s ease-in-out"
-                                    }}
-                                >
-                                    <RemoveCircleOutlineIcon />
-                                </span>
-                                <span 
-                                style={{
-                                    fontSize: "10.5px"
-                                }}
-                                >
-                                    Guests: {guests}
-                                </span>
-
-                                
-                                <span
-                                    onClick={() => setGuests(guests + 1)} 
-                                    style={{
-                                        marginLeft: "10px",
-                                        cursor: "pointer",
-                                        transition: "box-shadow 0.3s ease-in-out"
-                                    }}
-                                >
-                                    <ControlPointIcon />
-                                    
-                                </span>                                
-                            </div>
-                        </Popover>
-                    </span>
+                    <GuestsInputBox 
+                    handleDecreaseGuests={handleDecreaseGuests} 
+                    setGuests={setGuests}
+                    guests={guests}
+                    />
                     <span>
                     <Fab type="submit" size="small" color="secondary" aria-label="edit">
                         <TravelExploreIcon />
                     </Fab>
                     </span>
-                    
                 </TextSection>
             </SearchContainer>
             </form>
@@ -316,7 +251,7 @@ const SearchButton = styled.button`
     }
 `;
 
-const SearchInputBox = styled.span`
+export const SearchInputBox = styled.span`
     display: flex;
     align-items: center;
     height: 20px;
