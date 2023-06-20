@@ -13,7 +13,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
-
+import Button from '@mui/material/Button';
+import { DateRange } from "react-date-range";
 
 function ListingPage() {
     const params = useParams()
@@ -21,8 +22,26 @@ function ListingPage() {
 
     const [checkinDate, setCheckinDate] = useState(dayjs())
     const [checkoutDate, setCheckoutDate] = useState(dayjs(dayjs().add(1, 'day')))
-
+    const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
+
+    const listing = useSelector((state) => state.listings.currentListing)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(dayjs(checkinDate).format("YYYY-MM-DD"), dayjs(checkoutDate).format("YYYY-MM-DD"))
+        console.log(guests)
+
+    }
+
+    const calculateNights = (checkin, checkout) => {
+        const checkinDateParse = Date.new(checkin)
+        const checkoutDateParse = Date.new(checkout)
+
+        const differenceInTime = checkinDateParse.getTime() - checkoutDateParse.getTime()
+
+        return differenceInTime / (1000 * 3600 * 24)
+    }
 
     const handleDecreaseGuests = () => {
         if (guests === 1) {
@@ -37,8 +56,6 @@ function ListingPage() {
         dispatch(getListing(params.value))
     }, [])
 
-    const listing = useSelector((state) => state.listings.currentListing)
-
     function srcset(image, size, rows = 1, cols = 1) {
         return {
           src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
@@ -49,6 +66,7 @@ function ListingPage() {
     }
 
     console.log(listing)
+    console.log(checkoutDate.diff(checkinDate, 'day'))
 
     if (!listing) return <div>    
     <Spinner animation="border" role="status" />
@@ -58,7 +76,8 @@ function ListingPage() {
         <div style={{
             width: "1000px",
             padding: "40px"
-        }}>
+        }}
+        >
             <div style={{ textAlign: "left" }}>
                 <h2>{listing.name}</h2>
                 <p><Link>{listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country}</Link></p>
@@ -100,7 +119,7 @@ function ListingPage() {
                         textAlign: "left",
                     }}
                     >
-                        <h4>Hosted by {listing.listing_owner}</h4>
+                        <h4>{listing.type_of_accomodation ? `${listing.type_of_accomodation} h` : "H"}osted by {listing.listing_owner}</h4>
                         <span>{listing.beds} beds - </span>
                         <span>{listing.bedrooms} bedrooms - </span>
                         <span>{listing.bathrooms} bathrooms</span>
@@ -109,26 +128,61 @@ function ListingPage() {
                     </div>
                 </ListingInfoContainer>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <form onSubmit={handleSubmit}>
                 <BookingContainer>
+                    <h4 style={{marginBottom:"0px"}}>Book Now</h4>
+                    <hr />
+                    <div style={{
+                        display: "flex",
+                        marginTop: "5px"
+                    }}>
                     <DatePicker
                     label="Check in"
                     value={checkinDate}
-                    onChange={(newValue) => setCheckinDate(newValue)}
+                    onChange={(newValue) => {
+                        setCheckinDate(newValue)
+                        setNights(calculateNights(newValue, checkoutDate))
+                    }}
+                    showDaysOutsideCurrentMonth
                     disablePast
                     />
                     <DatePicker
                     label="Check out"
                     value={checkoutDate}
-                    onChange={(newValue) => setCheckoutDate(newValue)}
+                    minDate={checkinDate + 1}
+                    onChange={(newValue) => {
+                        setCheckoutDate(newValue)
+                        setNights(calculateNights(checkinDate, newValue))
+                    }}
+                    showDaysOutsideCurrentMonth
                     disablePast
                     />
-                    <br />
+                    </div>
+                    <div style={{
+                          marginTop: "5px"
+                    }}
+                    >
                     <GuestsInputBox                     
                     handleDecreaseGuests={handleDecreaseGuests} 
                     setGuests={setGuests}
                     guests={guests}
                     />
+                    </div>
+                    <div style={{textAlign: "left"}}>
+                    {nights === 0 ? "" : `
+                    ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
+                    </div>
+                    <hr />
+                    <Button 
+                    color="secondary" 
+                    variant="outlined"
+                    type="submit"
+                    >
+                    Book
+                    </Button>
+
                 </BookingContainer>
+                </form>
                 </LocalizationProvider>
                     {/* <div style={{flex: 1}}>
                         <h4>Where you are staying</h4>
@@ -152,11 +206,10 @@ const ListingInfoContainer = styled.div`
 `
 
 const BookingContainer = styled.div`
-    width: 400px;
-    height: 275px;
+    width: 350px;
+    height: 325px;
     margin-left: 20px;
     background-color: #E5E4E4;
-    display: flex;
     border-radius: 20px;
     padding: 20px;
 `

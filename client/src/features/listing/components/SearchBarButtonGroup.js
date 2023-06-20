@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import Fab from '@mui/material/Fab';
@@ -21,6 +21,9 @@ import GuestsInputBox from "./GuestsInputBox"
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const startDateInputRef = useRef(null)
+    const endDateInputRef = useRef(null)
 
     const [clicked, setClicked] = useState(false)
     const [destinationClicked, setDestinationClicked] = useState(true)
@@ -64,6 +67,12 @@ function SearchBarButtonGroup() {
     const openStart = Boolean(anchorStart);
     const idStart = openStart ? 'simple-popover' : undefined;
     const idEnd = openEnd ? 'simple-popover' : undefined;
+
+    const startDateInputRect = startDateInputRef.current?.getBoundingClientRect();
+    const startDateAnchorPosition = startDateInputRect ? { top: startDateInputRect.bottom + 12, left: startDateInputRect.right - 55 } : undefined
+
+    const endDateInputRect = endDateInputRef.current?.getBoundingClientRect();
+    const endDateAnchorPosition = endDateInputRect ? { top: endDateInputRect.bottom + 12, left: endDateInputRect.right - 55 } : undefined
 
 
     async function handleSubmit(e) {
@@ -125,6 +134,7 @@ function SearchBarButtonGroup() {
                         marginRight: "5px", 
                         textAlign: "center"
                     }}
+                    ref={startDateInputRef}
                     >
                         Check in 
                         <br />
@@ -137,7 +147,7 @@ function SearchBarButtonGroup() {
                         anchorEl={anchorStart}
                         onClose={handleCloseStart}
                         anchorReference="anchorPosition"
-                        anchorPosition={{ top: 150, left: 500 }}
+                        anchorPosition={startDateAnchorPosition}
                         anchorOrigin={{
                           vertical: 'center',
                           horizontal: 'center',
@@ -162,6 +172,7 @@ function SearchBarButtonGroup() {
                         width: "120px",
                         textAlign: "center"
                     }}
+                    ref={endDateInputRef}
                     >
                         Check out 
                         <br />
@@ -173,7 +184,7 @@ function SearchBarButtonGroup() {
                         anchorEl={anchorEnd}
                         onClose={handleCloseEnd}
                         anchorReference="anchorPosition"
-                        anchorPosition={{ top: 150, left: 625 }}
+                        anchorPosition={endDateAnchorPosition}
                         anchorOrigin={{
                           vertical: 'center',
                           horizontal: 'center',
@@ -256,8 +267,7 @@ export const SearchInputBox = styled.span`
     align-items: center;
     height: 20px;
     padding: 20px;
-    background-color: white;
-    border: 3px;
+    background-color: transparent;
     border-radius: 100px;
     font-size: 12px;
     cursor: pointer;

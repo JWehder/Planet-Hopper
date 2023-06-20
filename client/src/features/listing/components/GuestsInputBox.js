@@ -4,7 +4,7 @@ import Popover from '@mui/material/Popover';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-function GuestsInputBox({ handleDecreaseGuests, setGuests, guests }) {
+function GuestsInputBox({ handleDecreaseGuests, setGuests, guests, border }) {
     const searchInputBoxRef = useRef(null)
 
     const [anchorGuests, setAnchorGuests] = useState(null)
@@ -23,6 +23,9 @@ function GuestsInputBox({ handleDecreaseGuests, setGuests, guests }) {
             <SearchInputBox 
             onClick={() => setAnchorGuests(true)}
             ref={searchInputBoxRef}
+            style={{
+                border: {border}
+            }}
             >
             Guests
             </SearchInputBox>
