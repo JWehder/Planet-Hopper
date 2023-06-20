@@ -76,6 +76,22 @@ const listingsSlice = createSlice({
             console.log(action.payload)
             state.listingError = action.payload
         },
+        [searchForListings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [searchForListings.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.currentListing = action.payload
+            state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => new Date(booked_date.date))
+            console.log(state.currentListing)
+            state.status = "idle";
+        },
+        [searchForListings.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.listingError = action.payload
+        },
+        
     },
 });
 

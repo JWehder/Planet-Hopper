@@ -7,16 +7,9 @@ import styled from "styled-components";
 import FormControl from '@mui/material/FormControl';
 
 function HomePage() {
-    const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [guests, setGuests] = useState('');
 
     const homepageListings = useSelector((state) => state.listings.entities)
     const status = useSelector((state) => state.listings.status)
-
-    const handleChange = (event) => {
-      setGuests(event.target.value);
-    };
 
     const listingCards = homepageListings.map((listing) => {
           return (
