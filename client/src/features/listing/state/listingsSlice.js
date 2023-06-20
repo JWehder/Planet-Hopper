@@ -22,6 +22,7 @@ const initialState = {
     listingError: null,
     status: "idle",
     currentListing: null,
+    usersCoordinates: null
 }
  
 const listingsSlice = createSlice({
@@ -40,6 +41,9 @@ const listingsSlice = createSlice({
         },
         setStatusToFulfilled(state) {
             state.status = "fulfilled"
+        },
+        setUsersCoordinates(state, action) {
+            state.usersCoordinates = action.payload
         }
     },
     // async reducers
@@ -63,7 +67,7 @@ const listingsSlice = createSlice({
         [getListing.fulfilled]: (state, action) => {
             console.log(action.payload)
             state.currentListing = action.payload
-            state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => booked_date.date)
+            state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => new Date(booked_date.date))
             console.log(state.currentListing)
             state.status = "idle";
         },

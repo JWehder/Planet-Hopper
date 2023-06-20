@@ -4,7 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Map from "../components/Map";
-import axios from "axios";
 import { getListing } from "../state/listingsSlice"; 
 import Spinner from "react-bootstrap/Spinner";
 import styled from "styled-components"
@@ -15,13 +14,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import { DateRange } from "react-date-range";
+import isSameDay from 'date-fns/isSameDay'
 
 function ListingPage() {
     const params = useParams()
     const dispatch = useDispatch()
 
     const [checkinDate, setCheckinDate] = useState(dayjs())
-    const [checkoutDate, setCheckoutDate] = useState(dayjs(dayjs().add(1, 'day')))
+    const [checkoutDate, setCheckoutDate] = useState(dayjs(checkinDate).add(1, 'day'))
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
 
@@ -31,16 +31,24 @@ function ListingPage() {
         e.preventDefault()
         console.log(dayjs(checkinDate).format("YYYY-MM-DD"), dayjs(checkoutDate).format("YYYY-MM-DD"))
         console.log(guests)
-
     }
 
-    const calculateNights = (checkin, checkout) => {
-        const checkinDateParse = Date.new(checkin)
-        const checkoutDateParse = Date.new(checkout)
+    const shouldDisableDate = (date) => {
+        const currentDate = new Date(date)
+        return listing.booked_dates.some((booked_date) =>
+          isSameDay(booked_date, currentDate)
+        );
+    };
 
-        const differenceInTime = checkinDateParse.getTime() - checkoutDateParse.getTime()
+    const calculateNights = (checkin, checkout) => {
+
+        const checkinDateParse = new Date(dayjs(checkin).format("YYYY-MM-DD"))
+        const checkoutDateParse = new Date(dayjs(checkout).format("YYYY-MM-DD"))
+
+        const differenceInTime = checkoutDateParse.getTime() - checkinDateParse.getTime()
 
         return differenceInTime / (1000 * 3600 * 24)
+
     }
 
     const handleDecreaseGuests = () => {
@@ -66,7 +74,6 @@ function ListingPage() {
     }
 
     console.log(listing)
-    console.log(checkoutDate.diff(checkinDate, 'day'))
 
     if (!listing) return <div>    
     <Spinner animation="border" role="status" />
@@ -80,7 +87,12 @@ function ListingPage() {
         >
             <div style={{ textAlign: "left" }}>
                 <h2>{listing.name}</h2>
-                <p><Link>{listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country}</Link></p>
+                <p style={{
+                    fontSize: "13px"
+                }}
+                >
+                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country} - {Math.floor(listing.distance_from_user)}mi away
+                </p>
             </div>
             <div>
                 <ImageList
@@ -144,17 +156,19 @@ function ListingPage() {
                         setNights(calculateNights(newValue, checkoutDate))
                     }}
                     showDaysOutsideCurrentMonth
+                    shouldDisableDate={shouldDisableDate}
                     disablePast
                     />
                     <DatePicker
                     label="Check out"
                     value={checkoutDate}
-                    minDate={checkinDate + 1}
+                    minDate={dayjs(checkinDate).add(1, 'day')}
                     onChange={(newValue) => {
                         setCheckoutDate(newValue)
                         setNights(calculateNights(checkinDate, newValue))
                     }}
                     showDaysOutsideCurrentMonth
+                    shouldDisableDate={shouldDisableDate}
                     disablePast
                     />
                     </div>
@@ -166,6 +180,9 @@ function ListingPage() {
                     handleDecreaseGuests={handleDecreaseGuests} 
                     setGuests={setGuests}
                     guests={guests}
+                    style={{
+                        textAlign: "center"
+                    }}
                     />
                     </div>
                     <div style={{textAlign: "left"}}>
@@ -184,10 +201,10 @@ function ListingPage() {
                 </BookingContainer>
                 </form>
                 </LocalizationProvider>
-                    {/* <div style={{flex: 1}}>
-                        <h4>Where you are staying</h4>
-                        <Map zoom={10.5} center={{ lat: listing.latitude, lng: listing.longitude }} listings={listing} />
-                    </div> */}
+            </div>
+            <div>
+                    <h4>Where you are staying</h4>
+                    <Map zoom={10.5} center={{ lat: listing.latitude, lng: listing.longitude }} listings={listing} />
             </div>
 
         </div>
@@ -196,6 +213,7 @@ function ListingPage() {
 
 const ListingInfoContainer = styled.div`
     width: 650px;
+    height: 275px;
     background-color: #E5E4E4;
     display: flex;
     border-radius: 20px;
@@ -208,7 +226,7 @@ const ListingInfoContainer = styled.div`
 const BookingContainer = styled.div`
     width: 350px;
     height: 325px;
-    margin-left: 20px;
+    margin-left: 15px;
     background-color: #E5E4E4;
     border-radius: 20px;
     padding: 20px;

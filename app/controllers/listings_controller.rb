@@ -11,16 +11,22 @@ class ListingsController < ApplicationController
         if listing_params[:latitude] > 0 && listing_params[:longitude] > 0
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
         end
+        session[:latitude] = listing_params[:latitude]
+        session[:longitude] = listing_params[:longitude]
         homepage_listings = Listing.query_homepage_listings(listing_params[:latitude], listing_params[:longitude])
         render json: homepage_listings, status: :ok, methods: [:query_types_of_accomodations], latitude: listing_params[:latitude], longitude: listing_params[:longitude]
     end
 
     def search
         search_results = Listing.query_listing(listing_params[:latitude], listing_params[:longitude], listing_params[:start_date], listing_params[:end_date], listing_params[:guests])
-        if search_results.length > 0
-            render json: search_results, status: :ok
-        else 
-            render json: { error: "No results were found, please try again." }, status: :not_found
+        if listing_params[:start_date] > listing_params[:end_date]
+            render json: { error: "Start date must be before end date"}, status: :bad_request
+        else
+            if search_results.length > 0
+                render json: search_results, status: :ok
+            else 
+                render json: { error: "No results were found, please try again." }, status: :not_found
+            end
         end
     end
 
@@ -35,7 +41,7 @@ class ListingsController < ApplicationController
         # user = User.find(session[:user_id])
         # listing = find_listing(user)
         if listing
-            render json: listing, status: :ok, serializer: CustomListingSerializer
+            render json: listing, status: :ok, serializer: CustomListingSerializer, latitude: session[:latitude], longitude: session[:longitude]
         else
             render_unauthorized_user_response("listing")
         end

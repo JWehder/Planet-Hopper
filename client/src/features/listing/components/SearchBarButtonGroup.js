@@ -203,6 +203,7 @@ function SearchBarButtonGroup() {
                             />
                         </LocalizationProvider>
                     </Popover>
+                    {/* {dateError ? <p>{dateError}</p> : ""} */}
                 </TextSection>
                 <VerticalLine />
                 <TextSection>

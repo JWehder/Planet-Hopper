@@ -1,8 +1,6 @@
 class ListingSerializer < ActiveModel::Serializer
   attributes :id, :name, :city, :state_province, :country, :planet_name, :unit_price, :max_guests_allowed, :photos, :type_of_accomodation, :distance_from_user, :listing_owner, :latitude, :longitude
   
-  has_many :bookings
-
   def distance_from_user
     self.object.distance_to([instance_options[:latitude], instance_options[:longitude]])
   end

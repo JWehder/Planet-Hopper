@@ -18,39 +18,6 @@ function HomePage() {
       setGuests(event.target.value);
     };
 
-    useEffect(() => {
-        fetchCoordinates()
-      }, []);
-
-    const fetchCoordinates = async () => {
-        if (navigator.geolocation) {
-            try {
-                const coordinates = await usersCoordinates();
-                dispatch(fetchListings(coordinates))
-                setIsLoaded(true)
-            } catch (error) {
-                console.error("Error:", error)
-            }
-        } else {
-            dispatch(fetchListings({latitude: 0.0, longitude: 0.0}))
-            console.log("Geolocation is not supported by this browser")
-        }
-    }
-
-      const usersCoordinates = () => {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    resolve({ latitude, longitude });
-                },
-                (error) => {
-                    reject(error)
-                }
-            );
-        });
-      };
-
     const listingCards = homepageListings.map((listing) => {
           return (
                 <ListingCard listing={listing} />
