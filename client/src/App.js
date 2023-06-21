@@ -76,7 +76,7 @@ function App() {
       </Route>
       <Route exact path='/'>
           <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
-          <LoginModal show={show} setShow={setShow} />
+          {/* <LoginModal show={show} setShow={setShow} /> */}
           <HomePage />
       </Route>
       <Route exact path='/listings/:value'>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Map from "../components/Map";
@@ -13,7 +13,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
-import { DateRange } from "react-date-range";
 import isSameDay from 'date-fns/isSameDay'
 
 function ListingPage() {

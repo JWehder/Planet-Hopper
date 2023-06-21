@@ -6,11 +6,6 @@ export const fetchListings = createAsyncThunk("listings/fetchListings", (locatio
     return fetchWrapper.post("/listings/homepage_listings", locationObj, thunkAPI)
 });
 
-export const searchForListings = createAsyncThunk("listings/searchForListings",
-(locationEntry, thunkAPI) => {
-    return fetchWrapper.post("/listings/search", locationEntry, thunkAPI)
-});
-
 export const getListing = createAsyncThunk("listings/getListing", (id) => {
     return fetch(`/listings/${id}`)
     .then((response) => response.json())
@@ -34,6 +29,7 @@ const listingsSlice = createSlice({
             state.entities = action.payload
         },
         setErrors(state, action) {
+            console.log(action.payload)
             state.listingError = action.payload
         },
         setStatusToLoading(state) {
@@ -52,7 +48,6 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [fetchListings.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.entities = action.payload
             state.status = "idle";
         },
@@ -76,21 +71,7 @@ const listingsSlice = createSlice({
             console.log(action.payload)
             state.listingError = action.payload
         },
-        [searchForListings.pending]: (state) => {
-            state.status = "loading";
-        },
-        [searchForListings.fulfilled]: (state, action) => {
-            console.log(action.payload)
-            state.currentListing = action.payload
-            state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => new Date(booked_date.date))
-            console.log(state.currentListing)
-            state.status = "idle";
-        },
-        [searchForListings.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
-            state.listingError = action.payload
-        },
+
         
     },
 });

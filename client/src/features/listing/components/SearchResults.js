@@ -12,7 +12,7 @@ function SearchResults() {
 
     if (status === "loading") return <div>    
         <Spinner animation="border" role="status" />
-        </div>
+    </div>
 
     const listingCards = listings.map((listing) => { 
         return (

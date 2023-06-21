@@ -12,15 +12,22 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { setListings, setErrors, setStatusToLoading, setStatusToFulfilled } from "../state/listingsSlice";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import GuestsInputBox from "./GuestsInputBox"
+import isSameDay from 'date-fns/isSameDay'
+import Typography from '@mui/material/Typography';
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [dateError, setDateError] = useState(null)
+
+    
+
 
     const startDateInputRef = useRef(null)
     const endDateInputRef = useRef(null)
@@ -90,6 +97,7 @@ function SearchBarButtonGroup() {
             dispatch(setStatusToLoading())
             const response = await axios.post("/listings/search", searchEntry)
             dispatch(setStatusToFulfilled())
+            console.log(response)
             if (response.statusText !== "OK") {
                 dispatch(setErrors(response.data))
                 return
@@ -101,6 +109,21 @@ function SearchBarButtonGroup() {
         }
 
     }
+
+    const handleStartDateChange = (newValue) => {
+
+        const checkin = new Date(dayjs(newValue).format("YYYY-MM-DD"))
+        const checkout = new Date(dayjs(endDate).format("YYYY-MM-DD"))
+
+        if (checkout && (isSameDay(checkin, checkout) || checkin > checkout)) {
+            setDateError("Please enter a check in date before the end date")
+        } else {
+            setDateError(null)
+            setStartDate(dayjs(newValue))
+        }
+    }
+
+    console.log(dateError)
 
     return (
         <>
@@ -140,7 +163,24 @@ function SearchBarButtonGroup() {
                         <br />
                         {dayjs(startDate).format('YYYY-MM-DD')}
                     </SearchInputBox>
-
+                    <Popover
+                        id={idStart}
+                        open={openStart}
+                        anchorEl={anchorStart}
+                        onClose={handleCloseStart}
+                        anchorReference="anchorPosition"
+                        anchorPosition={startDateAnchorPosition}
+                        anchorOrigin={{
+                          vertical: 'center',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                    >
+                        <Typography sx={{ p: 2 }}></Typography>
+                    </Popover>
                     <Popover
                         id={idStart}
                         open={openStart}
@@ -160,7 +200,7 @@ function SearchBarButtonGroup() {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateCalendar
                              value={startDate}
-                             onChange={(newValue) => setStartDate(dayjs(newValue))}
+                             onChange={handleStartDateChange}
                              label="start date"
                              disablePast
                             />
@@ -203,7 +243,6 @@ function SearchBarButtonGroup() {
                             />
                         </LocalizationProvider>
                     </Popover>
-                    {/* {dateError ? <p>{dateError}</p> : ""} */}
                 </TextSection>
                 <VerticalLine />
                 <TextSection>
@@ -322,7 +361,6 @@ const TextSection = styled.span`
   text-align: center;
   justify-content: space-between;
   height: 100%;
-
 `;
 
 

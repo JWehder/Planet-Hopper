@@ -10,7 +10,6 @@ import { useHistory, withRouter } from "react-router-dom";
 function ListingCard({ listing }, props) {
     const history = useHistory()
     const dispatch = useDispatch()
-    console.log(listing)
 
     async function handleClick() {
         // try {
