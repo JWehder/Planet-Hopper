@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import GuestsInputBox from "./GuestsInputBox"
 import isSameDay from 'date-fns/isSameDay'
 import Typography from '@mui/material/Typography';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
@@ -26,11 +27,8 @@ function SearchBarButtonGroup() {
 
     const [dateError, setDateError] = useState(null)
 
-    
-
-
-    const startDateInputRef = useRef(null)
-    const endDateInputRef = useRef(null)
+    const startDateCalendarInputRef = useRef(null)
+    const endDateCalendarInputRef = useRef(null)
 
     const [clicked, setClicked] = useState(false)
     const [destinationClicked, setDestinationClicked] = useState(true)
@@ -75,11 +73,13 @@ function SearchBarButtonGroup() {
     const idStart = openStart ? 'simple-popover' : undefined;
     const idEnd = openEnd ? 'simple-popover' : undefined;
 
-    const startDateInputRect = startDateInputRef.current?.getBoundingClientRect();
+    const startDateInputRect = startDateCalendarInputRef.current?.getBoundingClientRect();
     const startDateAnchorPosition = startDateInputRect ? { top: startDateInputRect.bottom + 12, left: startDateInputRect.right - 55 } : undefined
 
-    const endDateInputRect = endDateInputRef.current?.getBoundingClientRect();
+    const endDateInputRect = endDateCalendarInputRef.current?.getBoundingClientRect();
     const endDateAnchorPosition = endDateInputRect ? { top: endDateInputRect.bottom + 12, left: endDateInputRect.right - 55 } : undefined
+
+    const dateErrorAnchorPosition = startDateInputRect ? { top: startDateInputRect.top + 12, left: startDateInputRect.right - 55 } : undefined
 
 
     async function handleSubmit(e) {
@@ -123,8 +123,6 @@ function SearchBarButtonGroup() {
         }
     }
 
-    console.log(dateError)
-
     return (
         <>
             { clicked ? 
@@ -157,19 +155,19 @@ function SearchBarButtonGroup() {
                         marginRight: "5px", 
                         textAlign: "center"
                     }}
-                    ref={startDateInputRef}
+                    ref={startDateCalendarInputRef}
                     >
                         Check in 
                         <br />
                         {dayjs(startDate).format('YYYY-MM-DD')}
                     </SearchInputBox>
                     <Popover
-                        id={idStart}
-                        open={openStart}
-                        anchorEl={anchorStart}
-                        onClose={handleCloseStart}
+                        id={dateError ? 'simple-popover' : undefined}
+                        open={Boolean(dateError)}
+                        anchorEl={startDateCalendarInputRef}
+                        onClose={() => setDateError(null)}
                         anchorReference="anchorPosition"
-                        anchorPosition={startDateAnchorPosition}
+                        anchorPosition={dateErrorAnchorPosition}
                         anchorOrigin={{
                           vertical: 'center',
                           horizontal: 'center',
@@ -179,7 +177,9 @@ function SearchBarButtonGroup() {
                           horizontal: 'center',
                         }}
                     >
-                        <Typography sx={{ p: 2 }}></Typography>
+                        <Typography sx={{ p: 2 }}>
+                            <ErrorOutlineIcon style={{color: "red"}}/>  {dateError}
+                        </Typography>
                     </Popover>
                     <Popover
                         id={idStart}
@@ -212,7 +212,7 @@ function SearchBarButtonGroup() {
                         width: "120px",
                         textAlign: "center"
                     }}
-                    ref={endDateInputRef}
+                    ref={endDateCalendarInputRef}
                     >
                         Check out 
                         <br />

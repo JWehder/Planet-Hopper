@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
@@ -14,22 +14,44 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import isSameDay from 'date-fns/isSameDay'
+import Form from "react-bootstrap/Form"
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
 
 function ListingPage() {
     const params = useParams()
     const dispatch = useDispatch()
+    const checkinCalendarRef = useRef(null)
 
     const [checkinDate, setCheckinDate] = useState(dayjs())
     const [checkoutDate, setCheckoutDate] = useState(dayjs(checkinDate).add(1, 'day'))
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
+    const [dateError, setDateError] = useState(null)
 
     const listing = useSelector((state) => state.listings.currentListing)
 
+    const convertToDate = (d1, d2) => {
+
+        return {
+            date1: new Date(dayjs(d1).format("YYYY-MM-DD")),
+            date2: new Date(dayjs(d2).format("YYYY-MM-DD"))
+        }
+    }
+
+    const checkDatesValidity = (d1, d2) => {
+        const datesObj = convertToDate(d1, d2)
+        return Boolean(datesObj.date2 && (isSameDay(datesObj.date1, datesObj.date2) || datesObj.date1 > datesObj.date2))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(dayjs(checkinDate).format("YYYY-MM-DD"), dayjs(checkoutDate).format("YYYY-MM-DD"))
-        console.log(guests)
+
+        if (checkDatesValidity(checkinDate, checkoutDate)) {
+            return
+        }
+
+        
     }
 
     const shouldDisableDate = (date) => {
@@ -41,13 +63,24 @@ function ListingPage() {
 
     const calculateNights = (checkin, checkout) => {
 
-        const checkinDateParse = new Date(dayjs(checkin).format("YYYY-MM-DD"))
-        const checkoutDateParse = new Date(dayjs(checkout).format("YYYY-MM-DD"))
+        const dateObj = convertToDate(checkin, checkout)
 
-        const differenceInTime = checkoutDateParse.getTime() - checkinDateParse.getTime()
+        const differenceInTime = dateObj.date2.getTime() - dateObj.date1.getTime()
 
         return differenceInTime / (1000 * 3600 * 24)
+    }
 
+    const handleCheckinDateChange = (newValue) => {
+
+        if (checkDatesValidity(newValue, checkoutDate)) {
+            console.log("worked!")
+            setDateError("Please enter a check in date that comes before the check out date")
+        } else {
+            setDateError(null)
+        }
+
+            setCheckinDate(dayjs(newValue))
+            setNights(calculateNights(newValue, checkoutDate))
     }
 
     const handleDecreaseGuests = () => {
@@ -150,12 +183,10 @@ function ListingPage() {
                     <DatePicker
                     label="Check in"
                     value={checkinDate}
-                    onChange={(newValue) => {
-                        setCheckinDate(newValue)
-                        setNights(calculateNights(newValue, checkoutDate))
-                    }}
+                    onChange={handleCheckinDateChange}
                     showDaysOutsideCurrentMonth
                     shouldDisableDate={shouldDisableDate}
+                    ref={checkinCalendarRef}
                     disablePast
                     />
                     <DatePicker
@@ -185,9 +216,11 @@ function ListingPage() {
                     />
                     </div>
                     <div style={{textAlign: "left"}}>
-                    {nights === 0 ? "" : `
+                    {nights <= 0 ? "" : `
                     ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
                     </div>
+                    {dateError && <span style={{fontSize: "12px", color: "red"}}><ErrorOutlineIcon style={{color: ""}}/> {dateError}
+                    </span>}
                     <hr />
                     <Button 
                     color="secondary" 
@@ -224,7 +257,7 @@ const ListingInfoContainer = styled.div`
 
 const BookingContainer = styled.div`
     width: 350px;
-    height: 325px;
+    height: 340px;
     margin-left: 15px;
     background-color: #E5E4E4;
     border-radius: 20px;
