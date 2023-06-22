@@ -26,16 +26,14 @@ function Map({ center, listings, zoom }) {
     }, [])
 
     const markers = () => {
-        if (Array.isArray(listings) && listings.length >= 1) {
+        if (Array.isArray(listings) && listings.length > 1) {
             console.log("array")
             return listings.map((listing) => 
             <Marker key={listing.name} position={{ lat: listing.latitude, lng: listing.longitude }} />
             )
-        } else if ((Object.prototype.toString.call()) === "[object Object]") {
+        } else {
             console.log("object")
             return <Marker key={listings.name} position={{ lat: listings.latitude, lng: listings.longitude }} />
-        } else {
-            return ""
         }
 
     }

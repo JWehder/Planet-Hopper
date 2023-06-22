@@ -23,9 +23,6 @@ function GuestsInputBox({ handleDecreaseGuests, setGuests, guests, border }) {
             <SearchInputBox 
             onClick={() => setAnchorGuests(true)}
             ref={searchInputBoxRef}
-            style={{
-                border: {border}
-            }}
             >
             Guests
             </SearchInputBox>

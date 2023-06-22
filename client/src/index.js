@@ -7,8 +7,6 @@ import { Provider } from "react-redux"
 import store from "./store"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

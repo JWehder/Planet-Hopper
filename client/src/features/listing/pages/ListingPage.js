@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
@@ -14,14 +14,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import isSameDay from 'date-fns/isSameDay'
-import Form from "react-bootstrap/Form"
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { createBooking } from "../state/listingsSlice";
 
 
 function ListingPage() {
     const params = useParams()
     const dispatch = useDispatch()
-    const checkinCalendarRef = useRef(null)
 
     const [checkinDate, setCheckinDate] = useState(dayjs())
     const [checkoutDate, setCheckoutDate] = useState(dayjs(checkinDate).add(1, 'day'))
@@ -30,6 +28,7 @@ function ListingPage() {
     const [dateError, setDateError] = useState(null)
 
     const listing = useSelector((state) => state.listings.currentListing)
+    const userId = useSelector((state) => state.auth.user.id)
 
     const convertToDate = (d1, d2) => {
 
@@ -51,7 +50,15 @@ function ListingPage() {
             return
         }
 
-        
+        const bookingObj = {
+            startDate: checkinDate,
+            endDate: checkoutDate,
+            listing_id: listing.id,
+            user_id: userId,
+            number_of_guests: guests
+        }
+
+        dispatch(createBooking(bookingObj))
     }
 
     const shouldDisableDate = (date) => {
@@ -79,8 +86,8 @@ function ListingPage() {
             setDateError(null)
         }
 
-            setCheckinDate(dayjs(newValue))
-            setNights(calculateNights(newValue, checkoutDate))
+        setCheckinDate(dayjs(newValue))
+        setNights(calculateNights(newValue, checkoutDate))
     }
 
     const handleDecreaseGuests = () => {
@@ -186,7 +193,6 @@ function ListingPage() {
                     onChange={handleCheckinDateChange}
                     showDaysOutsideCurrentMonth
                     shouldDisableDate={shouldDisableDate}
-                    ref={checkinCalendarRef}
                     disablePast
                     />
                     <DatePicker
@@ -210,17 +216,17 @@ function ListingPage() {
                     handleDecreaseGuests={handleDecreaseGuests} 
                     setGuests={setGuests}
                     guests={guests}
-                    style={{
-                        textAlign: "center"
-                    }}
                     />
                     </div>
                     <div style={{textAlign: "left"}}>
                     {nights <= 0 ? "" : `
                     ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
                     </div>
-                    {dateError && <span style={{fontSize: "12px", color: "red"}}><ErrorOutlineIcon style={{color: ""}}/> {dateError}
-                    </span>}
+                    {dateError && 
+                    <ErrorMessage>
+                    {dateError}
+                    </ErrorMessage>
+                    }
                     <hr />
                     <Button 
                     color="secondary" 
@@ -234,14 +240,31 @@ function ListingPage() {
                 </form>
                 </LocalizationProvider>
             </div>
-            <div>
-                    <h4>Where you are staying</h4>
-                    <Map zoom={10.5} center={{ lat: listing.latitude, lng: listing.longitude }} listings={listing} />
+
+            <h4>Where you are staying</h4>
+            <div style={{
+            alignItems: "center",
+            display: "flex"
+            }}>
+                <Map 
+                zoom={10.5} 
+                center={{ lat: listing.latitude, lng: listing.longitude }} 
+                listings={listing}
+                style={{
+                    width: '1000'
+                }}
+                /> 
             </div>
 
         </div>
     )
 }
+
+const ErrorMessage = styled.p`
+    color: rgb(200, 0, 55);
+    font-size: 13px;
+    margin-bottom: 4px;
+`
 
 const ListingInfoContainer = styled.div`
     width: 650px;
@@ -257,11 +280,10 @@ const ListingInfoContainer = styled.div`
 
 const BookingContainer = styled.div`
     width: 350px;
-    height: 340px;
     margin-left: 15px;
     background-color: #E5E4E4;
     border-radius: 20px;
     padding: 20px;
 `
 
-export default ListingPage;
+export default ListingPage
