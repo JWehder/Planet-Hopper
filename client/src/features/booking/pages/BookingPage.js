@@ -1,9 +1,11 @@
 import React from "react";
-import { Container, BookingContainer, ListingInfoContainer } from "../../listing/pages/ListingPage"
+import { Container, BookingContainer } from "../../listing/pages/ListingPage"
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import dayjs from "dayjs";
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ListItem ({ item, action }) {
     return (
@@ -26,8 +28,10 @@ function ListItem ({ item, action }) {
 
 
 function BookingPage() {
+    const history = useHistory()
 
     const currentListing = useSelector((state) => state.listings.currentListing)
+    const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
 
     const unitTotal = () => {
@@ -38,16 +42,47 @@ function BookingPage() {
         return currentListing.unit_price * 0.05
     }
 
+    const goBack = () => {
+        history.goBack();
+    }
+
     const startDate = dayjs(booking.startDate).format("YYYY-MM-DD")
     const endDate = dayjs(booking.endDate).format("YYYY-MM-DD")
 
     return (
-        <div style={{marginLeft: "40px", marginRight: "40px"}}>
-            <Container>
-                <ListingInfoContainer>
-                    <ListItem item={`Dates: ${startDate} - ${endDate}`} action={<Button variant="text">Text</Button>} />
+        <div style={{marginLeft: "40px", marginRight: "40px", marginBottom:"40px"}}>
+            <div style={{marginBottom: "20px", display: "flex"}}>
+                <BackButton onClick={goBack}>
+                    <ArrowLeftIcon />
+                </BackButton>
+                <div style={{textAlign: "center", width: "95%"}}>
+                    <h2 style={{textAlign: "center"}}>Confirm your Booking</h2>
+                </div>
 
-                </ListingInfoContainer>
+            </div>
+            <Container>
+                <LeftContainer>
+                    <BookingInfoContainer>
+                        <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button variant="text" onClick={() => setShowChangeDateModal}>Edit</Button>} />
+                        <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button variant="text">Edit</Button>} />
+                    </BookingInfoContainer>
+                    <BookingInfoContainer style={{marginTop: "15px", height: "160px"}}>
+                        <div>
+                            { user ?
+                            <div>
+                                Hey {user.first_name}, all booking info will be sent to {user.email}. 
+                                <hr/>
+                                <Button variant="contained" color="primary">
+                                Confirm Booking
+                                </Button>
+                            </div>
+                            :
+                            ""
+                            }
+
+                        </div>
+                    </BookingInfoContainer>
+                </LeftContainer>
                 <BookingContainer>
                     <div style={{display:"flex", fontSize: "12px", justifyContent: "center"}}>
                         <img style={{width: "50px", height:"40px", marginRight: "10px"}} src={currentListing.photos[0]} alt={currentListing.name} />
@@ -73,6 +108,28 @@ function BookingPage() {
 
 const Text = styled.p`
     font-size: 12px;
+`
+
+const BookingInfoContainer = styled.div`
+    width: 500px;
+    height: 125px;
+    background-color: #E5E4E4;
+    border-radius: 20px;
+    padding: 20px;
+`
+
+const LeftContainer = styled.div`
+  flex: 1;
+`
+
+const BackButton = styled.div`
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
 `
 
 export default BookingPage
