@@ -291,7 +291,8 @@ export const BookingContainer = styled.div`
 
 export const Container = styled.div`
     display: flex;
-    width: 900px;
+    width: 1000px;
+    margin: 20px;
 `
 
 const TitleContainer = styled.div`

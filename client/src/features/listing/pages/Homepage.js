@@ -19,7 +19,7 @@ function HomePage() {
     </div>
 
     return (
-            <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+            <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
                 {listingCards}
             </div>
     )
