@@ -48,7 +48,7 @@ function Map({ center, listings, zoom }) {
         <GoogleMap
         mapContainerStyle={{
             width: '500px',
-            height: '500px',
+            height: '450px',
             borderRadius: '10px',
         }}
         center={memoCenter}

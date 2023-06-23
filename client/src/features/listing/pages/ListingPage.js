@@ -28,7 +28,7 @@ function ListingPage() {
     const [dateError, setDateError] = useState(null)
 
     const listing = useSelector((state) => state.listings.currentListing)
-    const userId = useSelector((state) => state.auth.user.id)
+    const user = useSelector((state) => state.auth.user)
 
     const convertToDate = (d1, d2) => {
 
@@ -54,7 +54,7 @@ function ListingPage() {
             startDate: checkinDate,
             endDate: checkoutDate,
             listing_id: listing.id,
-            user_id: userId,
+            user_id: user.id,
             number_of_guests: guests
         }
 
@@ -121,7 +121,7 @@ function ListingPage() {
     return (
         <div style={{
             width: "1000px",
-            padding: "40px"
+            padding: "30px"
         }}
         >
             <div style={{ textAlign: "left" }}>
@@ -135,7 +135,7 @@ function ListingPage() {
             </div>
             <div>
                 <ImageList
-                    sx={{ width: 900, height: 320 }}
+                    sx={{ width: 1025, height: 320 }}
                     variant="quilted"
                     cols={8}
                     rows={4}
@@ -162,99 +162,99 @@ function ListingPage() {
                     })}
                 </ImageList>
             </div>
-            <div style={{
-                display: "flex"
-            }}>
-                <ListingInfoContainer>
-                    <div style={{
-                        textAlign: "left",
-                    }}
-                    >
-                        <h4>{listing.type_of_accomodation ? `${listing.type_of_accomodation} h` : "H"}osted by {listing.listing_owner}</h4>
-                        <span>{listing.beds} beds - </span>
-                        <span>{listing.bedrooms} bedrooms - </span>
-                        <span>{listing.bathrooms} bathrooms</span>
-                        <p>${listing.unit_price} per night</p>
-                        <p>{listing.description}</p>
-                    </div>
-                </ListingInfoContainer>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <form onSubmit={handleSubmit}>
-                <BookingContainer>
-                    <h4 style={{marginBottom:"0px"}}>Book Now</h4>
+            <Container>
+                <LeftContainer>
+                    <ListingInfoContainer>
+                        <div style={{
+                            textAlign: "left",
+                        }}
+                        >
+                            <h4>{listing.type_of_accomodation ? `${listing.type_of_accomodation} h` : "H"}osted by {listing.listing_owner}</h4>
+                            <span>{listing.beds} beds - </span>
+                            <span>{listing.bedrooms} bedrooms - </span>
+                            <span>{listing.bathrooms} bathrooms</span>
+                            <p>${listing.unit_price} per night</p>
+                            <p>{listing.description}</p>
+                        </div>
+                    </ListingInfoContainer>
                     <hr />
                     <div style={{
-                        display: "flex",
-                        marginTop: "5px"
+                    alignItems: "center",
+                    justifyContent: "center",
+                    
                     }}>
-                    <DatePicker
-                    label="Check in"
-                    value={checkinDate}
-                    onChange={handleCheckinDateChange}
-                    showDaysOutsideCurrentMonth
-                    shouldDisableDate={shouldDisableDate}
-                    disablePast
-                    />
-                    <DatePicker
-                    label="Check out"
-                    value={checkoutDate}
-                    minDate={dayjs(checkinDate).add(1, 'day')}
-                    onChange={(newValue) => {
-                        setCheckoutDate(newValue)
-                        setNights(calculateNights(checkinDate, newValue))
-                    }}
-                    showDaysOutsideCurrentMonth
-                    shouldDisableDate={shouldDisableDate}
-                    disablePast
-                    />
+                        <h4>Where you are staying</h4>
+                        <Map 
+                        zoom={10.5} 
+                        center={{ lat: listing.latitude, lng: listing.longitude }} 
+                        listings={listing}
+                        style={{
+                            width: '1000'
+                        }}
+                        /> 
                     </div>
-                    <div style={{
-                          marginTop: "5px"
-                    }}
-                    >
-                    <GuestsInputBox                     
-                    handleDecreaseGuests={handleDecreaseGuests} 
-                    setGuests={setGuests}
-                    guests={guests}
-                    />
-                    </div>
-                    <div style={{textAlign: "left"}}>
-                    {nights <= 0 ? "" : `
-                    ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
-                    </div>
-                    {dateError && 
-                    <ErrorMessage>
-                    {dateError}
-                    </ErrorMessage>
-                    }
-                    <hr />
-                    <Button 
-                    color="secondary" 
-                    variant="outlined"
-                    type="submit"
-                    >
-                    Book
-                    </Button>
-
+                </LeftContainer>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <form onSubmit={handleSubmit}>
+                    <BookingContainer>
+                        <h4 style={{marginBottom:"0px"}}>Book Now</h4>
+                        <hr />
+                        <div style={{
+                            display: "flex",
+                            marginTop: "5px"
+                        }}>
+                        <DatePicker
+                        label="Check in"
+                        value={checkinDate}
+                        onChange={handleCheckinDateChange}
+                        showDaysOutsideCurrentMonth
+                        shouldDisableDate={shouldDisableDate}
+                        disablePast
+                        />
+                        <DatePicker
+                        label="Check out"
+                        value={checkoutDate}
+                        minDate={dayjs(checkinDate).add(1, 'day')}
+                        onChange={(newValue) => {
+                            setCheckoutDate(newValue)
+                            setNights(calculateNights(checkinDate, newValue))
+                        }}
+                        showDaysOutsideCurrentMonth
+                        shouldDisableDate={shouldDisableDate}
+                        disablePast
+                        />
+                        </div>
+                        <div style={{
+                            marginTop: "5px"
+                        }}
+                        >
+                        <GuestsInputBox                     
+                        handleDecreaseGuests={handleDecreaseGuests} 
+                        setGuests={setGuests}
+                        guests={guests}
+                        />
+                        </div>
+                        <div style={{textAlign: "left"}}>
+                        {nights <= 0 ? "" : `
+                        ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
+                        </div>
+                        {dateError && 
+                        <ErrorMessage>
+                        {dateError}
+                        </ErrorMessage>
+                        }
+                        <hr />
+                        <Button 
+                        color="secondary" 
+                        variant="outlined"
+                        type="submit"
+                        >
+                        Book
+                        </Button>
                 </BookingContainer>
                 </form>
                 </LocalizationProvider>
-            </div>
-
-            <h4>Where you are staying</h4>
-            <div style={{
-            alignItems: "center",
-            display: "flex"
-            }}>
-                <Map 
-                zoom={10.5} 
-                center={{ lat: listing.latitude, lng: listing.longitude }} 
-                listings={listing}
-                style={{
-                    width: '1000'
-                }}
-                /> 
-            </div>
+            </Container>
 
         </div>
     )
@@ -284,6 +284,20 @@ const BookingContainer = styled.div`
     background-color: #E5E4E4;
     border-radius: 20px;
     padding: 20px;
+    position: sticky;
+    top: 0;
+    flex: 1;
+    transform: translateY(-50%);
+`
+
+const Container = styled.div`
+    display: flex;
+    width: 900px;
+`
+
+const LeftContainer = styled.div`
+  margin-right: 15px;
+  flex: 1;
 `
 
 export default ListingPage
