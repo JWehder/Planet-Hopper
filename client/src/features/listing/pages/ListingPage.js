@@ -14,10 +14,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import isSameDay from 'date-fns/isSameDay'
-import { createBooking } from "../state/listingsSlice";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import { setCurrentBooking } from "../../booking/state/bookingsSlice";
 
 
-function ListingPage() {
+function ListingPage(props) {
     const params = useParams()
     const dispatch = useDispatch()
 
@@ -57,8 +58,8 @@ function ListingPage() {
             user_id: user.id,
             number_of_guests: guests
         }
-
-        dispatch(createBooking(bookingObj))
+        props.history.push(`/book/${listing.name}`)
+        dispatch(setCurrentBooking(bookingObj))
     }
 
     const shouldDisableDate = (date) => {
@@ -120,11 +121,11 @@ function ListingPage() {
 
     return (
         <div style={{
-            width: "1000px",
+            width: "900px",
             padding: "30px"
         }}
         >
-            <div style={{ textAlign: "left" }}>
+            <TitleContainer>
                 <h2>{listing.name}</h2>
                 <p style={{
                     fontSize: "13px"
@@ -132,7 +133,7 @@ function ListingPage() {
                 >
                      {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country} - {Math.floor(listing.distance_from_user)}mi away
                 </p>
-            </div>
+            </TitleContainer>
             <div>
                 <ImageList
                     sx={{ width: 1025, height: 320 }}
@@ -266,7 +267,7 @@ const ErrorMessage = styled.p`
     margin-bottom: 4px;
 `
 
-const ListingInfoContainer = styled.div`
+export const ListingInfoContainer = styled.div`
     width: 650px;
     height: 275px;
     background-color: #E5E4E4;
@@ -278,7 +279,7 @@ const ListingInfoContainer = styled.div`
     hyphens: auto;
 `
 
-const BookingContainer = styled.div`
+export const BookingContainer = styled.div`
     width: 350px;
     margin-left: 15px;
     background-color: #E5E4E4;
@@ -286,13 +287,18 @@ const BookingContainer = styled.div`
     padding: 20px;
     position: sticky;
     top: 0;
-    flex: 1;
-    transform: translateY(-50%);
 `
 
-const Container = styled.div`
+export const Container = styled.div`
     display: flex;
     width: 900px;
+`
+
+const TitleContainer = styled.div`
+    text-align: left; 
+    /* position: sticky; 
+    top: 0;
+    background-color: #FFFAFA; */
 `
 
 const LeftContainer = styled.div`
@@ -300,4 +306,4 @@ const LeftContainer = styled.div`
   flex: 1;
 `
 
-export default ListingPage
+export default withRouter(ListingPage)
