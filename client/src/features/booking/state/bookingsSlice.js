@@ -21,6 +21,7 @@ const bookingsSlice = createSlice({
     // sync reducers
     reducers: {
         setCurrentBooking(state, action) {
+            console.log(action.payload)
             state.currentBooking = action.payload
         }
 

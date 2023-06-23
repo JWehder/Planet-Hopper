@@ -7,6 +7,9 @@ class BookingsController < ApplicationController
         # find the number of days stayed minus checkout day
         booking.determine_price
         booking.book_dates
+        if booking.fees.nil?
+            booking.add_fees
+        end
         BookingsMailer.booked_listing_email(booking, booking.user).deliver_now
         render json: booking, status: :created
     end

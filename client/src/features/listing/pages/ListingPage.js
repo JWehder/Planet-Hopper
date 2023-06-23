@@ -56,7 +56,8 @@ function ListingPage(props) {
             endDate: checkoutDate,
             listing_id: listing.id,
             user_id: user.id,
-            number_of_guests: guests
+            number_of_guests: guests,
+            numberOfNights: nights
         }
         props.history.push(`/book/${listing.name}`)
         dispatch(setCurrentBooking(bookingObj))
@@ -121,8 +122,10 @@ function ListingPage(props) {
 
     return (
         <div style={{
-            width: "900px",
-            padding: "30px"
+            width: "850px",
+            padding: "20px",
+            marginLeft: "40px",
+            marginRight: "40px"
         }}
         >
             <TitleContainer>
@@ -136,7 +139,7 @@ function ListingPage(props) {
             </TitleContainer>
             <div>
                 <ImageList
-                    sx={{ width: 1025, height: 320 }}
+                    sx={{ width: 970, height: 320 }}
                     variant="quilted"
                     cols={8}
                     rows={4}
@@ -268,7 +271,7 @@ const ErrorMessage = styled.p`
 `
 
 export const ListingInfoContainer = styled.div`
-    width: 650px;
+    width: 600px;
     height: 275px;
     background-color: #E5E4E4;
     display: flex;
@@ -280,7 +283,7 @@ export const ListingInfoContainer = styled.div`
 `
 
 export const BookingContainer = styled.div`
-    width: 350px;
+    width: 340px;
     margin-left: 15px;
     background-color: #E5E4E4;
     border-radius: 20px;
@@ -291,8 +294,7 @@ export const BookingContainer = styled.div`
 
 export const Container = styled.div`
     display: flex;
-    width: 1000px;
-    margin: 20px;
+    width: 850px;
 `
 
 const TitleContainer = styled.div`

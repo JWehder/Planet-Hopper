@@ -23,6 +23,10 @@ class Booking < ApplicationRecord
         end
     end
 
+    def add_fees
+        return self.booking.unit_price.to_f * 0.05
+    end
+
     private
 
     def check_listing_availability
