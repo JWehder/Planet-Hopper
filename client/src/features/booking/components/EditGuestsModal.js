@@ -1,7 +1,16 @@
 import React, {useState} from "react"
 import GuestsInputBox from "../../listing/components/GuestsInputBox";
+import { useDispatch, useSelector } from "react-redux";
+import { changeGuests } from "../state/bookingsSlice";
 
 function EditGuestsModal() {
+    const dispatch = useDispatch()
+
+    const guests = useSelector((state) => state.bookings.currentBooking.number_of_guests)
+
+    const setGuests = (numGuests) => {
+        dispatch(changeGuests(numGuests))
+    }
 
     return (
         <Modal
@@ -16,7 +25,9 @@ function EditGuestsModal() {
         <Modal.Body>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <GuestsInputBox
-
+                listing={listing}
+                setGuests={setGuests}
+                guests={guests}
                 />
                 {dateError && 
                 <ErrorMessage>

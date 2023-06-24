@@ -13,6 +13,8 @@ const initialState = {
     bookingError: null,
     status: "idle",
     currentBooking: null,
+    dateError: null,
+    guestsError: null
 }
  
 const bookingsSlice = createSlice({
@@ -35,6 +37,9 @@ const bookingsSlice = createSlice({
         },
         changeNights(state, action) {
             state.currentBooking.numberOfNights = action.payload
+        },
+        setDateError(state, action) {
+            state
         }
 
     },

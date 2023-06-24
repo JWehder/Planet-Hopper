@@ -51,14 +51,6 @@ function ListingPage(props) {
         dispatch(setCurrentBooking(bookingObj))
     }
 
-    const handleDecreaseGuests = () => {
-        if (guests === 1) {
-            setGuests(1)
-        } else {
-            setGuests(guests - 1)
-        }
-    }
-
 
     useEffect(() => {
         dispatch(getListing(params.value))
@@ -177,7 +169,7 @@ function ListingPage(props) {
                         }}
                         >
                         <GuestsInputBox                     
-                        handleDecreaseGuests={handleDecreaseGuests} 
+                        listing={listing}
                         setGuests={setGuests}
                         guests={guests}
                         />

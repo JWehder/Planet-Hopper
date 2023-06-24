@@ -4,12 +4,28 @@ import Popover from '@mui/material/Popover';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-function GuestsInputBox({ handleDecreaseGuests, setGuests, guests, border }) {
+function GuestsInputBox({ setGuests, guests, listing }) {
     const searchInputBoxRef = useRef(null)
 
     const [anchorGuests, setAnchorGuests] = useState(null)
     const openGuests = Boolean(anchorGuests);
     const idGuests = openGuests ? 'simple-popover' : undefined;
+
+    const handleDecreaseGuests = () => {
+        if (guests === 1) {
+            setGuests(1)
+        } else {
+            setGuests(guests - 1)
+        }
+    }
+
+    const handleIncreaseGuests = () => {
+        if ((guests + 1) > listing.max_guests_allowed) {
+            return
+        } else {
+            setGuests(guests + 1)
+        }
+    }
 
     const handleCloseGuests = () => {
         setAnchorGuests(null)
@@ -69,7 +85,7 @@ function GuestsInputBox({ handleDecreaseGuests, setGuests, guests, border }) {
 
                     
                     <span
-                        onClick={() => setGuests(guests + 1)} 
+                        onClick={handleIncreaseGuests} 
                         style={{
                             marginLeft: "10px",
                             cursor: "pointer",
