@@ -52,8 +52,8 @@ const SecondaryButton = styled(ButtonBase)`
 `
 
 const ErrorMessage = styled.p`
-    color: rgb(225, 0, 25);
-    font-size: 14.25px;
+    color: rgb(200, 0, 55);
+    font-size: 13px;
     margin-bottom: 4px;
 `
 

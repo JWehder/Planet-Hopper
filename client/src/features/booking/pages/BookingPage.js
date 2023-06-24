@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, BookingContainer } from "../../listing/pages/ListingPage"
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import dayjs from "dayjs";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import DateRangeModal from "../components/DateRangeModal";
 
 function ListItem ({ item, action }) {
     return (
@@ -29,6 +30,7 @@ function ListItem ({ item, action }) {
 
 function BookingPage() {
     const history = useHistory()
+    const [show, setShow] = useState(false)
 
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
@@ -49,13 +51,17 @@ function BookingPage() {
     const startDate = dayjs(booking.startDate).format("YYYY-MM-DD")
     const endDate = dayjs(booking.endDate).format("YYYY-MM-DD")
 
+    const handleShow = () => setShow(true)
+
+    console.log(booking)
+
     return (
         <div style={{marginLeft: "40px", marginRight: "40px", marginBottom:"40px"}}>
             <div style={{marginBottom: "20px", display: "flex"}}>
                 <BackButton onClick={goBack}>
                     <ArrowLeftIcon />
                 </BackButton>
-                <div style={{textAlign: "center", width: "95%"}}>
+                <div style={{marginLeft: "10px"}}>
                     <h2 style={{textAlign: "center"}}>Confirm your Booking</h2>
                 </div>
 
@@ -63,8 +69,14 @@ function BookingPage() {
             <Container>
                 <LeftContainer>
                     <BookingInfoContainer>
-                        <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button variant="text" onClick={() => setShowChangeDateModal}>Edit</Button>} />
-                        <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button variant="text">Edit</Button>} />
+                        <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button color="secondary" onClick={handleShow} variant="text">Edit</Button>} />
+                        <DateRangeModal 
+                        booking={booking} 
+                        listing={currentListing} 
+                        show={show} 
+                        setShow={setShow} 
+                        />
+                        <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button color="secondary" variant="text">Edit</Button>} />
                     </BookingInfoContainer>
                     <BookingInfoContainer style={{marginTop: "15px", height: "160px"}}>
                         <div>
@@ -72,7 +84,7 @@ function BookingPage() {
                             <div>
                                 Hey {user.first_name}, all booking info will be sent to {user.email}. 
                                 <hr/>
-                                <Button variant="contained" color="primary">
+                                <Button color="secondary" variant="contained">
                                 Confirm Booking
                                 </Button>
                             </div>

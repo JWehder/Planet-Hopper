@@ -23,6 +23,18 @@ const bookingsSlice = createSlice({
         setCurrentBooking(state, action) {
             console.log(action.payload)
             state.currentBooking = action.payload
+        },
+        changeGuests(state, action) {
+            state.currentBooking.nights = action.payload
+        },
+        changeStartDate(state, action) {
+            state.currentBooking.startDate = action.payload
+        },
+        changeEndDate(state, action) {
+            state.currentBooking.endDate = action.payload
+        },
+        changeNights(state, action) {
+            state.currentBooking.numberOfNights = action.payload
         }
 
     },
@@ -47,6 +59,6 @@ const bookingsSlice = createSlice({
     },
 });
 
-export const { setCurrentBooking } = bookingsSlice.actions
+export const { setCurrentBooking, changeEndDate, changeGuests, changeStartDate, changeNights } = bookingsSlice.actions
 
 export default bookingsSlice.reducer;
