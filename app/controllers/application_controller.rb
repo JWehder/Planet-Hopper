@@ -16,7 +16,6 @@ class ApplicationController < ActionController::API
   end
 
   def render_unauthorized_user_response(model_name)
-    byebug
     render json: {error: "You are unauthorized to alter this #{model_name}"}, status: :unauthorized
   end
 

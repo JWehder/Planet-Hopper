@@ -2,6 +2,8 @@ import React from "react";
 import isSameDay from "date-fns/isSameDay";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
+import { useDispatch } from "react-redux";
+import { setDateError } from "../booking/state/bookingsSlice";
 
 export const convertToDate = (d1, d2) => {
 
@@ -17,15 +19,15 @@ export const checkDatesValidity = (d1, d2) => {
 }
 
 
-function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate, checkoutDate, listing, setDateError }) {
+function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate, checkoutDate, listing }) {
+    const dispatch = useDispatch()
 
     const handleCheckinDateChange = (newValue) => {
 
         if (checkDatesValidity(newValue, checkoutDate)) {
-            console.log("worked!")
-            setDateError("Please enter a check in date that comes before the check out date")
+            dispatch(setDateError("Please enter a check in date that comes before the check out date"))
         } else {
-            setDateError(null)
+            dispatch(setDateError(null))
         }
 
         setCheckinDate(dayjs(newValue))
@@ -35,10 +37,10 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
     const handleCheckoutDateChange = (newValue) => {
 
         if (checkDatesValidity(checkinDate, newValue)){
-            setDateError("Please enter a check in date that comes before the check out date")
+            dispatch(setDateError("Please enter a check in date that comes before the check out date"))
         }
         else {
-            setDateError(null)
+            dispatch(setDateError(null))
         }
 
         setCheckoutDate(dayjs(newValue))
@@ -54,12 +56,29 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
         return differenceInTime / (1000 * 3600 * 24)
     }
 
+    // isSameDay(currentDate, checkinDate) && isSameDay(booked_date, checkinDate)
+    const formattedCheckin = new Date(checkinDate)
+    console.log(dayjs(formattedCheckin))
+
     const shouldDisableDate = (date) => {
         const currentDate = new Date(date)
-        return listing.booked_dates.some((booked_date) =>
-          isSameDay(booked_date, currentDate)
+        return listing.booked_dates.some((booked_date) => {
+            if (isSameDay(booked_date, formattedCheckin)) {
+                setCheckinDate(dayjs(formattedCheckin).add(1, 'day'))
+            }
+            return isSameDay(booked_date, currentDate)
+        }
         );
     };
+
+    const formattedCheckinDate = new Date(dayjs(checkinDate).format("YYYY-MM-DD"))
+
+    console.log(shouldDisableDate(formattedCheckinDate))
+
+    if (shouldDisableDate(formattedCheckinDate)) {
+        setCheckinDate(dayjs(checkinDate).add(1, 'day'))
+        setCheckoutDate(dayjs(checkoutDate).add(1, 'day'))
+    }
 
     return (
         <div style={{

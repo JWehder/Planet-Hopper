@@ -7,7 +7,8 @@ export const fetchListings = createAsyncThunk("listings/fetchListings", (locatio
 });
 
 export const createBooking = createAsyncThunk("listings/createBooking", (bookingObj, thunkAPI) => {
-    return fetchWrapper.post("/listings", bookingObj, thunkAPI)
+    console.log("/bookings")
+    return fetchWrapper.post("/bookings", bookingObj, thunkAPI)
 });
 
 export const getListing = createAsyncThunk("listings/getListing", (id) => {
@@ -21,7 +22,8 @@ const initialState = {
     listingError: null,
     status: "idle",
     currentListing: null,
-    usersCoordinates: null
+    usersCoordinates: null,
+    booked: false
 }
  
 const listingsSlice = createSlice({
@@ -44,6 +46,9 @@ const listingsSlice = createSlice({
         },
         setUsersCoordinates(state, action) {
             state.usersCoordinates = action.payload
+        },
+        turnOffBooked(state) {
+            state.booked = false
         }
     },
     // async reducers
@@ -75,11 +80,25 @@ const listingsSlice = createSlice({
             console.log(action.payload)
             state.listingError = action.payload
         },
+        [createBooking.pending]: (state) => {
+            state.status = "loading";
+        },
+        [createBooking.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.currentListing.bookings.push(action.payload)
+            state.status = "idle"
+            state.booked = true
+        },
+        [createBooking.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.bookingError = action.payload
+        },
 
         
     },
 });
 
-export const { setListings, setErrors, setStatusToFulfilled, setStatusToLoading } = listingsSlice.actions
+export const { setListings, setErrors, setStatusToFulfilled, setStatusToLoading, turnOffBooked } = listingsSlice.actions
 
 export default listingsSlice.reducer;

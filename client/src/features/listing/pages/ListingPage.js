@@ -13,7 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import { setCurrentBooking } from "../../booking/state/bookingsSlice";
+import { setCurrentBooking, setDateError } from "../../booking/state/bookingsSlice";
 import DateCalendars from "../../common/DateCalendars";
 import { checkDatesValidity, convertToDate } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
@@ -23,14 +23,15 @@ function ListingPage(props) {
     const params = useParams()
     const dispatch = useDispatch()
 
+    const guestsError = useSelector((state) => state.bookings.guestsError)
+    const dateError = useSelector((state) => state.bookings.dateError)
+    const listing = useSelector((state) => state.listings.currentListing)
+    const user = useSelector((state) => state.auth.user)
+
     const [checkinDate, setCheckinDate] = useState(dayjs())
     const [checkoutDate, setCheckoutDate] = useState(dayjs(checkinDate).add(1, 'day'))
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
-    const [dateError, setDateError] = useState(null)
-
-    const listing = useSelector((state) => state.listings.currentListing)
-    const user = useSelector((state) => state.auth.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -38,6 +39,8 @@ function ListingPage(props) {
         if (checkDatesValidity(checkinDate, checkoutDate)) {
             return
         }
+
+        console.log(user)
 
         const bookingObj = {
             startDate: checkinDate,
@@ -47,6 +50,8 @@ function ListingPage(props) {
             number_of_guests: guests,
             numberOfNights: nights
         }
+        console.log(bookingObj)
+
         props.history.push(`/listings/${listing.id}/book`)
         dispatch(setCurrentBooking(bookingObj))
     }
@@ -163,16 +168,20 @@ function ListingPage(props) {
                         setDateError={setDateError}
                         checkoutDate={checkoutDate}
                         />
-
                         <div style={{
                             marginTop: "5px"
                         }}
                         >
                         <GuestsInputBox                     
-                        listing={listing}
+                        max_guests={listing.max_guests_allowed}
                         setGuests={setGuests}
                         guests={guests}
                         />
+                        {guestsError && 
+                        <ErrorMessage>
+                        {guestsError}
+                        </ErrorMessage>
+                        }
                         </div>
                         <div style={{textAlign: "left"}}>
                         {nights <= 0 ? "" : `

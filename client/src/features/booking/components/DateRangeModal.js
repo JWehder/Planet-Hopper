@@ -25,7 +25,13 @@ function DateRangeModal({ booking, listing, show, setShow }) {
         dispatch(changeNights(newValue))
     }
 
-    const handleClose = () => setShow(false)
+    const handleClose = () => {
+      if (dateError) {
+          return
+      }
+
+      setShow(false)
+    }
 
     return (
         <Modal

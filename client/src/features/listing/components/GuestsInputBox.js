@@ -3,9 +3,12 @@ import { SearchInputBox } from "./SearchBarButtonGroup";
 import Popover from '@mui/material/Popover';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { useDispatch } from "react-redux";
+import { setGuestsError } from "../../booking/state/bookingsSlice";
 
-function GuestsInputBox({ setGuests, guests, listing }) {
+function GuestsInputBox({ setGuests, guests, max_guests }) {
     const searchInputBoxRef = useRef(null)
+    const dispatch = useDispatch()
 
     const [anchorGuests, setAnchorGuests] = useState(null)
     const openGuests = Boolean(anchorGuests);
@@ -20,7 +23,9 @@ function GuestsInputBox({ setGuests, guests, listing }) {
     }
 
     const handleIncreaseGuests = () => {
-        if ((guests + 1) > listing.max_guests_allowed) {
+        console.log(max_guests)
+        if ((guests + 1) > max_guests) {
+            dispatch(setGuestsError(`You may not have more than ${max_guests} guests`))
             return
         } else {
             setGuests(guests + 1)

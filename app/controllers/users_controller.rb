@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("User") }
     skip_before_action :authorize, only: [:create, :forgot_password, :reset_password]
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     def create
         user = User.create!(user_params)

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Container, BookingContainer } from "../../listing/pages/ListingPage"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from '@mui/material/Button';
 import dayjs from "dayjs";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams, withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import DateRangeModal from "../components/DateRangeModal";
+import EditGuestsModal from "../components/EditGuestsModal";
+import { createBooking } from "../../listing/state/listingsSlice";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { ErrorMessage } from "../../../styles/Styles";
 
 function ListItem ({ item, action }) {
     return (
@@ -28,13 +32,19 @@ function ListItem ({ item, action }) {
 }
 
 
-function BookingPage() {
+function BookingPage(props) {
     const history = useHistory()
-    const [show, setShow] = useState(false)
+    const dispatch = useDispatch()
+    const params = useParams()
+
+    const [showDatesModal, setShowDatesModal] = useState(false)
+    const [showGuestsModal, setShowGuestsModal] = useState(false)
 
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
+    const booked = useSelector((state) => state.listings.booked)
+    const bookingErrors = ((state) => state.bookings.bookingError)
 
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
@@ -48,15 +58,53 @@ function BookingPage() {
         history.goBack();
     }
 
+    const handleBookingSubmit = (e) => {
+        e.preventDefault()
+
+        console.log(booking.startDate, booking.endDate)
+
+        const bookingObj = {
+            start_date: dayjs(booking.startDate).format("YYYY-MM-DD"),
+            end_date: dayjs(booking.endDate).format("YYYY-MM-DD"),
+            listing_id: booking.listing_id,
+            user_id: user.id,
+            number_of_guests: booking.number_of_guests,
+        }
+
+        dispatch(createBooking(bookingObj))
+    }
+
+    if (!booking) {
+        props.history.push(`/listings/${params.id}`)
+        return
+    }
+
     const startDate = dayjs(booking.startDate).format("YYYY-MM-DD")
     const endDate = dayjs(booking.endDate).format("YYYY-MM-DD")
 
-    const handleShow = () => setShow(true)
+    const handleDateShow = () => setShowDatesModal(true)
+    const handleGuestsShow = () => setShowGuestsModal(true)
 
-    console.log(booking)
+    // if (booked) {
+    //     setTimeout(() => {
+    //         props.history.push("/");
+    //     }, 7000);
+
+    //     return (
+    //         <>
+    //         <div>
+    //             <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Booked! 
+    //         </div>
+    //         <div>
+    //             Please check your email for your receipt. Returning you to the homepage page now....
+    //         </div>
+    //         </>
+    //     )
+    // }
 
     return (
         <div style={{marginLeft: "40px", marginRight: "40px", marginBottom:"40px"}}>
+            {bookingErrors && <ErrorMessage>{bookingErrors}</ErrorMessage>}
             <div style={{marginBottom: "20px", display: "flex"}}>
                 <BackButton onClick={goBack}>
                     <ArrowLeftIcon />
@@ -69,25 +117,36 @@ function BookingPage() {
             <Container>
                 <LeftContainer>
                     <BookingInfoContainer>
-                        <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button color="secondary" onClick={handleShow} variant="text">Edit</Button>} />
+                        <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button color="secondary" onClick={handleDateShow} variant="text">Edit</Button>} />
                         <DateRangeModal 
                         booking={booking} 
                         listing={currentListing} 
-                        show={show} 
-                        setShow={setShow} 
+                        show={showDatesModal} 
+                        setShow={setShowDatesModal} 
                         />
-                        <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button color="secondary" variant="text">Edit</Button>} />
+                        <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button onClick={handleGuestsShow} color="secondary" variant="text">Edit</Button>} />
+                        <EditGuestsModal
+                        booking={booking}
+                        show={showGuestsModal}
+                        setShow={setShowGuestsModal}
+                        />
                     </BookingInfoContainer>
                     <BookingInfoContainer style={{marginTop: "15px", height: "160px"}}>
                         <div>
                             { user ?
+                            <form onSubmit={handleBookingSubmit}>
                             <div>
                                 Hey {user.first_name}, all booking info will be sent to {user.email}. 
                                 <hr/>
-                                <Button color="secondary" variant="contained">
+                                <Button 
+                                color="secondary" 
+                                variant="contained" 
+                                type="submit"
+                                >
                                 Confirm Booking
                                 </Button>
                             </div>
+                            </form>
                             :
                             ""
                             }
@@ -109,9 +168,6 @@ function BookingPage() {
                     <ListItem item={"Total"} action={`$${unitTotal() + fees()}`} />
                     </div>
 
-                    <div>
-                        <p></p>
-                    </div>
                 </BookingContainer>
             </Container>
         </div>
@@ -144,4 +200,4 @@ const BackButton = styled.div`
     }
 `
 
-export default BookingPage
+export default withRouter(BookingPage)

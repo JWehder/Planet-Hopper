@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
     skip_before_action :authorize, only: [:create]
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("User") }
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     def create
         user = User.find_by(username: session_params[:username])

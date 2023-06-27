@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchWrapper } from "../../../utils/helpers";
-import { useSelector } from "react-redux";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
-export const createBooking = createAsyncThunk("listings/createBooking", (bookingObj, thunkAPI) => {
-    return fetchWrapper.post("/listings", bookingObj, thunkAPI)
-});
-
 
 const initialState = {
     entities: [],
@@ -27,7 +21,7 @@ const bookingsSlice = createSlice({
             state.currentBooking = action.payload
         },
         changeGuests(state, action) {
-            state.currentBooking.nights = action.payload
+            state.currentBooking.number_of_guests = action.payload
         },
         changeStartDate(state, action) {
             state.currentBooking.startDate = action.payload
@@ -39,31 +33,18 @@ const bookingsSlice = createSlice({
             state.currentBooking.numberOfNights = action.payload
         },
         setDateError(state, action) {
-            state
+            state.dateError = action.payload
+        },
+        setGuestsError(state, action) {
+            state.guestsError = action.payload
         }
 
     },
     // async reducers
     extraReducers: {
-        [createBooking.pending]: (state) => {
-            state.status = "loading";
-        },
-        [createBooking.fulfilled]: (state, action) => {
-            console.log(action.payload)
-            const listing = useSelector((state) => state.listings.find((listing) => listing.id === state.currentBooking.listing_id))
-            listing.bookings.push(action.payload)
-            state.status = "idle";
-        },
-        [createBooking.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
-            state.bookingError = action.payload
-        },
-
-        
     },
 });
 
-export const { setCurrentBooking, changeEndDate, changeGuests, changeStartDate, changeNights } = bookingsSlice.actions
+export const { setCurrentBooking, changeEndDate, changeGuests, changeStartDate, changeNights, setDateError, setGuestsError } = bookingsSlice.actions
 
 export default bookingsSlice.reducer;
