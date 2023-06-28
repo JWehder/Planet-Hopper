@@ -69,7 +69,6 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [getListing.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.currentListing = action.payload
             state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => new Date(booked_date.date))
             console.log(state.currentListing)

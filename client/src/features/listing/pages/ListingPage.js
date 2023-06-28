@@ -28,8 +28,8 @@ function ListingPage(props) {
     const listing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
 
-    const [checkinDate, setCheckinDate] = useState(dayjs())
-    const [checkoutDate, setCheckoutDate] = useState(dayjs(checkinDate).add(1, 'day'))
+    const [checkinDate, setCheckinDate] = useState(null)
+    const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
 

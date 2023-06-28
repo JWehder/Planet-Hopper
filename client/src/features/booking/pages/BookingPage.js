@@ -51,7 +51,7 @@ function BookingPage(props) {
     }
 
     const fees = () => {
-        return currentListing.unit_price * 0.05
+        return unitTotal() * 0.05
     }
 
     const goBack = () => {
@@ -69,6 +69,8 @@ function BookingPage(props) {
             listing_id: booking.listing_id,
             user_id: user.id,
             number_of_guests: booking.number_of_guests,
+            price: unitTotal(),
+            fees: fees()
         }
 
         dispatch(createBooking(bookingObj))

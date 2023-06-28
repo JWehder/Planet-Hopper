@@ -6,9 +6,9 @@ class BookingsController < ApplicationController
         user = current_user
         booking = user.bookings.create!(booking_params)
         # find the number of days stayed minus checkout day
-        booking.update_column(price: booking.determine_price)
+        # booking.update_column(price: booking.determine_price)
         booking.book_dates
-        booking.update_column(fees: booking.add_fees)
+        # booking.update_column(fees: booking.add_fees)
         # BookingsMailer.welcome_email(booking, booking.user).deliver_now
         render json: booking, status: :created
     end
@@ -56,7 +56,7 @@ class BookingsController < ApplicationController
     end
 
     def booking_params
-        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
+        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests, :fees, :price)
         # params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
         parsed_params[:start_date] = Date.parse(parsed_params[:start_date])
         parsed_params[:end_date] = Date.parse(parsed_params[:end_date])

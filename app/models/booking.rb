@@ -19,11 +19,11 @@ class Booking < ApplicationRecord
 
     # after_commit :determine_price, :book_dates, :add_fees, on: :create
 
-    def determine_price
-        number_of_days = (self.start_date - self.end_date).to_i + 1
-        price = number_of_days * self.listing.unit_price
-        self.update!(price: price)
-    end
+    # def determine_price
+    #     number_of_days = (self.start_date - self.end_date).to_i + 1
+    #     price = number_of_days * self.listing.unit_price
+    #     self.update!(price: price)
+    # end
 
     def book_dates
         (self.start_date...self.end_date).each do |date|
@@ -31,9 +31,9 @@ class Booking < ApplicationRecord
         end
     end
 
-    def add_fees
-        self.update!(fees: self.price.to_f * 0.05) 
-    end
+    # def add_fees
+    #     self.update!(fees: self.price.to_f * 0.05) 
+    # end
 
     private
 
