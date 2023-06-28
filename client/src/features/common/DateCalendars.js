@@ -93,6 +93,8 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
     const formattedCheckinDate = new Date(dayjs(checkinDate).format("YYYY-MM-DD"))
 
     console.log(shouldDisableDate(formattedCheckinDate))
+    const stringified_date = new Date(dayjs("2023-06-30").format("YYYY-MM-DD"))
+    console.log(stringified_date)
 
     if (shouldDisableDate(formattedCheckinDate)) {
         setCheckinDate(dayjs(checkinDate).add(1, 'day'))

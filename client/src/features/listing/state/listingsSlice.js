@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../../../utils/helpers";
+import dayjs from "dayjs";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
@@ -70,7 +71,9 @@ const listingsSlice = createSlice({
         },
         [getListing.fulfilled]: (state, action) => {
             state.currentListing = action.payload
-            state.currentListing.booked_dates = state.currentListing.booked_dates.map((booked_date) => new Date(booked_date.date))
+            state.currentListing.booked_dates = state.currentListing.stringified_booked_dates.map((booked_date) => {
+                return dayjs(booked_date).toDate()
+            })
             console.log(state.currentListing)
             state.status = "idle";
         },
