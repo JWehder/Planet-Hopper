@@ -24,7 +24,8 @@ const initialState = {
     status: "idle",
     currentListing: null,
     usersCoordinates: null,
-    booked: false
+    booked: false,
+    bookingError: null
 }
  
 const listingsSlice = createSlice({

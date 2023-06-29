@@ -3,27 +3,20 @@ import Modal from 'react-bootstrap/Modal';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import DateCalendars from "../../common/DateCalendars";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeEndDate, changeStartDate, changeNights } from "../state/bookingsSlice";
 import { ErrorMessage } from "../../../styles/Styles";
 import { Button } from "@mui/material";
 
 function DateRangeModal({ booking, listing, show, setShow }) {
     const dispatch = useDispatch()
+    const dateError = useSelector((state) => state.bookings.dateError)
 
-    const [dateError, setDateError] = useState(null)
+    const setCheckinDate = (newValue) => dispatch(changeStartDate(newValue))
 
-    const setCheckinDate = (newValue) => {
-        dispatch(changeStartDate(newValue))
-    }
-
-    const setCheckoutDate = (newValue) => {
-        dispatch(changeEndDate(newValue))
-    }
-
-    const setNights = (newValue) => {
-        dispatch(changeNights(newValue))
-    }
+    const setCheckoutDate = (newValue) => dispatch(changeEndDate(newValue))
+    
+    const setNights = (newValue) => dispatch(changeNights(newValue))
 
     const handleClose = () => {
       if (dateError) {
@@ -51,7 +44,6 @@ function DateRangeModal({ booking, listing, show, setShow }) {
                 listing={listing}
                 setNights={setNights}
                 checkinDate={booking.startDate}
-                setDateError={setDateError}
                 checkoutDate={booking.endDate}
                 />
                 {dateError && 

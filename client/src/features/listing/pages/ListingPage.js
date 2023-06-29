@@ -36,11 +36,10 @@ function ListingPage(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (checkDatesValidity(checkinDate, checkoutDate)) {
+        if (!checkDatesValidity(checkinDate, checkoutDate)) {
+            dispatch(setDateError("Please enter valid dates."))
             return
         }
-
-        console.log(user)
 
         const bookingObj = {
             startDate: checkinDate,

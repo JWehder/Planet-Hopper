@@ -81,28 +81,30 @@ function BookingPage(props) {
         return
     }
 
+    console.log(booking)
+
     const startDate = dayjs(booking.startDate).format("YYYY-MM-DD")
     const endDate = dayjs(booking.endDate).format("YYYY-MM-DD")
 
     const handleDateShow = () => setShowDatesModal(true)
     const handleGuestsShow = () => setShowGuestsModal(true)
 
-    // if (booked) {
-    //     setTimeout(() => {
-    //         props.history.push("/");
-    //     }, 7000);
+    if (booked) {
+        setTimeout(() => {
+            props.history.push("/");
+        }, 7000);
 
-    //     return (
-    //         <>
-    //         <div>
-    //             <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Booked! 
-    //         </div>
-    //         <div>
-    //             Please check your email for your receipt. Returning you to the homepage page now....
-    //         </div>
-    //         </>
-    //     )
-    // }
+        return (
+            <>
+            <div>
+                <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Booked! 
+            </div>
+            <div>
+                Please check your email for your receipt. Returning you to the homepage page now....
+            </div>
+            </>
+        )
+    }
 
     return (
         <div style={{marginLeft: "40px", marginRight: "40px", marginBottom:"40px"}}>
