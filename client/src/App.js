@@ -12,7 +12,8 @@ import SearchBarButtonGroup from './features/listing/components/SearchBarButtonG
 import { getUser } from './features/auth/state/authSlice';
 import { useDispatch } from 'react-redux';
 import { fetchListings } from './features/listing/state/listingsSlice';
-import BookingPage from './features/booking/pages/BookingPage';
+import BookPage from './features/booking/pages/BookPage';
+import BookedViewPage from './features/booking/pages/BookedViewPage';
 
 function App() {
   const history = useHistory();
@@ -87,7 +88,10 @@ function App() {
           <SearchResults />
       </Route>
       <Route exact path='/listings/:id/book'>
-        <BookingPage />
+        <BookPage />
+      </Route>
+      <Route exact path='/bookings'>
+        <BookedViewPage />
       </Route>
     </Switch>
     </div>

@@ -32,7 +32,7 @@ function ListItem ({ item, action }) {
 }
 
 
-function BookingPage(props) {
+function BookPage(props) {
     const history = useHistory()
     const dispatch = useDispatch()
     const params = useParams()
@@ -204,4 +204,4 @@ const BackButton = styled.div`
     }
 `
 
-export default withRouter(BookingPage)
+export default withRouter(BookPage)

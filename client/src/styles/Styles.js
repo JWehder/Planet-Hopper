@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
+import Box from '@mui/system/Box';
 
 const COLORS = {
     primary: {
@@ -92,5 +93,10 @@ const ListingContainer = styled.div`
     margin: 10px;
 `
 
+const StyledBox = styled(Box)`
+    border-radius: 25px; 
+    height: 100px;
+`
 
-export { ListingContainer, CustomButton, ErrorMessage, Container, StyledForm, Wrapper };
+
+export { ListingContainer, CustomButton, ErrorMessage, Container, StyledForm, Wrapper, StyledBox };

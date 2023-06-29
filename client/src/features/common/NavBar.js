@@ -15,29 +15,33 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import { useSelector } from "react-redux";
 import { ReactComponent as WebsiteIcon } from '../../images/house_logo.svg'
 import { Link } from "react-router-dom"
-
-const settings = ['Profile', 'Account', 'My Listings'];
+import styled from "styled-components";
 
 function NavBar() {
-const [anchorElNav, setAnchorElNav] = useState(null);
-const [anchorElUser, setAnchorElUser] = useState(null);
 
-const user = useSelector((state) => state.auth.user)
+    const host = useSelector((state) => state.auth.user && state.auth.user.host);
 
-const handleOpenNavMenu = (event) => {
-setAnchorElNav(event.currentTarget);
-};
-const handleOpenUserMenu = (event) => {
-setAnchorElUser(event.currentTarget);
-};
+    const settings = host
+      ? ['profile', 'account', 'bookings', 'listings']
+      : ['profile', 'account', 'bookings'];
 
-const handleCloseNavMenu = () => {
-setAnchorElNav(null);
-};
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
-const handleCloseUserMenu = () => {
-setAnchorElUser(null);
-};
+    const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+    };
 
 return (
     <AppBar style={{backgroundColor: "black"}} position="static">
@@ -137,11 +141,11 @@ return (
                 onClose={handleCloseUserMenu}
             >
                 {settings.map((setting) => (
-                <Link to="/map">
+                <StyledLink to={`/${setting}`}>
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-                </Link>
+                </StyledLink>
                 ))}
             </Menu>
             </Box>
@@ -150,5 +154,10 @@ return (
     </AppBar>
     );
 }
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+`
 
 export default NavBar;
