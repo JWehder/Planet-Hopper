@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { setCurrentBooking, setDateError } from "../../booking/state/bookingsSlice";
 import DateCalendars from "../../common/DateCalendars";
-import { checkDatesValidity, convertToDate } from "../../common/DateCalendars";
+import { checkDatesInvalidity, convertToDate } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
 
 
@@ -36,7 +36,8 @@ function ListingPage(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (!checkDatesValidity(checkinDate, checkoutDate)) {
+        if (checkDatesInvalidity(checkinDate, checkoutDate)) {
+            console.log(checkDatesInvalidity(checkinDate, checkoutDate))
             dispatch(setDateError("Please enter valid dates."))
             return
         }
@@ -50,6 +51,8 @@ function ListingPage(props) {
             numberOfNights: nights
         }
         console.log(bookingObj)
+
+        dispatch(setDateError(null))
 
         props.history.push(`/listings/${listing.id}/book`)
         dispatch(setCurrentBooking(bookingObj))

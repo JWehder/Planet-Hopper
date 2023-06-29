@@ -13,9 +13,9 @@ export const convertToDate = (d1, d2) => {
     }
 }
 
-export const checkDatesValidity = (d1, d2) => {
+export const checkDatesInvalidity = (d1, d2) => {
     if (d1 === null || d2 === null) {
-        return false
+        return true
     }
 
     const datesObj = convertToDate(d1, d2)
@@ -48,9 +48,7 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
             return
         }
 
-        if (newValue === null && checkout === null) {
-            dispatch(setDateError(null))
-        } else if (checkDatesValidity(newValue, checkout)) {
+        if (checkDatesInvalidity(newValue, checkout)) {
             dispatch(setDateError("Please enter a check in date that comes before the check out date"))
             return
         }
@@ -72,7 +70,7 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
 
     const handleCheckoutDateChange = (newValue) => {
 
-        if (checkDatesValidity(checkinDate, newValue)){
+        if (checkDatesInvalidity(checkinDate, newValue)){
             dispatch(setDateError("Please enter a check in date that comes before the check out date"))
             return
         }
