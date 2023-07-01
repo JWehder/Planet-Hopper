@@ -1,5 +1,9 @@
 class BookingSerializer < ActiveModel::Serializer
-  attributes :start_date, :end_date, :price, :number_of_guests, :fees, :listing_id
+  attributes :start_date, :end_date, :price, :number_of_guests, :fees, :listing_id, :listing, :listing_owner
 
-  has_many :booked_dates
+  def listing_owner 
+    user = User.find(self.object.listing.owner_id)
+    "#{self.object.user.first_name} #{self.object.user.last_name}"
+  end
+
 end

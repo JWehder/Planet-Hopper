@@ -3,6 +3,8 @@ import styled from "styled-components"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import Box from '@mui/system/Box';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import PhotosCarousel from "../features/listing/components/PhotosCarousel"
 
 const COLORS = {
     primary: {
@@ -15,7 +17,7 @@ const COLORS = {
     }
 }
 
-function CustomButton({ variant = "primary", color = "primary", ...props }) {
+export function CustomButton({ variant = "primary", color = "primary", ...props }) {
     let Component;
     if (variant === "primary") {
       Component = PrimaryButton;
@@ -52,13 +54,13 @@ const SecondaryButton = styled(ButtonBase)`
     }
 `
 
-const ErrorMessage = styled.p`
+export const ErrorMessage = styled.p`
     color: rgb(200, 0, 55);
     font-size: 13px;
     margin-bottom: 4px;
 `
 
-const Container = styled.div`
+export const Container = styled.div`
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -67,14 +69,14 @@ const Container = styled.div`
     margin: 10px;
 `
 
-const StyledForm = styled(Form)`
+export const StyledForm = styled(Form)`
     color: #04005E;
     &:focus-within {
         color: #04005E;
     }
 `
 
-const Wrapper = styled.section`
+export const Wrapper = styled.section`
     max-width: 500px;
     margin: 40px auto;
     padding: 16px;
@@ -84,7 +86,7 @@ const Wrapper = styled.section`
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
 `
 
-const ListingContainer = styled.div`
+export const ListingContainer = styled.div`
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -93,10 +95,26 @@ const ListingContainer = styled.div`
     margin: 10px;
 `
 
-const StyledBox = styled(Box)`
-    border-radius: 25px; 
-    height: 100px;
+export const StyledBox = styled(Box)`
+    border-radius: 20px; 
+    background-color: #E5E4E4;
+    padding: 20px;
+    margin: 20px;
+
 `
 
+export const LinkStyle = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+`
 
-export { ListingContainer, CustomButton, ErrorMessage, Container, StyledForm, Wrapper, StyledBox };
+export const PhotoGallery = styled(PhotosCarousel)`
+    width: 100px;
+    margin: auto;
+    border-radius: 10px;
+
+    &:hover {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+`

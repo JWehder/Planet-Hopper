@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import PhotoCarousel from "./PhotosCarousel";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setErrors } from "../state/listingsSlice";
 import { useHistory, withRouter } from "react-router-dom";
+import { LinkStyle } from "../../../styles/Styles";
+import { PhotoGallery } from "../../../styles/Styles";
 
 function ListingCard({ listing }, props) {
     const history = useHistory()
@@ -53,17 +53,6 @@ const ListingButton = styled.button`
     border-radius: 10px;
 `
 
-const PhotoGallery = styled(PhotoCarousel)`
-    width: 100px;
-    margin: auto;
-    border-radius: 10px;
-
-    &:hover {
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
-
-`
-
 const ListingContainer = styled.div`
     width: 180px;
     height: 250px;
@@ -81,11 +70,6 @@ const ListingContent = styled.span`
     display: flex;
     margin-bottom: 5px;
     margin-top: 5px;
-`
-
-const LinkStyle = styled(Link)`
-    text-decoration: none;
-    color: inherit;
 `
 
 export default withRouter(ListingCard);

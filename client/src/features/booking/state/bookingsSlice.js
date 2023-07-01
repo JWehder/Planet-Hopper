@@ -2,13 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
+export const getUsersBookings = createAsyncThunk("bookings/fetchUsersBookings", (thunkAPI) => {
+    return fetchWrapper.get("/", locationObj, thunkAPI)
+});
+
 const initialState = {
     entities: [],
     bookingError: null,
     status: "idle",
     currentBooking: null,
     dateError: null,
-    guestsError: null
+    guestsError: null,
+    usersBookings: null
 }
  
 const bookingsSlice = createSlice({

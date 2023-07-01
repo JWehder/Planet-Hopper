@@ -60,14 +60,6 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
         setNights(calculateNights(newValue, checkout))
     }
 
-    // const findNextAvailableDate = () => {
-    //     const date = dayjs()
-    //     while (!shouldDisableDate(date)) {
-
-    //     }
-
-    // }
-
     const handleCheckoutDateChange = (newValue) => {
 
         if (checkDatesInvalidity(checkinDate, newValue)){

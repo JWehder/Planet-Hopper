@@ -5,12 +5,15 @@ class BookingsController < ApplicationController
     def create
         user = current_user
         booking = user.bookings.create!(booking_params)
-        # find the number of days stayed minus checkout day
-        # booking.update_column(price: booking.determine_price)
         booking.book_dates
-        # booking.update_column(fees: booking.add_fees)
         # BookingsMailer.welcome_email(booking, booking.user).deliver_now
         render json: booking, status: :created
+    end
+
+    def my_bookings
+        user = current_user
+        my_bookings = user.bookings
+        render json: my_bookings, status: :ok
     end
 
     def show

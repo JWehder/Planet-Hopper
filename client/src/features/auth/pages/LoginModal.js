@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button"
 
 function LoginModal({ show, setShow }) {
     const [showLogin, setShowLogin] = useState(true)
+
     const handleClose = () => setShow(false)
 
     function handleToggleLogin() {
@@ -37,7 +38,7 @@ function LoginModal({ show, setShow }) {
                 :
                 (
                     <>
-                    <SignupForm setShowLogin={setShowLogin}/>
+                    <SignupForm setShowLogin={setShowLogin} />
                     <hr />
                     <p>Already have an account?</p>
                     <CustomButton onClick={handleToggleLogin}variant="secondary">Sign In</CustomButton>

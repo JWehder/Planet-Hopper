@@ -18,13 +18,12 @@ import BookedViewPage from './features/booking/pages/BookedViewPage';
 function App() {
   const history = useHistory();
   const dispatch = useDispatch()
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   
-  const handleClick = () => setShow(!show)
-
-  dispatch(getUser())
+  const handleClick = () => setShow(true)
 
   useEffect(() => {
+    dispatch(getUser())
     fetchCoordinates()
   }, []);
 
@@ -34,12 +33,12 @@ function App() {
             const coordinates = await usersCoordinates();
             dispatch(fetchListings(coordinates))
             // dispatch(setUsersCoordinates(coordinates))
-        } catch (error) {
+        } catch (error) { 
             console.error("Error:", error)
         }
     } else {
         dispatch(fetchListings({latitude: 0.0, longitude: 0.0}))
-        console.log("Geolocati\on is not supported by this browser")
+        console.log("Geolocation is not supported by this browser")
     }
 }
 
@@ -78,7 +77,7 @@ function App() {
       </Route>
       <Route exact path='/'>
           <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
-          {/* <LoginModal show={show} setShow={setShow} /> */}
+          <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
       <Route exact path='/listings/:value'>
