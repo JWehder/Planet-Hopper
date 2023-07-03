@@ -8,7 +8,8 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory, useParams, withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import DateRangeModal from "../components/DateRangeModal";
 import EditGuestsModal from "../components/EditGuestsModal";
-import { createBooking, setCurrentBooking } from "../../listing/state/listingsSlice";
+import { createBooking } from "../../listing/state/listingsSlice";
+import { setCurrentBooking } from "../state/bookingsSlice";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { ErrorMessage } from "../../../styles/Styles";
 

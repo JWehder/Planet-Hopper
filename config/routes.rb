@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   post "/forgot_password", to: "users#forgot_password"
   post "/reset_password", to: "users#reset_password"
   post "/listings/search", to: "listings#search"
-  post "listings/homepage_listings", to: "listings#render_homepage_listings"
-  get "my_bookings", to: "bookings#my_bookings"
+  post "/listings/homepage_listings", to: "listings#render_homepage_listings"
+  get "/my_bookings", to: "bookings#my_bookings"
   # get "/my_bookings", to: "bookings#my_bookings"
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

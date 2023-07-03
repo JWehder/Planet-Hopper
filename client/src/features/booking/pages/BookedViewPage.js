@@ -5,12 +5,11 @@ import { StyledBox } from "../../../styles/Styles";
 import PropertyContainer from "../../common/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
-import EditBookingModal from "../components/EditBookingModal";
 import { getUsersBookings } from "../state/bookingsSlice";
 
 function BookedViewPage() {
     const dispatch = useDispatch()
-    const usersBookings = useSelector((state) => state.bookings.entities)
+    const usersBookings = useSelector((state) => state.bookings.bookings)
 
     useEffect(() => {
         dispatch(getUsersBookings())

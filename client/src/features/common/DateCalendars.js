@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useDispatch } from "react-redux";
 import { setDateError } from "../booking/state/bookingsSlice";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export const convertToDate = (d1, d2) => {
 
@@ -88,6 +90,7 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
             display: "flex",
             marginTop: "5px"
         }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
         label="Check in"
         value={checkinDate}
@@ -104,6 +107,7 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
         shouldDisableDate={disableEndDates}
         disablePast
         />
+        </LocalizationProvider>
         </div>
     )
 }

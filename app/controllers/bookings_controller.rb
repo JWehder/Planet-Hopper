@@ -12,8 +12,7 @@ class BookingsController < ApplicationController
 
     def my_bookings
         user = current_user
-        my_bookings = user.bookings
-        render json: my_bookings, status: :ok
+        render json: user.bookings, each_serializer: CustomBookingsSerializer, status: :ok
     end
 
     def show

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios";
+import dayjs from "dayjs";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
@@ -9,7 +10,7 @@ export const getUsersBookings = createAsyncThunk("bookings/getUsersBookings", as
 })
 
 const initialState = {
-    bookings: [],
+    bookings: null,
     bookingError: null,
     status: "idle",
     currentBooking: null,
@@ -22,6 +23,9 @@ const bookingsSlice = createSlice({
     initialState,
     // sync reducers
     reducers: {
+        findBooking(state, action) {
+            state.bookings.find((booking) => booking.id === action.payload.id)
+        },
         setCurrentBooking(state, action) {
             console.log(action.payload)
             state.currentBooking = action.payload
@@ -44,12 +48,22 @@ const bookingsSlice = createSlice({
         setGuestsError(state, action) {
             state.guestsError = action.payload
         },
-        changeEntities(state, action) {
-            const booking = state.bookings.find((booking) => booking.id === action.payload.id)
-            booking[action.payload.attribute] = action.payload.value
+        changeBookingsGuests(action) {
+            const booking = this.findBooking(action.payload.id)
+            booking.number_of_guests = action.payload.value
+        },
+        changeBookingsEndDate(action) {
+            const booking = this.findBooking(action.payload.id)
+            booking.end_date = action.payload.value
+            const number_of_days = booking.end_date.toDate() - booking.start_date.toDate()
+            booking.price = booking.listing.unit_price * number_of_days
+        },
+        changeBookingsStartDate(action) {
+            const booking = this.findBooking(action.payload.id)
+            booking.start_date = action.payload.value
+            const number_of_days = booking.end_date.toDate() - booking.start_date.toDate()
+            booking.price = booking.listing.unit_price * number_of_days
         }
-
-
     },
     // async reducers
     extraReducers: {
@@ -59,6 +73,9 @@ const bookingsSlice = createSlice({
         [getUsersBookings.fulfilled]: (state, action) => {
             console.log(action.payload)
             state.bookings = action.payload
+            state.bookings.forEach((listing) => {
+                listing.stringified_dates.map((booked_date) => dayjs(booked_date).toDate())
+            })
             state.status = "idle";
         },
         [getUsersBookings.rejected]: (state, action) => {
@@ -69,6 +86,6 @@ const bookingsSlice = createSlice({
     },
 });
 
-export const { setCurrentBooking, changeCurrentEndDate, changeCurrentGuests, changeCurrentStartDate, changeCurrentNights, setDateError, setGuestsError } = bookingsSlice.actions
+export const { setCurrentBooking, changeCurrentEndDate, changeCurrentGuests, changeCurrentStartDate, changeCurrentNights, setDateError, setGuestsError, changeBookingsGuests, changeBookingsEndDate, changeBookingsStartDate } = bookingsSlice.actions
 
 export default bookingsSlice.reducer;

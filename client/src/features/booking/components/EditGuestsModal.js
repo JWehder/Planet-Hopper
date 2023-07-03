@@ -1,7 +1,7 @@
-import React, {useState} from "react"
+import React from "react"
 import GuestsInputBox from "../../listing/components/GuestsInputBox";
 import { useDispatch, useSelector } from "react-redux";
-import { changeGuests } from "../state/bookingsSlice";
+import { changeCurrentGuests } from "../state/bookingsSlice";
 import { Modal } from "react-bootstrap";
 import { ErrorMessage } from "../../../styles/Styles";
 import Button from '@mui/material/Button';
@@ -14,7 +14,7 @@ function EditGuestsModal({ show, setShow }) {
     const guestsError = useSelector((state) => state.bookings.guestsError)
 
     const setGuests = (numGuests) => {
-        dispatch(changeGuests(numGuests))
+        dispatch(changeCurrentGuests(numGuests))
     }
 
     const handleClose = () => {

@@ -7,9 +7,6 @@ import Map from "../components/Map";
 import { getListing } from "../state/listingsSlice"; 
 import Spinner from "react-bootstrap/Spinner";
 import styled from "styled-components"
-import dayjs from "dayjs"
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
@@ -156,7 +153,6 @@ function ListingPage(props) {
                         /> 
                     </div>
                 </LeftContainer>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <form onSubmit={handleSubmit}>
                     <BookingContainer>
                         <h4 style={{marginBottom:"0px"}}>Book Now</h4>
@@ -204,7 +200,6 @@ function ListingPage(props) {
                         </Button>
                 </BookingContainer>
                 </form>
-                </LocalizationProvider>
             </Container>
 
         </div>

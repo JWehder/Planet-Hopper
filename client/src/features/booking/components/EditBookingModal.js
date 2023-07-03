@@ -2,24 +2,29 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import DateCalendars from "../../common/DateCalendars";
 import { useDispatch, useSelector } from "react-redux";
-import { changeEndDate, changeStartDate, changeNights } from "../state/bookingsSlice";
+import { changeBookingsGuests, changeBookingsEndDate, changeBookingsStartDate } from "../state/bookingsSlice";
 import { ErrorMessage } from "../../../styles/Styles";
 import { Button } from "@mui/material";
 import GuestsInputBox from "../../listing/components/GuestsInputBox"
+import dayjs from "dayjs";
 
 function EditBookingModal({ booking, show, setShow }) {
     const dispatch = useDispatch()
     const dateError = useSelector((state) => state.bookings.dateError)
+    const guestsError = useSelector((state) => state.bookings.guestsError)
 
-    const setCheckinDate = (newValue) => dispatch(changeStartDate(newValue))
+    const setCheckinDate = (newValue) => dispatch(changeBookingsStartDate({
+      value: dayjs(newValue).format("YYYY-MM-DD"),
+      id: booking.id
+    }))
 
-    const setCheckoutDate = (newValue) => dispatch(changeEndDate(newValue))
-    
-    const setNights = (newValue) => dispatch(changeNights(newValue))
+    const setCheckoutDate = (newValue) => dispatch(changeBookingsEndDate({
+      value: dayjs(newValue).format("YYYY-MM-DD"),
+      id: booking.id
+    }))
 
-    const setGuests = (newValue) => dispatch(changeBooking({
+    const setGuests = (newValue) => dispatch(changeBookingsGuests({
       value: newValue,
-      attribute: "guests",
       id: booking.id
     }))
 
@@ -47,7 +52,6 @@ function EditBookingModal({ booking, show, setShow }) {
                 setCheckinDate={setCheckinDate}
                 setCheckoutDate={setCheckoutDate}
                 listing={booking.listing}
-                setNights={setNights}
                 checkinDate={booking.startDate}
                 checkoutDate={booking.endDate}
                 />
@@ -58,8 +62,8 @@ function EditBookingModal({ booking, show, setShow }) {
                 }   
                 <GuestsInputBox 
                 setGuests={setGuests}
-                guests={guests}
-                max_guests={max_guests}
+                guests={booking.number_of_guests}
+                max_guests={booking.listing.max_guests_allowed}
                 />
                 {guestsError && 
                 <ErrorMessage>
@@ -70,7 +74,7 @@ function EditBookingModal({ booking, show, setShow }) {
             </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button color="secondary" variant="text" onClick={handleClose}>Close</Button>
+          <Button color="secondary" variant="text" onClick={handleClose}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
     )

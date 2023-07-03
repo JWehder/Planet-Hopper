@@ -72,9 +72,11 @@ const listingsSlice = createSlice({
         },
         [getListing.fulfilled]: (state, action) => {
             state.currentListing = action.payload
-            state.currentListing.booked_dates = state.currentListing.stringified_booked_dates.map((booked_date) => {
-                return dayjs(booked_date).toDate()
-            })
+            state.currentListing.booked_dates = state.currentListing.bookings.reduce((accumulator, booking) => {
+                return accumulator.concat(booking.stringified_dates.map((booked_date) => {
+                  return dayjs(booked_date).toDate();
+                }));
+            }, []);
             console.log(state.currentListing)
             state.status = "idle";
         },
