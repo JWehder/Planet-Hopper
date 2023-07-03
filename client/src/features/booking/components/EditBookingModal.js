@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import DateCalendars from "../../common/DateCalendars";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,12 @@ function EditBookingModal({ booking, show, setShow }) {
     const setCheckoutDate = (newValue) => dispatch(changeEndDate(newValue))
     
     const setNights = (newValue) => dispatch(changeNights(newValue))
+
+    const setGuests = (newValue) => dispatch(changeBooking({
+      value: newValue,
+      attribute: "guests",
+      id: booking.id
+    }))
 
     const handleClose = () => {
       if (dateError) {
@@ -37,15 +43,15 @@ function EditBookingModal({ booking, show, setShow }) {
         </Modal.Header>
         <Modal.Body>
             <form>
-                {/* <DateCalendars
+                <DateCalendars
                 setCheckinDate={setCheckinDate}
                 setCheckoutDate={setCheckoutDate}
-                listing={listing}
+                listing={booking.listing}
                 setNights={setNights}
                 checkinDate={booking.startDate}
                 checkoutDate={booking.endDate}
-                /> */}
-                {/* {dateError && 
+                />
+                {dateError && 
                 <ErrorMessage>
                 {dateError}
                 </ErrorMessage>
@@ -59,7 +65,7 @@ function EditBookingModal({ booking, show, setShow }) {
                 <ErrorMessage>
                 {guestsError}
                 </ErrorMessage>
-                }    */}
+                }   
 
             </form>
         </Modal.Body>

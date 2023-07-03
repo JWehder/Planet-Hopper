@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import axios from "axios";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
-export const getUsersBookings = createAsyncThunk("bookings/fetchUsersBookings", (thunkAPI) => {
-    return fetchWrapper.get("/", locationObj, thunkAPI)
-});
+export const getUsersBookings = createAsyncThunk("bookings/getUsersBookings", async() => {
+    const response = await axios.get("my_bookings")
+    return response.data
+})
 
 const initialState = {
-    entities: [],
+    bookings: [],
     bookingError: null,
     status: "idle",
     currentBooking: null,
     dateError: null,
-    guestsError: null,
-    usersBookings: null
+    guestsError: null
 }
  
 const bookingsSlice = createSlice({
@@ -25,16 +26,16 @@ const bookingsSlice = createSlice({
             console.log(action.payload)
             state.currentBooking = action.payload
         },
-        changeGuests(state, action) {
+        changeCurrentGuests(state, action) {
             state.currentBooking.number_of_guests = action.payload
         },
-        changeStartDate(state, action) {
+        changeCurrentStartDate(state, action) {
             state.currentBooking.startDate = action.payload
         },
-        changeEndDate(state, action) {
+        changeCurrentEndDate(state, action) {
             state.currentBooking.endDate = action.payload
         },
-        changeNights(state, action) {
+        changeCurrentNights(state, action) {
             state.currentBooking.numberOfNights = action.payload
         },
         setDateError(state, action) {
@@ -42,14 +43,32 @@ const bookingsSlice = createSlice({
         },
         setGuestsError(state, action) {
             state.guestsError = action.payload
+        },
+        changeEntities(state, action) {
+            const booking = state.bookings.find((booking) => booking.id === action.payload.id)
+            booking[action.payload.attribute] = action.payload.value
         }
+
 
     },
     // async reducers
     extraReducers: {
+        [getUsersBookings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [getUsersBookings.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.bookings = action.payload
+            state.status = "idle";
+        },
+        [getUsersBookings.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.bookingError = action.payload
+        },
     },
 });
 
-export const { setCurrentBooking, changeEndDate, changeGuests, changeStartDate, changeNights, setDateError, setGuestsError } = bookingsSlice.actions
+export const { setCurrentBooking, changeCurrentEndDate, changeCurrentGuests, changeCurrentStartDate, changeCurrentNights, setDateError, setGuestsError } = bookingsSlice.actions
 
 export default bookingsSlice.reducer;

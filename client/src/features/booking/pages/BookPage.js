@@ -8,7 +8,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory, useParams, withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import DateRangeModal from "../components/DateRangeModal";
 import EditGuestsModal from "../components/EditGuestsModal";
-import { createBooking } from "../../listing/state/listingsSlice";
+import { createBooking, setCurrentBooking } from "../../listing/state/listingsSlice";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { ErrorMessage } from "../../../styles/Styles";
 
@@ -91,6 +91,7 @@ function BookPage(props) {
 
     if (booked) {
         setTimeout(() => {
+            dispatch(setCurrentBooking(null))
             props.history.push("/");
         }, 7000);
 

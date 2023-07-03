@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
-import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/system/Container';
 import Stack from '@mui/system/Stack';
 import { StyledBox } from "../../../styles/Styles";
-import { styled } from '@mui/system';
 import PropertyContainer from "../../common/PropertyContainer";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import EditBookingModal from "../components/EditBookingModal";
+import { getUsersBookings } from "../state/bookingsSlice";
 
 function BookedViewPage() {
-    const user = useSelector((state) => state.auth.user)
+    const dispatch = useDispatch()
+    const usersBookings = useSelector((state) => state.bookings.entities)
 
     useEffect(() => {
         dispatch(getUsersBookings())
     }, [])
 
-    if (!user) return <div>    
+    if (!usersBookings) return <div>    
     <Spinner animation="border" role="status" />
     </div>
+
+    console.log(usersBookings)
 
     return (
         <>
@@ -27,7 +28,7 @@ function BookedViewPage() {
                 <h2 style={{marginBottom: "30px"}}>Your Bookings</h2>
                 <StyledBox>
                 <Stack spacing={2}>
-                    {user.bookings.map((booking) => {
+                    {usersBookings.map((booking) => {
                         return <PropertyContainer booking={booking} />
                     })}
                 </Stack>
