@@ -73,9 +73,9 @@ const bookingsSlice = createSlice({
         [getUsersBookings.fulfilled]: (state, action) => {
             console.log(action.payload)
             state.bookings = action.payload
-            state.bookings.forEach((listing) => {
-                listing.stringified_dates.map((booked_date) => dayjs(booked_date).toDate())
-            })
+            // state.bookings.forEach((listing) => {
+            //     listing.stringified_dates.map((booked_date) => dayjs(booked_date).toDate())
+            // })
             state.status = "idle";
         },
         [getUsersBookings.rejected]: (state, action) => {

@@ -19,13 +19,13 @@ export const getListing = createAsyncThunk("listings/getListing", (id) => {
 })
 
 const initialState = {
-    entities: [],
+    entities: null,
     listingError: null,
     status: "idle",
     currentListing: null,
     usersCoordinates: null,
     booked: false,
-    bookingError: null
+    bookingError: null,
 }
  
 const listingsSlice = createSlice({
@@ -104,6 +104,6 @@ const listingsSlice = createSlice({
     },
 });
 
-export const { setListings, setErrors, setStatusToFulfilled, setStatusToLoading, turnOffBooked } = listingsSlice.actions
+export const { setListings, setErrors, setStatusToFulfilled, setStatusToLoading, turnOffBooked, setUsersCoordinates } = listingsSlice.actions
 
 export default listingsSlice.reducer;

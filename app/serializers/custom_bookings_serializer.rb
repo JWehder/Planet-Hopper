@@ -3,11 +3,13 @@ class CustomBookingsSerializer < ActiveModel::Serializer
 
   belongs_to :listing
 
-  def 
+  def listing_booked_dates
+      booked_dates = self.object.listing.booked_dates.map { |booked_date| booked_date.date.strftime('%Y-%m-%d') }
+      booked_dates
+  end
 
   def listing_owner 
-    user = User.find(self.object.listing.owner_id)
-    "#{self.object.user.first_name} #{self.object.user.last_name}"
+    "#{self.object.listing.owner.first_name} #{self.object.listing.owner.last_name}"
   end
 
 end

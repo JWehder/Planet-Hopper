@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import Box from '@mui/system/Box';
 import { PhotoGallery, LinkStyle } from "../../styles/Styles";
 import styled from "styled-components";
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import { Button } from "@mui/material";
 import EditBookingModal from "../booking/components/EditBookingModal";
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -22,7 +20,7 @@ function PropertyContainer({ booking }) {
                 <div style={{ width: '25%', maxWidth: '600px' }}>
                     <PhotoGallery photos={booking.listing.photos} />
                 </div>
-                <div style={{ width: '75%', maxWidth: '600px', maxHeight: '200px', paddingLeft: '15px', paddingRight: '15px' }}>
+                <AddressWrapper>
                     <h6>{booking.listing.city}{ booking.listing.state_province ? `, ${booking.listing.state_province}` : ""}</h6>
                     <div style={{fontSize: "13px"}}>{
                     booking.start_date} to {booking.end_date}
@@ -41,15 +39,16 @@ function PropertyContainer({ booking }) {
                             <Item>{
                             booking.number_of_guests} {booking.number_of_guests > 1 ? "people" : "person"}
                             </Item>
-                            <Item>Hosted by {booking.listing_owner}</Item>
+                            <Item>Hosted by {booking.listing.listing_owner}</Item>
                         </Stack>
                     </div>
-                </div>
+                </AddressWrapper>
             </BookingWrapper>
-            <div style={{display: 'flex', paddingRight: '10px'}}>
+            <div>
             <Tooltip title="go to listing">
             <IconButton
                   aria-label="see listing"
+                  style={{width: '40px', height: '40px'}}
             >
                     <LinkStyle to={`/listings/${booking.listing.id}`}>              <NearMeIcon color="primary" />
                     </LinkStyle>
@@ -86,20 +85,12 @@ const BookingWrapper = styled.div`
         }
 `
 
-const ButtonsGrid = styled.div`
-    display: grid;
-    grid-template: 1fr / 1fr;
-    place-items: center;
-    > * {
-    grid-column: 1 / 1;
-    grid-row: 1 / 1;
-    }
-`
-
-const EditButton = styled(Button)`
-    width: 60px; 
-    height: 35px; 
-    padding: 5px;
+const AddressWrapper = styled.div`
+    width: 75%;
+    max-width: 600px;
+    max-height: 200px;
+    padding-left: 15px;
+    padding-right: 15px;
 `
 
 const Item = styled.div`

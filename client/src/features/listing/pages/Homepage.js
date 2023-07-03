@@ -1,33 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
 import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
+import { fetchListings } from "../state/listingsSlice";
 
 function HomePage() {
     const dispatch = useDispatch()
 
     const homepageListings = useSelector((state) => state.listings.entities)
-    const status = useSelector((state) => state.listings.status)
     const booked = useSelector((state) => state.listings.booked)
+    const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
 
-    const listingCards = homepageListings.map((listing) => {
-          return (
-                <ListingCard listing={listing} />
-                )
-    });
+    useEffect(() => {
+        dispatch(fetchListings(usersCoordinates))
+    }, [])
 
     if (booked) {
         dispatch(turnOffBooked())
     }
 
-    if (status === "loading") return <div>    
+    if (!homepageListings) return <div>    
     <Spinner animation="border" role="status" />
     </div>
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
-                {listingCards}
+                {homepageListings.map((listing) => {
+                    return (
+                            <ListingCard listing={listing} />
+                            )
+                })}
             </div>
     )
 }

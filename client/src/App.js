@@ -11,7 +11,7 @@ import SearchResults from './features/listing/components/SearchResults';
 import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
 import { getUser } from './features/auth/state/authSlice';
 import { useDispatch } from 'react-redux';
-import { fetchListings } from './features/listing/state/listingsSlice';
+import { setUsersCoordinates } from './features/listing/state/listingsSlice';
 import BookPage from './features/booking/pages/BookPage';
 import BookedViewPage from './features/booking/pages/BookedViewPage';
 
@@ -31,13 +31,13 @@ function App() {
     if (navigator.geolocation) {
         try {
             const coordinates = await usersCoordinates();
-            dispatch(fetchListings(coordinates))
+            dispatch(setUsersCoordinates(coordinates))
             // dispatch(setUsersCoordinates(coordinates))
         } catch (error) { 
             console.error("Error:", error)
         }
     } else {
-        dispatch(fetchListings({latitude: 0.0, longitude: 0.0}))
+        dispatch(setUsersCoordinates(null))
         console.log("Geolocation is not supported by this browser")
     }
 }
