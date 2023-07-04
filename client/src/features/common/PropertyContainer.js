@@ -8,15 +8,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import Tooltip from '@mui/material/Tooltip';
+import dayjs from 'dayjs';
 
 function PropertyContainer({ booking }) {
     const [show, setShow] = useState()
 
+    const currentDate = new Date();
+    const startDate = dayjs(booking.start_date).toDate()
+    const endDate = dayjs(booking.end_date).toDate()
+
+    const disableEditing = startDate < currentDate || endDate < currentDate ? true : false
 
     return (
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', texAlign: 'center'}}>
+        <div style={{
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            texAlign: 'center'
+            }}>
             <BookingWrapper>
-                <EditBookingModal booking={booking} show={show} setShow={setShow}  />
+                <EditBookingModal booking={booking} listing={booking.listing} show={show} setShow={setShow}  />
                 <div style={{ width: '25%', maxWidth: '600px' }}>
                     <PhotoGallery photos={booking.listing.photos} />
                 </div>
@@ -28,7 +39,11 @@ function PropertyContainer({ booking }) {
                     <div style={{textAlign: "left", padding: "10px"}}>
                         <p style={{fontSize: "11px", margin: "5px"}}>{booking.listing.address}</p>
                     </div>
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <div style={{
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center'
+                        }}>
                         <Stack
                             direction="row"
                             divider={<Divider orientation="vertical" flexItem />}
@@ -60,7 +75,8 @@ function PropertyContainer({ booking }) {
                   aria-label="edit booking"
                   onClick={() => setShow(true)}
                   onMouseDown={() => {setShow(true)}}
-                >
+                  disabled={disableEditing}
+            >
                   <EditIcon color="secondary" />
             </IconButton>
             </Tooltip>

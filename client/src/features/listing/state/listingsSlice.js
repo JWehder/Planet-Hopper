@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../../../utils/helpers";
 import dayjs from "dayjs";
+import axios from "axios";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
+
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
     return fetchWrapper.post("/listings/homepage_listings", locationObj, thunkAPI)
 });
@@ -18,6 +20,18 @@ export const getListing = createAsyncThunk("listings/getListing", (id) => {
     .then((data) =>  data);
 })
 
+export const getUsersListings = createAsyncThunk("listings/getUsersListings", async() => {
+    const response = await axios.get("/my_listings")
+    const user = await axios.get("/me")
+    return {data: response.data, userId: user.data.id}
+})
+
+export const deleteBooking = createAsyncThunk("listings/deleteBooking", async() => {
+    const response = await axios.get("/my_listings")
+    return {data: response.data, userId: user.data.id}
+})
+
+
 const initialState = {
     entities: null,
     listingError: null,
@@ -25,7 +39,8 @@ const initialState = {
     currentListing: null,
     usersCoordinates: null,
     booked: false,
-    bookingError: null,
+    bookingError: null, 
+    usersListings: null
 }
  
 const listingsSlice = createSlice({
@@ -51,7 +66,7 @@ const listingsSlice = createSlice({
         },
         turnOffBooked(state) {
             state.booked = false
-        }
+        },
     },
     // async reducers
     extraReducers: {
@@ -89,7 +104,6 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [createBooking.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.currentListing.bookings.push(action.payload)
             state.status = "idle"
             state.booked = true
@@ -98,6 +112,30 @@ const listingsSlice = createSlice({
             console.log("rejected!")
             console.log(action.payload)
             state.bookingError = action.payload
+        },
+        [getUsersListings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [getUsersListings.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.usersListings = action.payload.data
+            state.usersListings.forEach((listing) => {
+                listing.booked_dates = listing.bookings.reduce((accumulator, booking) => {
+                    if (booking.user_id === action.payload.userId) {
+                        return accumulator;
+                    }
+                    return accumulator.concat(
+                        booking.stringified_dates.map((booked_date) => {
+                      return dayjs(booked_date).toDate();
+                    }));
+                }, []);
+            })
+            state.status = "idle";
+        },
+        [getUsersListings.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.listingError = action.payload
         },
 
         

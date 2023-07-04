@@ -25,6 +25,12 @@ class ListingsController < ApplicationController
         end
     end
 
+    def my_listings
+        user = User.find(session[:user_id])
+        unique_listings = user.listings.uniq
+        render json: unique_listings, status: :ok, each_serializer: CustomListingSerializer
+    end
+
     def create
         user = User.find(session[:user_id])
         listing = user.listings.create!(listing_params)

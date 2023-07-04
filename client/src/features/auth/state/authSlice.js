@@ -49,6 +49,7 @@ const authSlice = createSlice({
             state.status = "loading";
         },
         [getUser.fulfilled]: (state, action) => {
+            console.log(action.payload)
             state.user = action.payload
             state.status = "idle";
         },

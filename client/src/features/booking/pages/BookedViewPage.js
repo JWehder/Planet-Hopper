@@ -5,21 +5,43 @@ import { StyledBox } from "../../../styles/Styles";
 import PropertyContainer from "../../common/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
-import { getUsersBookings } from "../state/bookingsSlice";
+import { getUsersListings } from "../../listing/state/listingsSlice";
 
 function BookedViewPage() {
     const dispatch = useDispatch()
-    const usersBookings = useSelector((state) => state.bookings.bookings)
+    const usersListings = useSelector((state) => state.listings.usersListings)
+    const user = useSelector((state) => state.auth.user)
+    console.log(user)
 
     useEffect(() => {
-        dispatch(getUsersBookings())
+        dispatch(getUsersListings())
     }, [])
 
-    if (!usersBookings) return <div>    
+    if (!usersListings) return <div>    
     <Spinner animation="border" role="status" />
     </div>
 
+    const usersBookings = usersListings.reduce((accumulator, listing) => {
+        const filteredBookings = listing.bookings.filter((booking) => {
+        return booking.user_id === user.id;
+        });
+    
+        if (filteredBookings.length > 0) {
+        const bookingsWithListing = filteredBookings.map((booking) => {
+            return {
+            ...booking,
+            listing: listing,
+            };
+        });
+    
+        return accumulator.concat(bookingsWithListing);
+        }
+    
+        return accumulator;
+    }, []);
+
     console.log(usersBookings)
+    console.log(usersListings)
     return (
         <>
             <Container maxWidth="lg" fixed>
