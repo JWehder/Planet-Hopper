@@ -20,7 +20,6 @@ function BookedViewPage() {
     </div>
 
     console.log(usersBookings)
-
     return (
         <>
             <Container maxWidth="lg" fixed>

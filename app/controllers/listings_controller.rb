@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
 
     def render_homepage_listings
         users_location_listings = []
-        if listing_params[:latitude] > 0 && listing_params[:longitude] > 0
+        if listing_params[:latitude] && listing_params[:latitude] > 0 && listing_params[:longitude] > 0
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
         end
         homepage_listings = Listing.query_homepage_listings(listing_params[:latitude], listing_params[:longitude])
