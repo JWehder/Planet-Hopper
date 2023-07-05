@@ -5,6 +5,9 @@ import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
 import { fetchListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import styled from "styled-components";
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -25,18 +28,29 @@ function HomePage() {
     <Spinner animation="border" role="status" />
     </div>
 
+    console.log(homepageListings)
+
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
                 <div style={{
                     borderTop: '1px solid #E5E4E4', 
                     borderBottom: '1px solid #E5E4E4',
-                    padding: '10px'
+                    padding: '15px'
                     }}
                 >
-                <RocketLaunchIcon />
-                <span style={{fontSize: '11px'}}>
-                    Go Intergalactic!
-                </span>
+                <IconContainer>
+                    <RocketLaunchIcon fontSize="medium" />
+                    <p style={{fontSize: '10px', marginBottom: '2px'}}>Blast Off!</p>
+                </IconContainer>
+                {/* <Tooltip title="blast off!">
+                <IconButton
+                    aria-label="go intergalactic"
+                    // onClick={}
+                    // onMouseDown={}
+                >
+                    <RocketLaunchIcon />
+                </IconButton>
+                </Tooltip> */}
                 </ div>
                 {homepageListings.map((listing) => {
                     return (
@@ -46,5 +60,16 @@ function HomePage() {
             </div>
     )
 }
+
+const IconContainer = styled.div`
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+        border-top: 2px solid #E5E4E4;
+        border-bottom: 2px solid #E5E4E4;
+    }
+
+`
 
 export default HomePage;
