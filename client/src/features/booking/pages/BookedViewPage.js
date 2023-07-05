@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Container from '@mui/system/Container';
 import Stack from '@mui/system/Stack';
 import { StyledBox } from "../../../styles/Styles";
@@ -20,6 +20,10 @@ function BookedViewPage() {
     if (!usersListings) return <div>    
     <Spinner animation="border" role="status" />
     </div>
+
+    if (usersListings.length < 1) {
+        return <div><h2>Your Bookings</h2>Sorry, you have no bookings to display. Please make one!</div>
+    }
 
     const usersBookings = usersListings.reduce((accumulator, listing) => {
         const filteredBookings = listing.bookings.filter((booking) => {

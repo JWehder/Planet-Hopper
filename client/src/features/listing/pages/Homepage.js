@@ -4,6 +4,7 @@ import ListingCard from "../components/ListingCard";
 import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
 import { fetchListings } from "../state/listingsSlice";
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -26,6 +27,17 @@ function HomePage() {
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+                <div style={{
+                    borderTop: '1px solid #E5E4E4', 
+                    borderBottom: '1px solid #E5E4E4',
+                    padding: '10px'
+                    }}
+                >
+                <RocketLaunchIcon />
+                <span style={{fontSize: '11px'}}>
+                    Go Intergalactic!
+                </span>
+                </ div>
                 {homepageListings.map((listing) => {
                     return (
                             <ListingCard listing={listing} />

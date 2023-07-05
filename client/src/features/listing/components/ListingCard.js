@@ -1,39 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { setErrors } from "../state/listingsSlice";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { LinkStyle } from "../../../styles/Styles";
 import { PhotoGallery } from "../../../styles/Styles";
 
-function ListingCard({ listing }, props) {
-    const history = useHistory()
-    const dispatch = useDispatch()
-
-    async function handleClick() {
-        // try {
-        //     const response = await axios.get(`/listings/${listing.id}`)
-        //     console.log(response)
-        //     if (response.statusText !== "OK") {
-        //         dispatch(setErrors(response.data))
-        //         return
-        //     }
-        //     dispatch(setCurrentListing(response.data))
-        //     props.history.push(`/listings/${listing.name}`)
-
-        // } catch (error) {
-        //     console.error("error occurred", error);
-        // }
-    }
+function ListingCard({ listing }) {
 
     return (
-            <ListingContainer onClick={handleClick}>
+            <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>
                 <ListingButton>
-                        <PhotoGallery photos={listing.photos} />
+                        <PhotoGallery style={{width: '200px'}} photos={listing.photos} />
                 </ListingButton>
-                <div style={{ paddingLeft: '10px'}}>
+                <div style={{ paddingLeft: '20px'}}>
                     <ListingContent>
                         <ListingPara>{listing.city}, {listing.state_province}</ListingPara>
                     </ListingContent>
@@ -60,6 +39,12 @@ const ListingContainer = styled.div`
     margin: 20px;
     margin-left: 10px;
     display: inline-grid;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
 `
 const ListingPara = styled.p`
     font-size: 12px;

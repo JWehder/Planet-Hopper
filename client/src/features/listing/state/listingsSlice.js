@@ -26,9 +26,9 @@ export const getUsersListings = createAsyncThunk("listings/getUsersListings", as
     return {data: response.data, userId: user.data.id}
 })
 
-export const deleteBooking = createAsyncThunk("listings/deleteBooking", async() => {
-    const response = await axios.get("/my_listings")
-    return {data: response.data, userId: user.data.id}
+export const deleteBooking = createAsyncThunk("listings/deleteBooking", async(id) => {
+    const response = await axios.delete(`/bookings/${id}`)
+    return response.data.id
 })
 
 
@@ -136,6 +136,23 @@ const listingsSlice = createSlice({
             console.log("rejected!")
             console.log(action.payload)
             state.listingError = action.payload
+        },
+        [deleteBooking.pending]: (state) => {
+            state.status = "loading";
+        },
+        [deleteBooking.fulfilled]: (state, action) => {
+            const bookingId = action.payload
+            state.userListings = state.userListings.map((listing) => {
+                const bookings = listing.bookings.filter((booking) => booking.id !== bookingId)
+                return {...listing, bookings: bookings}
+            })
+            state.status = "idle"
+            state.booked = true
+        },
+        [deleteBooking.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.bookingError = action.payload
         },
 
         

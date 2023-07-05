@@ -44,16 +44,18 @@ function NavBar() {
     };
 
 return (
-    <AppBar style={{backgroundColor: "black"}} position="static">
+    <AppBar style={{backgroundColor: "#E5E4E4"}} position="static">
         <Container maxWidth="xl">
         <Toolbar disableGutters>
             {/* <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <WebsiteIcon style={{width: "48px", height:"48px", paddingRight:"10px"}} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
+            <WebsiteIcon 
+            style={{width: "48px", height:"48px", paddingRight:"10px"}} 
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} 
+            />
             <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -64,7 +66,7 @@ return (
                 textDecoration: 'none',
             }}
             >
-            PlanetHopper
+            <StyledLink to="/" style={{color: "white"}}>PlanetHopper</StyledLink>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -75,6 +77,11 @@ return (
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
                 color="inherit"
+                style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center"
+                }}
             >
                 <MenuIcon />
             </IconButton>

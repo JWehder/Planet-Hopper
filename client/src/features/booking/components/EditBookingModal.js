@@ -45,7 +45,8 @@ function EditBookingModal({ booking, show, setShow, listing }) {
   }
 
   const handleDelete = () => {
-    dispatch(deleteBooking())
+    setShow(false)
+    dispatch(deleteBooking(booking.id))
   }
 
   const initialCheckinDate = dayjs(booking.start_date)
@@ -91,7 +92,7 @@ function EditBookingModal({ booking, show, setShow, listing }) {
           <Button 
           variant="text" 
           startIcon={<DeleteIcon />}
-          onClick={handleDelete()}
+          onClick={handleDelete}
           color="error"
           size="medium"
           type="button"

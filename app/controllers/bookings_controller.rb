@@ -41,7 +41,7 @@ class BookingsController < ApplicationController
         booking = find_booking(user)
         if booking
             booking.destroy
-            head :no_content
+            render json: { id: booking.id }
         else
             render_unauthorized_user_response("booking")
         end
