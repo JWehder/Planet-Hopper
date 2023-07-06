@@ -12,6 +12,7 @@ function BookedViewPage() {
     const usersListings = useSelector((state) => state.listings.usersListings)
     const user = useSelector((state) => state.auth.user)
     console.log(user)
+    console.log(usersListings)
 
     useEffect(() => {
         dispatch(getUsersListings())
@@ -27,7 +28,8 @@ function BookedViewPage() {
 
     const usersBookings = usersListings.reduce((accumulator, listing) => {
         const filteredBookings = listing.bookings.filter((booking) => {
-        return booking.user_id === user.id;
+            console.log(booking.user_id)
+            return booking.user_id === user.id;
         });
     
         if (filteredBookings.length > 0) {

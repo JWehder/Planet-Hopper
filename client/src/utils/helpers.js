@@ -1,4 +1,5 @@
 import { Form } from "react-bootstrap"
+import { ErrorMessage } from "../styles/Styles"
 
 const post = async(url, obj, thunkAPI) => {
     console.log(obj)
@@ -39,9 +40,9 @@ const displayErrors = (errors, errorKey = null) => {
             return null
         }
         return ( 
-        <Form.Control.Feedback type="invalid">
+        <ErrorMessage>
         {error}
-        </Form.Control.Feedback>
+        </ErrorMessage>
         );
     })
 }

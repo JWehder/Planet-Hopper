@@ -73,7 +73,9 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
         }
 
         setCheckoutDate(dayjs(newValue))
-        setNights(calculateNights(checkinDate, newValue))
+        if (setNights) {
+            setNights(calculateNights(checkinDate, newValue))
+        }
     }
 
     const calculateNights = (checkin, checkout) => {

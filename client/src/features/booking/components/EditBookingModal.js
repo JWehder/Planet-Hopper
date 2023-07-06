@@ -1,37 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import DateCalendars from "../../common/DateCalendars";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBookingsGuests, changeBookingsEndDate, changeBookingsStartDate } from "../state/bookingsSlice";
-import { deleteBooking } from "../../listing/state/listingsSlice"
-import { ErrorMessage } from "../../../styles/Styles";
+import { updateBooking, deleteBooking } from "../../listing/state/listingsSlice"
 import { Button } from "@mui/material";
 import GuestsInputBox from "../../listing/components/GuestsInputBox"
 import dayjs from "dayjs";
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { ErrorMessage } from "../../../styles/Styles";
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
-  const dateError = useSelector((state) => state.bookings.dateError)
-  const guestsError = useSelector((state) => state.bookings.guestsError)
+  const bookingError = useSelector((state) => state.listings.bookingError)
 
-  const setCheckinDate = (newValue) => dispatch(changeBookingsStartDate({
-    value: dayjs(newValue).format("YYYY-MM-DD"),
-    id: booking.id
-  }))
-
-  const setCheckoutDate = (newValue) => dispatch(changeBookingsEndDate({
-    value: dayjs(newValue).format("YYYY-MM-DD"),
-    id: booking.id
-  }))
-
-  const setGuests = (newValue) => dispatch(changeBookingsGuests({
-    value: newValue,
-    id: booking.id
-  }))
+  const [initialCheckinDate, setInitialCheckinDate] = useState(dayjs(booking.start_date)) 
+  const [initialCheckoutDate, setInitialCheckoutDate] = useState(dayjs(booking.end_date))
+  const [guests, setGuests] = useState(booking.number_of_guests)
 
   const handleClose = () => {
-    if (dateError) {
+    if (bookingError) {
         return
     }
 
@@ -41,16 +29,27 @@ function EditBookingModal({ booking, show, setShow, listing }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    const bookingObj = {
+        id: booking.id,
+        number_of_guests: guests,
+        start_date: dayjs(initialCheckinDate).format("YYYY-MM-DD"),
+        end_date: dayjs(initialCheckoutDate).format("YYYY-MM-DD"),
+    }
 
+    dispatch(updateBooking(bookingObj))
+
+  }
+
+  const handleErrors = (errors) => {
+    for (let error in errors) {
+      return <ErrorMessage>{errors[error]}</ErrorMessage>
+    }
   }
 
   const handleDelete = () => {
     setShow(false)
     dispatch(deleteBooking(booking.id))
   }
-
-  const initialCheckinDate = dayjs(booking.start_date)
-  const initialCheckoutDate = dayjs(booking.end_date)
 
   console.log(initialCheckinDate, initialCheckoutDate)
 
@@ -67,42 +66,39 @@ function EditBookingModal({ booking, show, setShow, listing }) {
       <form onSubmit={handleSubmit}>
       <Modal.Body>
               <DateCalendars
-              setCheckinDate={setCheckinDate}
-              setCheckoutDate={setCheckoutDate}
+              setCheckinDate={setInitialCheckinDate}
+              setCheckoutDate={setInitialCheckoutDate}
               listing={listing}
               checkinDate={initialCheckinDate}
               checkoutDate={initialCheckoutDate}
               />
-              {dateError && 
-              <ErrorMessage>
-              {dateError}
-              </ErrorMessage>
-              }   
               <GuestsInputBox 
               setGuests={setGuests}
-              guests={booking.number_of_guests}
+              guests={guests}
               max_guests={listing.max_guests_allowed}
               />
-              {guestsError && 
-              <ErrorMessage>
-              {guestsError}
-              </ErrorMessage>
-              }   
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <Button 
+          </div>
+          {/* {bookingError && handleErrors(bookingError)} */}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button 
+            variant="text" 
+            startIcon={<SaveIcon />}
+            color="primary"
+            type="submit"
+        >
+            Save
+        </Button>
+        <Button 
           variant="text" 
           startIcon={<DeleteIcon />}
           onClick={handleDelete}
           color="error"
-          size="medium"
           type="button"
-          >
+        >
             Delete
-          </Button>
-          </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button color="secondary" variant="text" type="submit">Save Changes</Button>
+        </Button>
       </Modal.Footer>
       </form>
     </Modal>

@@ -28,13 +28,31 @@ class BookingsController < ApplicationController
     def update
         user = current_user
         booking = find_booking(user) 
+      
         if booking
+          booking_date_range = (booking.start_date...booking.end_date)
+          params_date_range = (booking_params[:start_date]...booking_params[:end_date])
+
+          puts booking_date_range, params_date_range
+          puts booking_date_range.count, params_date_range.count
+      
+          if booking_date_range.count < params_date_range.count
             booking.update!(booking_params)
-            render json: booking, status: :ok
+            booking_date_range.each do |date|
+              if booking.booked_dates.where(date: date).empty?
+                booking.booked_dates.create!(listing_id: booking.listing_id, booking_id: booking.id, date: date)
+              end
+            end
+          elsif booking_date_range.count > params_date_range.count
+            booking.update!(booking_params)
+            booking.booked_dates.where.not(date: booking_date_range).delete_all
+          end
+      
+          render json: booking, status: :ok
         else
-            render_unauthorized_user_response("booking")
+          render_unauthorized_user_response("booking")
         end
-    end
+      end
 
     def destroy
         user = current_user

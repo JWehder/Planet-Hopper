@@ -35,7 +35,7 @@ function HomePage() {
                 <div style={{
                     borderTop: '1px solid #E5E4E4', 
                     borderBottom: '1px solid #E5E4E4',
-                    padding: '15px'
+                    padding: '12px'
                     }}
                 >
                 <IconContainer>

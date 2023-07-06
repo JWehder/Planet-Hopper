@@ -10,7 +10,6 @@ export const fetchListings = createAsyncThunk("listings/fetchListings", (locatio
 });
 
 export const createBooking = createAsyncThunk("listings/createBooking", (bookingObj, thunkAPI) => {
-    console.log("/bookings")
     return fetchWrapper.post("/bookings", bookingObj, thunkAPI)
 });
 
@@ -29,6 +28,18 @@ export const getUsersListings = createAsyncThunk("listings/getUsersListings", as
 export const deleteBooking = createAsyncThunk("listings/deleteBooking", async(id) => {
     const response = await axios.delete(`/bookings/${id}`)
     return response.data.id
+})
+
+export const updateBooking = createAsyncThunk("/listings/updateBooking", async(bookingObj) => {
+    const { id, ...rest } = bookingObj
+    try {
+        const response = await axios.put(`/bookings/${id}`, rest);
+        return { data: response.data, bookingId: id };
+    } catch (error) {
+        // Handle the error
+        console.log(error.response.data.errors);
+        return error.response.data.errors // Re-throw the error to be caught by the rejected state
+    }
 })
 
 
@@ -142,14 +153,28 @@ const listingsSlice = createSlice({
         },
         [deleteBooking.fulfilled]: (state, action) => {
             const bookingId = action.payload
-            state.userListings = state.userListings.map((listing) => {
+            state.usersListings = state.usersListings.map((listing) => {
                 const bookings = listing.bookings.filter((booking) => booking.id !== bookingId)
                 return {...listing, bookings: bookings}
             })
             state.status = "idle"
-            state.booked = true
         },
         [deleteBooking.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.bookingError = action.payload
+        },
+        [updateBooking.pending]: (state) => {
+            state.status = "loading";
+        },
+        [updateBooking.fulfilled]: (state, action) => {
+            const bookingId = action.payload.bookingId
+            state.usersListings = state.usersListings.map((listing) => {
+                const filteredBookings = listing.bookings.filter((b) => b.id !== bookingId)
+                return {...listing, bookings: [...filteredBookings, action.payload.data]}
+            })
+        },
+        [updateBooking.rejected]: (state, action) => {
             console.log("rejected!")
             console.log(action.payload)
             state.bookingError = action.payload
