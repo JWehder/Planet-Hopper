@@ -156,14 +156,88 @@ $photos = [
     "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxfHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxODk3NTh8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1560184897-ae75f418493e?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyfHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwzfHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw0fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw1fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1494526585095-c41746248156?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw2fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1528013440325-f2473fe988a2?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw3fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1503594384566-461fe158e797?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw4fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1530982937671-bc00141b5d79?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHw5fHxleHRlcmlvcnxlbnwwfHx8fDE2ODQxOTA0ODd8MA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1635108201747-976f7d4ba453?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxMHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1622015663319-e97e697503ee?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxMXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1635108199445-ab9f516646e2?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxMnx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1522050212171-61b01dd24579?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxM3x8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1519806870789-d65fc19601fa?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxNHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1535007135893-61091db8c179?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxNXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1529266463145-cba75e3465d2?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxNnx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1527948940587-dc64f8037e79?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxN3x8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1531394360768-cc62d9ed68b3?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxOHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1536566482680-fca31930a0bd?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1524292691042-82ed9c62673b?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwxOXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1533904842716-e7071a20656d?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyMHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1521846562476-9c2446539e47?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1489257251256-036cd1ac7606?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyMXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyMnx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1556575157-75a0d60e4835?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1528993819241-a4392261c690?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyM3x8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1526910050765-6d3a7ff70a5b?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyNHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1533924004796-43f055849940?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyNXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1533578555553-e417045631cd?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyNnx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://cdn.discordapp.com/attachments/1106022073605832748/1107816038294356008/Jake_Wehder_8k_photo_of_an_italian_villa_9d6a9083-d96b-406e-8050-399d143e2e11.png", "https://cdn.discordapp.com/attachments/1106022073605832748/1107816252006735942/Jake_Wehder_realistic_photo_of_an_apartment_building_886f3db2-215a-4a8d-b312-c85f47c53f7e.png", "https://images.unsplash.com/photo-1471896335371-82fdaca100f2?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyN3x8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1528489865599-adb58079a8b5?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyOHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1542464263-7c7ffad2b206?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwyOXx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1533641316813-7a2883c9f7a4?ixid=M3w0NDg5NDJ8MHwxfHNlYXJjaHwzMHx8ZXh0ZXJpb3J8ZW58MHx8fHwxNjg0MTkwNDg3fDA&ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1536566482680-fca31930a0bd?ixlib=rb-4.0.3", "https://images.unsplash.com/photo-1598737652403-6e0ee5bf5cf2?ixlib=rb-4.0.3"
 ]
 
+$alien_photos = [
+  "https://cdn.discordapp.com/attachments/1104554677128929372/1126611547679096976/jake_wehder_create_an_air_bnb_esque_photo_of_a_bedroom_5f199ab9-0c78-4cf0-8753-8d6d00b2008f.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126608181351694428/jake_wehder_create_an_image_of_the_interior_of_this_home_like_i_652e9584-4307-4c0b-87b9-fa67a4bd3f9a.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126595110814089427/jake_wehder_create_an_image_of_a_house_from_this_neighborhood_l_2e24caa8-e339-4a83-aff3-9f83a0af3f46.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126594705644331070/jake_wehder_create_an_image_of_a_house_from_this_neighborhood_l_d652df8b-f00e-4c1c-bd3e-2aa0a21eb9e8.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126594216001290321/jake_wehder_can_you_create_a_western_themed_home_on_a_scenic_ma_524b3d7a-a86b-4b6c-a3b0-39e3ff284727.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126593453510373506/jake_wehder_can_you_create_an_image_of_an_alien_beach_state_par_009ff140-1703-443a-abd7-a94a65c7d573.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126592949157888030/jake_wehder_can_you_create_an_image_of_the_backyard_for_this_ho_0f9fbcc5-3504-4fee-b1f2-0dbf61f89d99.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126592025555382292/jake_wehder_can_you_create_an_image_of_a_bedroom_for_this_homeh_f9234ab3-32f0-4271-80a8-bbe03bbe3bf9.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126590636125065236/jake_wehder_create_an_image_of_the_interior_of_this_home_932e211d-1386-4561-995d-a0d7553053bf.png", "https://cdn.discordapp.com/attachments/1104554677128929372/1126590075799609364/jake_wehder_alien_home_on_a_different_planet_in_a_suburban_neig_8e8666c7-4889-4e08-b578-75c0fcce0953.png"
+]
+
 $planets = [
     {name: "Aurora", description: "Aurora is a planet that is known for its stunning natural light shows, similar to the Northern Lights on Earth. The planet's atmosphere is filled with charged particles that create beautiful, colorful displays in the sky. Despite the harsh weather conditions, Aurora is home to a diverse range of flora and fauna, including towering trees and brightly-colored birds. Adventurers flock to Aurora to explore its rugged terrain and witness the breathtaking auroras that dance across the sky."},
     {name: "Nebula", description: "Nebula is a planet that lives up to its name. The planet is surrounded by a swirling cloud of gas and dust that creates a surreal, dreamlike environment. Nebula is home to a variety of exotic creatures, including shimmering butterflies and iridescent fish. The planet's oceans are said to contain healing properties that can cure a range of ailments. Visitors to Nebula often describe feeling as though they have stepped into a different dimension."},
     {name: "Galaxia", description: "Galaxia is a planet that is known for its vibrant nightlife and bustling cities. The planet's inhabitants are passionate about art, music, and fashion, and the streets are alive with energy and creativity. Despite the fast-paced lifestyle, Galaxia is also home to serene beaches, lush rainforests, and breathtaking mountain ranges. Visitors to Galaxia can immerse themselves in the culture and nightlife of the cities or escape to the tranquil countryside for a more peaceful experience."},
     {name: "Orion", description: "Orion is a planet that is known for its mysterious, otherworldly landscape. The planet is shrouded in mist and surrounded by towering mountains that seem to reach up to the sky. Despite the harsh conditions, Orion is home to a range of fascinating creatures, including bioluminescent insects and massive, tentacled beasts. Visitors to Orion often describe feeling as though they have stepped onto another planet altogether."},
     {name: "Nova", description: "Nova is a planet that is known for its breathtaking natural wonders, including massive geysers, towering waterfalls, and shimmering lakes. The planet's landscape is both beautiful and dangerous, with treacherous cliffs and rugged canyons that are perfect for adventurous travelers. Nova is also home to a range of fascinating creatures, including majestic eagles and elusive panthers. Visitors to Nova are sure to be awed by the planet's natural beauty and the incredible diversity of life that thrives there."},
-    {name: "Earth", description: "Earth is the planet that we call home. It is known for its incredible diversity of life, including millions of plant and animal species. Earth is also the only known planet in the universe that can sustain human life. The planet is home to stunning natural wonders, including towering mountains, vast oceans, and endless expanses of desert. Visitors to Earth can explore a range of different cultures and landscapes, from the bustling cities to the tranquil countryside. Whether you're looking for adventure or relaxation, Earth has something for everyone."}
+    # {name: "Earth", description: "Earth is the planet that we call home. It is known for its incredible diversity of life, including millions of plant and animal species. Earth is also the only known planet in the universe that can sustain human life. The planet is home to stunning natural wonders, including towering mountains, vast oceans, and endless expanses of desert. Visitors to Earth can explore a range of different cultures and landscapes, from the bustling cities to the tranquil countryside. Whether you're looking for adventure or relaxation, Earth has something for everyone."}
 ]
+
+$alien_cities = [
+  "Lunaris",
+  "Solaris",
+  "Stellaris",
+  "Aurora",
+  "Celestia",
+  "Galacton",
+  "Orionis",
+  "Nebulae",
+  "Vortexia",
+  "Zephyria",
+  "Nyxar",
+  "Solara",
+  "Elysium",
+  "Aetherium",
+  "Serenos",
+  "Astrovia",
+  "Venusia",
+  "Marsalis",
+  "Jupiteria",
+  "Saturnalia"
+]
+
+$state_names = [
+  "Lunarland",
+  "Solaria",
+  "Stellaris",
+  "Aurorania",
+  "Celestium",
+  "Galactica",
+  "Orionia",
+  "Nebulos",
+  "Vortexis",
+  "Zephyria",
+  "Nyxaris",
+  "Solaris Major",
+  "Elysia",
+  "Aetheria",
+  "Serenium",
+  "Astrovia",
+  "Venusis",
+  "Marsalia",
+  "Jupiteria",
+  "Saturnia"
+]
+
+$alien_addresses = [
+  "123 Moonlight Street",
+  "456 Sunshine Avenue",
+  "789 Stellar Boulevard",
+  "321 Aurora Lane",
+  "654 Celestial Drive",
+  "987 Galaxy Terrace",
+  "234 Orbit Road",
+  "567 Nebula Lane",
+  "890 Vortex Way",
+  "432 Zephyr Street",
+  "765 Nyxar Avenue",
+  "876 Solaris Major Highway",
+  "543 Elysium Lane",
+  "210 Aether Street",
+  "987 Serenity Lane",
+  "654 Astro Avenue",
+  "321 Venus Boulevard",
+  "678 Marsalis Drive",
+  "345 Jupiter Lane",
+  "912 Saturn Avenue"
+]
+
 
 
 $listings = [

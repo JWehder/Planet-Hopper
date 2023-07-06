@@ -33,9 +33,7 @@ function HomePage() {
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
                 <div style={{
-                    borderTop: '1px solid #E5E4E4', 
-                    borderBottom: '1px solid #E5E4E4',
-                    padding: '12px'
+                    padding: '10px'
                     }}
                 >
                 <IconContainer>
@@ -64,10 +62,13 @@ function HomePage() {
 const IconContainer = styled.div`
     display: inline-block;
     cursor: pointer;
+    box-sizing: border-box;
+    padding: 8px;
+    
 
     &:hover {
-        border-top: 2px solid #E5E4E4;
-        border-bottom: 2px solid #E5E4E4;
+        border-radius: 50%;
+        background-color: #E5E4E4;
     }
 
 `

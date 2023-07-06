@@ -76,7 +76,6 @@ function App() {
         <MapModal />
       </Route>
       <Route exact path='/'>
-          <Button onClick={handleClick} variant="container" color="primary">show modal</Button>
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>

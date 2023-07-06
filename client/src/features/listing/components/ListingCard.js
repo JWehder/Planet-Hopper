@@ -10,7 +10,7 @@ function ListingCard({ listing }) {
             <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>
                 <ListingButton>
-                        <PhotoGallery style={{width: '200px'}} photos={listing.photos} />
+                        <PhotoGallery style={{width: '300px'}} photos={listing.photos} />
                 </ListingButton>
                 <div style={{ paddingLeft: '20px'}}>
                     <ListingContent>

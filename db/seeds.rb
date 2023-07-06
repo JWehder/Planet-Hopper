@@ -99,4 +99,30 @@ Listing.all.each do |listing|
     listing.update!(photos: $photos.sample(5))
 end
 
+10.times do 
+
+    address = Geocoder.search(city).first
+    user_id = User.where(host: true).sample.id
+    puts address.latitude, address.longitude
+    puts address.city
+    puts address.state
+    puts address.address
+    Listing.create!(
+        name: listing[:title],
+        address: $alien_addresses,
+        city: $alien_cities,
+        state_province: $state_names,
+        country: address.country,
+        planet_id: Planet.all.sample.id,
+        owner_id: user_id,
+        description: listing[:description],
+        unit_price: rand(125..1250),
+        type_of_accomodation: listing[:type_of_accomodation],
+        max_guests_allowed: rand(1..12),
+        latitude: address.latitude,
+        longitude: address.longitude,
+        photos: $photos.sample(3)
+    )
+end
+
 puts "done seeding"
