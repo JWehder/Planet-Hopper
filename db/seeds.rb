@@ -95,24 +95,20 @@ require_relative 'seed_data.rb'
 #     puts results.first.address
 # end
 
-Listing.all.each do |listing|
-    listing.update!(photos: $photos.sample(5))
-end
+# Listing.all.each do |listing|
+#     listing.update!(photos: $photos.sample(5))
+# end
 
 10.times do 
-
-    address = Geocoder.search(city).first
+    address = Geocoder.search($cities.sample(1)[0]).first
     user_id = User.where(host: true).sample.id
-    puts address.latitude, address.longitude
-    puts address.city
-    puts address.state
-    puts address.address
+    listing = $listings.sample(1)[0]
     Listing.create!(
         name: listing[:title],
         address: $alien_addresses,
         city: $alien_cities,
         state_province: $state_names,
-        country: address.country,
+        country: $alien_countries,
         planet_id: Planet.all.sample.id,
         owner_id: user_id,
         description: listing[:description],
@@ -121,7 +117,7 @@ end
         max_guests_allowed: rand(1..12),
         latitude: address.latitude,
         longitude: address.longitude,
-        photos: $photos.sample(3)
+        photos: $alien_photos.sample(5)
     )
 end
 

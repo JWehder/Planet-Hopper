@@ -15,22 +15,22 @@ $cities = [
   "London",
   "Rome",
   "Berlin",
-  "Madrid"
-  # "Tokyo",
-  # "Seoul",
-  # "Beijing",
-  # "Shanghai",
-  # "Bangkok",
-  # "Mumbai",
-  # "Kuala Lumpur",
-  # "Jakarta",
-  # "Dubai",
-  # "Abu Dhabi",
-  # "Doha",
-  # "Riyadh",
-  # "Cairo",
-  # "Istanbul",
-  # "Amman",
+  "Madrid",
+  "Tokyo",
+  "Seoul",
+  "Beijing",
+  "Shanghai",
+  "Bangkok",
+  "Mumbai",
+  "Kuala Lumpur",
+  "Jakarta",
+  "Dubai",
+  "Abu Dhabi",
+  "Doha",
+  "Riyadh",
+  "Cairo",
+  "Istanbul",
+  "Amman",
   # "Tel Aviv",
   # "Beirut",
   # "Muscat"
@@ -238,7 +238,28 @@ $alien_addresses = [
   "912 Saturn Avenue"
 ]
 
-
+$alien_countries = [
+  "Lunaria",
+  "Solaria",
+  "Stellaria",
+  "Aurorania",
+  "Celestia",
+  "Galactica",
+  "Orionia",
+  "Nebulos",
+  "Vortexis",
+  "Zephyria",
+  "Nyxaris",
+  "Solaris Major",
+  "Elysia",
+  "Aetheria",
+  "Serenium",
+  "Astrovia",
+  "Venusis",
+  "Marsalia",
+  "Jupiteria",
+  "Saturnia"
+]
 
 $listings = [
     {
