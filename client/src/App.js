@@ -4,7 +4,6 @@ import './App.css';
 import HomePage from './features/listing/pages/Homepage';
 import { Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage'
-import Button from '@mui/material/Button';
 import NavBar from './features/common/NavBar';
 import MapModal from './features/listing/pages/MapModal';
 import SearchResults from './features/listing/components/SearchResults';
@@ -14,11 +13,14 @@ import { useDispatch } from 'react-redux';
 import { setUsersCoordinates } from './features/listing/state/listingsSlice';
 import BookPage from './features/booking/pages/BookPage';
 import BookedViewPage from './features/booking/pages/BookedViewPage';
+import ListingGallery from './features/listing/components/ListingGallery';
+import Spinner from "react-bootstrap/Spinner"
 
 function App() {
   const history = useHistory();
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
+  const [render, setRender] = useState(false)
   
   const handleClick = () => setShow(true)
 
@@ -32,7 +34,7 @@ function App() {
         try {
             const coordinates = await usersCoordinates();
             dispatch(setUsersCoordinates(coordinates))
-            // dispatch(setUsersCoordinates(coordinates))
+            setRender(true)
         } catch (error) { 
             console.error("Error:", error)
         }
@@ -60,14 +62,22 @@ function App() {
   // when clicked, it shows another button group with each being clickable. When clicked, they will show a popover with the input
   // how will I have a description underneath the button title 
 
+  if (!render) return 
+  <div style={{ justifyContent: 'center', textAlign: 'center'}}>    
+  <Spinner 
+  animation="border" 
+  role="status" />
+  </div>
+
   return (
-    <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+    <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA', height: '100%' }}>
     <NavBar />
     <div style={{
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      margin: "15px"
+      margin: "15px",
+      height: "100%"
     }}>
       <SearchBarButtonGroup />
     </div>
@@ -84,6 +94,9 @@ function App() {
       </Route>
       <Route exact path='/search_results/:value'>
           <SearchResults />
+      </Route>
+      <Route exact path="/listings_gallery">
+        <ListingGallery />
       </Route>
       <Route exact path='/listings/:id/book'>
         <BookPage />

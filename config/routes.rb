@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post "/forgot_password", to: "users#forgot_password"
   post "/reset_password", to: "users#reset_password"
   post "/listings/search", to: "listings#search"
-  post "/listings/homepage_listings", to: "listings#render_homepage_listings"
+  post "/listings/suggested_listings", to: "listings#suggested_listings"
   get "/my_listings", to: "listings#my_listings"
   get "/my_bookings", to: "bookings#my_bookings"
   get "/alien_listings", to: "listings#alien_listings"

@@ -6,7 +6,7 @@ import axios from "axios";
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
-    return fetchWrapper.post("/listings/homepage_listings", locationObj, thunkAPI)
+    return fetchWrapper.post("/listings/suggested_listings", locationObj, thunkAPI)
 });
 
 export const createBooking = createAsyncThunk("listings/createBooking", (bookingObj, thunkAPI) => {
@@ -88,6 +88,7 @@ const listingsSlice = createSlice({
             state.status = "fulfilled"
         },
         setUsersCoordinates(state, action) {
+            console.log(action.payload)
             state.usersCoordinates = action.payload
         },
         turnOffBooked(state) {

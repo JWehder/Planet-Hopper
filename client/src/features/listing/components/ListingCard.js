@@ -36,6 +36,7 @@ function ListingCard({ listing }) {
                             }
                         </ListingPara>
                         <ListingPara>${listing.unit_price} per night</ListingPara>
+                        <ListingPara>Available {listing.next_available_date}</ListingPara>
                 </div>
                 </LinkStyle>
             </ListingContainer>
@@ -58,7 +59,6 @@ const ListingContainer = styled.div`
     margin-left: 10px;
     display: inline-grid;
     cursor: pointer;
-    transition: box-shadow 0.3s ease-in-out;
 `
 
 const ListingPara = styled.p`

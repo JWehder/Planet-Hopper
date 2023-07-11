@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Box from '@mui/system/Box';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import PhotosCarousel from "../features/listing/components/PhotosCarousel"
+import { createGlobalStyle } from 'styled-components'
 
 const COLORS = {
     primary: {
@@ -86,6 +87,13 @@ export const Wrapper = styled.section`
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
 `
 
+export const CenterDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`
+
 export const ListingContainer = styled.div`
     display: flex;
     flex-wrap: nowrap;
@@ -97,7 +105,6 @@ export const ListingContainer = styled.div`
 
 export const StyledBox = styled(Box)`
     border-radius: 20px; 
-    background-color: #E5E4E4;
     padding: 20px;
     margin: 20px;
 

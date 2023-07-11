@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
     skip_before_action :authorize, only: [:index, :render_homepage_listings]
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
-    def render_homepage_listings
+    def suggested_listings
         users_location_listings = []
         if listing_params[:latitude] && listing_params[:latitude] > 0 && listing_params[:longitude] > 0
             users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])

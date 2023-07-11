@@ -89,7 +89,6 @@ const BookingWrapper = styled.div`
     display: flex;
     max-width: 600px;
     max-height: 200px;
-    border: 1px solid #E5E4E4;
     cursor: pointer;
     transition: box-shadow 0.3s ease-in-out;
     padding: 10px;

@@ -6,6 +6,7 @@ import PropertyContainer from "../../common/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import { getUsersListings } from "../../listing/state/listingsSlice";
+import ListingGallery from "../../listing/components/ListingGallery";
 
 function BookedViewPage() {
     const dispatch = useDispatch()
@@ -59,6 +60,8 @@ function BookedViewPage() {
                     })}
                 </Stack>
                 </StyledBox>
+                <hr />
+                <ListingGallery />
             </Container>
         </>
 

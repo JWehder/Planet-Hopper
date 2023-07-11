@@ -14,7 +14,8 @@ import { setCurrentBooking, setDateError } from "../../booking/state/bookingsSli
 import DateCalendars from "../../common/DateCalendars";
 import { checkDatesInvalidity, convertToDate } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
-
+import ListingGallery from "../components/ListingGallery";
+import { CenterDiv } from "../../../styles/Styles";
 
 function ListingPage(props) {
     const params = useParams()
@@ -76,11 +77,12 @@ function ListingPage(props) {
     </div>
 
     return (
+        <div>
         <div style={{
             width: "850px",
-            padding: "20px",
             marginLeft: "40px",
-            marginRight: "40px"
+            marginRight: "40px",
+            marginBottom: "15px"
         }}
         >
             <TitleContainer>
@@ -137,20 +139,15 @@ function ListingPage(props) {
                         </div>
                     </ListingInfoContainer>
                     <hr />
-                    <div style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    
-                    }}>
+                    <div>
                         <h4>Where you are staying</h4>
+                        <CenterDiv>
                         <Map 
                         zoom={10.5} 
                         center={{ lat: listing.latitude, lng: listing.longitude }} 
                         listings={listing}
-                        style={{
-                            width: '1000'
-                        }}
                         /> 
+                        </CenterDiv>
                     </div>
                 </LeftContainer>
                     <form onSubmit={handleSubmit}>
@@ -201,7 +198,10 @@ function ListingPage(props) {
                 </BookingContainer>
                 </form>
             </Container>
-
+            
+        </div>
+        <hr />
+            <ListingGallery />
         </div>
     )
 }
@@ -209,7 +209,6 @@ function ListingPage(props) {
 export const ListingInfoContainer = styled.div`
     width: 600px;
     height: 275px;
-    background-color: #E5E4E4;
     display: flex;
     border-radius: 20px;
     padding: 20px;
@@ -221,11 +220,11 @@ export const ListingInfoContainer = styled.div`
 export const BookingContainer = styled.div`
     width: 340px;
     margin-left: 15px;
-    background-color: #E5E4E4;
     border-radius: 20px;
     padding: 20px;
     position: sticky;
     top: 0;
+    border: 2px solid #E5E4E4;
 `
 
 export const Container = styled.div`
