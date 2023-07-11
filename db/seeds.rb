@@ -84,10 +84,10 @@ require_relative 'seed_data.rb'
 #     booking.book_dates
 # end
 
-# Listing.all.each do |listing|
-#     guests = listing.max_guests_allowed
-#     listing.update!(bedrooms: guests, beds: guests + 2, bathrooms: guests, planet_id: 6)
-# end
+Listing.where.not(planet_id: 6).each do |listing|
+    guests = listing.max_guests_allowed
+    listing.update!(bedrooms: guests, beds: guests + 2, bathrooms: guests)
+end
 
 # cities.each do |city|
 #     results = Geocoder.search(city)
@@ -99,26 +99,26 @@ require_relative 'seed_data.rb'
 #     listing.update!(photos: $photos.sample(5))
 # end
 
-10.times do 
-    address = Geocoder.search($cities.sample(1)[0]).first
-    user_id = User.where(host: true).sample.id
-    listing = $listings.sample(1)[0]
-    Listing.create!(
-        name: listing[:title],
-        address: $alien_addresses,
-        city: $alien_cities,
-        state_province: $state_names,
-        country: $alien_countries,
-        planet_id: Planet.all.sample.id,
-        owner_id: user_id,
-        description: listing[:description],
-        unit_price: rand(125..1250),
-        type_of_accomodation: listing[:type_of_accomodation],
-        max_guests_allowed: rand(1..12),
-        latitude: address.latitude,
-        longitude: address.longitude,
-        photos: $alien_photos.sample(5)
-    )
-end
+# 10.times do 
+#     address = Geocoder.search($cities.sample(1)[0]).first
+#     user_id = User.where(host: true).sample.id
+#     listing = $listings.sample(1)[0]
+#     Listing.create!(
+#         name: listing[:title],
+#         address: $alien_addresses.sample(1)[0],
+#         city: $alien_cities.sample(1)[0],
+#         state_province: $state_names.sample(1)[0],
+#         country: $alien_countries.sample(1)[0],
+#         planet_id: Planet.all.sample.id,
+#         owner_id: user_id,
+#         description: listing[:description],
+#         unit_price: rand(125..1250),
+#         type_of_accomodation: listing[:type_of_accomodation],
+#         max_guests_allowed: rand(1..12),
+#         latitude: address.latitude,
+#         longitude: address.longitude,
+#         photos: $alien_photos.sample(5)
+#     )
+# end
 
 puts "done seeding"

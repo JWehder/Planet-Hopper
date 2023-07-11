@@ -6,6 +6,16 @@ import { PhotoGallery } from "../../../styles/Styles";
 
 function ListingCard({ listing }) {
 
+    const alienDistanceMeasurements = ['parsecs', 'zogrons', 'quasarons', 'nebulums','warp units', 'hyperparsecs', 'exostrides']
+
+    const alienMetric = alienDistanceMeasurements[Math.floor(Math.random() * alienDistanceMeasurements.length)]
+    const distanceFromEarth = getRandomNumber(1, 20)
+
+    function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+      
+
     return (
             <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>
@@ -16,7 +26,15 @@ function ListingCard({ listing }) {
                     <ListingContent>
                         <ListingPara>{listing.city}, {listing.state_province}</ListingPara>
                     </ListingContent>
-                        <ListingPara>{listing.type_of_accomodation}</ListingPara>
+                        <ListingPara>
+                            {listing.type_of_accomodation}
+                        </ListingPara>
+                        <ListingPara>
+                            {listing.planet_name === "Earth" ?
+                            `${Math.floor(listing.distance_from_user)} miles away` :
+                            `${distanceFromEarth} ${alienMetric} away`
+                            }
+                        </ListingPara>
                         <ListingPara>${listing.unit_price} per night</ListingPara>
                 </div>
                 </LinkStyle>

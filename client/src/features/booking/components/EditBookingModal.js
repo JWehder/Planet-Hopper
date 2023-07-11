@@ -8,7 +8,7 @@ import GuestsInputBox from "../../listing/components/GuestsInputBox"
 import dayjs from "dayjs";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import { ErrorMessage } from "../../../styles/Styles";
+import ErrorMessage from "../../common/ErrorMessage";
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ function EditBookingModal({ booking, show, setShow, listing }) {
 
   const handleErrors = (errors) => {
     for (let error in errors) {
-      return <ErrorMessage>{errors[error]}</ErrorMessage>
+      return <ErrorMessage error={errors[error]} />
     }
   }
 
@@ -77,9 +77,7 @@ function EditBookingModal({ booking, show, setShow, listing }) {
               guests={guests}
               max_guests={listing.max_guests_allowed}
               />
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          </div>
-          {/* {bookingError && handleErrors(bookingError)} */}
+              {bookingError && handleErrors(bookingError)}
       </Modal.Body>
       <Modal.Footer>
         <Button 

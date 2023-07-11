@@ -25,20 +25,35 @@ export const getUsersListings = createAsyncThunk("listings/getUsersListings", as
     return {data: response.data, userId: user.data.id}
 })
 
-export const deleteBooking = createAsyncThunk("listings/deleteBooking", async(id) => {
-    const response = await axios.delete(`/bookings/${id}`)
-    return response.data.id
+export const deleteBooking = createAsyncThunk("listings/deleteBooking", async(id, thunkAPI) => {
+    try {
+        const response = await axios.delete(`/bookings/${id}`)
+        return response.data.id
+    } catch (err) {
+        const error = err.response.data.errors
+        return thunkAPI.rejectWithValue({ data: error }) 
+    }
 })
 
-export const updateBooking = createAsyncThunk("/listings/updateBooking", async(bookingObj) => {
+export const updateBooking = createAsyncThunk("/listings/updateBooking", async(bookingObj, thunkAPI) => {
     const { id, ...rest } = bookingObj
     try {
         const response = await axios.put(`/bookings/${id}`, rest);
         return { data: response.data, bookingId: id };
-    } catch (error) {
+    } catch (err) {
+        const error = err.response.data.errors
+        return thunkAPI.rejectWithValue({ data: error }) 
+    }
+})
+
+export const getAlienListings = createAsyncThunk("/listings/getAlienListings", async(_, thunkAPI) => {
+    try {
+        const response = await axios.get('/alien_listings');
+        return response.data
+    } catch (err) {
         // Handle the error
-        console.log(error.response.data.errors);
-        return error.response.data.errors // Re-throw the error to be caught by the rejected state
+        const error = err.response.data.errors
+        return thunkAPI.rejectWithValue({ data: error }) 
     }
 })
 
@@ -85,6 +100,7 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [fetchListings.fulfilled]: (state, action) => {
+            console.log(action.payload)
             state.entities = action.payload
             state.status = "idle";
         },
@@ -128,8 +144,8 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [getUsersListings.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.usersListings = action.payload.data
+            state.bookingError = null
             state.usersListings.forEach((listing) => {
                 listing.booked_dates = listing.bookings.reduce((accumulator, booking) => {
                     if (booking.user_id === action.payload.userId) {
@@ -144,14 +160,13 @@ const listingsSlice = createSlice({
             state.status = "idle";
         },
         [getUsersListings.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.listingError = action.payload
         },
         [deleteBooking.pending]: (state) => {
             state.status = "loading";
         },
         [deleteBooking.fulfilled]: (state, action) => {
+            state.bookingError = null
             const bookingId = action.payload
             state.usersListings = state.usersListings.map((listing) => {
                 const bookings = listing.bookings.filter((booking) => booking.id !== bookingId)
@@ -160,27 +175,35 @@ const listingsSlice = createSlice({
             state.status = "idle"
         },
         [deleteBooking.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.bookingError = action.payload
         },
         [updateBooking.pending]: (state) => {
             state.status = "loading";
         },
         [updateBooking.fulfilled]: (state, action) => {
+            state.bookingError = null
             const bookingId = action.payload.bookingId
             state.usersListings = state.usersListings.map((listing) => {
                 const filteredBookings = listing.bookings.filter((b) => b.id !== bookingId)
+                console.log(filteredBookings)
                 return {...listing, bookings: [...filteredBookings, action.payload.data]}
             })
         },
         [updateBooking.rejected]: (state, action) => {
             console.log("rejected!")
-            console.log(action.payload)
-            state.bookingError = action.payload
+            state.bookingError = action.payload.data
         },
-
-        
+        [getAlienListings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [getAlienListings.fulfilled]: (state, action) => {
+            state.bookingError = null 
+            state.entities = action.payload
+            state.status = "idle";
+        },
+        [getAlienListings.rejected]: (state, action) => {
+            state.listingError = action.payload
+        },
     },
 });
 

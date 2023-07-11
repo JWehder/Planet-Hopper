@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
 import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
-import { fetchListings } from "../state/listingsSlice";
+import { fetchListings, getAlienListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -28,6 +28,10 @@ function HomePage() {
     <Spinner animation="border" role="status" />
     </div>
 
+    const handleSpaceClick = () => {
+        dispatch(getAlienListings())
+    }
+
     console.log(homepageListings)
 
     return (
@@ -36,7 +40,7 @@ function HomePage() {
                     padding: '10px'
                     }}
                 >
-                <IconContainer>
+                <IconContainer onClick={handleSpaceClick}>
                     <RocketLaunchIcon fontSize="medium" />
                     <p style={{fontSize: '10px', marginBottom: '2px'}}>Blast Off!</p>
                 </IconContainer>
@@ -64,7 +68,7 @@ const IconContainer = styled.div`
     cursor: pointer;
     box-sizing: border-box;
     padding: 8px;
-    
+
 
     &:hover {
         border-radius: 50%;

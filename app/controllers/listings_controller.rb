@@ -31,6 +31,11 @@ class ListingsController < ApplicationController
         render json: unique_listings, status: :ok, each_serializer: CustomListingSerializer
     end
 
+    def alien_listings
+        listings = Listing.where.not(planet_id: 6)
+        render json: listings, status: :ok
+    end
+
     def create
         user = User.find(session[:user_id])
         listing = user.listings.create!(listing_params)

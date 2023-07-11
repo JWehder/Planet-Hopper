@@ -11,8 +11,6 @@ function BookedViewPage() {
     const dispatch = useDispatch()
     const usersListings = useSelector((state) => state.listings.usersListings)
     const user = useSelector((state) => state.auth.user)
-    console.log(user)
-    console.log(usersListings)
 
     useEffect(() => {
         dispatch(getUsersListings())
@@ -22,13 +20,14 @@ function BookedViewPage() {
     <Spinner animation="border" role="status" />
     </div>
 
+    console.log(usersListings)
+
     if (usersListings.length < 1) {
         return <div><h2>Your Bookings</h2>Sorry, you have no bookings to display. Please make one!</div>
     }
 
     const usersBookings = usersListings.reduce((accumulator, listing) => {
         const filteredBookings = listing.bookings.filter((booking) => {
-            console.log(booking.user_id)
             return booking.user_id === user.id;
         });
     
@@ -42,11 +41,12 @@ function BookedViewPage() {
     
         return accumulator.concat(bookingsWithListing);
         }
+       
     
         return accumulator;
     }, []);
 
-    console.log(usersBookings)
+    // console.log(usersBookings)
     console.log(usersListings)
     return (
         <>
