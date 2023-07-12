@@ -1,27 +1,40 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux";
+import ClickAwayListener from '@mui/base/ClickAwayListener';
+import Spinner from "react-bootstrap/Spinner"
+import { useDispatch } from "react-redux";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
     console.log(user)
+    const dispatch = useDispatch()
 
-    if (!user) return <div>    
-    <Spinner animation="border" role="status" />
-    </div>
 
     const [userObject, setUserObject] = useState({
         first_name: user.first_name,
         last_name: user.last_name,
         username: user.username,
+        password: user.password,
         email: user.email,
         bio: user.bio,
     })
     const [firstNameClicked, setFirstNameClicked] = useState(false)
-    const [lasttNameClicked, setLastNameClicked] = useState(false)
+    const [lastNameClicked, setLastNameClicked] = useState(false)
     const [usernameClicked, setUsernameClicked] = useState(false)
+    const [passwordClicked, setPasswordClicked] = useState(false)
     const [emailClicked, setEmailClicked] = useState(false)
     const [bioClicked, setBioClicked] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+
+    if (!user) return <div>    
+    <Spinner animation="border" role="status" />
+    </div>
     
 
     function handleSubmit(e) {
@@ -41,9 +54,12 @@ function ProfilePage() {
             <StyledForm onSubmit={handleSubmit}>
                 <Row>
                 <Col>
+                <ClickAwayListener onClickAway={() => setFirstNameClicked(false)}>
                 <TextField
                 id="outlined-read-only-input"
-                label="Read Only"
+                label="First Name"
+                name="first_name"
+                error={error && error.first_name ? true : false}
                 value={userObject.first_name}
                 onClick={() => setFirstNameClicked(true)}
                 InputProps={{
@@ -51,45 +67,77 @@ function ProfilePage() {
                 }}
                 onChange={(e) => changeUserValue(e)}
                 />
-                <StyledForm.Control 
-                type="text" 
-                name="first_name"
-                value={userObject.first_name}
-                onChange={(e) => changeUserValue(e)}
-                isInvalid={!!error && error.first_name}
-                />
                 {error && error.first_name && displayErrors(error.first_name)}
-                </FloatingLabel>
-                </Col>
-                <Col>
-                <FloatingLabel 
-                label="Last Name" 
-                className="mb-3"
-                >
-                <StyledForm.Control 
-                type="text" 
+                </ClickAwayListener>
+                <ClickAwayListener onClickAway={() => setLastNameClicked(false)}>
+                <TextField
+                id="outlined-read-only-input"
                 name="last_name"
+                error={error && error.last_name ? true : false}
+                label="Read Only"
                 value={userObject.last_name}
+                onClick={() => setLastNameClicked(true)}
+                InputProps={{
+                    readOnly: {lastNameClicked},
+                }}
                 onChange={(e) => changeUserValue(e)}
-                isInvalid={!!error && error.last_name}
                 />
                 {error && error.last_name && displayErrors(error.last_name)}
-                </ FloatingLabel>
-                </Col>
-                </Row>
-                <FloatingLabel
+                </ClickAwayListener>
+                <ClickAwayListener onClickAway={() => setUsernameClicked(false)}>
+                <TextField
+                id="outlined-read-only-input"
                 label="Username"
-                className="mb-3"
-                >
-                <StyledForm.Control 
-                type="text" 
                 name="username"
+                error={error && error.username ? true : false}
                 value={userObject.username}
+                onClick={() => setUsernameClicked(true)}
+                InputProps={{
+                    readOnly: {usernameClicked},
+                }}
                 onChange={(e) => changeUserValue(e)}
-                isInvalid={!!error && error.username}
                 />
                 {error && error.username && displayErrors(error.username)}
-                </FloatingLabel>
+                </ClickAwayListener>
+                <ClickAwayListener onClickAway={() => setPasswordClicked(false)}>
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={() => setShowPassword(!showPassword)}
+                        onMouseDown={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    label="Password"
+                    name="password"
+                    onChange={(e) => changeUserValue(e)}
+                    InputProps={{
+                        readOnly: {passwordClicked},
+                    }}
+                />
+                {error && error.password && displayErrors(error.password)}
+                <TextField
+                id="outlined-read-only-input"
+                label="Password"
+                name="first_name"
+                error={error && error.first_name ? true : false}
+                value={userObject.first_name}
+                onClick={() => setFirstNameClicked(true)}
+                InputProps={{
+                    readOnly: {firstNameClicked},
+                }}
+                onChange={(e) => changeUserValue(e)}
+                />
+                {error && error.first_name && displayErrors(error.first_name)}
+                </ClickAwayListener>
                 <FloatingLabel 
                 label="Password" 
                 className="mb-3"
@@ -103,19 +151,6 @@ function ProfilePage() {
                 />
                 {error && error.password && displayErrors(error.password, "password")}
                 </ FloatingLabel>
-                <FloatingLabel 
-                label="Password Confirmation" 
-                className="mb-3"
-                >
-                <StyledForm.Control 
-                type="password" 
-                name="password_confirmation"
-                value={userObject.password_confirmation}
-                onChange={(e) => changeUserValue(e)}
-                isInvalid={!!error && error.password_confirmation}
-                />
-                {error && error.password_confirmation && displayErrors(error.password_confirmation)}
-                </FloatingLabel>
                 <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"

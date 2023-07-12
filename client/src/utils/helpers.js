@@ -1,5 +1,6 @@
 import { Form } from "react-bootstrap"
 import ErrorMessage from "../features/common/ErrorMessage"
+import FormHelperText from '@mui/material/FormHelperText';
 
 const post = async(url, obj, thunkAPI) => {
     console.log(obj)
@@ -40,7 +41,7 @@ const displayErrors = (errors, errorKey = null) => {
             return null
         }
         return ( 
-        <ErrorMessage error={error} />
+            <FormHelperText id="component-error-text">{error}</FormHelperText>
         );
     })
 }

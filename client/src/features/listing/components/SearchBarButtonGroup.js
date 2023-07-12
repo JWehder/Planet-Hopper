@@ -127,7 +127,7 @@ function SearchBarButtonGroup() {
         <>
             { clicked ? 
             <Fade in={clicked}>
-            <ClickAwayListener onClickAway={handleSearchButtonClick}>
+            <ClickAwayListener onClickAway={() => setClicked(false)}>
             <form onSubmit={handleSubmit}>
             <SearchContainer>
                 <ClickAwayListener onClickAway={handleClickAway}>
