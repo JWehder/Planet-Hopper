@@ -49,8 +49,8 @@ function BookedViewPage() {
 
     return (
         <>
-            <Container maxWidth="lg" fixed>
-                <h2 style={{marginBottom: "10px", marginTop: "20px"}}>Your Bookings</h2>
+            <Container maxWidth="lg" fixed style={{textAlign: 'center', backgroundColor: '#F8F5FF'}}>
+                <h2 style={{marginBottom: "10px", padding: "10px"}}>Your Bookings</h2>
                 <StyledBox>
                 <Stack spacing={2}>
                     {usersBookings.map((booking) => {

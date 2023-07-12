@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
-import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
-import { keys } from "../../../config";
+import React, { useRef } from "react";
+import { StandaloneSearchBox } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
 
 const Autocomplete = ({ setSearchAddress, searchAddress }) => {

@@ -21,6 +21,7 @@ const initialState = {
     user: null,
     loginError: null,
     signupError: null,
+    updateError: null,
     status: "idle"
 }
 

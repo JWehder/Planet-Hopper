@@ -4,7 +4,7 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import Fab from '@mui/material/Fab';
 import Fade from 'react-bootstrap/Fade';
 import Autocomplete from "./Autocomplete";
-import ClickAwayListener from '@mui/base/ClickAwayListener';
+import ClickAwayListener from "@mui/base/ClickAwayListener";
 import { LoadScript } from "@react-google-maps/api";
 import { keys } from "../../../config";
 import Popover from '@mui/material/Popover';
@@ -291,7 +291,7 @@ const SearchButton = styled.button`
   height: 60px;
   padding: 17px;
   width: 400px;
-  background-color: white;
+  background-color: transparent;
   border: 1px solid #E5E4E4;
   border-radius: 100px;
   cursor: pointer;
@@ -331,10 +331,11 @@ const SearchContainer = styled.div`
   height: 70px;
   width: 800px;
   padding: 20px;
-  background-color: white;
+  background-color: transparent;
   border: 3px;
   border-radius: 100px;
   cursor: pointer;
+  color: black;
   transition: box-shadow 0.3s ease-in-out;
   border: 1px solid #E5E4E4;
 

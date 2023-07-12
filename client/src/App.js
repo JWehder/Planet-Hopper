@@ -70,10 +70,10 @@ function App() {
   </div>
 
   return (
-    <div>
+    <div style={{backgroundColor: '#F8F5FF'}}>
     <NavBar />
 
-    <div style={{ textAlign: 'center', backgroundColor: '#F8F5FF', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div>
     <Switch>
       <Route exact path="/profile_page">
         <ProfilePage />
