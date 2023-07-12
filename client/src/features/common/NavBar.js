@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -16,6 +15,8 @@ import { useSelector } from "react-redux";
 import { ReactComponent as WebsiteIcon } from '../../images/house_logo.svg'
 import { Link } from "react-router-dom"
 import styled from "styled-components";
+import SearchBarButtonGroup from "../listing/components/SearchBarButtonGroup";
+import { CenterDiv } from "../../styles/Styles";
 
 function NavBar() {
 
@@ -44,32 +45,29 @@ function NavBar() {
     };
 
 return (
-    <AppBar style={{backgroundColor: "#E5E4E4"}} position="static">
-        <Container maxWidth="xl">
-        <Toolbar disableGutters>
-            {/* <RocketLaunchIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-            <WebsiteIcon 
-            style={{width: "48px", height:"48px", paddingRight:"10px"}} 
-            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} 
-            />
-            <Typography
+    <AppBar>
+        <Section style={{justifyContent: 'flext-start'}}>
+          <Typography
             variant="h6"
             noWrap
             component="a"
             sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                // letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
-            >
-            <StyledLink to="/" style={{color: "white"}}>PlanetHopper</StyledLink>
-            </Typography>
-
-            <MenuContainer>
+          >
+            <StyledLink to="/">PlanetHopper</StyledLink>
+          </Typography>
+        </Section>
+        <Section>
+            <SearchBarButtonGroup />
+        </Section>
+        <Section style={{justifyContent: 'flex-end'}}>
             <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -101,9 +99,7 @@ return (
                 ))}
             </Menu>
             </Box>
-            </MenuContainer>
-        </Toolbar>
-        </Container>
+        </Section>
     </AppBar>
     );
 }
@@ -113,14 +109,22 @@ const StyledLink = styled(Link)`
     color: black;
 `
 
-const MenuContainer = styled.div`
+const Section = styled.div`
+    flex: 1;
     display: flex;
-    justify-content: flex-end;
-    position: fixed;
-    right: 0;
+    justify-content: center;
+    align-items: center;
+`;
+
+const AppBar = styled.div`
+    color: #d500f9;
+    background-color: #F8F5FF;
+    border-bottom: 1px solid #E5E4E4;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    z-index: 1;
 `
 
 export default NavBar;

@@ -47,12 +47,10 @@ function BookedViewPage() {
         return accumulator;
     }, []);
 
-    // console.log(usersBookings)
-    console.log(usersListings)
     return (
         <>
             <Container maxWidth="lg" fixed>
-                <h2 style={{marginBottom: "30px"}}>Your Bookings</h2>
+                <h2 style={{marginBottom: "10px", marginTop: "20px"}}>Your Bookings</h2>
                 <StyledBox>
                 <Stack spacing={2}>
                     {usersBookings.map((booking) => {

@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from 'axios';
 import { setListings, setErrors, setStatusToLoading, setStatusToFulfilled } from "../state/listingsSlice";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";

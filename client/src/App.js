@@ -7,7 +7,6 @@ import ListingPage from './features/listing/pages/ListingPage'
 import NavBar from './features/common/NavBar';
 import MapModal from './features/listing/pages/MapModal';
 import SearchResults from './features/listing/components/SearchResults';
-import SearchBarButtonGroup from './features/listing/components/SearchBarButtonGroup';
 import { getUser } from './features/auth/state/authSlice';
 import { useDispatch } from 'react-redux';
 import { setUsersCoordinates } from './features/listing/state/listingsSlice';
@@ -15,6 +14,7 @@ import BookPage from './features/booking/pages/BookPage';
 import BookedViewPage from './features/booking/pages/BookedViewPage';
 import ListingGallery from './features/listing/components/ListingGallery';
 import Spinner from "react-bootstrap/Spinner"
+import ProfilePage from './features/auth/pages/ProfilePage.';
 
 function App() {
   const history = useHistory();
@@ -70,18 +70,14 @@ function App() {
   </div>
 
   return (
-    <div style={{ width: '1100px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA', height: '100%' }}>
+    <div>
     <NavBar />
-    <div style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      margin: "15px",
-      height: "100%"
-    }}>
-      <SearchBarButtonGroup />
-    </div>
+
+    <div style={{ textAlign: 'center', backgroundColor: '#F8F5FF', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <Switch>
+      <Route exact path="/profile_page">
+        <ProfilePage />
+      </Route>
       <Route exact path='/maps'>
         <MapModal />
       </Route>
@@ -105,6 +101,7 @@ function App() {
         <BookedViewPage />
       </Route>
     </Switch>
+    </div>
     </div>
   );
 }

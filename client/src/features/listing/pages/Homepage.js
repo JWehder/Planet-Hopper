@@ -5,8 +5,6 @@ import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
 import { fetchListings, getAlienListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
 import styled from "styled-components";
 
 function HomePage() {
@@ -35,7 +33,7 @@ function HomePage() {
     console.log(homepageListings)
 
     return (
-            <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#FFFAFA' }}>
+            <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>
                 <div style={{
                     padding: '10px'
                     }}
