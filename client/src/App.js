@@ -12,10 +12,10 @@ import { useDispatch } from 'react-redux';
 import { setUsersCoordinates } from './features/listing/state/listingsSlice';
 import BookPage from './features/booking/pages/BookPage';
 import BookedViewPage from './features/booking/pages/BookedViewPage';
-import ListingGallery from './features/listing/components/ListingGallery';
 import Spinner from "react-bootstrap/Spinner"
 import ProfilePage from './features/auth/pages/ProfilePage.';
 import { CenterDiv } from './styles/Styles';
+import LogoutPage from './features/auth/pages/LogoutPage';
 
 function App() {
   const history = useHistory();
@@ -97,6 +97,9 @@ function App() {
       </Route>
       <Route exact path='/bookings'>
         <BookedViewPage />
+      </Route>
+      <Route exact path='/logout'>
+        <LogoutPage />
       </Route>
     </Switch>
     </div>

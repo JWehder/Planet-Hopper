@@ -96,7 +96,7 @@ function BookPage(props) {
 
         return (
             <>
-            <div>
+            <div> 
                 <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Booked! 
             </div>
             <div>

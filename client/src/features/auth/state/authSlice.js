@@ -18,7 +18,17 @@ export const signupUser = createAsyncThunk(
     return fetchWrapper.post("/signup", userObj, thunkAPI)
 })
 
-export const updateUser = createAsyncThunk("/listings/updateBooking", async(userObj, thunkAPI) => {
+export const updateUser = createAsyncThunk("/listings/updateUser", async(userObj, thunkAPI) => {
+    try {
+        const response = await axios.put(`/bookings/${userObj.id}`, userObj);
+        return response.data
+    } catch (err) {
+        const error = err.response.data.errors
+        return thunkAPI.rejectWithValue({ data: error }) 
+    }
+})
+
+const signoutUser = createAsyncThunk("/listings/updateBooking", async(userObj, thunkAPI) => {
     try {
         const response = await axios.put(`/bookings/${userObj.id}`, userObj);
         return response.data
