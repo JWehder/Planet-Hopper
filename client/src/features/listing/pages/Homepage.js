@@ -6,6 +6,7 @@ import { turnOffBooked } from "../state/listingsSlice";
 import { fetchListings, getAlienListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import styled from "styled-components";
+import { CenterDiv } from "../../../styles/Styles";
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -22,9 +23,9 @@ function HomePage() {
         dispatch(turnOffBooked())
     }
 
-    if (!homepageListings) return <div>    
+    if (!homepageListings) return <CenterDiv>    
     <Spinner animation="border" role="status" />
-    </div>
+    </CenterDiv>
 
     const handleSpaceClick = () => {
         dispatch(getAlienListings())

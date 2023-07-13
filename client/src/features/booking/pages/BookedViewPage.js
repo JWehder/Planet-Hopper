@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import { getUsersListings } from "../../listing/state/listingsSlice";
 import ListingGallery from "../../listing/components/ListingGallery";
+import { CenterDiv } from "../../../styles/Styles";
 
 function BookedViewPage() {
     const dispatch = useDispatch()
@@ -17,9 +18,9 @@ function BookedViewPage() {
         dispatch(getUsersListings())
     }, [])
 
-    if (!usersListings) return <div>    
+    if (!usersListings) return <CenterDiv>    
     <Spinner animation="border" role="status" />
-    </div>
+    </CenterDiv>
 
     console.log(usersListings)
 

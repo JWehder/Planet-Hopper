@@ -72,9 +72,9 @@ function ListingPage(props) {
 
     console.log(listing)
 
-    if (!listing) return <div>    
+    if (!listing) return <CenterDiv>    
     <Spinner animation="border" role="status" />
-    </div>
+    </CenterDiv>
 
     return (
         <div>

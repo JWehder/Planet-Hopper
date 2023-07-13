@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../../../utils/helpers";
+import axios from "axios";
 
 export const loginUser = createAsyncThunk(
     "auth/loginUser", 
@@ -15,6 +16,16 @@ export const signupUser = createAsyncThunk(
     "auth/signupUser", 
     (userObj, thunkAPI) => {
     return fetchWrapper.post("/signup", userObj, thunkAPI)
+})
+
+export const updateUser = createAsyncThunk("/listings/updateBooking", async(userObj, thunkAPI) => {
+    try {
+        const response = await axios.put(`/bookings/${userObj.id}`, userObj);
+        return response.data
+    } catch (err) {
+        const error = err.response.data.errors
+        return thunkAPI.rejectWithValue({ data: error }) 
+    }
 })
 
 const initialState = {
@@ -66,6 +77,19 @@ const authSlice = createSlice({
             console.log("rejected!")
             console.log(action.payload)
             state.signupError = action.payload
+        },
+        [updateUser.pending]: (state) => {
+            state.status = "pending";
+            state.signupError = null
+        },
+        [updateUser.fulfilled]: (state, action) => {
+            state.user = action.payload
+            state.status = "idle";
+        },
+        [updateUser.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.updateError = action.payload
         },
     },
 });

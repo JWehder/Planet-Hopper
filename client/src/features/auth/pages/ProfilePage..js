@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux";
-import ClickAwayListener from "../../common/ClickAwayListener";
 import Spinner from "react-bootstrap/Spinner"
 import { useDispatch } from "react-redux";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { IconButton } from "@mui/material";
 import { displayErrors } from "../../../utils/helpers";
-import { StyledForm, CustomButton } from "../../../styles/Styles";
-import styled from "styled-components";
+import { StyledForm } from "../../../styles/Styles";
 import { CenterDiv } from "../../../styles/Styles";
+import { FloatingLabel } from "react-bootstrap";
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { updateUser } from "../state/authSlice";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
@@ -18,162 +20,149 @@ function ProfilePage() {
     console.log(user)
     const dispatch = useDispatch()
 
-
     const [userObject, setUserObject] = useState({
-        first_name: user.first_name,
-        last_name: user.last_name,
-        username: user.username,
-        password: user.password,
-        email: user.email,
-        bio: user.bio,
+        id: "",
+        first_name: "",
+        username: "",
+        password: "",
+        email: "",
+        bio: "",
     })
-    const [firstNameClicked, setFirstNameClicked] = useState(false)
-    const [lastNameClicked, setLastNameClicked] = useState(false)
-    const [usernameClicked, setUsernameClicked] = useState(false)
-    const [passwordClicked, setPasswordClicked] = useState(false)
-    const [emailClicked, setEmailClicked] = useState(false)
-    const [bioClicked, setBioClicked] = useState(false)
-    const [showPassword, setShowPassword] = useState(false)
 
-    if (!user) return <div>    
+    useEffect(() => {
+        if(user){
+            setUserObject({
+                id: user.id,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                username: user.username,
+                password: user.password,
+                email: user.email,
+                bio: user.bio,
+            });
+        }
+    }, [user]);
+
+
+    const StyledTextField = styled(TextField)({
+        '& .MuiInputBase-input': {
+            fontSize: 12,
+            width: 'auto'
+        }
+      });
+
+    if (!user) return <CenterDiv>    
     <Spinner animation="border" role="status" />
-    </div>
+    </CenterDiv>
     
 
     function handleSubmit(e) {
         e.preventDefault()
+        dispatch(updateUser(userObject))
     }
 
     function changeUserValue(e) {
+        console.log(e.target.name, e.target.value)
         setUserObject({
             ...userObject,
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     return (  
-            <>
+            <div style={{backgroundColor: '#F8F5FF', minHeight: '100vh'}}>
             <CenterDiv style={{padding: '10px'}}>
                 <h2>Edit Your Profile</h2>
             </CenterDiv>
             <CenterDiv>
-                <StyledForm onSubmit={handleSubmit}>
-                    <ClickAwayListener onClickAway={() => setFirstNameClicked(false)}>
-                    <TextField
-                    onFocus={() => setFirstNameClicked(true)}
-                    id="outlined-read-only-input"
-                    margin="dense"
+                <form onSubmit={handleSubmit}>
+                    <Row>
+                    <Col>
+                    <FloatingLabel
                     label="First Name"
+                    className="mb-3"
+                    >
+                    <StyledForm.Control 
+                    type="text" 
                     name="first_name"
-                    error={error && error.first_name ? true : false}
                     value={userObject.first_name}
-                    onClick={() => setFirstNameClicked(true)}
-                    InputProps={{
-                        readOnly: !firstNameClicked,
-                    }}
                     onChange={(e) => changeUserValue(e)}
+                    isInvalid={!!error && error.first_name}
                     />
                     {error && error.first_name && displayErrors(error.first_name)}
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={() => setLastNameClicked(false)}>
-                    <TextField
-                    id="outlined-read-only-input"
-                    margin="dense"
+                    </FloatingLabel>
+                    </Col>
+                    <Col>
+                    <FloatingLabel 
+                    label="Last Name" 
+                    className="mb-3"
+                    >
+                    <StyledForm.Control 
+                    type="text" 
                     name="last_name"
-                    error={error && error.last_name ? true : false}
-                    label="Last Name"
                     value={userObject.last_name}
-                    onClick={() => setLastNameClicked(true)}
-                    InputProps={{
-                        readOnly: {lastNameClicked},
-                    }}
                     onChange={(e) => changeUserValue(e)}
+                    isInvalid={!!error && error.last_name}
                     />
                     {error && error.last_name && displayErrors(error.last_name)}
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={() => setUsernameClicked(false)}>
-                    <TextField
-                    id="outlined-read-only-input"
+                    </ FloatingLabel>
+                    </Col>
+                    </Row>
+                    <FloatingLabel
                     label="Username"
-                    margin="dense"
+                    className="mb-3"
+                    >
+                    <StyledForm.Control 
+                    type="text" 
                     name="username"
-                    error={error && error.username ? true : false}
                     value={userObject.username}
-                    onClick={() => setUsernameClicked(true)}
-                    InputProps={{
-                        readOnly: {usernameClicked},
-                    }}
                     onChange={(e) => changeUserValue(e)}
+                    isInvalid={!!error && error.username}
                     />
                     {error && error.username && displayErrors(error.username)}
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={() => setPasswordClicked(false)}>
-                    <TextField
-                    id="outlined-read-only-input"
-                    label="Password"
-                    style={{width: '197px'}}
-                    margin="dense"
-                    name="password"
-                    size="normal"
-                    error={error && error.password ? true : false}
-                    value={userObject.password}
-                    onClick={() => setPasswordClicked(true)}
-                    InputProps={{
-                        readOnly: !passwordClicked,
-                        endAdornment: <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        onMouseDown={() => setShowPassword(!showPassword)}
-                        edge="end"
-                        >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    }}
-                    onChange={(e) => changeUserValue(e)}
-                    />
-                    {error && error.password && displayErrors(error.password)}
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={() => setEmailClicked(false)}>
-                    <TextField
-                    id="outlined-read-only-input"
-                    label="Email"
-                    margin="dense"
+                    </FloatingLabel>
+                    <FloatingLabel
+                    controlId="floatingInput"
+                    label="Email address"
+                    className="mb-3"
+                    >
+                    <StyledForm.Control
+                    type="email" 
                     name="email"
-                    error={error && error.email ? true : false}
                     value={userObject.email}
-                    onClick={() => setEmailClicked(true)}
-                    InputProps={{
-                        readOnly: {emailClicked},
-                    }}
                     onChange={(e) => changeUserValue(e)}
+                    isInvalid={!!error && error.email}
                     />
-                    {error && error.email && displayErrors(error.email)}
-                    </ClickAwayListener>
-                    <ClickAwayListener onClickAway={() => setBioClicked(false)}>
-                    <TextField
-                    id="outlined-read-only-input"
-                    label="Bio"
+                    {error && error.email && displayErrors(error.email, "email")}
+                    </FloatingLabel>  
+                    <FloatingLabel 
+                    controlId="floatingTextarea2" 
+                    label="Bio" 
+                    className="mb-3"
+                    >
+                    <StyledForm.Control 
+                    as="textarea" 
                     name="bio"
-                    margin="dense"
-                    error={error && error.bio ? true : false}
+                    style={{ height: '100px' }}
                     value={userObject.bio}
-                    onClick={() => setBioClicked(true)}
-                    InputProps={{
-                        readOnly: {bioClicked},
-                    }}
                     onChange={(e) => changeUserValue(e)}
+                    isInvalid={!!error && error.bio}
                     />
                     {error && error.bio && displayErrors(error.bio)}
-                    </ClickAwayListener>
+                    </FloatingLabel>
                     <CenterDiv>
-                        <CustomButton variant= "primary" type="submit">Submit Changes</CustomButton>
+                            <Button 
+                                color="secondary" 
+                                variant="contained" 
+                                type="submit"
+                                >
+                                Save Changes
+                            </Button>
                     </CenterDiv>
-                </StyledForm>
+                </form>
             </CenterDiv>
-        </>
+            </div>
     )
 }
-
-
 
 export default ProfilePage;

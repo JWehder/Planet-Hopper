@@ -15,6 +15,7 @@ import BookedViewPage from './features/booking/pages/BookedViewPage';
 import ListingGallery from './features/listing/components/ListingGallery';
 import Spinner from "react-bootstrap/Spinner"
 import ProfilePage from './features/auth/pages/ProfilePage.';
+import { CenterDiv } from './styles/Styles';
 
 function App() {
   const history = useHistory();
@@ -63,11 +64,11 @@ function App() {
   // how will I have a description underneath the button title 
 
   if (!render) return 
-  <div style={{ justifyContent: 'center', textAlign: 'center'}}>    
+  <CenterDiv>    
   <Spinner 
   animation="border" 
   role="status" />
-  </div>
+  </CenterDiv>
 
   return (
     <div style={{backgroundColor: '#F8F5FF'}}>
@@ -75,7 +76,7 @@ function App() {
 
     <div>
     <Switch>
-      <Route exact path="/profile_page">
+      <Route exact path="/profile">
         <ProfilePage />
       </Route>
       <Route exact path='/maps'>
@@ -90,9 +91,6 @@ function App() {
       </Route>
       <Route exact path='/search_results/:value'>
           <SearchResults />
-      </Route>
-      <Route exact path="/listings_gallery">
-        <ListingGallery />
       </Route>
       <Route exact path='/listings/:id/book'>
         <BookPage />

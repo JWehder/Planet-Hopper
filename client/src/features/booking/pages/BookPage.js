@@ -82,8 +82,6 @@ function BookPage(props) {
         return
     }
 
-    console.log(booking)
-
     const startDate = dayjs(booking.startDate).format("YYYY-MM-DD")
     const endDate = dayjs(booking.endDate).format("YYYY-MM-DD")
 
