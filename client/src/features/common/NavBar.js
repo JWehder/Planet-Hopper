@@ -20,11 +20,11 @@ import { CenterDiv } from "../../styles/Styles";
 
 function NavBar() {
 
-    const host = useSelector((state) => state.auth.user && state.auth.user.host);
+    const user = useSelector((state) => state.auth.user);
 
-    const settings = host
-      ? ['profile', 'account', 'bookings', 'listings']
-      : ['profile', 'account', 'bookings'];
+    const settings = user
+      ? ['profile', 'bookings', 'logout']
+      : ['login'];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);

@@ -11,7 +11,7 @@ import EditGuestsModal from "../components/EditGuestsModal";
 import { createBooking } from "../../listing/state/listingsSlice";
 import { setCurrentBooking } from "../state/bookingsSlice";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { ErrorMessage } from "../../../styles/Styles";
+import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
 
 function ListItem ({ item, action }) {
     return (
@@ -140,15 +140,19 @@ function BookPage(props) {
                             { user ?
                             <form onSubmit={handleBookingSubmit}>
                             <div>
-                                Hey {user.first_name}, all booking info will be sent to {user.email}. 
+                                <div style={{textAlign: 'center'}}>
+                                    Hey {user.first_name}, all booking info will be sent to {user.email}. 
+                                </div>
                                 <hr/>
-                                <Button 
-                                color="secondary" 
-                                variant="contained" 
-                                type="submit"
-                                >
-                                Confirm Booking
-                                </Button>
+                                <CenterDiv>
+                                    <Button 
+                                    color="secondary" 
+                                    variant="contained" 
+                                    type="submit"
+                                    >
+                                    Confirm Booking
+                                    </Button>
+                                </CenterDiv>
                             </div>
                             </form>
                             :
@@ -188,7 +192,7 @@ const BookingInfoContainer = styled.div`
     background-color: transparent;
     border-radius: 20px;
     padding: 20px;
-    border: 1px solid #E5E4E4;
+    border: 2px solid #E5E4E4;
 `
 
 const LeftContainer = styled.div`
