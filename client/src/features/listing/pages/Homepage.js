@@ -16,7 +16,9 @@ function HomePage() {
     const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
 
     useEffect(() => {
-        dispatch(fetchListings(usersCoordinates))
+        if (!homepageListings) {
+            dispatch(fetchListings(usersCoordinates))
+        }
     }, [])
 
     if (booked) {

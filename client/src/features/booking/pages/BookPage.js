@@ -107,7 +107,7 @@ function BookPage(props) {
     }
 
     return (
-        <div style={{marginLeft: "40px", marginRight: "40px", marginBottom:"40px"}}>
+        <div style={{marginLeft: "40px", marginRight: "40px", minHeight: '100vh'}}>
             {bookingErrors && <ErrorMessage>{bookingErrors}</ErrorMessage>}
             <div style={{marginBottom: "20px", display: "flex"}}>
                 <BackButton onClick={goBack}>
@@ -185,9 +185,10 @@ const Text = styled.p`
 const BookingInfoContainer = styled.div`
     width: 500px;
     height: 125px;
-    background-color: #E5E4E4;
+    background-color: transparent;
     border-radius: 20px;
     padding: 20px;
+    border: 1px solid #E5E4E4;
 `
 
 const LeftContainer = styled.div`

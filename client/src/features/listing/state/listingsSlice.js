@@ -61,6 +61,7 @@ export const getAlienListings = createAsyncThunk("/listings/getAlienListings", a
 const initialState = {
     entities: null,
     listingError: null,
+    searchResults: null,
     status: "idle",
     currentListing: null,
     usersCoordinates: null,

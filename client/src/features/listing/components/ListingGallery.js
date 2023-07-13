@@ -19,7 +19,10 @@ function ListingGallery() {
     console.log(usersCoordinates)
 
     useEffect(() => {
-        dispatch(fetchListings(usersCoordinates))
+        if (!listings) {
+            dispatch(fetchListings(usersCoordinates))
+        }        
+
     }, [])
 
     if (!listings) return <div>    
@@ -68,9 +71,6 @@ const Gallery = styled.div`
     justify-content:center;
     display: flex;
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
 `
 
 const List = styled.div`
@@ -79,6 +79,10 @@ const List = styled.div`
     overflow-x: auto;
     height: 315px;
     overflow: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 const GalleryWrap = styled.div`

@@ -140,7 +140,9 @@ function ListingPage(props) {
                     </ListingInfoContainer>
                     <hr />
                     <div>
-                        <h4>Where you are staying</h4>
+                        <CenterDiv>
+                            <h4>Where you are staying</h4>
+                        </CenterDiv>
                         <CenterDiv>
                         <Map 
                         zoom={10.5} 
@@ -152,7 +154,9 @@ function ListingPage(props) {
                 </LeftContainer>
                     <form onSubmit={handleSubmit}>
                     <BookingContainer>
-                        <h4 style={{marginBottom:"0px"}}>Book Now</h4>
+                        <CenterDiv>
+                            <h4 style={{marginBottom:"0px"}}>Book Now</h4>
+                        </CenterDiv>
                         <hr />
                         <DateCalendars
                         setCheckinDate={setCheckinDate}

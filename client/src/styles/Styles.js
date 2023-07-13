@@ -91,7 +91,6 @@ export const CenterDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
 `
 
 export const ListingContainer = styled.div`

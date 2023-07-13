@@ -43,14 +43,6 @@ function ProfilePage() {
         }
     }, [user]);
 
-
-    const StyledTextField = styled(TextField)({
-        '& .MuiInputBase-input': {
-            fontSize: 12,
-            width: 'auto'
-        }
-      });
-
     if (!user) return <CenterDiv>    
     <Spinner animation="border" role="status" />
     </CenterDiv>

@@ -94,9 +94,7 @@ function SearchBarButtonGroup() {
         }
 
         try {
-            dispatch(setStatusToLoading())
             const response = await axios.post("/listings/search", searchEntry)
-            dispatch(setStatusToFulfilled())
             console.log(response)
             if (response.statusText !== "OK") {
                 dispatch(setErrors(response.data))
