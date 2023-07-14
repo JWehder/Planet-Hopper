@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FloatingLabel, Form } from 'react-bootstrap';
-import { CustomButton, StyledForm } from '../../styles/Styles'
+import { StyledForm } from '../../styles/Styles'
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "./state/authSlice";
+import { login } from "./state/authSlice";
+import Button from '@mui/material/Button';
 
 function LoginForm(props) {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function LoginForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(loginUser(userCredentials))
+        dispatch(login(userCredentials))
     }
 
     if (user) {
@@ -64,7 +65,14 @@ function LoginForm(props) {
                 </Form.Control.Feedback>
                 }
                 </FloatingLabel>
-                <CustomButton variant="primary" type="submit">Login</CustomButton>
+                <Button 
+                style={{margin: "3px"}}
+                color="secondary" 
+                variant="contained"
+                type="submit"
+                >
+                    Login
+                </Button>
             </StyledForm>
     )
 }

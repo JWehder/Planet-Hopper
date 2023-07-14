@@ -1,9 +1,10 @@
 import { React, useState } from "react";
-import { StyledForm, CustomButton } from "../../styles/Styles";
-import { Col, Row, FloatingLabel, Form } from "react-bootstrap";
+import { StyledForm } from "../../styles/Styles";
+import { Col, Row, FloatingLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "./state/authSlice";
+import { signup } from "./state/authSlice";
 import { displayErrors } from "../../utils/helpers";
+import Button from '@mui/material/Button';
 
 function SignupForm({ setShowLogin }) {
     // const [isLoading, setIsLoading] = useState(false);
@@ -18,13 +19,11 @@ function SignupForm({ setShowLogin }) {
         password_confirmation: "",
         email: "",
         bio: "",
-        profile_picture: "",
-        host: false
     })
 
     function handleSubmit(e) {
         e.preventDefault()
-        dispatch(signupUser(userObject))
+        dispatch(signup(userObject))
     }
 
     function changeUserValue(e) {
@@ -122,20 +121,6 @@ function SignupForm({ setShowLogin }) {
                 />
                 {error && error.email && displayErrors(error.email, "email")}
                 </FloatingLabel>  
-                <FloatingLabel
-                controlId="floatingInput"
-                label="Profile Picture"
-                className="mb-3"
-                >
-                <StyledForm.Control 
-                type="text" 
-                name="profile_picture"
-                value={userObject.profile_picture}
-                onChange={(e) => changeUserValue(e)}
-                isInvalid={!!error && error.profile_picture}
-                />
-                {error && error.profile_picture && displayErrors(error.profile_picture)}
-                </FloatingLabel>
                 <FloatingLabel 
                 controlId="floatingTextarea2" 
                 label="Bio" 
@@ -151,17 +136,13 @@ function SignupForm({ setShowLogin }) {
                 />
                 {error && error.bio && displayErrors(error.bio)}
                 </FloatingLabel>
-                <Form.Check 
-                type="switch"
-                id="custom-switch"
-                label="Would you like to be a host?"
-                value={userObject.host}
-                onClick={() => {
-                    setUserObject({...userObject, host: !userObject.host})
-                }
-                }
-                />
-                <CustomButton variant= "primary" type="submit">Sign Up</CustomButton>
+                <Button 
+                color= "secondary" 
+                type="submit"
+                variant="contained"
+                >
+                    Sign Up
+                </Button>
             </StyledForm>
         </>
     )

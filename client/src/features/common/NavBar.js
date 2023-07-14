@@ -1,30 +1,25 @@
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import { useSelector } from "react-redux";
-import { ReactComponent as WebsiteIcon } from '../../images/house_logo.svg'
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import styled from "styled-components";
 import SearchBarButtonGroup from "../listing/components/SearchBarButtonGroup";
-import { CenterDiv } from "../../styles/Styles";
+import { setLoginModal } from "../auth/state/authSlice";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
 
-function NavBar() {
+function NavBar(props) {
+    const dispatch = useDispatch()
+    const user = useSelector((state) => state.auth.user)
 
-    const user = useSelector((state) => state.auth.user);
-
-    const settings = user
-      ? ['profile', 'bookings', 'logout']
-      : ['login'];
+    const settings = ['profile', 'bookings']
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -43,6 +38,15 @@ function NavBar() {
     const handleCloseUserMenu = () => {
     setAnchorElUser(null);
     };
+
+    const openLogin = () => {
+        if (!user) {
+            dispatch(setLoginModal(true))
+            return
+        }
+
+        props.history.push("/logout")
+    }
 
 return (
     <AppBar>
@@ -68,7 +72,7 @@ return (
             <SearchBarButtonGroup />
         </Section>
         <Section style={{justifyContent: 'flex-end'}}>
-            <Box sx={{ flexGrow: 0 }}>
+            {user ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
@@ -97,8 +101,20 @@ return (
                 </MenuItem>
                 </StyledLink>
                 ))}
+                <MenuItem onClick={openLogin}>
+                    <Typography textAlign="center">logout</Typography>
+                </MenuItem>
             </Menu>
             </Box>
+            :
+            <Button 
+            color="secondary" 
+            variant="text"
+            onClick={openLogin}
+            >
+                Login
+            </Button>
+            }   
         </Section>
     </AppBar>
     );
@@ -127,4 +143,4 @@ const AppBar = styled.div`
     padding: 10px;
 `
 
-export default NavBar;
+export default withRouter(NavBar);

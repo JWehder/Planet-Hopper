@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListingCard from "../components/ListingCard";
-import Spinner from "react-bootstrap/Spinner"
 import { turnOffBooked } from "../state/listingsSlice";
 import { fetchListings, getAlienListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import styled from "styled-components";
-import { CenterDiv } from "../../../styles/Styles";
+import LoadingPage from "../../common/LoadingPage";
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -25,9 +24,7 @@ function HomePage() {
         dispatch(turnOffBooked())
     }
 
-    if (!homepageListings) return <CenterDiv>    
-    <Spinner animation="border" role="status" />
-    </CenterDiv>
+    if (!homepageListings) return <LoadingPage />
 
     const handleSpaceClick = () => {
         dispatch(getAlienListings())

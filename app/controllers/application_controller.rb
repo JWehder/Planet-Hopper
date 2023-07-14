@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   before_action :authorize
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
-  private
+  private 
 
   def render_unprocessable_entity(invalid) 
     render json: { errors: invalid.record.errors }, status: :unprocessable_entity

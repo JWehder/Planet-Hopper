@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("Listing") }
-    skip_before_action :authorize, only: [:index, :render_homepage_listings]
+    skip_before_action :authorize, only: [:index, :suggested_listings, :alien_listings]
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     def suggested_listings

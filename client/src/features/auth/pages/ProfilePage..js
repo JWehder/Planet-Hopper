@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
-import TextField from '@mui/material/TextField';
 import { useSelector } from "react-redux";
-import Spinner from "react-bootstrap/Spinner"
 import { useDispatch } from "react-redux";
 import { displayErrors } from "../../../utils/helpers";
 import { StyledForm } from "../../../styles/Styles";
 import { CenterDiv } from "../../../styles/Styles";
 import { FloatingLabel } from "react-bootstrap";
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { updateUser } from "../state/authSlice";
-import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { setSavedChanges } from "../state/authSlice";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LoadingPage from "../../common/LoadingPage";
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
-    const error = useSelector((state) => state.auth.signupError)
-    console.log(user)
+    const error = useSelector((state) => state.auth.updateError)
+    const savedChanges = useSelector((state) => state.auth.savedChanges)
     const dispatch = useDispatch()
+
+    console.log(error)
 
     const [userObject, setUserObject] = useState({
         id: "",
@@ -43,10 +44,7 @@ function ProfilePage() {
         }
     }, [user]);
 
-    if (!user) return <CenterDiv>    
-    <Spinner animation="border" role="status" />
-    </CenterDiv>
-    
+    if (!user) return <LoadingPage />
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -54,17 +52,36 @@ function ProfilePage() {
     }
 
     function changeUserValue(e) {
-        console.log(e.target.name, e.target.value)
         setUserObject({
             ...userObject,
             [e.target.name]: e.target.value
         });
     }
 
+    function showSavedChanges() {
+        if (savedChanges) {
+            setTimeout(() => {
+                dispatch(setSavedChanges(null))
+            }, 7000);
+    
+            return (
+                <>
+                <div style={{color: 'green'}}> 
+                    <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Saved Changes! 
+                </div>
+                </>
+            )
+        }
+    }
+
     return (  
             <div style={{backgroundColor: '#F8F5FF', minHeight: '100vh'}}>
+            
             <CenterDiv style={{padding: '10px'}}>
                 <h2>Edit Your Profile</h2>
+            </CenterDiv>
+            <CenterDiv style={{padding: '10px'}}>
+                {showSavedChanges()}
             </CenterDiv>
             <CenterDiv>
                 <form onSubmit={handleSubmit}>

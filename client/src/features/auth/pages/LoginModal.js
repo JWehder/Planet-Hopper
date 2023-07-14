@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import LoginForm from "../LoginForm";
 import styled from "styled-components"
-import { CustomButton } from "../../../styles/Styles";
+import { CustomButton, CenterDiv } from "../../../styles/Styles";
 import SignupForm from "../SignupForm";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button"
+import { useSelector } from "react-redux";
+import { setLoginModal } from "../state/authSlice";
+import Button from '@mui/material/Button';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function LoginModal({ show, setShow }) {
+function LoginModal() {
     const [showLogin, setShowLogin] = useState(true)
+    const show = useSelector((state) => state.auth.loginModal)
 
-    const handleClose = () => setShow(false)
+    const handleClose = () => setLoginModal(false)
 
     function handleToggleLogin() {
-        setShowLogin(!showLogin)
+       setShowLogin(!showLogin)
     }
 
     return (
@@ -26,13 +30,21 @@ function LoginModal({ show, setShow }) {
                     <>
                     <LoginForm />
                     <ButtonContainer>
-                    {/* <Button style={{paddingLeft: "3px"}} variant="link"><Link to="/forgot_password/enter_email">Forgot password?</Link></Button>  */}
+                    <CenterDiv style={{padding: '5px'}}>
+                        <Link to="/forgot_password/enter_email">Forgot password?</Link>
+                    </CenterDiv>
                     </ButtonContainer> 
                     <hr />
+                    <CenterDiv>
                     <ButtonContainer>
                     <p>Don't have an account?</p>
-                    <CustomButton variant= "secondary" onClick={handleToggleLogin}>Sign Up</CustomButton>
+                    <Button 
+                    color= "secondary" 
+                    onClick={handleToggleLogin}
+                    >Sign Up
+                    </Button>
                     </ButtonContainer>
+                    </CenterDiv>
                     </>
                 )
                 :

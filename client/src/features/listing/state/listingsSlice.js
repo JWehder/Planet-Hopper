@@ -38,7 +38,7 @@ export const deleteBooking = createAsyncThunk("listings/deleteBooking", async(id
 export const updateBooking = createAsyncThunk("/listings/updateBooking", async(bookingObj, thunkAPI) => {
     const { id, ...rest } = bookingObj
     try {
-        const response = await axios.put(`/bookings/${id}`, rest);
+        const response = await axios.patch(`/bookings/${id}`, rest);
         return { data: response.data, bookingId: id };
     } catch (err) {
         const error = err.response.data.errors

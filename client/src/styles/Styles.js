@@ -5,7 +5,6 @@ import Form from 'react-bootstrap/Form'
 import Box from '@mui/system/Box';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import PhotosCarousel from "../features/listing/components/PhotosCarousel"
-import { createGlobalStyle } from 'styled-components'
 
 const COLORS = {
     primary: {

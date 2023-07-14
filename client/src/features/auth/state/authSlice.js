@@ -2,39 +2,41 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { fetchWrapper } from "../../../utils/helpers";
 import axios from "axios";
 
-export const loginUser = createAsyncThunk(
-    "auth/loginUser", 
+export const login = createAsyncThunk(
+    "auth/login", 
     (userObj, thunkAPI) => {
         return fetchWrapper.post("/login", userObj, thunkAPI)
 })
 
-export const getUser = createAsyncThunk("auth/getUser", () => {
-    return fetchWrapper.get("/me")
-})
-
-export const signupUser = createAsyncThunk(
-    "auth/signupUser", 
-    (userObj, thunkAPI) => {
-    return fetchWrapper.post("/signup", userObj, thunkAPI)
-})
-
-export const updateUser = createAsyncThunk("/listings/updateUser", async(userObj, thunkAPI) => {
+export const getUser = createAsyncThunk("auth/getUser", async(_, thunkAPI) => {
     try {
-        const response = await axios.put(`/bookings/${userObj.id}`, userObj);
+        const response = await axios.get('/me');
         return response.data
     } catch (err) {
+        // Handle the error
         const error = err.response.data.errors
         return thunkAPI.rejectWithValue({ data: error }) 
     }
 })
 
-const signoutUser = createAsyncThunk("/listings/updateBooking", async(userObj, thunkAPI) => {
+export const signup = createAsyncThunk(
+    "auth/signup", 
+    (userObj, thunkAPI) => {
+    return fetchWrapper.post("/signup", userObj, thunkAPI)
+})
+
+export const updateUser = createAsyncThunk("/auth/updateUser", async(userObj, thunkAPI) => {
+        return fetchWrapper.patch(`/users/${userObj}`, userObj, thunkAPI)
+})
+
+export const logout = createAsyncThunk("/auth/logout", async( thunkAPI) => {
     try {
-        const response = await axios.put(`/bookings/${userObj.id}`, userObj);
+        const response = await axios.delete(`/logout`);
         return response.data
     } catch (err) {
+        console.log(err)
         const error = err.response.data.errors
-        return thunkAPI.rejectWithValue({ data: error }) 
+        return thunkAPI.rejectWithValue(error) 
     }
 })
 
@@ -43,6 +45,9 @@ const initialState = {
     loginError: null,
     signupError: null,
     updateError: null,
+    logoutError: null,
+    loginModal: false,
+    savedChanges: false,
     status: "idle"
 }
 
@@ -51,19 +56,25 @@ const authSlice = createSlice({
     initialState,
     // sync reducers
     reducers: {
+        setSavedChanges (state, action) {
+            state.savedChanges = action.payload
+        },
+        setLoginModal (state, action) {
+            state.loginModal = action.payload
+        }
     },
     // async reducers
     extraReducers: {
-        [loginUser.pending]: (state) => {
+        [login.pending]: (state) => {
             console.log("runnin")
             state.status = "pending";
             state.loginError = null
         },
-        [loginUser.fulfilled]: (state, action) => {
+        [login.fulfilled]: (state, action) => {
             state.user = action.payload
             state.status = "idle";
         },
-        [loginUser.rejected]: (state, action) => {
+        [login.rejected]: (state, action) => {
             console.log(action.payload)
             state.loginError = action.payload
         },
@@ -75,25 +86,31 @@ const authSlice = createSlice({
             state.user = action.payload
             state.status = "idle";
         },
-        [signupUser.pending]: (state) => {
+        [getUser.rejected]: (state, action) => {
+            console.log(action.payload)
+            state.user = null
+        },
+        [signup.pending]: (state) => {
             state.status = "pending";
             state.signupError = null
         },
-        [signupUser.fulfilled]: (state, action) => {
+        [signup.fulfilled]: (state, action) => {
             state.user = action.payload
             state.status = "idle";
         },
-        [signupUser.rejected]: (state, action) => {
+        [signup.rejected]: (state, action) => {
             console.log("rejected!")
             console.log(action.payload)
             state.signupError = action.payload
         },
         [updateUser.pending]: (state) => {
             state.status = "pending";
-            state.signupError = null
+            state.updateError = null
         },
         [updateUser.fulfilled]: (state, action) => {
+            console.log("hey")
             state.user = action.payload
+            state.savedChanges = true
             state.status = "idle";
         },
         [updateUser.rejected]: (state, action) => {
@@ -101,7 +118,22 @@ const authSlice = createSlice({
             console.log(action.payload)
             state.updateError = action.payload
         },
+        [logout.pending]: (state) => {
+            state.status = "pending";
+            state.signupError = null
+        },
+        [logout.fulfilled]: (state) => {
+            state.user = null
+            state.status = "idle";
+        },
+        [logout.rejected]: (state, action) => {
+            console.log("rejected!")
+            console.log(action.payload)
+            state.signupError = action.payload
+        },
     },
 });
+
+export const { setSavedChanges, setLoginModal } = authSlice.actions
 
 export default authSlice.reducer;
