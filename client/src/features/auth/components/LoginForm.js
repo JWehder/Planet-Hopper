@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FloatingLabel, Form } from 'react-bootstrap';
-import { StyledForm } from '../../styles/Styles'
+import { StyledForm } from '../../../styles/Styles'
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./state/authSlice";
+import { login } from "../state/authSlice";
 import Button from '@mui/material/Button';
 
 function LoginForm(props) {

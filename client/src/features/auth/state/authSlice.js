@@ -40,13 +40,29 @@ export const logout = createAsyncThunk("/auth/logout", async( thunkAPI) => {
     }
 })
 
+export const forgotPassword = createAsyncThunk(
+    "auth/forgotPassword", 
+    (email, thunkAPI) => {
+    return fetchWrapper.post("/forgot_password", email, thunkAPI)
+})
+
+export const resetPassword = createAsyncThunk(
+    "auth/resetPassword", 
+    (code, thunkAPI) => {
+    return fetchWrapper.post("/reset_password", code, thunkAPI)
+})
+
 const initialState = {
     user: null,
     loginError: null,
     signupError: null,
     updateError: null,
     logoutError: null,
+    forgotPasswordError: null,
+    codeError: null,
     loginModal: false,
+    emailSent: false,
+    codeCorrect: false,
     savedChanges: false,
     status: "idle"
 }
@@ -56,6 +72,9 @@ const authSlice = createSlice({
     initialState,
     // sync reducers
     reducers: {
+        setEmailSent (state, action) {
+            state.emailSent = action.payload
+        },
         setSavedChanges (state, action) {
             state.savedChanges = action.payload
         },
@@ -108,7 +127,6 @@ const authSlice = createSlice({
             state.updateError = null
         },
         [updateUser.fulfilled]: (state, action) => {
-            console.log("hey")
             state.user = action.payload
             state.savedChanges = true
             state.status = "idle";
@@ -129,7 +147,34 @@ const authSlice = createSlice({
         [logout.rejected]: (state, action) => {
             console.log("rejected!")
             console.log(action.payload)
-            state.signupError = action.payload
+            state.logoutError = action.payload
+        },
+        [forgotPassword.pending]: (state) => {
+            console.log("runnin")
+            state.status = "pending";
+            state.loginError = null
+        },
+        [forgotPassword.fulfilled]: (state, action) => {
+            state.user = action.payload
+            state.status = "idle";
+        },
+        [forgotPassword.rejected]: (state, action) => {
+            console.log(action.payload)
+            state.forgotPasswordError = action.payload
+        },
+        [resetPassword.pending]: (state) => {
+            console.log("runnin")
+            state.status = "pending";
+            state.loginError = null
+        },
+        [resetPassword.fulfilled]: (state, action) => {
+            state.user = action.payload
+            state.emailSent = true
+            state.status = "idle";
+        },
+        [resetPassword.rejected]: (state, action) => {
+            console.log(action.payload)
+            state.resetPasswordError = action.payload
         },
     },
 });

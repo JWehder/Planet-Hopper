@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import LoginForm from "../LoginForm";
+import LoginForm from "../components/LoginForm";
 import styled from "styled-components"
-import { CustomButton, CenterDiv } from "../../../styles/Styles";
-import SignupForm from "../SignupForm";
+import { CenterDiv } from "../../../styles/Styles";
+import SignupForm from "../components/SignupForm";
 import Modal from "react-bootstrap/Modal";
 import { useSelector } from "react-redux";
 import { setLoginModal } from "../state/authSlice";
@@ -52,8 +52,17 @@ function LoginModal() {
                     <>
                     <SignupForm setShowLogin={setShowLogin} />
                     <hr />
-                    <p>Already have an account?</p>
-                    <CustomButton onClick={handleToggleLogin}variant="secondary">Sign In</CustomButton>
+                    <CenterDiv>
+                        <ButtonContainer>
+                            <p>Already have an account?</p>
+                            <Button 
+                            onClick={handleToggleLogin} 
+                            color="secondary"
+                            >
+                                Sign In
+                            </Button>
+                        </ButtonContainer>
+                    </CenterDiv>
                     </>
                 )}
                 </Modal.Body>

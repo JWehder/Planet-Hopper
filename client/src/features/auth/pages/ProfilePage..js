@@ -10,8 +10,8 @@ import { updateUser } from "../state/authSlice";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { setSavedChanges } from "../state/authSlice";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LoadingPage from "../../common/LoadingPage";
+import SuccessMessage from "../../common/SuccessMessage";
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
@@ -64,13 +64,7 @@ function ProfilePage() {
                 dispatch(setSavedChanges(null))
             }, 7000);
     
-            return (
-                <>
-                <div style={{color: 'green'}}> 
-                    <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Saved Changes! 
-                </div>
-                </>
-            )
+            return <SuccessMessage message="Saved Changes" />
         }
     }
 

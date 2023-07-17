@@ -1,9 +1,9 @@
 import { React, useState } from "react";
-import { StyledForm } from "../../styles/Styles";
+import { StyledForm } from "../../../styles/Styles";
 import { Col, Row, FloatingLabel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "./state/authSlice";
-import { displayErrors } from "../../utils/helpers";
+import { signup } from "../state/authSlice";
+import { displayErrors } from "../../../utils/helpers";
 import Button from '@mui/material/Button';
 
 function SignupForm({ setShowLogin }) {
