@@ -38,7 +38,7 @@ class UsersController < ApplicationController
             if correct_code && user.request_time <= 2.hours.ago
                 # session[:user_id] = user.id
                 # render json: user.id, status: :ok
-                render json: { status: "Code is correct" }, status: :ok
+                render json: user, status: :ok
             else
                 render json: { error: "Code is incorrect or has expired" }, status: :unauthorized
             end

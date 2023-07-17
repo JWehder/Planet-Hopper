@@ -58,8 +58,6 @@ const initialState = {
     signupError: null,
     updateError: null,
     logoutError: null,
-    forgotPasswordError: null,
-    codeError: null,
     loginModal: false,
     emailSent: false,
     codeCorrect: false,
@@ -154,22 +152,19 @@ const authSlice = createSlice({
             state.status = "pending";
             state.loginError = null
         },
-        [forgotPassword.fulfilled]: (state, action) => {
-            state.user = action.payload
+        [forgotPassword.fulfilled]: (state) => {
             state.status = "idle";
         },
         [forgotPassword.rejected]: (state, action) => {
-            console.log(action.payload)
-            state.forgotPasswordError = action.payload
+
         },
         [resetPassword.pending]: (state) => {
-            console.log("runnin")
+
             state.status = "pending";
             state.loginError = null
         },
         [resetPassword.fulfilled]: (state, action) => {
             state.user = action.payload
-            state.emailSent = true
             state.status = "idle";
         },
         [resetPassword.rejected]: (state, action) => {

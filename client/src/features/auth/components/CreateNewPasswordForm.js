@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import StyledForm from "../styles/StyledForm";
+import { StyledForm } from "../../../styles/Styles";
 import { withRouter } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import CustomButton from "../styles/Button";
+import { CustomButton } from "../../../styles/Styles";
 import { displayErrors } from "../../../utils/helpers";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../state/authSlice";
 
-function CreateNewPasswordForm(props) {
-    const dispatc
+function CreateNewPasswordForm({ onNextStep, email }) {
+    const dispatch = useDispatch()
     
     const [password, setPassword] = useState("")
     const [password_confirmation, setPasswordConfirmation] = useState("")
@@ -15,22 +17,11 @@ function CreateNewPasswordForm(props) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        fetch(`/users/${user.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({password: password,password_confirmation: password_confirmation})
-        }).then((r) => {
-                if(r.ok) {
-                    r.json().then(() => {
-                        props.onNextStep();
-                        props.history.push("/login")
-                    })
-                } else {
-                    r.json().then((err) => setErrors(err.errors))
-                }
-            })
+        dispatch(updateUser({email:password: password,password_confirmation: password_confirmation}))
+        .unwrap()
+        .then(() => onNextStep())
+        .catch((err) => setErrors(err))
+
     }
 
     return (

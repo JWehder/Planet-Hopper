@@ -1,42 +1,44 @@
 import React, { useState } from "react";
-import StyledForm from "../styles/StyledForm";
-import CustomButton from "../styles/Button";
+import { StyledForm } from "../../../styles/Styles";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { forgotPassword } from "../state/authSlice";
 import SuccessMessage from "../../common/SuccessMessage";
+import ErrorMessage from "../../common/ErrorMessage";
+import Button from "@mui/material/Button";
 
-function EnterEmailForm(props) {
+function EnterEmailForm({ email, onNextStep, setEmail }) {
     const dispatch = useDispatch()
 
-    const emailSent = ((state) => state.auth.emailSent)
-    const error = useSelector((state) => state.auth.forgotPasswordError)
-
-    const [email, setEmail] = useState("")
+    const [error, setError] = useState("")
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
 
-        dispatch(forgotPassword(email))
+        dispatch(forgotPassword({email: email}))
+        .unwrap()
+        .then(() => successMessage())
+        .catch((err) => setError(err))
 
     }
 
-    if (emailSent) {
+    const successMessage = () => {
+        setError(null)
         setShowSuccessMessage(true)
 
         setTimeout(() => {
-            props.history.push("/forgot_password/enter_code");
-            
-        }, 3000);
+            onNextStep()
+            setShowSuccessMessage(false)
+        }, 7000);
     }
 
     return (
         <>
             <h3 style={{"textAlign": "center"}}>Search for your account</h3>
             <hr />
-            {showSuccessMessage ? <SuccessMessage message="If your email address is in our system, we sent a code there!" /> : ""}
+            {showSuccessMessage ? <SuccessMessage message="Success! We sent you an email!" /> : ""}
             <StyledForm style= {{"textAlign": "center"}} onSubmit={handleSubmit}>
                     <Form.Label>Please enter the email associated with your account</Form.Label>
                     <FloatingLabel
@@ -51,9 +53,13 @@ function EnterEmailForm(props) {
                     onChange={(e) => setEmail(e.target.value)}
                     isInvalid={!!error}
                     />
-                    {!!error ? <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback> : ""}
+                    {!!error ? <ErrorMessage>{error}. Please check your spelling and try again.</ErrorMessage> : ""}
                     </FloatingLabel>
-                <CustomButton variant= "primary" type="submit">Send Code</CustomButton>
+                <Button 
+                color= "secondary" 
+                type="submit"
+                >Send Code
+                </Button>
             </StyledForm>
         </>
     )

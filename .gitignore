@@ -31,3 +31,5 @@
 /config/master.key
 
 /config/environment.rb
+
+/config/local_env.yml

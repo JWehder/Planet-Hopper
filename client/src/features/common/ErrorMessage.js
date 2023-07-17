@@ -3,12 +3,12 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import styled from "styled-components";
 import { CenterDiv } from "../../styles/Styles";
 
-function ErrorMessage({ error }) {
+function ErrorMessage({ children }) {
 
     return (
         <ErrorContainer>
             <CenterDiv><ErrorOutlineIcon fontSize="small" style={{color: "rgb(220, 10, 70)", marginRight: "2px"}}/></CenterDiv>
-           <ErrorPara>{error}</ErrorPara>
+           <ErrorPara>{children}</ErrorPara>
         </ErrorContainer>
     )
 }

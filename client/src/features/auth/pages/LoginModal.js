@@ -4,20 +4,30 @@ import styled from "styled-components"
 import { CenterDiv } from "../../../styles/Styles";
 import SignupForm from "../components/SignupForm";
 import Modal from "react-bootstrap/Modal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoginModal } from "../state/authSlice";
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+import ForgotPasswordButton from "../components/ForgotPasswordButton";
 
-function LoginModal() {
+function LoginModal(props) {
+    const dispatch = useDispatch()
+
     const [showLogin, setShowLogin] = useState(true)
     const show = useSelector((state) => state.auth.loginModal)
 
-    const handleClose = () => setLoginModal(false)
+    const handleClose = () => dispatch(setLoginModal(false))
 
     function handleToggleLogin() {
        setShowLogin(!showLogin)
     }
+
+    function handleForgotClick() {
+        dispatch(setLoginModal(false))
+        props.history.push("/forgot_password")
+    }
+
+    console.log("show:", show)
 
     return (
             <div>
@@ -31,7 +41,7 @@ function LoginModal() {
                     <LoginForm />
                     <ButtonContainer>
                     <CenterDiv style={{padding: '5px'}}>
-                        <Link to="/forgot_password/enter_email">Forgot password?</Link>
+                        <ForgotPasswordButton>Forgot Password?</ForgotPasswordButton>
                     </CenterDiv>
                     </ButtonContainer> 
                     <hr />
@@ -76,4 +86,4 @@ const ButtonContainer = styled.div`
     display: inline-block;
 `
 
-export default LoginModal;
+export default withRouter(LoginModal);

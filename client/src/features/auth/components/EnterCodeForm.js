@@ -1,26 +1,19 @@
 import React, { useState } from "react";
-import StyledForm from "../styles/StyledForm";
-import CustomButton from "../styles/Button";
-import { Form, FloatingLabel } from "react-bootstrap";
+import { StyledForm } from "../../../styles/Styles";
+import { CustomButton } from "../../../styles/Styles";
+import { FloatingLabel } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword } from "../state/authSlice";
+import { useDispatch } from "react-redux";
 import SuccessMessage from "../../common/SuccessMessage";
 import { resetPassword } from "../state/authSlice";
 import ErrorMessage from "../../common/ErrorMessage";
 
 
 function EnterCodeForm(props) {
-    const user = useSelector((state) => state.auth.user)
-
     const [error, setError] = useState()
     const [code, setCode] = useState("")
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-
-    // show SuccessMessage
-    // navigate to next page
-    // clean up success message
-
+    
     const dispatch = useDispatch()
 
     function handleSubmit(e) {
@@ -37,7 +30,7 @@ function EnterCodeForm(props) {
         
         setTimeout(() => {
             setShowSuccessMessage(false)
-            props.history.push("/forgot_password/create_new_password")
+            props.onNextStep()
         }, 3000);
 
     }

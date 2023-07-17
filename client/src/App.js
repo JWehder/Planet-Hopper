@@ -16,8 +16,7 @@ import Spinner from "react-bootstrap/Spinner"
 import ProfilePage from './features/auth/pages/ProfilePage.';
 import { CenterDiv } from './styles/Styles';
 import LogoutPage from './features/auth/pages/LogoutPage';
-import EnterEmailForm from './features/auth/components/EnterEmailForm';
-import EnterCodeForm from './features/auth/components/EnterCodeForm';
+import ForgotPasswordPage from './features/auth/pages/ForgotPasswordPage';
 
 function App() {
   const history = useHistory();
@@ -75,7 +74,7 @@ function App() {
   return (
     <div style={{backgroundColor: '#F8F5FF'}}>
     <NavBar />
-
+    <LoginModal />
     <div>
     <Switch>
       <Route exact path="/profile">
@@ -84,15 +83,8 @@ function App() {
       <Route exact path='/maps'>
         <MapModal />
       </Route>
-      <Route path="/forgot_password/create_new_password">
-        <CreateNewPassword />
-      </Route>
-
-      <Route exact path="/forgot_password/enter_code">
-        <EnterCodeForm />
-      </Route>
-      <Route exact path="/forgot_password/enter_email">
-        <EnterEmailForm />
+      <Route path="/forgot_password">
+        <ForgotPasswordPage />
       </Route>
       <Route exact path='/'>
           <LoginModal show={show} setShow={setShow} />
