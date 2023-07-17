@@ -18,9 +18,9 @@ function ForgotPasswordPage() {
         switch (step) {
             case 1:
               return <EnterEmailForm 
-              email={email} 
-              setEmail={setEmail} 
               onNextStep={() => setStep(step + 1)} 
+              email={email}
+              setEmail={setEmail}
               />
             case 2:
               return <EnterCodeForm onNextStep={() => setStep(step + 1)} />

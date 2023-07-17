@@ -22,13 +22,6 @@ function LoginModal(props) {
        setShowLogin(!showLogin)
     }
 
-    function handleForgotClick() {
-        dispatch(setLoginModal(false))
-        props.history.push("/forgot_password")
-    }
-
-    console.log("show:", show)
-
     return (
             <div>
             <Modal show={show} onHide={handleClose}>

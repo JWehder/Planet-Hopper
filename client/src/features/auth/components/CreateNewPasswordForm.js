@@ -5,9 +5,12 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { CustomButton } from "../../../styles/Styles";
 import { displayErrors } from "../../../utils/helpers";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../state/authSlice";
+import { setLoginModal, updateUser } from "../state/authSlice";
 
-function CreateNewPasswordForm({ onNextStep, email }) {
+// I can set the session id so that the user is capable of updating their password
+// let the user update, then push them to the homepage with the login modal open.
+
+function CreateNewPasswordForm({ onNextStep, history }) {
     const dispatch = useDispatch()
     
     const [password, setPassword] = useState("")
@@ -17,11 +20,17 @@ function CreateNewPasswordForm({ onNextStep, email }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        dispatch(updateUser({email:password: password,password_confirmation: password_confirmation}))
+        dispatch(updateUser({password: password,password_confirmation: password_confirmation}))
         .unwrap()
-        .then(() => onNextStep())
+        .then(() => {
+            onNextStep()
+            setErrors(null)
+            setPassword(null)
+            setPasswordConfirmation(null)
+            history.push("/")
+            dispatch(setLoginModal(true))
+        })
         .catch((err) => setErrors(err))
-
     }
 
     return (

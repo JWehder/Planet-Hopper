@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { StyledForm } from "../../../styles/Styles";
-import { CustomButton } from "../../../styles/Styles";
+import { CenterDiv, StyledForm } from "../../../styles/Styles";
 import { FloatingLabel } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import SuccessMessage from "../../common/SuccessMessage";
-import { resetPassword } from "../state/authSlice";
+import { forgotPassword, resetPassword } from "../state/authSlice";
 import ErrorMessage from "../../common/ErrorMessage";
+import Button from "@mui/material/Button";
 
-
-function EnterCodeForm(props) {
+function EnterCodeForm({ onNextStep, email }) {
     const [error, setError] = useState()
-    const [code, setCode] = useState("")
+    const [code, setCode] = useState()
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-    
+
     const dispatch = useDispatch()
 
     function handleSubmit(e) {
@@ -27,19 +26,28 @@ function EnterCodeForm(props) {
 
     function successMessage() {
         setShowSuccessMessage(true)
-        
+        setError(null)
+        setCode(null)
+
         setTimeout(() => {
             setShowSuccessMessage(false)
-            props.onNextStep()
+            onNextStep()
         }, 3000);
 
     }
 
+    function handleClick() {
+        dispatch(forgotPassword({email: email}))
+
+        setTimeout(() => {
+            setShowSecondSuccessMessage(false)
+        }, 3000);
+    }
 
 
     return (
         <>
-            {showSuccessMessage ? <SuccessMessage message="We sent you a code to your email!" /> : ""}
+            {showSuccessMessage ? <SuccessMessage message="Code Accepted!" /> : ""}
             <StyledForm onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="floatingInput"
@@ -53,9 +61,18 @@ function EnterCodeForm(props) {
                     onChange={(e) => setCode(e.target.value)}
                     isInvalid={!!error}
                     />
-                    <ErrorMessage>{error}</ErrorMessage>
+                    {!!error ? <ErrorMessage>{error}</ErrorMessage> : ""}
                 </FloatingLabel>
-                <CustomButton variant="primary" type="submit">Submit</CustomButton>
+                <CenterDiv>
+                    <Button 
+                    style={{marginRight:'2px'}} 
+                    color="secondary" 
+                    type="submit"
+                    >
+                        Submit
+                    </Button>
+                    <Button onClick={handleClick} color="primary">Send New Code</Button>
+                </CenterDiv>
             </StyledForm>
         </>
                 

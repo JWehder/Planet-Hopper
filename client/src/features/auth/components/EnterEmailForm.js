@@ -7,8 +7,9 @@ import { forgotPassword } from "../state/authSlice";
 import SuccessMessage from "../../common/SuccessMessage";
 import ErrorMessage from "../../common/ErrorMessage";
 import Button from "@mui/material/Button";
+import { CenterDiv } from "../../../styles/Styles";
 
-function EnterEmailForm({ email, onNextStep, setEmail }) {
+function EnterEmailForm({ onNextStep, email, setEmail }) {
     const dispatch = useDispatch()
 
     const [error, setError] = useState("")
@@ -38,7 +39,9 @@ function EnterEmailForm({ email, onNextStep, setEmail }) {
         <>
             <h3 style={{"textAlign": "center"}}>Search for your account</h3>
             <hr />
-            {showSuccessMessage ? <SuccessMessage message="Success! We sent you an email!" /> : ""}
+            <CenterDiv>
+                {showSuccessMessage ? <SuccessMessage message="Success! We sent you an email!" /> : ""}
+            </CenterDiv>
             <StyledForm style= {{"textAlign": "center"}} onSubmit={handleSubmit}>
                     <Form.Label>Please enter the email associated with your account</Form.Label>
                     <FloatingLabel
