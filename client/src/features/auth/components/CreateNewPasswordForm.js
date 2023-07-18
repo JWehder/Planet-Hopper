@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { StyledForm } from "../../../styles/Styles";
+import { CenterDiv, StyledForm } from "../../../styles/Styles";
 import { withRouter } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { CustomButton } from "../../../styles/Styles";
 import { displayErrors } from "../../../utils/helpers";
 import { useDispatch } from "react-redux";
 import { setLoginModal, updateUser } from "../state/authSlice";
+import Button from "@mui/material/Button";
+import InputGroup from 'react-bootstrap/InputGroup';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import IconButton from '@mui/material/IconButton';
 
 // I can set the session id so that the user is capable of updating their password
 // let the user update, then push them to the homepage with the login modal open.
@@ -35,7 +38,7 @@ function CreateNewPasswordForm({ onNextStep, history }) {
 
     return (
             <>            
-            <h3 style={{"textAlign": "center"}}>Search for your account</h3>
+            <h3 style={{"textAlign": "center"}}>Change Your Password</h3>
             <hr />
             <StyledForm onSubmit= {handleSubmit}>
                 <FloatingLabel 
@@ -51,6 +54,7 @@ function CreateNewPasswordForm({ onNextStep, history }) {
                 />
                 {!!errors && errors.password && displayErrors(errors.password, "password")}
                 </ FloatingLabel>
+                <InputGroup className="mb-3">
                 <FloatingLabel 
                 label="Password Confirmation" 
                 className="mb-3"
@@ -64,7 +68,19 @@ function CreateNewPasswordForm({ onNextStep, history }) {
                 />
                 {!!errors && errors.password_confirmation && displayErrors(errors.password_confirmation)}
                 </FloatingLabel>
-                <CustomButton variant="primary" type="submit">Submit</CustomButton>
+                <CenterDiv>
+                <IconButton aria-label="delete">
+                    <VisibilityIcon color="secondary" />
+                </IconButton>
+                </CenterDiv>
+                </InputGroup>
+                <Button 
+                variant="contained" 
+                color="secondary" 
+                type="submit"
+                >
+                    Submit
+                </Button>
             </StyledForm>
             </>
     )
