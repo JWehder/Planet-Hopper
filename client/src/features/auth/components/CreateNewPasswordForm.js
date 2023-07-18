@@ -34,6 +34,9 @@ function CreateNewPasswordForm({ onNextStep, history }) {
     }
 
     return (
+            <>            
+            <h3 style={{"textAlign": "center"}}>Search for your account</h3>
+            <hr />
             <StyledForm onSubmit= {handleSubmit}>
                 <FloatingLabel 
                 label="Password" 
@@ -63,6 +66,7 @@ function CreateNewPasswordForm({ onNextStep, history }) {
                 </FloatingLabel>
                 <CustomButton variant="primary" type="submit">Submit</CustomButton>
             </StyledForm>
+            </>
     )
 }
 
