@@ -23,7 +23,10 @@ function ForgotPasswordPage() {
               setEmail={setEmail}
               />
             case 2:
-              return <EnterCodeForm onNextStep={() => setStep(step + 1)} />
+              return <EnterCodeForm 
+              email={email} 
+              onNextStep={() => setStep(step + 1)} 
+              />
             case 3:
               return <CreateNewPasswordForm onNextStep={() => setStep(1)}/>
             default:

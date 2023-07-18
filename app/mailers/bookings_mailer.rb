@@ -1,11 +1,11 @@
 class BookingsMailer < ApplicationMailer
-    default :from => "ejwehder@zohomail.com"
+    default from: 'ejwehder@zohomail.com'
 
     def welcome_email(booking, user)
         @user = user
         @booking = booking
         @receipt_number = generate_booking_receipt
-        @planet = booking.listing.planet.name
+        @planet = booking.listing.planet
         @type_of_accomodation = booking.listing.type_of_accomodation
         mail(:to => user.email, :subject => "Your Planet Hopper Booking Receipt# #{receipt_number} Summary")
     end

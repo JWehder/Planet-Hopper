@@ -12,6 +12,8 @@ import { createBooking } from "../../listing/state/listingsSlice";
 import { setCurrentBooking } from "../state/bookingsSlice";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
+import { setLoginModal } from "../../auth/state/authSlice";
+import SuccessMessage from "../../common/SuccessMessage";
 
 function ListItem ({ item, action }) {
     return (
@@ -40,12 +42,12 @@ function BookPage(props) {
 
     const [showDatesModal, setShowDatesModal] = useState(false)
     const [showGuestsModal, setShowGuestsModal] = useState(false)
+    const [bookingErrors, setBookingErrors] = useState(null)
 
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
     const booked = useSelector((state) => state.listings.booked)
-    const bookingErrors = ((state) => state.bookings.bookingError)
 
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
@@ -75,6 +77,9 @@ function BookPage(props) {
         }
 
         dispatch(createBooking(bookingObj))
+        .unwrap()
+        .then(() => successMessage())
+        .catch((err) => setBookingErrors(err))
     }
 
     if (!booking) {
@@ -88,7 +93,7 @@ function BookPage(props) {
     const handleDateShow = () => setShowDatesModal(true)
     const handleGuestsShow = () => setShowGuestsModal(true)
 
-    if (booked) {
+    function successMessage() {
         setTimeout(() => {
             dispatch(setCurrentBooking(null))
             props.history.push("/");
@@ -96,14 +101,13 @@ function BookPage(props) {
 
         return (
             <>
-            <div> 
-                <CheckCircleIcon style={{color: "green"}} fontSize="large"/> Booked! 
-            </div>
-            <div>
-                Please check your email for your receipt. Returning you to the homepage page now....
-            </div>
+            <SuccessMessage message= "Booked! Please check your email for your receipt. Returning you to the homepage page now...." />
             </>
         )
+    }
+
+    function handleClick() {
+        dispatch(setLoginModal(true))
     }
 
     return (
@@ -135,7 +139,7 @@ function BookPage(props) {
                         setShow={setShowGuestsModal}
                         />
                     </BookingInfoContainer>
-                    <BookingInfoContainer style={{marginTop: "15px", height: "160px"}}>
+                    <BookingInfoContainer style={{marginTop: "15px", minHeight: "100px"}}>
                         <div>
                             { user ?
                             <form onSubmit={handleBookingSubmit}>
@@ -156,7 +160,21 @@ function BookPage(props) {
                             </div>
                             </form>
                             :
-                            ""
+                            <div>
+                            <CenterDiv style={{marginBottom: '15px'}}>
+                                You must sign in before booking
+                            </CenterDiv>
+                            <CenterDiv>
+                                <Button 
+                                color="secondary" 
+                                variant="contained" 
+                                type="submit"
+                                onClick={handleClick}
+                                >
+                            Sign in
+                            </Button>
+                            </CenterDiv>
+                            </div>
                             }
 
                         </div>

@@ -32,7 +32,7 @@ function EnterEmailForm({ onNextStep, email, setEmail }) {
         setTimeout(() => {
             onNextStep()
             setShowSuccessMessage(false)
-        }, 7000);
+        }, 3000);
     }
 
     return (

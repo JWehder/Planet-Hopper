@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: -> () { render_not_found_response("User") }
-    skip_before_action :authorize, only: [:create, :forgot_password, :reset_password, :show]
+    skip_before_action :authorize, only: [:create, :forgot_password, :reset_password, :show, :find_user_by_email]
 
     def create
         user = User.create!(user_params)
@@ -22,8 +22,12 @@ class UsersController < ApplicationController
     def forgot_password
         user = find_user_by_email
         if user 
-            PasswordResetMailer.password_reset(user).deliver_now
-            render json: { status: "Email found" }, status: :ok 
+            begin
+                PasswordResetMailer.password_reset(user).deliver_now!
+                render json: { status: "Email found" }, status: :ok 
+            rescue StandardError => e
+                render json: { error: e.inspect }, status: 500
+            end
         else
             render json: { errors: "Email not found" }, status: :not_found
         end
@@ -35,11 +39,13 @@ class UsersController < ApplicationController
             render json: { error: "Code is blank" }, status: :unauthorized
         else
             correct_code = user.code == params[:code]
-            if correct_code && user.request_time <= 2.hours.ago
+            if correct_code && 2.hours.ago <= user.request_time && user.request_time <= Time.now.utc
+                puts "no hit me instead"
                 session[:user_id] = user.id
                 # render json: user.id, status: :ok
                 render json: { status: "Code is correct" }, status: :ok
             else
+                puts "hit me"
                 render json: { error: "Code is incorrect or has expired" }, status: :unauthorized
             end
         end
@@ -56,7 +62,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.permit(:id, :first_name, :last_name, :username, :email, :password, :password_confirmation, :bio)
+        params.permit(:id, :first_name, :last_name, :username, :email, :password, :password_confirmation, :bio, :code)
     end
 
 end

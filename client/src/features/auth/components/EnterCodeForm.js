@@ -12,13 +12,14 @@ function EnterCodeForm({ onNextStep, email }) {
     const [error, setError] = useState()
     const [code, setCode] = useState()
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+    const [showSecondSuccessMessage, setShowSecondSuccessMessage] = useState(false)
 
     const dispatch = useDispatch()
 
     function handleSubmit(e) {
         e.preventDefault()
 
-        dispatch(resetPassword(code))
+        dispatch(resetPassword({email: email, code: code}))
         .unwrap()
         .then(() => successMessage())
         .catch((error) => setError(error))
@@ -38,6 +39,7 @@ function EnterCodeForm({ onNextStep, email }) {
 
     function handleClick() {
         dispatch(forgotPassword({email: email}))
+        setShowSecondSuccessMessage(true)
 
         setTimeout(() => {
             setShowSecondSuccessMessage(false)
@@ -47,7 +49,11 @@ function EnterCodeForm({ onNextStep, email }) {
 
     return (
         <>
+            <CenterDiv>
             {showSuccessMessage ? <SuccessMessage message="Code Accepted!" /> : ""}
+
+            {showSecondSuccessMessage ? <SuccessMessage message="Sent a new code to your email!" /> : ""}
+            </CenterDiv>
             <StyledForm onSubmit={handleSubmit}>
                 <FloatingLabel
                     controlId="floatingInput"

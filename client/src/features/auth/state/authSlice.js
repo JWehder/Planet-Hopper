@@ -156,10 +156,9 @@ const authSlice = createSlice({
             state.status = "idle";
         },
         [forgotPassword.rejected]: (state, action) => {
-
+            console.log(action.payload)
         },
         [resetPassword.pending]: (state) => {
-
             state.status = "pending";
             state.loginError = null
         },

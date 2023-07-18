@@ -6,7 +6,7 @@ class BookingsController < ApplicationController
         user = current_user
         booking = user.bookings.create!(booking_params)
         booking.book_dates
-        # BookingsMailer.welcome_email(booking, booking.user).deliver_now
+        BookingsMailer.welcome_email(booking, booking.user).deliver_now
         render json: booking, status: :created
     end
 
@@ -32,9 +32,6 @@ class BookingsController < ApplicationController
         if booking
           booking_date_range = (booking.start_date...booking.end_date)
           params_date_range = (booking_params[:start_date]...booking_params[:end_date])
-
-          puts booking_date_range, params_date_range
-          puts booking_date_range.count, params_date_range.count
       
           if booking_date_range.count < params_date_range.count
             booking.update!(booking_params)

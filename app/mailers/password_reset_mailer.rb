@@ -1,5 +1,5 @@
 class PasswordResetMailer < ApplicationMailer
-    default :from => "ejwehder@zohomail.com"
+    default from: 'ejwehder@zohomail.com'
 
     def password_reset(user)
         @user = user

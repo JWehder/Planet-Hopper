@@ -24,7 +24,6 @@ function ListingPage(props) {
     const guestsError = useSelector((state) => state.bookings.guestsError)
     const dateError = useSelector((state) => state.bookings.dateError)
     const listing = useSelector((state) => state.listings.currentListing)
-    const user = useSelector((state) => state.auth.user)
 
     const [checkinDate, setCheckinDate] = useState(null)
     const [checkoutDate, setCheckoutDate] = useState(null)
@@ -40,15 +39,15 @@ function ListingPage(props) {
             return
         }
 
+
+
         const bookingObj = {
             startDate: checkinDate,
             endDate: checkoutDate,
             listing_id: listing.id,
-            user_id: user.id,
             number_of_guests: guests,
             numberOfNights: nights
         }
-        console.log(bookingObj)
 
         dispatch(setDateError(null))
 
