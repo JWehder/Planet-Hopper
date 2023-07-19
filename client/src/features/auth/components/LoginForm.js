@@ -34,7 +34,7 @@ function LoginForm(props) {
     }
 
     return (
-            <StyledForm onSubmit={handleSubmit}>
+            <StyledForm onSubmit={handleSubmit} style={{padding:'5px'}}>
                 <FloatingLabel
                 controlId="floatingInput"
                 label="Username"
@@ -66,7 +66,7 @@ function LoginForm(props) {
                 }
                 </FloatingLabel>
                 <Button 
-                style={{margin: "3px"}}
+                style={{margin: "10px"}}
                 color="secondary" 
                 variant="contained"
                 type="submit"

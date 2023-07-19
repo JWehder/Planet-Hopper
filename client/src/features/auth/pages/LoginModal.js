@@ -33,7 +33,7 @@ function LoginModal(props) {
                     <>
                     <LoginForm />
                     <ButtonContainer>
-                    <CenterDiv style={{padding: '5px'}}>
+                    <CenterDiv>
                         <ForgotPasswordButton>Forgot Password?</ForgotPasswordButton>
                     </CenterDiv>
                     </ButtonContainer> 

@@ -5,11 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../state/authSlice";
 import { displayErrors } from "../../../utils/helpers";
 import Button from '@mui/material/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { CenterDiv } from "../../../styles/Styles";
 
 function SignupForm({ setShowLogin }) {
     // const [isLoading, setIsLoading] = useState(false);
     const error = useSelector((state) => state.auth.signupError)
     const dispatch = useDispatch();
+
+    const [showPassword, setShowPassword] = useState(false)
+    const [showPasswordConf, setShowPasswordConf] = useState(false)
 
     const [userObject, setUserObject] = useState({
         first_name: "",
@@ -35,7 +43,7 @@ function SignupForm({ setShowLogin }) {
 
     return (
         <>  
-            <StyledForm onSubmit={handleSubmit}>
+            <StyledForm style={{padding: '5px'}} onSubmit={handleSubmit}>
                 <Row>
                 <Col>
                 <FloatingLabel
@@ -81,32 +89,71 @@ function SignupForm({ setShowLogin }) {
                 />
                 {error && error.username && displayErrors(error.username)}
                 </FloatingLabel>
+                <InputGroup className="mb-3">
                 <FloatingLabel 
                 label="Password" 
                 className="mb-3"
                 >
                 <StyledForm.Control 
-                type="password" 
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={userObject.password}
                 onChange={(e) => changeUserValue(e)}
                 isInvalid={!!error && error.password}
                 />
-                {error && error.password && displayErrors(error.password, "password")}
+                {!!error && error.password && displayErrors(error.password, "password")}
                 </ FloatingLabel>
+                <CenterDiv style={{height: '58px', margin: '2px'}}>
+                { showPassword ?
+                    <IconButton 
+                    aria-label="show" 
+                    onClick={() => setShowPassword(false)}
+                    >
+                        <VisibilityOffIcon color="secondary" />
+                    </IconButton>
+                    :
+                    <IconButton 
+                    aria-label="show" 
+                    onClick={() => setShowPassword(true)}
+                    >
+                        <VisibilityIcon color="secondary" />
+                    </IconButton>
+                }
+                </CenterDiv>
+                </InputGroup>
+                <InputGroup className="mb-3">
                 <FloatingLabel 
                 label="Password Confirmation" 
                 className="mb-3"
                 >
                 <StyledForm.Control 
-                type="password" 
+                type={showPasswordConf ? "text" : "password"}
                 name="password_confirmation"
                 value={userObject.password_confirmation}
                 onChange={(e) => changeUserValue(e)}
                 isInvalid={!!error && error.password_confirmation}
                 />
-                {error && error.password_confirmation && displayErrors(error.password_confirmation)}
+                {!!error && error.password_confirmation && displayErrors(error.password_confirmation)}
                 </FloatingLabel>
+                <CenterDiv style={{height: '58px', margin: '2px'}}>
+                { showPasswordConf ?
+                    <IconButton 
+                    aria-label="show" 
+                    onClick={() => setShowPasswordConf(false)}
+                    >
+                        <VisibilityOffIcon color="secondary" />
+                    </IconButton>
+                    :
+                    <IconButton 
+                    aria-label="show" 
+                    onClick={() => setShowPasswordConf(true)}
+                    >
+                        <VisibilityIcon color="secondary" />
+                    </IconButton>
+                }
+                </CenterDiv>
+                </InputGroup>
+                {error && error.password_confirmation && displayErrors(error.password_confirmation)}
                 <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"

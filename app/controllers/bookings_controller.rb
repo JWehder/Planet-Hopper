@@ -6,7 +6,7 @@ class BookingsController < ApplicationController
         user = current_user
         booking = user.bookings.create!(booking_params)
         booking.book_dates
-        BookingsMailer.welcome_email(booking, booking.user).deliver_now
+        BookingsMailer.booking_email(booking, booking.user).deliver_now
         render json: booking, status: :created
     end
 

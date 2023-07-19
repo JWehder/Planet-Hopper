@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import { setCurrentBooking, setDateError } from "../../booking/state/bookingsSlice";
 import DateCalendars from "../../common/DateCalendars";
-import { checkDatesInvalidity, convertToDate } from "../../common/DateCalendars";
+import { checkDatesInvalidity } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
 import ListingGallery from "../components/ListingGallery";
 import { CenterDiv } from "../../../styles/Styles";
@@ -221,6 +221,7 @@ export const ListingInfoContainer = styled.div`
 `
 
 export const BookingContainer = styled.div`
+    min-height: 200px;
     width: 340px;
     margin-left: 15px;
     border-radius: 20px;

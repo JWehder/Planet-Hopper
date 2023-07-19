@@ -10,17 +10,20 @@ import DateRangeModal from "../components/DateRangeModal";
 import EditGuestsModal from "../components/EditGuestsModal";
 import { createBooking } from "../../listing/state/listingsSlice";
 import { setCurrentBooking } from "../state/bookingsSlice";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
 import { setLoginModal } from "../../auth/state/authSlice";
 import SuccessMessage from "../../common/SuccessMessage";
+import IconButton from "@mui/material/IconButton";
 
 function ListItem ({ item, action }) {
     return (
         <div style={{display: "flex"}}>
         <div style={{
             flex: 1,
-            textAlign: "left"
+            textAlign: "left",
+            padding: "0px",
+            display: "flex",
+            alignItems:"center"
         }}>
             <Text>{item}</Text>
         </div>
@@ -113,14 +116,13 @@ function BookPage(props) {
     return (
         <div style={{marginLeft: "40px", marginRight: "40px", minHeight: '100vh'}}>
             {bookingErrors && <ErrorMessage>{bookingErrors}</ErrorMessage>}
-            <div style={{marginBottom: "20px", display: "flex"}}>
-                <BackButton onClick={goBack}>
-                    <ArrowLeftIcon />
-                </BackButton>
-                <div style={{marginLeft: "10px"}}>
+            <div style={{padding: "20px", display: "flex"}}>
+                <IconButton onClick={goBack}>
+                    <ArrowLeftIcon color="secondary" />
+                </IconButton>
+                <CenterDiv style={{marginLeft: "10px"}}>
                     <h2 style={{textAlign: "center"}}>Confirm your Booking</h2>
-                </div>
-
+                </CenterDiv>
             </div>
             <Container>
                 <LeftContainer>
@@ -139,12 +141,12 @@ function BookPage(props) {
                         setShow={setShowGuestsModal}
                         />
                     </BookingInfoContainer>
-                    <BookingInfoContainer style={{marginTop: "15px", minHeight: "100px"}}>
+                    <BookingInfoContainer style={{marginTop: "15px"}}>
                         <div>
                             { user ?
                             <form onSubmit={handleBookingSubmit}>
                             <div>
-                                <div style={{textAlign: 'center'}}>
+                                <div style={{textAlign: 'center'}}> 
                                     Hey {user.first_name}, all booking info will be sent to {user.email}. 
                                 </div>
                                 <hr/>
@@ -181,17 +183,38 @@ function BookPage(props) {
                     </BookingInfoContainer>
                 </LeftContainer>
                 <BookingContainer>
-                    <div style={{display:"flex", fontSize: "12px", justifyContent: "center"}}>
-                        <img style={{width: "50px", height:"40px", marginRight: "10px"}} src={currentListing.photos[0]} alt={currentListing.name} />
+                    <div style={{
+                        display:"flex", 
+                        fontSize: "12px", 
+                        justifyContent: "center"
+                        }}
+                    >
+                        <img style={{
+                            width: "50px", 
+                            height:"40px", 
+                            marginRight: "10px"
+                            }} 
+                            src={currentListing.photos[0]} 
+                            alt={currentListing.name} 
+                        />
                         <Text>{currentListing.name}</Text>
                     </div>
                     <hr/>
                     <div>
-                    <h5>Pricing Details</h5>
-                    <ListItem item={`$${currentListing.unit_price} X ${booking.numberOfNights} nights`} action={`$${unitTotal()}`} />
-                    <ListItem item={"PH Fees (5%)"} action={`$${fees()}`} />
+                    <h5 style={{textAlign: "center"}}>Pricing Details</h5>
+                    <ListItem 
+                    item={`$${currentListing.unit_price} X ${booking.numberOfNights} nights`} 
+                    action={`$${unitTotal()}`} 
+                    />
+                    <ListItem 
+                    item={"PH Fees (5%)"} 
+                    action={`$${fees()}`} 
+                    />
                     <hr />
-                    <ListItem item={"Total"} action={`$${unitTotal() + fees()}`} />
+                    <ListItem 
+                    item={"Total"} 
+                    action={`$${unitTotal() + fees()}`} 
+                    />
                     </div>
 
                 </BookingContainer>
@@ -206,7 +229,7 @@ const Text = styled.p`
 
 const BookingInfoContainer = styled.div`
     width: 500px;
-    height: 125px;
+    min-height: 100px;
     background-color: transparent;
     border-radius: 20px;
     padding: 20px;
