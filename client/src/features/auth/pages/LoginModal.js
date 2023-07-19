@@ -14,6 +14,7 @@ function LoginModal(props) {
     const dispatch = useDispatch()
 
     const [showLogin, setShowLogin] = useState(true)
+    const [showSuccessMessage, setShowSuccessMessage] = useState()
     const show = useSelector((state) => state.auth.loginModal)
 
     const handleClose = () => dispatch(setLoginModal(false))
@@ -26,12 +27,14 @@ function LoginModal(props) {
             <div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Please sign up or log in</Modal.Title>
+                    <CenterDiv>
+                        <Modal.Title>Please sign up or log in</Modal.Title>
+                    </CenterDiv>
                 </Modal.Header>
                 <Modal.Body>
                 {showLogin ? (
                     <>
-                    <LoginForm />
+                    <LoginForm showSuccessMessage={showSuccessMessage} />
                     <ButtonContainer>
                     <CenterDiv>
                         <ForgotPasswordButton>Forgot Password?</ForgotPasswordButton>
@@ -53,7 +56,10 @@ function LoginModal(props) {
                 :
                 (
                     <>
-                    <SignupForm setShowLogin={setShowLogin} />
+                    <SignupForm 
+                    setShowSuccessMessage={setShowSuccessMessage} 
+                    setShowLogin={setShowLogin} 
+                    />
                     <hr />
                     <CenterDiv>
                         <ButtonContainer>

@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { StyledForm } from "../../../styles/Styles";
 import { Col, Row, FloatingLabel } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signup } from "../state/authSlice";
 import { displayErrors } from "../../../utils/helpers";
 import Button from '@mui/material/Button';
@@ -11,13 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { CenterDiv } from "../../../styles/Styles";
 
-function SignupForm({ setShowLogin }) {
+function SignupForm({ setShowLogin, setShowSuccessMessage }) {
     // const [isLoading, setIsLoading] = useState(false);
-    const error = useSelector((state) => state.auth.signupError)
     const dispatch = useDispatch();
 
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConf, setShowPasswordConf] = useState(false)
+    const [error, setError] = useState(null)
 
     const [userObject, setUserObject] = useState({
         first_name: "",
@@ -32,6 +32,12 @@ function SignupForm({ setShowLogin }) {
     function handleSubmit(e) {
         e.preventDefault()
         dispatch(signup(userObject))
+        .unwrap()
+        .then(() => {
+            setShowSuccessMessage(true)
+            setShowLogin(true)
+        })
+        .catch((err) => setError(err))
     }
 
     function changeUserValue(e) {

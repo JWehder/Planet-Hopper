@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { displayErrors } from "../../../utils/helpers";
 import { useDispatch } from "react-redux";
-import { setLoginModal, updateUser } from "../state/authSlice";
+import { updateUser } from "../state/authSlice";
 import Button from "@mui/material/Button";
 import InputGroup from 'react-bootstrap/InputGroup';
 import VisibilityIcon from '@mui/icons-material/Visibility';

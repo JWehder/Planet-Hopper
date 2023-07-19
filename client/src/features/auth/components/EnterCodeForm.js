@@ -25,7 +25,7 @@ function EnterCodeForm({ onNextStep, email, setId }) {
             setId(id)
             successMessage()
         })
-        .catch((error) => setError(error))
+        .catch((error) => console.log(error))
     }
 
     function successMessage() {

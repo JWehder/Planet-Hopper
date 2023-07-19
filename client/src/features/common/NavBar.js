@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +13,7 @@ import SearchBarButtonGroup from "../listing/components/SearchBarButtonGroup";
 import { setLoginModal } from "../auth/state/authSlice";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import Button from '@mui/material/Button';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 function NavBar(props) {
     const dispatch = useDispatch()
@@ -51,6 +51,9 @@ function NavBar(props) {
 return (
     <AppBar>
         <Section style={{justifyContent: 'flext-start'}}>
+          <StyledLink to="/">
+            <RocketLaunchIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          </StyledLink>
           <Typography
             variant="h6"
             noWrap

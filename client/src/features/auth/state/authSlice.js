@@ -59,9 +59,6 @@ const initialState = {
     updateError: null,
     logoutError: null,
     loginModal: false,
-    emailSent: false,
-    codeCorrect: false,
-    savedChanges: false,
     status: "idle"
 }
 

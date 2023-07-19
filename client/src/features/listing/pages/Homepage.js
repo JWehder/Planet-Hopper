@@ -6,6 +6,7 @@ import { fetchListings, getAlienListings } from "../state/listingsSlice";
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import styled from "styled-components";
 import LoadingPage from "../../common/LoadingPage";
+import { setLoginModal } from "../../auth/state/authSlice";
 
 function HomePage() {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ function HomePage() {
     const homepageListings = useSelector((state) => state.listings.entities)
     const booked = useSelector((state) => state.listings.booked)
     const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
+    const user = useSelector((state) => state.auth.user)
 
     useEffect(() => {
         if (!homepageListings) {
@@ -30,7 +32,11 @@ function HomePage() {
         dispatch(getAlienListings())
     }
 
-    console.log(homepageListings)
+    if (!user) {
+        setTimeout(() => {
+            dispatch(setLoginModal(true))
+        }, 3000)
+    }
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>

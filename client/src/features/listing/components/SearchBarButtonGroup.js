@@ -93,18 +93,20 @@ function SearchBarButtonGroup() {
             guests: guests
         }
 
-        try {
-            const response = await axios.post("/listings/search", searchEntry)
-            console.log(response)
-            if (response.statusText !== "OK") {
-                dispatch(setErrors(response.data))
-                return
-            }
-            dispatch(setListings(response.data))
-            history.push(`/search_results/${searchAddress.address}`)
-        } catch (error) {
-            console.error("error occurred", error);
-        }
+        dispatch(searchListings(searchEntry))
+
+        // try {
+        //     const response = await axios.post("/listings/search", searchEntry)
+        //     console.log(response)
+        //     if (response.statusText !== "OK") {
+        //         dispatch(setErrors(response.data))
+        //         return
+        //     }
+        //     dispatch(setListings(response.data))
+        //     history.push(`/search_results/${searchAddress.address}`)
+        // } catch (error) {
+        //     console.error("error occurred", error);
+        // }
 
     }
 

@@ -15,11 +15,11 @@ import SuccessMessage from "../../common/SuccessMessage";
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
-    const error = useSelector((state) => state.auth.updateError)
-    const savedChanges = useSelector((state) => state.auth.savedChanges)
+
     const dispatch = useDispatch()
 
-    console.log(error)
+    const [error, setError] = useState(null)
+    const [savedChanges, setSavedChanges] = useState(false)
 
     const [userObject, setUserObject] = useState({
         id: "",
@@ -33,7 +33,6 @@ function ProfilePage() {
     useEffect(() => {
         if(user){
             setUserObject({
-                id: user.id,
                 first_name: user.first_name,
                 last_name: user.last_name,
                 username: user.username,
@@ -49,6 +48,9 @@ function ProfilePage() {
     function handleSubmit(e) {
         e.preventDefault()
         dispatch(updateUser(userObject))
+        .unwrap()
+        .then(() => setSavedChanges(true))
+        .catch((err) => setError(err))
     }
 
     function changeUserValue(e) {
@@ -61,8 +63,8 @@ function ProfilePage() {
     function showSavedChanges() {
         if (savedChanges) {
             setTimeout(() => {
-                dispatch(setSavedChanges(null))
-            }, 7000);
+                setSavedChanges(null)
+            }, 5000);
     
             return <SuccessMessage message="Saved Changes" />
         }
