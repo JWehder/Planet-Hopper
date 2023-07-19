@@ -13,6 +13,7 @@ function ForgotPasswordPage() {
 
     const [step, setStep] = useState(1)
     const [email, setEmail] = useState(null)
+    const [id, setId] = useState(null)
 
     function RenderForm() {
         switch (step) {
@@ -21,11 +22,13 @@ function ForgotPasswordPage() {
               onNextStep={() => setStep(step + 1)} 
               email={email}
               setEmail={setEmail}
+              id={id}
               />
             case 2:
               return <EnterCodeForm 
               email={email} 
               onNextStep={() => setStep(step + 1)} 
+              setId={setId}
               />
             case 3:
               return <CreateNewPasswordForm onNextStep={() => setStep(1)}/>

@@ -26,7 +26,7 @@ export const signup = createAsyncThunk(
 })
 
 export const updateUser = createAsyncThunk("/auth/updateUser", async(userObj, thunkAPI) => {
-        return fetchWrapper.patch(`/users/${userObj}`, userObj, thunkAPI)
+        return fetchWrapper.patch(`/users/:id`, userObj, thunkAPI)
 })
 
 export const logout = createAsyncThunk("/auth/logout", async( thunkAPI) => {
@@ -162,8 +162,7 @@ const authSlice = createSlice({
             state.status = "pending";
             state.loginError = null
         },
-        [resetPassword.fulfilled]: (state, action) => {
-            state.user = action.payload
+        [resetPassword.fulfilled]: (state) => {
             state.status = "idle";
         },
         [resetPassword.rejected]: (state, action) => {

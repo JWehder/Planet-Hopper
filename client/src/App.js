@@ -17,8 +17,13 @@ import ProfilePage from './features/auth/pages/ProfilePage.';
 import { CenterDiv } from './styles/Styles';
 import LogoutPage from './features/auth/pages/LogoutPage';
 import ForgotPasswordPage from './features/auth/pages/ForgotPasswordPage';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
+  const { page } = useParams() 
+
+  console.log(window.location.pathname)
+
   const history = useHistory();
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
@@ -27,7 +32,9 @@ function App() {
   const handleClick = () => setShow(true)
 
   useEffect(() => {
-    dispatch(getUser())
+    if (window.location.pathname !== "/forgot_password") {
+      dispatch(getUser())
+    }
     fetchCoordinates()
   }, []);
 
@@ -64,6 +71,7 @@ function App() {
   // when clicked, it shows another button group with each being clickable. When clicked, they will show a popover with the input
   // how will I have a description underneath the button title 
 
+
   if (!render) return 
   <CenterDiv>    
   <Spinner 
@@ -84,6 +92,7 @@ function App() {
         <MapModal />
       </Route>
       <Route path="/forgot_password">
+
         <ForgotPasswordPage />
       </Route>
       <Route exact path='/'>

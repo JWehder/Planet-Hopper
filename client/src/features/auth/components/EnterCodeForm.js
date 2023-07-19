@@ -8,7 +8,7 @@ import { forgotPassword, resetPassword } from "../state/authSlice";
 import ErrorMessage from "../../common/ErrorMessage";
 import Button from "@mui/material/Button";
 
-function EnterCodeForm({ onNextStep, email }) {
+function EnterCodeForm({ onNextStep, email, setId }) {
     const [error, setError] = useState()
     const [code, setCode] = useState()
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
@@ -21,7 +21,10 @@ function EnterCodeForm({ onNextStep, email }) {
 
         dispatch(resetPassword({email: email, code: code}))
         .unwrap()
-        .then(() => successMessage())
+        .then((id) => {
+            setId(id)
+            successMessage()
+        })
         .catch((error) => setError(error))
     }
 

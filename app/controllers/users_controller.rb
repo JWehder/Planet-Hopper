@@ -15,8 +15,16 @@ class UsersController < ApplicationController
 
     def update
         user = find_user_by_sessionID
-        user.update!(user_params)
-        render json: user, status: :ok
+        if user_params[:password].present? && user_params[:password_confirmation].present?
+            user.update!(
+                password: user_params[:password], 
+                password_confirmation: user_params[:password_confirmation]
+            )
+            render json: user, status: :ok
+        else
+            user.update!(user_params.except(:password, :password_confirmation))
+            render json: user, status: :ok
+        end
     end
 
     def forgot_password
@@ -40,12 +48,10 @@ class UsersController < ApplicationController
         else
             correct_code = user.code == params[:code]
             if correct_code && 2.hours.ago <= user.request_time && user.request_time <= Time.now.utc
-                puts "no hit me instead"
                 session[:user_id] = user.id
                 # render json: user.id, status: :ok
                 render json: { status: "Code is correct" }, status: :ok
             else
-                puts "hit me"
                 render json: { error: "Code is incorrect or has expired" }, status: :unauthorized
             end
         end
@@ -62,7 +68,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.permit(:id, :first_name, :last_name, :username, :email, :password, :password_confirmation, :bio, :code)
+        params.permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :bio, :code)
     end
 
 end
