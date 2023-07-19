@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import ListingCard from "./ListingCard";
 import Map from "./Map";
+import { CenterDiv } from "../../../styles/Styles";
 
 function SearchResults() {
 
@@ -23,9 +24,9 @@ function SearchResults() {
 
     return (
         <>
-        <h1>Search Results</h1>
+        <h1 style={{textAlign: 'center', padding: '10px'}}>Search Results</h1>
         {listings.length > 0 ? 
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
             <div style={{ flex: "1" }}>
                 {listingCards} 
             </div>

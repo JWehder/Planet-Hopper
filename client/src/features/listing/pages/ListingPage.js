@@ -238,6 +238,7 @@ export const Container = styled.div`
 
 const TitleContainer = styled.div`
     text-align: left; 
+    padding: 10px;
     /* position: sticky; 
     top: 0;
     background-color: #FFFAFA; */

@@ -22,7 +22,7 @@ function LogoutPage(props) {
     }, 7000);
 
     return (
-        <CenterDiv style={{minHeight: "100vh"}}>
+        <CenterDiv style={{minHeight: "80vh"}}>
             <div>
             <CenterDiv>
                 Seeya {user.first_name}! 👋  

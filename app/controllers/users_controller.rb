@@ -15,16 +15,8 @@ class UsersController < ApplicationController
 
     def update
         user = find_user_by_sessionID
-        if user_params[:password].present? && user_params[:password_confirmation].present?
-            user.update!(
-                password: user_params[:password], 
-                password_confirmation: user_params[:password_confirmation]
-            )
-            render json: user, status: :ok
-        else
-            user.update!(user_params.except(:password, :password_confirmation))
-            render json: user, status: :ok
-        end
+        user.update!(user_params)
+        render json: user, status: :ok
     end
 
     def forgot_password

@@ -4,10 +4,9 @@ import Stack from '@mui/system/Stack';
 import { StyledBox } from "../../../styles/Styles";
 import PropertyContainer from "../../common/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
 import { getUsersListings } from "../../listing/state/listingsSlice";
 import ListingGallery from "../../listing/components/ListingGallery";
-import { CenterDiv } from "../../../styles/Styles";
+import LoadingPage from "../../common/LoadingPage";
 
 function BookedViewPage() {
     const dispatch = useDispatch()
@@ -18,11 +17,7 @@ function BookedViewPage() {
         dispatch(getUsersListings())
     }, [])
 
-    if (!usersListings) return <CenterDiv>    
-    <Spinner animation="border" role="status" />
-    </CenterDiv>
-
-    console.log(usersListings)
+    if (!usersListings) return <LoadingPage />
 
     if (usersListings.length < 1) {
         return <div><h2>Your Bookings</h2>Sorry, you have no bookings to display. Please make one!</div>
