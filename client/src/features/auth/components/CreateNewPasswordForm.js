@@ -24,12 +24,10 @@ function CreateNewPasswordForm({ onNextStep, history }) {
     const [showPassword, setShowPassword] = useState(false)
     const [showPasswordConf, setShowPasswordConf] = useState(false)
 
-    const id = 11
-
     function handleSubmit(e) {
         e.preventDefault()
 
-        dispatch(updateUser({password: password, password_confirmation: password_confirmation, id: 11}))
+        dispatch(updateUser({password: password, password_confirmation: password_confirmation}))
         .unwrap()
         .then(() => {
             onNextStep() 
@@ -37,7 +35,6 @@ function CreateNewPasswordForm({ onNextStep, history }) {
             setPassword(null)
             setPasswordConfirmation(null)
             history.push("/")
-            dispatch(setLoginModal(true))
         })
         .catch((err) => setErrors(err))
     }

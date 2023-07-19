@@ -74,7 +74,7 @@ function PropertyContainer({ booking }) {
             <IconButton
                   aria-label="edit booking"
                   onClick={() => setShow(true)}
-                  onMouseDown={() => {setShow(true)}}
+                  onMouseDown={() => setShow(true)}
                   disabled={disableEditing}
             >
                   <EditIcon color="secondary" />
