@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { FloatingLabel, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { FloatingLabel } from 'react-bootstrap';
 import { StyledForm } from '../../../styles/Styles'
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../state/authSlice";
+import { login, setLoginModal } from "../state/authSlice";
 import Button from '@mui/material/Button';
 import SuccessMessage from "../../common/SuccessMessage";
-import { setLoginModal } from "../state/authSlice";
+import ErrorMessage from "../../common/ErrorMessage";
 
 function LoginForm({ showSuccessMessage }) {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function LoginForm({ showSuccessMessage }) {
         password: ""
     })
     const [authError, setAuthError] = useState(null)
-    
+
     const user = useSelector((state) => state.auth.user)
 
     function onChange(e) {
@@ -28,22 +28,29 @@ function LoginForm({ showSuccessMessage }) {
         e.preventDefault()
         dispatch(login(userCredentials))
         .unwrap()
-        .then(() => setLoginModal(false))
+        .then(() => {
+            dispatch(setLoginModal(false))
+            setAuthError(null)
+        })
         .catch((err) => setAuthError(err))
     }
 
-    if (user) {
-        setUserCredentials({
-            username: "",
-            password: ""
-        })
-    }
+    useEffect(() => {
+        if (user) {
+            setUserCredentials({
+                username: "",
+                password: ""
+            });
+        }
+    }, [user]);
 
     return (
             <>
                 { showSuccessMessage ? 
                 <SuccessMessage message="Welcome to Planet Hopper! We are so excited to have you." />
                 :
+                ""
+                }
                 <StyledForm onSubmit={handleSubmit} style={{padding:'5px'}}>
                     <FloatingLabel
                     controlId="floatingInput"
@@ -70,9 +77,7 @@ function LoginForm({ showSuccessMessage }) {
                     />
                     
                     {authError && 
-                    <Form.Control.Feedback type="invalid">
-                    {authError}
-                    </Form.Control.Feedback>
+                    <ErrorMessage error={authError} />
                     }
                     </FloatingLabel>
                     <Button 
@@ -84,7 +89,6 @@ function LoginForm({ showSuccessMessage }) {
                         Login
                     </Button>
                 </StyledForm>
-                }
             </>
     )
 }

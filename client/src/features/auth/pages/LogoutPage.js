@@ -22,15 +22,11 @@ function LogoutPage(props) {
     }, 7000);
 
     return (
-        <CenterDiv style={{minHeight: "80vh"}}>
+        <CenterDiv style={{minHeight: "90vh"}}>
             <div>
-            <CenterDiv>
-                Seeya {user.first_name}! 👋  
+            <CenterDiv style={{textAlign: 'center'}}>
+                Seeya {user.first_name}! 👋 <br /> We hope we see you again soon!
             </CenterDiv>
-            </div>
-
-            <div>
-                  We hope we see you again soon!
             </div>
         </CenterDiv>
     )

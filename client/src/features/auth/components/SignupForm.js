@@ -159,7 +159,6 @@ function SignupForm({ setShowLogin, setShowSuccessMessage }) {
                 }
                 </CenterDiv>
                 </InputGroup>
-                {error && error.password_confirmation && displayErrors(error.password_confirmation)}
                 <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"

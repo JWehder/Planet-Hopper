@@ -86,6 +86,7 @@ const authSlice = createSlice({
         },
         [login.fulfilled]: (state, action) => {
             state.user = action.payload
+            // state.loginModal = false
             state.status = "idle";
         },
         [login.rejected]: (state, action) => {
