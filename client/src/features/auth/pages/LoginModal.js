@@ -34,7 +34,10 @@ function LoginModal(props) {
                 <Modal.Body>
                 {showLogin ? (
                     <>
-                    <LoginForm showSuccessMessage={showSuccessMessage} />
+                    <LoginForm 
+                    showSuccessMessage={showSuccessMessage} 
+                    setShowSuccessMessage={setShowSuccessMessage}
+                    />
                     <ButtonContainer>
                     <CenterDiv>
                         <ForgotPasswordButton>Forgot Password?</ForgotPasswordButton>

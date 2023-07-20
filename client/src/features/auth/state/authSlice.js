@@ -109,13 +109,10 @@ const authSlice = createSlice({
             state.status = "pending";
             state.signupError = null
         },
-        [signup.fulfilled]: (state, action) => {
-            state.user = action.payload
+        [signup.fulfilled]: (state) => {
             state.status = "idle";
         },
         [signup.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.signupError = action.payload
         },
         [updateUser.pending]: (state) => {
@@ -128,8 +125,6 @@ const authSlice = createSlice({
             state.status = "idle";
         },
         [updateUser.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.updateError = action.payload
         },
         [logout.pending]: (state) => {
@@ -141,12 +136,9 @@ const authSlice = createSlice({
             state.status = "idle";
         },
         [logout.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.logoutError = action.payload
         },
         [forgotPassword.pending]: (state) => {
-            console.log("runnin")
             state.status = "pending";
             state.loginError = null
         },
@@ -154,7 +146,7 @@ const authSlice = createSlice({
             state.status = "idle";
         },
         [forgotPassword.rejected]: (state, action) => {
-            console.log(action.payload)
+
         },
         [resetPassword.pending]: (state) => {
             state.status = "pending";
@@ -164,7 +156,6 @@ const authSlice = createSlice({
             state.status = "idle";
         },
         [resetPassword.rejected]: (state, action) => {
-            console.log(action.payload)
             state.resetPasswordError = action.payload
         },
     },

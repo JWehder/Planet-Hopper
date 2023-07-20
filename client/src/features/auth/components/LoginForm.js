@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import SuccessMessage from "../../common/SuccessMessage";
 import ErrorMessage from "../../common/ErrorMessage";
 
-function LoginForm({ showSuccessMessage }) {
+function LoginForm({ showSuccessMessage, setShowSuccessMessage }) {
     const dispatch = useDispatch();
     const [userCredentials, setUserCredentials] = useState({
         username: "",
@@ -44,10 +44,14 @@ function LoginForm({ showSuccessMessage }) {
         }
     }, [user]);
 
+    if (showSuccessMessage) {
+        setTimeout(() => setShowSuccessMessage(false), 4000)
+    }
+
     return (
             <>
                 { showSuccessMessage ? 
-                <SuccessMessage message="Welcome to Planet Hopper! We are so excited to have you." />
+                        <SuccessMessage message="Welcome to Planet Hopper! We are so excited to have you. Please login." />
                 :
                 ""
                 }

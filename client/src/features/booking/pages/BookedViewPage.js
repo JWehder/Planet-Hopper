@@ -1,12 +1,22 @@
 import React, { useEffect } from "react";
 import Container from '@mui/system/Container';
 import Stack from '@mui/system/Stack';
-import { StyledBox } from "../../../styles/Styles";
+import { FullPageContainer, StyledBox } from "../../../styles/Styles";
 import PropertyContainer from "../components/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersListings } from "../../listing/state/listingsSlice";
 import ListingGallery from "../../listing/components/ListingGallery";
 import LoadingPage from "../../common/LoadingPage";
+
+function NoBookings() {
+    return (
+        <FullPageContainer>
+            <div style={{textAlign: 'center'}}>
+                Sorry, you have no bookings to display. Please make one!
+            </div>
+        </FullPageContainer>
+    )
+}
 
 function BookedViewPage() {
     const dispatch = useDispatch()
@@ -20,7 +30,7 @@ function BookedViewPage() {
     if (!usersListings) return <LoadingPage />
 
     if (usersListings.length < 1) {
-        return <div><h2>Your Bookings</h2>Sorry, you have no bookings to display. Please make one!</div>
+        return <NoBookings />
     }
 
     const usersBookings = usersListings.reduce((accumulator, listing) => {
