@@ -16,7 +16,7 @@ function LoadingPage() {
 }
 
 const LoadingContainer = styled(CenterDiv)`
-    min-height: 100vh;
+    min-height: 90vh;
     background-color: #F8F5FF;
 `
 

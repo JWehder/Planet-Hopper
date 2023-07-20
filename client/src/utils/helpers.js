@@ -1,5 +1,20 @@
 import ErrorMessage from "../features/common/ErrorMessage"
 
+
+export function getAlienDistance() {
+    const alienDistanceMeasurements = ['parsecs', 'zogrons', 'quasarons', 'nebulums','warp units', 'hyperparsecs', 'exostrides']
+
+    const alienMetric = alienDistanceMeasurements[Math.floor(Math.random() * alienDistanceMeasurements.length)]
+    const distanceFromEarth = getRandomNumber(1, 20)
+
+    return { distanceFromEarth: distanceFromEarth, alienMetric: alienMetric}
+}
+
+
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 const post = async(url, obj, thunkAPI) => {
     console.log(obj)
     console.log(url)

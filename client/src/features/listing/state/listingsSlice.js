@@ -6,6 +6,7 @@ import axios from "axios";
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
+    console.log(locationObj)
     return fetchWrapper.post("/listings/suggested_listings", locationObj, thunkAPI)
 });
 
@@ -55,6 +56,10 @@ export const getAlienListings = createAsyncThunk("/listings/getAlienListings", a
         const error = err.response.data.errors
         return thunkAPI.rejectWithValue({ data: error }) 
     }
+})
+
+export const searchListings = createAsyncThunk("/listings/searchListings", async(query, thunkAPI) => {
+    return fetchWrapper.post("/listings/search", query, thunkAPI)
 })
 
 
@@ -204,6 +209,16 @@ const listingsSlice = createSlice({
             state.status = "idle";
         },
         [getAlienListings.rejected]: (state, action) => {
+            state.listingError = action.payload
+        },
+        [searchListings.pending]: (state) => {
+            state.status = "loading";
+        },
+        [searchListings.fulfilled]: (state, action) => {
+            state.searchResults = action.payload
+            state.status = "idle";
+        },
+        [searchListings.rejected]: (state, action) => {
             state.listingError = action.payload
         },
     },

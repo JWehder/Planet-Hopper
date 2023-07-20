@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { PhotoGallery, LinkStyle } from "../../styles/Styles";
+import { PhotoGallery, LinkStyle } from "../../../styles/Styles";
 import styled from "styled-components";
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import EditBookingModal from "../booking/components/EditBookingModal";
+import EditBookingModal from "./EditBookingModal";
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import NearMeIcon from '@mui/icons-material/NearMe';
@@ -28,7 +28,7 @@ function PropertyContainer({ booking }) {
             }}>
             <BookingWrapper>
                 <EditBookingModal booking={booking} listing={booking.listing} show={show} setShow={setShow}  />
-                <div style={{ width: '25%', maxWidth: '600px' }}>
+                <div style={{ width: '175px' }}>
                     <PhotoGallery photos={booking.listing.photos} />
                 </div>
                 <AddressWrapper>

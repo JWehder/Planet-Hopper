@@ -58,7 +58,10 @@ function App() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                resolve({ latitude, longitude });
+                resolve({ 
+                  users_latitude: latitude, 
+                  users_longitude: longitude 
+                });
             },
             (error) => {
                 reject(error)

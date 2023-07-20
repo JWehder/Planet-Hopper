@@ -12,20 +12,21 @@ import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { useDispatch } from "react-redux";
-import axios from 'axios';
-import { setListings, setErrors, setStatusToLoading, setStatusToFulfilled } from "../state/listingsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import GuestsInputBox from "./GuestsInputBox"
 import isSameDay from 'date-fns/isSameDay'
 import Typography from '@mui/material/Typography';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { searchListings, setErrors } from "../state/listingsSlice";
 
 function SearchBarButtonGroup() {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [dateError, setDateError] = useState(null)
+
+    const coordinates = useSelector((state) => state.listings.usersCoordinates)
 
     const startDateCalendarInputRef = useRef(null)
     const endDateCalendarInputRef = useRef(null)
@@ -85,7 +86,11 @@ function SearchBarButtonGroup() {
     async function handleSubmit(e) {
         e.preventDefault()
 
+        history.push(`/search_results/${searchAddress.address}`)
+
         const searchEntry = {
+            users_latitude: coordinates.users_latitude,
+            users_longitude: coordinates.users_longitude,
             latitude: searchAddress.latitude,
             longitude: searchAddress.longitude,
             start_date: dayjs(startDate).format('YYYY-MM-DD'),
@@ -94,20 +99,8 @@ function SearchBarButtonGroup() {
         }
 
         dispatch(searchListings(searchEntry))
-
-        // try {
-        //     const response = await axios.post("/listings/search", searchEntry)
-        //     console.log(response)
-        //     if (response.statusText !== "OK") {
-        //         dispatch(setErrors(response.data))
-        //         return
-        //     }
-        //     dispatch(setListings(response.data))
-        //     history.push(`/search_results/${searchAddress.address}`)
-        // } catch (error) {
-        //     console.error("error occurred", error);
-        // }
-
+        .unwrap()
+        .catch((err) => setErrors(err))
     }
 
     const handleStartDateChange = (newValue) => {

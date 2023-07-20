@@ -50,14 +50,13 @@ function BookPage(props) {
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
-    const booked = useSelector((state) => state.listings.booked)
 
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
     }
 
     const fees = () => {
-        return unitTotal() * 0.05
+        return parseInt(((unitTotal() * 0.05).toFixed(2)))
     }
 
     const goBack = () => {
@@ -100,7 +99,7 @@ function BookPage(props) {
         setTimeout(() => {
             dispatch(setCurrentBooking(null))
             props.history.push("/");
-        }, 7000);
+        }, 3000);
 
         return (
             <>

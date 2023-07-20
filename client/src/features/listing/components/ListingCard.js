@@ -3,18 +3,9 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { LinkStyle } from "../../../styles/Styles";
 import { PhotoGallery } from "../../../styles/Styles";
+import { getAlienDistance } from "../../../utils/helpers";
 
 function ListingCard({ listing }) {
-
-    const alienDistanceMeasurements = ['parsecs', 'zogrons', 'quasarons', 'nebulums','warp units', 'hyperparsecs', 'exostrides']
-
-    const alienMetric = alienDistanceMeasurements[Math.floor(Math.random() * alienDistanceMeasurements.length)]
-    const distanceFromEarth = getRandomNumber(1, 20)
-
-    function getRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-      
 
     return (
             <ListingContainer>
@@ -32,7 +23,7 @@ function ListingCard({ listing }) {
                         <ListingPara>
                             {listing.planet_name === "Earth" ?
                             `${Math.floor(listing.distance_from_user)} miles away` :
-                            `${distanceFromEarth} ${alienMetric} away`
+                            `${getAlienDistance().distanceFromEarth} ${getAlienDistance.alienMetric} away`
                             }
                         </ListingPara>
                         <ListingPara>${listing.unit_price} per night</ListingPara>
@@ -44,7 +35,7 @@ function ListingCard({ listing }) {
 }
 
 const ListingButton = styled.button`
-    width: 150px;
+    width: 175px;
     height: 100px;
     background: transparent;
     border: none;

@@ -5,11 +5,11 @@ class ListingsController < ApplicationController
 
     def suggested_listings
         users_location_listings = []
-        if listing_params[:latitude] && listing_params[:latitude] > 0 && listing_params[:longitude] > 0
-            users_location_listings = Listing.query_users_listings(listing_params[:longitude], listing_params[:latitude])
+        if listing_params[:users_latitude] && listing_params[:users_latitude] > 0 && listing_params[:users_longitude] > 0
+            users_location_listings = Listing.query_users_listings(listing_params[:users_longitude], listing_params[:users_latitude])
         end
-        homepage_listings = Listing.query_homepage_listings(listing_params[:latitude], listing_params[:longitude])
-        render json: homepage_listings, status: :ok, methods: [:query_types_of_accomodations], latitude: listing_params[:latitude], longitude: listing_params[:longitude]
+        homepage_listings = Listing.query_homepage_listings(listing_params[:users_latitude], listing_params[:users_longitude])
+        render json: homepage_listings, status: :ok, latitude: listing_params[:users_latitude], longitude: listing_params[:users_longitude]
     end
 
     def search
@@ -18,7 +18,7 @@ class ListingsController < ApplicationController
             render json: { error: "Start date must be before end date"}, status: :bad_request
         else
             if search_results.length > 0
-                render json: search_results, status: :ok
+                render json: search_results, status: :ok, latitude: listing_params[:users_latitude], longitude: listing_params[:users_longitude]
             else 
                 render json: { error: "No results were found, please try again." }, status: :not_found
             end
@@ -82,6 +82,6 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-        params.permit(:id, :name, :city, :state_province, :country, :planet_id, :owner_id, :description, :unit_price, :type_of_accomodation, :max_guests_allowed, :longitude, :latitude, :address, :date, :start_date, :end_date, :guests, photos: [])
+        params.permit(:id, :longitude, :latitude, :address, :date, :start_date, :end_date, :guests, :users_longitude, :users_latitude)
     end
 end

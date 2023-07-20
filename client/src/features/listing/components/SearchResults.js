@@ -1,26 +1,28 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
 import ListingCard from "./ListingCard";
 import Map from "./Map";
-import { CenterDiv } from "../../../styles/Styles";
+import LoadingPage from "../../common/LoadingPage";
+import NotFoundPage from "../../common/NotFoundPage";
 
 function SearchResults() {
 
-    const listings = useSelector((state) => state.listings.entities)
+    const listings = useSelector((state) => state.listings.searchResults)
     const errors = useSelector((state) => state.listings.listingError)
-    const status = useSelector((state) => state.listings.status)
 
-    if (status === "loading") return <div>    
-        <Spinner animation="border" role="status" />
-    </div>
+    setTimeout(() => {
+        if (errors) {
+            return <NotFoundPage />
+        }
+    }, 8000)
+
+    if (!listings) return <LoadingPage />
 
     const listingCards = listings.map((listing) => { 
         return (
               <ListingCard listing={listing} key={listing.name} />
               )
     });
-
 
     return (
         <>

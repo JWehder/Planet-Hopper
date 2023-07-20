@@ -48,15 +48,6 @@ function HomePage() {
                     <RocketLaunchIcon fontSize="medium" />
                     <p style={{fontSize: '10px', marginBottom: '2px'}}>Blast Off!</p>
                 </IconContainer>
-                {/* <Tooltip title="blast off!">
-                <IconButton
-                    aria-label="go intergalactic"
-                    // onClick={}
-                    // onMouseDown={}
-                >
-                    <RocketLaunchIcon />
-                </IconButton>
-                </Tooltip> */}
                 </ div>
                 {homepageListings.map((listing) => {
                     return (

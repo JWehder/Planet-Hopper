@@ -4,23 +4,28 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Hello <%= @user.first_name %></h1> 
+<h1>Hello <%= @user.first_name %>,</h1>
     <hr>
     <p>
-        Congratulations, space explorer!
-
-        You have successfully booked your interstellar adventure on Planet Hopper and are now one step closer to your journey to <%= @planet %>. Our team of extraterrestrial experts are preparing your accommodation on the <%= @type_of_accomodation %>% you have selected.
-
-        Dates: <%= @booking.start_date %>% - <%= @booking.end_date %>%
-        Price: <%= @booking.price %>% 
-        Guests: <%= @booking.number_of_guests %>% 
-
-        We are thrilled to have you on board for this cosmic experience and look forward to seeing you blast off soon. As always, please do not hesitate to contact us if you have any questions or concerns.
-
-        A little background on the planet you are traveling to: <%= @planet.description %>
-
-        Safe travels!
-        Planet Hopper
+      Congratulations, space explorer!<br>
+      You have successfully booked your interstellar adventure on Planet Hopper and are now one step closer to your journey to <%= @planet.name %>. Our team of extraterrestrial experts is preparing your accommodation in the <%= @type_of_accomodation %> you have selected.
+    </p>
+    <p>
+      <strong>Booking Details:</strong><br>
+      Dates: <%= @booking.start_date %> - <%= @booking.end_date %><br>
+      Price: <%= $@booking.price %><br>
+      Guests: <%= @booking.number_of_guests %>
+    </p>
+    <p>
+      We are thrilled to have you on board for this cosmic experience and look forward to seeing you blast off soon. As always, please do not hesitate to contact us if you have any questions or concerns.
+    </p>
+    <p>
+      <strong>About <%= @planet.name %>:</strong><br>
+      <%= @planet.description %>
+    </p>
+    <p>
+      Safe travels!<br>
+      Planet Hopper
     </p>
   </body>
 </html>

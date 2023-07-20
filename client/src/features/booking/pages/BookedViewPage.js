@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Container from '@mui/system/Container';
 import Stack from '@mui/system/Stack';
 import { StyledBox } from "../../../styles/Styles";
-import PropertyContainer from "../../common/PropertyContainer";
+import PropertyContainer from "../components/PropertyContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersListings } from "../../listing/state/listingsSlice";
 import ListingGallery from "../../listing/components/ListingGallery";

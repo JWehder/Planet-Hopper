@@ -92,6 +92,11 @@ export const CenterDiv = styled.div`
     align-items: center;
 `
 
+export const FullPageContainer = styled(CenterDiv)`
+    min-height: 90vh;
+    background-color: #F8F5FF;
+`
+
 export const ListingContainer = styled.div`
     display: flex;
     flex-wrap: nowrap;

@@ -5,7 +5,6 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Map from "../components/Map";
 import { getListing } from "../state/listingsSlice"; 
-import Spinner from "react-bootstrap/Spinner";
 import styled from "styled-components"
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
@@ -16,6 +15,8 @@ import { checkDatesInvalidity } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
 import ListingGallery from "../components/ListingGallery";
 import { CenterDiv } from "../../../styles/Styles";
+import LoadingPage from "../../common/LoadingPage";
+import { getAlienDistance } from "../../../utils/helpers";
 
 function ListingPage(props) {
     const params = useParams()
@@ -29,6 +30,7 @@ function ListingPage(props) {
     const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
+    const [distance, setDistance] = useState()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -38,8 +40,6 @@ function ListingPage(props) {
             dispatch(setDateError("Please enter valid dates."))
             return
         }
-
-
 
         const bookingObj = {
             startDate: checkinDate,
@@ -58,6 +58,7 @@ function ListingPage(props) {
 
     useEffect(() => {
         dispatch(getListing(params.value))
+        setDistance(distanceFromUser())
     }, [])
 
     function srcset(image, size, rows = 1, cols = 1) {
@@ -69,11 +70,14 @@ function ListingPage(props) {
         };
     }
 
-    console.log(listing)
+    function distanceFromUser() {
+        if (listing.planet_name !== "Earth") {
+            return `${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`
+        }
+        return `${Math.floor(listing.distance_from_user)}mi away`
+    }
 
-    if (!listing) return <CenterDiv>    
-    <Spinner animation="border" role="status" />
-    </CenterDiv>
+    if (!listing) return <LoadingPage />
 
     return (
         <div>
@@ -90,7 +94,7 @@ function ListingPage(props) {
                     fontSize: "13px"
                 }}
                 >
-                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country} - {Math.floor(listing.distance_from_user)}mi away
+                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country} - {distance}
                 </p>
             </TitleContainer>
             <div>
