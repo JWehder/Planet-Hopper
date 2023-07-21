@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LoginModal from './features/auth/pages/LoginModal';
 import './App.css';
 import HomePage from './features/listing/pages/Homepage';
-import { Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage'
 import NavBar from './features/common/NavBar';
 import MapModal from './features/listing/pages/MapModal';

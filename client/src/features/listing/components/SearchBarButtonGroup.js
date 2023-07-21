@@ -88,6 +88,8 @@ function SearchBarButtonGroup() {
 
         history.push(`/search_results/${searchAddress.address}`)
 
+        const coordinates = 
+
         const searchEntry = {
             users_latitude: coordinates.users_latitude,
             users_longitude: coordinates.users_longitude,
