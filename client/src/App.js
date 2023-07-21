@@ -22,14 +22,10 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 function App() {
   const { page } = useParams() 
 
-  console.log(window.location.pathname)
 
-  const history = useHistory();
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const [render, setRender] = useState(false)
-  
-  const handleClick = () => setShow(true)
 
   useEffect(() => {
     if (window.location.pathname !== "/forgot_password") {
@@ -46,6 +42,7 @@ function App() {
             setRender(true)
         } catch (error) { 
             console.error("Error:", error)
+            setRender(true)
         }
     } else {
         dispatch(setUsersCoordinates(null))

@@ -176,8 +176,11 @@ const listingsSlice = createSlice({
             state.bookingError = null
             const bookingId = action.payload
             state.usersListings = state.usersListings.map((listing) => {
-                const bookings = listing.bookings.filter((booking) => booking.id !== bookingId)
-                return {...listing, bookings: bookings}
+                const bookingIndex = listing.bookings.findIndex((booking) => booking.id === bookingId)
+                if (bookingIndex > -1) {
+                    listing.bookings.splice(bookingIndex, 1);
+                }
+                return listing
             })
             state.status = "idle"
         },
@@ -192,7 +195,6 @@ const listingsSlice = createSlice({
             const bookingId = action.payload.bookingId
             state.usersListings = state.usersListings.map((listing) => {
                 const filteredBookings = listing.bookings.filter((b) => b.id !== bookingId)
-                console.log(filteredBookings)
                 return {...listing, bookings: [...filteredBookings, action.payload.data]}
             })
         },

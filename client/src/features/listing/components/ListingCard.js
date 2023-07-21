@@ -7,6 +7,8 @@ import { getAlienDistance } from "../../../utils/helpers";
 
 function ListingCard({ listing }) {
 
+    console.log(listing.distance_from_user)
+
     return (
             <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>
@@ -21,9 +23,13 @@ function ListingCard({ listing }) {
                             {listing.type_of_accomodation}
                         </ListingPara>
                         <ListingPara>
-                            {listing.planet_name === "Earth" ?
-                            `${Math.floor(listing.distance_from_user)} miles away` :
+                            { listing.distance_from_user ?
+                            listing.planet_name === "Earth" ?
+                            `${Math.floor(listing.distance_from_user)} miles away` 
+                            :
                             `${getAlienDistance().distanceFromEarth} ${getAlienDistance.alienMetric} away`
+                            : 
+                            ""
                             }
                         </ListingPara>
                         <ListingPara>${listing.unit_price} per night</ListingPara>
