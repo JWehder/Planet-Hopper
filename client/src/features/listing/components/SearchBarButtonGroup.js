@@ -86,13 +86,11 @@ function SearchBarButtonGroup() {
     async function handleSubmit(e) {
         e.preventDefault()
 
+        console.log(coordinates)
+
         history.push(`/search_results/${searchAddress.address}`)
 
-        const coordinates = 
-
         const searchEntry = {
-            users_latitude: coordinates.users_latitude,
-            users_longitude: coordinates.users_longitude,
             latitude: searchAddress.latitude,
             longitude: searchAddress.longitude,
             start_date: dayjs(startDate).format('YYYY-MM-DD'),
@@ -100,7 +98,12 @@ function SearchBarButtonGroup() {
             guests: guests
         }
 
-        dispatch(searchListings(searchEntry))
+        const query = coordinates ?
+        { ...searchEntry, latitude: coordinates.users_latitude, longitude: coordinates.users_longitude }
+        :
+        { ...searchEntry }
+
+        dispatch(searchListings(query))
         .unwrap()
         .catch((err) => setErrors(err))
     }

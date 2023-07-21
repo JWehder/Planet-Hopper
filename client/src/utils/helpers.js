@@ -16,8 +16,6 @@ function getRandomNumber(min, max) {
 }
 
 const post = async(url, obj, thunkAPI) => {
-    console.log(obj)
-    console.log(url)
     try {
         const response = await fetch(url, {
             method: "POST",

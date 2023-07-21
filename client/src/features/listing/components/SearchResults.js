@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ListingCard from "./ListingCard";
 import Map from "./Map";
@@ -10,13 +10,23 @@ function SearchResults() {
     const listings = useSelector((state) => state.listings.searchResults)
     const errors = useSelector((state) => state.listings.listingError)
 
-    setTimeout(() => {
-        if (errors) {
-            return <NotFoundPage />
-        }
-    }, 8000)
+    const [isLoading, setIsLoading] = useState(true)
 
-    if (!listings) return <LoadingPage />
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 8000);
+
+        return () => clearTimeout(timer);
+    }, [])
+
+    if (isLoading) {
+        return <LoadingPage />;
+    }
+
+    if (errors || !listings) {
+        return <NotFoundPage />;
+    }
 
     const listingCards = listings.map((listing) => { 
         return (
