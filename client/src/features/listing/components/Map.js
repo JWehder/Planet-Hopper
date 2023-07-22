@@ -55,7 +55,6 @@ function Map({ center, listings, zoom }) {
         onUnmount={onUnmount}
         >
             {markers()}
-
         </GoogleMap>
     )
 }

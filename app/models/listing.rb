@@ -27,6 +27,8 @@ class Listing < ApplicationRecord
     end
 
     def self.query_listing(latitude, longitude, start_date, end_date, guests)
+        
+
         listings = Listing.near([latitude, longitude], 100, units: :mi)
         .where('max_guests_allowed >= ?', guests)
         .where.not(id: Listing.joins(bookings: :booked_dates)

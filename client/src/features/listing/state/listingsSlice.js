@@ -59,6 +59,7 @@ export const getAlienListings = createAsyncThunk("/listings/getAlienListings", a
 })
 
 export const searchListings = createAsyncThunk("/listings/searchListings", async(query, thunkAPI) => {
+    console.log(query)
     return fetchWrapper.post("/listings/search", query, thunkAPI)
 })
 

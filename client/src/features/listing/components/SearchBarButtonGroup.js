@@ -5,8 +5,6 @@ import Fab from '@mui/material/Fab';
 import Fade from 'react-bootstrap/Fade';
 import Autocomplete from "./Autocomplete";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
-import { LoadScript } from "@react-google-maps/api";
-import { keys } from "../../../config";
 import Popover from '@mui/material/Popover';
 import dayjs from "dayjs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -91,6 +89,7 @@ function SearchBarButtonGroup() {
         history.push(`/search_results/${searchAddress.address}`)
 
         const searchEntry = {
+            address: searchAddress.address,
             latitude: searchAddress.latitude,
             longitude: searchAddress.longitude,
             start_date: dayjs(startDate).format('YYYY-MM-DD'),
@@ -131,12 +130,10 @@ function SearchBarButtonGroup() {
                 <ClickAwayListener onClickAway={handleClickAway}>
                 <TextSection>
                     { destinationClicked ?
-                    <LoadScript googleMapsApiKey={keys["GOOGLE_API_KEY"]} libraries={["places"]}>
                     <Autocomplete 
                     setSearchAddress={setSearchAddress} 
                     searchAddress={searchAddress} 
                     />
-                    </LoadScript>
                         :
                     <SearchInputBox onClick={showTextField}>
                         Destination

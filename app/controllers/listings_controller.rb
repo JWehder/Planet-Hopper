@@ -13,7 +13,7 @@ class ListingsController < ApplicationController
     end
 
     def search
-        search_results = Listing.query_listing(listing_params[:latitude], listing_params[:longitude], listing_params[:start_date], listing_params[:end_date], listing_params[:guests])
+        search_results = Listing.query_listing(listing_params)
         if listing_params[:start_date] >= listing_params[:end_date]
             render json: { error: "Start date must be before end date"}, status: :bad_request
         else
