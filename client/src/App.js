@@ -5,7 +5,6 @@ import HomePage from './features/listing/pages/Homepage';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ListingPage from './features/listing/pages/ListingPage'
 import NavBar from './features/common/NavBar';
-import MapModal from './features/listing/pages/MapModal';
 import SearchResults from './features/listing/components/SearchResults';
 import { getUser } from './features/auth/state/authSlice';
 import { useDispatch } from 'react-redux';
@@ -21,7 +20,6 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
   const { page } = useParams() 
-
 
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
@@ -88,11 +86,7 @@ function App() {
       <Route exact path="/profile">
         <ProfilePage />
       </Route>
-      <Route exact path='/maps'>
-        <MapModal />
-      </Route>
-      <Route path="/forgot_password">
-
+      <Route path="/forgot_password"> 
         <ForgotPasswordPage />
       </Route>
       <Route exact path='/'>

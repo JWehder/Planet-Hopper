@@ -26,13 +26,18 @@ class Listing < ApplicationRecord
         self.booked_dates.destroy_all
     end
 
-    def self.query_listing(latitude, longitude, start_date, end_date, guests)
-        
-
+    def self.query_listing(listing_params)
+        latitude = listing_params[:latitude]
+        longitude = listing_params[:longitude]
+        if latitude.nil? || longitude.nil?
+            location = Geocoder.search(listing_params[:address]).first
+            latitude = location.latitude
+            longitude = location.longitude
+        end
         listings = Listing.near([latitude, longitude], 100, units: :mi)
-        .where('max_guests_allowed >= ?', guests)
+        .where('max_guests_allowed >= ?', listing_params[:guests])
         .where.not(id: Listing.joins(bookings: :booked_dates)
-                            .where(booked_dates: { date: start_date..end_date })
+                            .where(booked_dates: { date: listing_params[:start_date]..listing_params[:end_date] })
                             .select('listings.id'))
         listings
     end

@@ -7,8 +7,6 @@ import { getAlienDistance } from "../../../utils/helpers";
 
 function ListingCard({ listing }) {
 
-    console.log(listing.distance_from_user)
-
     return (
             <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>

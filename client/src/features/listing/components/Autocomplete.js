@@ -1,17 +1,45 @@
 import React, { useRef } from "react";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
-import { keys } from "../../../config";
-import { useLoadScript } from "@react-google-maps/api";
-import { Spinner } from "react-bootstrap";
+import { LoadScript } from "@react-google-maps/api";
+
+const CustomTextField = ({ setSearchAddress, searchAddress }) => {
+
+  function handleChange(e) {
+    setSearchAddress({
+      ...searchAddress,
+      address: e.target.value
+    })
+  }
+
+  return (
+    <TextField
+    id="outlined-search"
+    type="search"
+    variant="standard"
+    size="small"
+    onChange={handleChange}
+    value={searchAddress.address}
+    style={{
+        width: "250px"
+    }}
+    InputProps={{
+        style: {
+            fontSize: "11px"
+        }, 
+    }}
+    />
+  )
+}
 
 const Autocomplete = ({ setSearchAddress, searchAddress }) => {
-  const { isLoaded, loadError } = useLoadScript({
-    libraries: "places",
-    googleMapsApiKey: keys["GOOGLE_API_KEY"]
-})
+  const googleMapsApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
   const searchBoxRef = useRef(null);
+
+  if (!googleMapsApiKey) {
+    return <CustomTextField setSearchAddress={setSearchAddress} searchAddress={searchAddress} />
+  }
 
   const handlePlaceChanged = () => {
     const [place] = searchBoxRef.current.getPlaces();
@@ -32,23 +60,9 @@ const Autocomplete = ({ setSearchAddress, searchAddress }) => {
     })
   }
 
-  function handleChange(e) {
-    setSearchAddress({
-      ...searchAddress,
-      address: e.target.value
-    })
-  }
-
-  if (!isLoaded) return <div>    
-  <Spinner fontSize="small" animation="border" role="status">
-      <span className="visually-hidden">Loading...</span>
-  </Spinner>
-</div>
-
   return (
-      <div>
-      { !loadError ?
       <>
+        <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={["places"]}>
         <StandaloneSearchBox
           onLoad={(ref) => (searchBoxRef.current = ref)}
           onPlacesChanged={handlePlaceChanged}
@@ -71,26 +85,8 @@ const Autocomplete = ({ setSearchAddress, searchAddress }) => {
               }}
               />
         </StandaloneSearchBox>
+        </LoadScript>
       </>
-      :
-      <TextField
-      id="outlined-search"
-      type="search"
-      variant="standard"
-      size="small"
-      onChange={handleChange}
-      value={searchAddress.address}
-      style={{
-          width: "250px"
-      }}
-      InputProps={{
-          style: {
-              fontSize: "11px"
-          }, 
-      }}
-      />
-      }
-    </div>
   );
 };
 

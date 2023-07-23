@@ -84,8 +84,6 @@ function SearchBarButtonGroup() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        console.log(coordinates)
-
         history.push(`/search_results/${searchAddress.address}`)
 
         const searchEntry = {
