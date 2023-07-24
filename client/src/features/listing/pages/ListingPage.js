@@ -17,6 +17,7 @@ import ListingGallery from "../components/ListingGallery";
 import { CenterDiv } from "../../../styles/Styles";
 import LoadingPage from "../../common/LoadingPage";
 import { getAlienDistance } from "../../../utils/helpers";
+import axios from "axios";
 
 function ListingPage(props) {
     const params = useParams()
@@ -24,19 +25,18 @@ function ListingPage(props) {
 
     const guestsError = useSelector((state) => state.bookings.guestsError)
     const dateError = useSelector((state) => state.bookings.dateError)
-    const listing = useSelector((state) => state.listings.currentListing)
 
     const [checkinDate, setCheckinDate] = useState(null)
     const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
     const [distance, setDistance] = useState()
+    const [listing, setListing] = useState(null)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (checkDatesInvalidity(checkinDate, checkoutDate)) {
-            console.log(checkDatesInvalidity(checkinDate, checkoutDate))
             dispatch(setDateError("Please enter valid dates."))
             return
         }
@@ -57,9 +57,14 @@ function ListingPage(props) {
 
 
     useEffect(() => {
-        dispatch(getListing(params.value))
-        setDistance(distanceFromUser())
+        fetchListing()
     }, [])
+
+    const fetchListing = async() => {
+        const response =  await axios.get(`/listings/${params.value}`)
+        setListing(response.data)
+        distanceFromUser(response.data)
+    }
 
     function srcset(image, size, rows = 1, cols = 1) {
         return {
@@ -70,14 +75,19 @@ function ListingPage(props) {
         };
     }
 
-    function distanceFromUser() {
-        if (listing.planet_name !== "Earth") {
-            return `${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`
-        }
-        return `${Math.floor(listing.distance_from_user)}mi away`
-    }
-
     if (!listing) return <LoadingPage />
+
+    function distanceFromUser(data) {
+
+        if (data.planet !== "Earth") {
+            setDistance(` - ${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`)
+            return
+        } else if (!data.distance_from_user) {
+            setDistance(null)
+            return
+        }
+        setDistance(` - ${Math.floor(data.distance_from_user)}mi away`)
+    }
 
     return (
         <div>
@@ -94,7 +104,7 @@ function ListingPage(props) {
                     fontSize: "13px"
                 }}
                 >
-                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country} - {distance}
+                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country}{distance}
                 </p>
             </TitleContainer>
             <div>

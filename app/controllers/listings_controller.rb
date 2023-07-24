@@ -44,8 +44,6 @@ class ListingsController < ApplicationController
 
     def show
         listing = Listing.find(listing_params[:id])
-        # user = User.find(session[:user_id])
-        # listing = find_listing(user)
         if listing
             render json: listing, status: :ok, serializer: CustomListingSerializer, latitude: session[:latitude], longitude: session[:longitude]
         else

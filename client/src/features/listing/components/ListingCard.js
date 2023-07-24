@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { LinkStyle } from "../../../styles/Styles";
 import { PhotoGallery } from "../../../styles/Styles";
 import { getAlienDistance } from "../../../utils/helpers";
 
-function ListingCard({ listing }) {
+function ListingCard({ listing }) { 
+    const [distance, setDistance] = useState()
+
+    useEffect(() => {
+        determineDistance()
+    }, [])
+
+    function determineDistance() {
+        if (listing.planet_name !== "Earth") {
+            setDistance(`${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`)
+            return
+        } else if (!listing.distance_from_user) {
+            setDistance(null)
+            return
+        }
+        setDistance(`${Math.floor(listing.distance_from_user)}mi away`)
+    }
 
     return (
             <ListingContainer>
@@ -21,14 +37,7 @@ function ListingCard({ listing }) {
                             {listing.type_of_accomodation}
                         </ListingPara>
                         <ListingPara>
-                            { listing.distance_from_user ?
-                            listing.planet_name === "Earth" ?
-                            `${Math.floor(listing.distance_from_user)} miles away` 
-                            :
-                            `${getAlienDistance().distanceFromEarth} ${getAlienDistance.alienMetric} away`
-                            : 
-                            ""
-                            }
+                            { distance }
                         </ListingPara>
                         <ListingPara>${listing.unit_price} per night</ListingPara>
                         <ListingPara>Available {listing.next_available_date}</ListingPara>

@@ -16,8 +16,6 @@ function ListingGallery() {
     const listings = useSelector((state) => state.listings.entities)
     const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
 
-    console.log(usersCoordinates)
-
     useEffect(() => {
         if (!listings) {
             dispatch(fetchListings(usersCoordinates))
@@ -38,8 +36,6 @@ function ListingGallery() {
         scrollContainer.current.style.scrollBehavior = 'smooth'
         scrollContainer.current.scrollLeft += 400
     }
-
-    console.log(usersCoordinates)
 
     return (
         <>
