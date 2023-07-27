@@ -23,6 +23,7 @@ function ListingPage(props) {
     const params = useParams()
     const dispatch = useDispatch()
 
+    const listing = useSelector((state) => state.listings.currentListing)
     const guestsError = useSelector((state) => state.bookings.guestsError)
     const dateError = useSelector((state) => state.bookings.dateError)
 
@@ -31,7 +32,6 @@ function ListingPage(props) {
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
     const [distance, setDistance] = useState()
-    const [listing, setListing] = useState(null)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -57,14 +57,10 @@ function ListingPage(props) {
 
 
     useEffect(() => {
-        fetchListing()
+        dispatch(getListing(params.value))
+        .unwrap()
+        .then((data) => distanceFromUser(data))
     }, [])
-
-    const fetchListing = async() => {
-        const response =  await axios.get(`/listings/${params.value}`)
-        setListing(response.data)
-        distanceFromUser(response.data)
-    }
 
     function srcset(image, size, rows = 1, cols = 1) {
         return {
