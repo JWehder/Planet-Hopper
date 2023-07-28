@@ -17,9 +17,8 @@ import ListingGallery from "../components/ListingGallery";
 import { CenterDiv } from "../../../styles/Styles";
 import LoadingPage from "../../common/LoadingPage";
 import { getAlienDistance } from "../../../utils/helpers";
-import axios from "axios";
 
-function ListingPage(props) {
+function ListingPage({ history }) {
     const params = useParams()
     const dispatch = useDispatch()
 
@@ -27,6 +26,7 @@ function ListingPage(props) {
     const guestsError = useSelector((state) => state.bookings.guestsError)
     const dateError = useSelector((state) => state.bookings.dateError)
 
+    const [listingError, setListingError] = useState(null)
     const [checkinDate, setCheckinDate] = useState(null)
     const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
@@ -51,7 +51,7 @@ function ListingPage(props) {
 
         dispatch(setDateError(null))
 
-        props.history.push(`/listings/${listing.id}/book`)
+        history.push(`/listings/${listing.id}/book`)
         dispatch(setCurrentBooking(bookingObj))
     }
 
@@ -60,6 +60,7 @@ function ListingPage(props) {
         dispatch(getListing(params.value))
         .unwrap()
         .then((data) => distanceFromUser(data))
+        .catch(() => history.push("/"))
     }, [])
 
     function srcset(image, size, rows = 1, cols = 1) {

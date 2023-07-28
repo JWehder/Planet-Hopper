@@ -36,6 +36,20 @@ const post = async(url, obj, thunkAPI) => {
     }
 }
 
+const show = async(url, thunkAPI) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        if (response.ok) {
+            return data
+        } else {
+            return thunkAPI.rejectWithValue(data.error)
+        }
+    } catch(err) {
+        return thunkAPI.rejectWithValue("Error occurred. Please try again.")
+    }
+}
+
 const patch = async(url, obj, thunkAPI) => {
     console.log(obj)
     console.log(url)
@@ -82,7 +96,8 @@ const displayErrors = (errors, errorKey = null) => {
 const fetchWrapper = {
     post: post,
     get: get,
-    patch: patch
+    patch: patch,
+    show: show
 }
 
 export { fetchWrapper, displayErrors }

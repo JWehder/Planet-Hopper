@@ -16,10 +16,8 @@ import ProfilePage from './features/auth/pages/ProfilePage.';
 import { CenterDiv } from './styles/Styles';
 import LogoutPage from './features/auth/pages/LogoutPage';
 import ForgotPasswordPage from './features/auth/pages/ForgotPasswordPage';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
-  const { page } = useParams() 
 
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)

@@ -2,8 +2,9 @@ import React from "react";
 import { CenterDiv } from "../../styles/Styles";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
-function LoadingPage() {
+function LoadingPage({ history }) {
 
     return (
         <LoadingContainer>
@@ -20,4 +21,4 @@ const LoadingContainer = styled(CenterDiv)`
     background-color: #F8F5FF;
 `
 
-export default LoadingPage;
+export default withRouter(LoadingPage);

@@ -1,8 +1,6 @@
 import React, { useMemo, useState, useCallback } from 'react'
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { LoadScript } from '@react-google-maps/api';
-import { CenterDiv } from '../../../styles/Styles';
-import CircularProgress from '@mui/material/CircularProgress';
 
 function Map({ center, listings, zoom }) {
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_API_KEY

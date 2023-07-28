@@ -14,10 +14,8 @@ export const createBooking = createAsyncThunk("listings/createBooking", (booking
     return fetchWrapper.post("/bookings", bookingObj, thunkAPI)
 });
 
-export const getListing = createAsyncThunk("listings/getListing", (id) => {
-    return fetch(`/listings/${id}`)
-    .then((response) => response.json())
-    .then((data) =>  data);
+export const getListing = createAsyncThunk("listings/getListing", (id, thunkAPI) => {
+    return fetchWrapper.show(`/listings/${id}`, thunkAPI)
 })
 
 export const getUsersListings = createAsyncThunk("listings/getUsersListings", async() => {
@@ -131,8 +129,6 @@ const listingsSlice = createSlice({
             state.status = "idle";
         },
         [getListing.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.listingError = action.payload
         },
         [createBooking.pending]: (state) => {
