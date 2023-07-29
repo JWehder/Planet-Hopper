@@ -59,7 +59,7 @@ class Booking < ApplicationRecord
 
     def check_listing_availability
         listing = Listing.find(self.listing_id)
-        if listing.booked_dates.where(date: (self.start_date..self.end_date)).exists?
+        if listing.booked_dates.where(date: (self.start_date...self.end_date)).exists?
             errors.add(:base, "The selected dates conflict with existing bookings. Please try again.")
         end
     end
