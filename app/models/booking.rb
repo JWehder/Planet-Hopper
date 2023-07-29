@@ -33,8 +33,8 @@ class Booking < ApplicationRecord
         end
     end
 
-    def add_fees
-        self.update!(fees: self.price.to_f * 0.05) 
+    def add_fees(price)
+        self.update!(fees: price * 0.05) 
     end
 
     private
