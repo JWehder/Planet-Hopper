@@ -51,16 +51,14 @@ class Booking < ApplicationRecord
 
     def start_date_uniqueness
         listing = Listing.find(self.listing_id)
-        # .where.not(booking_id: self.id)
-        if listing.booked_dates.where(date: self.start_date).exists?
+        if listing.booked_dates.where.not(booking_id: self.id)
             errors.add(:start_date, "This start date has already been booked.")
         end
     end
 
     def end_date_uniqueness
         listing = Listing.find(self.listing_id)
-        # .where.not(booking_id: self.id)
-        if listing.booked_dates.where(date: self.end_date).exists?
+        if listing.booked_dates.where.not(booking_id: self.id)
             errors.add(:end_date, "This end date has already been booked.")
         end
     end
