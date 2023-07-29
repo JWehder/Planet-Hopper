@@ -77,15 +77,13 @@ class Listing < ApplicationRecord
 
     def find_dates
         available_dates = nil
-        found_dates = false
 
-        until found_dates
+        until available_dates
             nights_staying = rand(1..30)
             start_date = Date.today + rand(1..365)
             end_date = start_date + nights_staying
             if not self.booked_dates.where(date: start_date...end_date).exists?
                 available_dates = [start_date, end_date]
-                found_dates = true
             end
         end
         available_dates

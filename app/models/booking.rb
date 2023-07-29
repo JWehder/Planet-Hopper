@@ -20,9 +20,10 @@ class Booking < ApplicationRecord
     # after_commit :determine_price, :book_dates, :add_fees, on: :create
 
     # def determine_price
-    #     number_of_days = (self.start_date - self.end_date).to_i + 1
-    #     price = number_of_days * self.listing.unit_price
-    #     self.update!(price: price)
+    #     number_of_nights = ((self.start_date...self.end_date).to_a).count 
+    #     price = number_of_nights * self.listing.unit_price
+    #     self.price = price
+    #     self.add_fees(price)
     # end
 
     def book_dates
@@ -46,20 +47,6 @@ class Booking < ApplicationRecord
     def end_date_type?
         if !self.end_date.is_a?(Date)
             errors.add(:end_date, "must be a valid date")
-        end
-    end
-
-    def start_date_uniqueness
-        listing = Listing.find(self.listing_id)
-        if listing.booked_dates.where.not(booking_id: self.id)
-            errors.add(:start_date, "This start date has already been booked.")
-        end
-    end
-
-    def end_date_uniqueness
-        listing = Listing.find(self.listing_id)
-        if listing.booked_dates.where.not(booking_id: self.id)
-            errors.add(:end_date, "This end date has already been booked.")
         end
     end
 
