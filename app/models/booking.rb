@@ -6,8 +6,6 @@ class Booking < ApplicationRecord
     validate :check_listing_max_guests
     validate :check_listing_availability
     validate :greater_than_start_date
-    validate :start_date_uniqueness
-    validate :end_date_uniqueness
     validate :start_date_type?
     validate :end_date_type?
 
@@ -17,14 +15,17 @@ class Booking < ApplicationRecord
     validates :end_date, presence: true
     validates :number_of_guests,  numericality: {greater_than_or_equal_to: 1}
 
-    # after_commit :determine_price, :book_dates, :add_fees, on: :create
+    validates_uniqueness_of :start_date, scope: :listing_id
+    validates_uniqueness_of :end_date, scope: :listing_id
 
-    # def determine_price
-    #     number_of_nights = ((self.start_date...self.end_date).to_a).count 
-    #     price = number_of_nights * self.listing.unit_price
-    #     self.price = price
-    #     self.add_fees(price)
-    # end
+    after_create :book_dates, :determine_price
+
+    def determine_price
+        number_of_nights = ((self.start_date...self.end_date).to_a).count 
+        price = number_of_nights * self.listing.unit_price
+        self.price = price
+        self.add_fees(price)
+    end
 
     def book_dates
         (self.start_date...self.end_date).each do |date|
@@ -32,9 +33,9 @@ class Booking < ApplicationRecord
         end
     end
 
-    # def add_fees
-    #     self.update!(fees: self.price.to_f * 0.05) 
-    # end
+    def add_fees
+        self.update!(fees: self.price.to_f * 0.05) 
+    end
 
     private
 

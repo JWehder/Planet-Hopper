@@ -13,14 +13,13 @@ class Listing < ApplicationRecord
     validate :validate_if_host
     validate :photos_count
 
-    # validates :name, presence: true, length: {minimum: 8}
-    # validates :city, presence: true
-    # validates :state_province, presence: true
-    # validates :country, presence: true
-    # validates :planet_id, presence: true
-    # validates :owner_id, presence: true
-    # validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
-    # validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
+    validates :name, presence: true, length: {minimum: 8}
+    validates :city, presence: true
+    validates :country, presence: true
+    validates :planet_id, presence: true
+    validates :owner_id, presence: true
+    validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 25}
+    validates :max_guests_allowed, presence: true, numericality: {greater_than_or_equal_to: 1}
 
     def destroy_booked_dates
         self.booked_dates.destroy_all
