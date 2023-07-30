@@ -38,6 +38,8 @@ function HomePage() {
         }, 3000)
     }
 
+    console.log(homepageListings)
+
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>
                 <div style={{

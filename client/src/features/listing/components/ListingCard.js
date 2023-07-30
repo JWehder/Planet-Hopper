@@ -31,7 +31,9 @@ function ListingCard({ listing }) {
                 </ListingButton>
                 <div style={{ paddingLeft: '20px'}}>
                     <ListingContent>
-                        <ListingPara>{listing.city}, {listing.state_province}</ListingPara>
+                        <ListingPara>
+                            {listing.city}{listing.state_province ? `, ${listing.state_province}` : ""}, {listing.country} 
+                        </ListingPara>
                     </ListingContent>
                         <ListingPara>
                             {listing.type_of_accomodation}

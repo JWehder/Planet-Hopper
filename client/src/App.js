@@ -42,6 +42,7 @@ function App() {
         }
     } else {
         dispatch(setUsersCoordinates(null))
+        setRender(true)
         console.log("Geolocation is not supported by this browser")
     }
 }

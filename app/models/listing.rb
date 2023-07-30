@@ -30,7 +30,6 @@ class Listing < ApplicationRecord
         if listing_params[:latitude].blank? || listing_params[:longitude].blank?
             coords = Geocoder.coordinates(listing_params[:address])
         end
-        puts coords
         listings = Listing.near(coords, 100, units: :mi)
         .where('max_guests_allowed >= ?', listing_params[:guests])
         .where.not(id: Listing.joins(bookings: :booked_dates)
@@ -39,8 +38,8 @@ class Listing < ApplicationRecord
         listings
     end
         
-    def self.query_users_listings(longitude, latitude)
-        results = Geocoder.search([longitude, latitude])
+    def self.query_users_listings(listing_params)
+        results = Geocoder.search(listing_params[:latitude], listing_params[:longitude])
         results = results.first.city
         users_listings_results = self.where(city: results).limit(10)
     end
@@ -53,13 +52,14 @@ class Listing < ApplicationRecord
         Geocoder::Calculations.distance_between([users_latitude, users_longitude], [self.latitude, self.longitude])
     end
     
-    def self.query_city_listings(city)
-        city_listings = self.where(city: city).limit(10)
+    def self.query_homepage_cities
+        self.group(:city).order('count_id DESC').count('id').first(4).map(&:first)
     end
 
     def self.query_homepage_listings(latitude, longitude)
+        cities = Listing.query_homepage_cities
         homepage_listings_query = Listing
-        .where(city: ["Paris", "New York", "Phoenix"])
+        .where(city: cities)
         .group(:city, :id)
         .having('COUNT(*) <= 4')
         .limit(12)

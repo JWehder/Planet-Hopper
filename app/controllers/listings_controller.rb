@@ -5,9 +5,9 @@ class ListingsController < ApplicationController
 
     def suggested_listings
         users_location_listings = []
-        if listing_params[:users_latitude] && listing_params[:users_latitude] > 0 && listing_params[:users_longitude] > 0
-            users_location_listings = Listing.query_users_listings(listing_params[:users_longitude], listing_params[:users_latitude])
-        end
+        # if listing_params[:users_latitude] && listing_params[:users_latitude] > 0 && listing_params[:users_longitude] > 0
+        #     users_location_listings = Listing.query_users_listings(listing_params)
+        # end
         homepage_listings = Listing.query_homepage_listings(listing_params[:users_latitude], listing_params[:users_longitude])
         render json: homepage_listings, status: :ok, latitude: listing_params[:users_latitude], longitude: listing_params[:users_longitude]
     end
