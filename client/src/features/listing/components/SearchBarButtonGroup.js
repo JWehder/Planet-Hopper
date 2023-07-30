@@ -95,8 +95,10 @@ function SearchBarButtonGroup() {
             guests: guests
         }
 
+        // if the user's allowing my site to access their location, I will add the users_latitude to show the user how close they are to the listing
+
         const query = coordinates ?
-        { ...searchEntry, latitude: coordinates.users_latitude, longitude: coordinates.users_longitude }
+        { ...searchEntry, users_latitude: coordinates.users_latitude, users_longitude: coordinates.users_longitude }
         :
         { ...searchEntry }
 

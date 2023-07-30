@@ -18,7 +18,7 @@ class Booking < ApplicationRecord
     validates_uniqueness_of :start_date, scope: :listing_id
     validates_uniqueness_of :end_date, scope: :listing_id
 
-    after_create :book_dates, :determine_price
+    after_create :book_dates
 
     def determine_price
         number_of_nights = ((self.start_date...self.end_date).to_a).count 

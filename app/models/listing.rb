@@ -30,10 +30,11 @@ class Listing < ApplicationRecord
         if listing_params[:latitude].blank? || listing_params[:longitude].blank?
             coords = Geocoder.coordinates(listing_params[:address])
         end
+        puts coords
         listings = Listing.near(coords, 100, units: :mi)
         .where('max_guests_allowed >= ?', listing_params[:guests])
         .where.not(id: Listing.joins(bookings: :booked_dates)
-                            .where(booked_dates: { date: listing_params[:start_date]..listing_params[:end_date] })
+                            .where(booked_dates: { date: listing_params[:start_date]...listing_params[:end_date] })
                             .select('listings.id'))
         listings
     end

@@ -119,7 +119,8 @@ export const LinkStyle = styled(Link)`
 `
 
 export const PhotoGallery = styled(PhotosCarousel)`
-    width: 100px;
+    width: 200px;
+    height: 200px;
     margin: auto;
     border-radius: 10px;
 

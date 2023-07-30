@@ -27,14 +27,16 @@ function ListingCard({ listing }) {
             <ListingContainer>
                 <LinkStyle to={`/listings/${listing.id}`}>
                 <ListingButton>
-                        <PhotoGallery style={{width: '300px'}} photos={listing.photos} />
+                        <PhotoGallery photos={listing.photos} />
                 </ListingButton>
-                <div style={{ paddingLeft: '20px'}}>
-                    <ListingContent>
+                <div>
+                    <LocationWrapper>
                         <ListingPara>
+                            <strong>
                             {listing.city}{listing.state_province ? `, ${listing.state_province}` : ""}, {listing.country} 
+                            </strong>
                         </ListingPara>
-                    </ListingContent>
+                    </LocationWrapper>
                         <ListingPara>
                             {listing.type_of_accomodation}
                         </ListingPara>
@@ -50,19 +52,20 @@ function ListingCard({ listing }) {
 }
 
 const ListingButton = styled.button`
-    width: 175px;
-    height: 100px;
+    width: 200px;
+    height: 175px;
     background: transparent;
     border: none;
     border-radius: 10px;
 `
 
 const ListingContainer = styled.div`
-    width: 180px;
-    height: 250px;
+    width: 200px;
+    height: 300px;
     border-radius: 10px;
     margin: 20px;
     margin-left: 10px;
+    padding: 10px;
     display: inline-grid;
     cursor: pointer;
 `
@@ -72,7 +75,7 @@ const ListingPara = styled.p`
     margin: 0px 0px 0px 3px;
     text-align: left;
 `
-const ListingContent = styled.span`
+const LocationWrapper = styled.span`
     display: flex;
     margin-bottom: 5px;
     margin-top: 5px;
