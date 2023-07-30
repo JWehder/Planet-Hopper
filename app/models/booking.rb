@@ -28,7 +28,7 @@ class Booking < ApplicationRecord
     end
 
     def book_dates
-        puts "booking #{self.start_date} and #{self.end_date}"
+        puts "booking #{self.start_date} through #{self.end_date}"
         (self.start_date...self.end_date).each do |date|
             booked_date = self.booked_dates.create!(listing_id: self.listing_id, booking_id: self.id, date: date)
         end
@@ -61,7 +61,6 @@ class Booking < ApplicationRecord
     def check_listing_availability
         listing = Listing.find(self.listing_id)
         if listing.booked_dates.where(date: (self.start_date...self.end_date)).exists?
-            puts listing.id, self.start_date, self.end_date
             errors.add(:base, "The selected dates conflict with existing bookings. Please try again.")
         end
     end
