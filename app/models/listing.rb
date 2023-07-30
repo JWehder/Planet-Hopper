@@ -85,6 +85,7 @@ class Listing < ApplicationRecord
                 available_dates = [start_date, end_date]
             end
         end
+        puts available_dates
         available_dates
     end
 

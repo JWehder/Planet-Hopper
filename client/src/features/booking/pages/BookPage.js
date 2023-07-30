@@ -73,9 +73,7 @@ function BookPage(props) {
             end_date: dayjs(booking.endDate).format("YYYY-MM-DD"),
             listing_id: booking.listing_id,
             user_id: user.id,
-            number_of_guests: booking.number_of_guests,
-            price: unitTotal(),
-            fees: fees()
+            number_of_guests: booking.number_of_guests
         }
 
         dispatch(createBooking(bookingObj))

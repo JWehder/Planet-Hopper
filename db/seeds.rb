@@ -107,7 +107,17 @@ end
 Listing.all.each do |listing|
     12.times do
         dates = listing.find_dates
-        booking = Booking.create!(user_id: User.all.sample.id, listing_id: listing.id, start_date: dates.first, end_date: dates.last, number_of_guests: listing.max_guests_allowed)
+        booking = Booking.new(
+            user_id: User.all.sample.id, 
+            listing_id: listing.id, 
+            start_date: dates.first, 
+            end_date: dates.last, 
+            number_of_guests: listing.max_guests_allowed
+        )
+        price = booking.determine_price
+        booking.fees = booking.add_fees(price)
+        booking.price = price
+        booking.save!
     end
 end
 

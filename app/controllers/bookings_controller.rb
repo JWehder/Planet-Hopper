@@ -3,11 +3,22 @@ class BookingsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     
     def create
-        user = current_user
-        booking = user.bookings.create!(booking_params)
-        booking.book_dates
+      booking = Booking.new(
+        user_id: booking_params, 
+        listing_id: listing.id, 
+        start_date: dates.first, 
+        end_date: dates.last, 
+        number_of_guests: listing.max_guests_allowed
+      )
+      price = booking.determine_price
+      booking.fees = booking.add_fees(price)
+      booking.price = price
+      booking.save!
+    
+      if booking.save!
         BookingsMailer.booking_email(booking, booking.user).deliver_now
         render json: booking, status: :created
+      end
     end
 
     def my_bookings
