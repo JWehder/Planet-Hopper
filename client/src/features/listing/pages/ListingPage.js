@@ -50,7 +50,7 @@ function ListingPage({ history }) {
 
         dispatch(setDateError(null))
 
-        history.push(`/listings/${listing.id}/book`)
+        history.push(`/book/${listing.name}/${listing.id}`)
         dispatch(setCurrentBooking(bookingObj))
     }
 

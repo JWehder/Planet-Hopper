@@ -98,7 +98,7 @@ function App() {
       <Route exact path='/search_results/:value'>
           <SearchResults />
       </Route>
-      <Route exact path='/listings/:id/book'>
+      <Route exact path='/book/:listing_name/:id'>
         <BookPage />
       </Route>
       <Route exact path='/bookings'>
