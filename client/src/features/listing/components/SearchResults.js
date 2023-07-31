@@ -35,7 +35,7 @@ function SearchResults() {
     });
 
     return (
-        <>
+        <div style={{minHeight: "90vh"}}>
         <h1 style={{textAlign: 'center', padding: '10px'}}>Search Results</h1>
         {listings.length > 0 ? 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px" }}>
@@ -53,7 +53,7 @@ function SearchResults() {
         :
         <h3>{errors.error}</h3>
         }
-        </>
+        </div>
     )
 }
 

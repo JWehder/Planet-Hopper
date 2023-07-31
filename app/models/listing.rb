@@ -26,17 +26,44 @@ class Listing < ApplicationRecord
     end
 
     def self.query_listing(listing_params)
+        listings = nil
+
         coords = [listing_params[:latitude], listing_params[:longitude]]
         if listing_params[:latitude].blank? || listing_params[:longitude].blank?
-            coords = Geocoder.coordinates(listing_params[:address])
+            listings = Listing.search_alien_listings(listing_params[:address])
+            coords = nil
+            if listings.count < 1
+                begin
+                    coords = Geocoder.coordinates(listing_params[:address])
+                rescue Geocoder::Error
+                    coords = nil
+                end
+            end
         end
-        puts coords
-        listings = Listing.near(coords, 100, units: :mi)
-        .where('max_guests_allowed >= ?', listing_params[:guests])
-        .where.not(id: Listing.joins(bookings: :booked_dates)
-                            .where(booked_dates: { date: listing_params[:start_date]...listing_params[:end_date] })
-                            .select('listings.id'))
+    
+        if coords
+            listings = Listing.search_earth_listings(coords, listing_params)
+        end
+    
         listings
+    end
+
+    def self.search_alien_listings(address)
+        address = address.scan(/[A-Z]+[a-z]+/)
+        listings = address.flat_map do |string|
+            
+                query = Listing.where('LOWER(city) LIKE ? OR LOWER(state_province) LIKE ? OR LOWER(country) LIKE ?', "%#{string.downcase}%", "%#{string.downcase}%", "%#{string.downcase}%").to_a
+
+        end
+        listings
+    end
+
+    def self.search_earth_listings(coords, listing_params)
+        Listing.near(coords, 100, units: :mi)
+                .where('max_guests_allowed >= ?', listing_params[:guests])
+                .where.not(id: Listing.joins(bookings: :booked_dates)
+                                      .where(booked_dates: { date: listing_params[:start_date]...listing_params[:end_date] })
+                                      .select('listings.id'))
     end
         
     def self.query_users_listings(listing_params)
