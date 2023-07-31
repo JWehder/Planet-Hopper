@@ -55,6 +55,7 @@ class Listing < ApplicationRecord
                 query = Listing.where('LOWER(city) LIKE ? OR LOWER(state_province) LIKE ? OR LOWER(country) LIKE ?', "%#{string.downcase}%", "%#{string.downcase}%", "%#{string.downcase}%").to_a
 
         end
+        listings = listings.uniq { |listing| listing.id }
         listings
     end
 
