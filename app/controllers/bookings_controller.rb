@@ -3,13 +3,7 @@ class BookingsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     
     def create
-      booking = Booking.new(
-        user_id: booking_params, 
-        listing_id: listing.id, 
-        start_date: dates.first, 
-        end_date: dates.last, 
-        number_of_guests: listing.max_guests_allowed
-      )
+      booking = Booking.new(booking_params)
       price = booking.determine_price
       booking.fees = booking.add_fees(price)
       booking.price = price
@@ -84,7 +78,7 @@ class BookingsController < ApplicationController
     end
 
     def booking_params
-        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests, :fees, :price)
+        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
         # params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
         parsed_params[:start_date] = Date.parse(parsed_params[:start_date])
         parsed_params[:end_date] = Date.parse(parsed_params[:end_date])
