@@ -4,7 +4,6 @@ class Booking < ApplicationRecord
     has_many :booked_dates, dependent: :destroy
 
     validate :check_listing_max_guests
-    validate :check_listing_availability
     validate :greater_than_start_date
     validate :start_date_type?
     validate :end_date_type?
@@ -55,13 +54,6 @@ class Booking < ApplicationRecord
     def greater_than_start_date
         if self.start_date >= self.end_date
             errors.add(:end_date, "The end date must take place after the start date.")
-        end
-    end
-
-    def check_listing_availability
-        listing = Listing.find(self.listing_id)
-        if listing.booked_dates.where(date: (self.start_date...self.end_date)).exists?
-            errors.add(:base, "The selected dates conflict with existing bookings. Please try again.")
         end
     end
 

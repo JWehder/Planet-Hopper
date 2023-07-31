@@ -5,13 +5,14 @@ class BookingsController < ApplicationController
     def create
       booking = Booking.new(booking_params)
       price = booking.determine_price
-      booking.fees = booking.add_fees(price)
       booking.price = price
-      booking.save!
+      booking.fees = booking.add_fees(price)
     
       if booking.save!
         BookingsMailer.booking_email(booking, booking.user).deliver_now
         render json: booking, status: :created
+      else
+        render json: booking.errors, status: :unprocessable_entity
       end
     end
 

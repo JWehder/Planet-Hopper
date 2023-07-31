@@ -51,6 +51,8 @@ function BookPage(props) {
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
 
+    console.log(currentListing)
+
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
     }
@@ -79,11 +81,11 @@ function BookPage(props) {
         dispatch(createBooking(bookingObj))
         .unwrap()
         .then(() => successMessage())
-        .catch((err) => setBookingErrors(err))
+        .catch((err) => console.log(err))
     }
 
     if (!booking) {
-        props.history.push(`/listings/${params.id}`)
+        props.history.push(`/listings/${currentListing.name}/${currentListing.id}`)
         return
     }
 
