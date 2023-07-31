@@ -88,11 +88,11 @@ function App() {
       <Route path="/forgot_password"> 
         <ForgotPasswordPage />
       </Route>
-      <Route exact path='/'>
+      <Route exact path="/">
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
-      <Route exact path='/:listing_name/:id'>
+      <Route exact path='/listings/:listing_name/:id'>
           <ListingPage />
       </Route>
       <Route exact path='/search_results/:value'>

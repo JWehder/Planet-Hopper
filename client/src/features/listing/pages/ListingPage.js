@@ -26,7 +26,6 @@ function ListingPage({ history }) {
     const guestsError = useSelector((state) => state.bookings.guestsError)
     const dateError = useSelector((state) => state.bookings.dateError)
 
-    const [listingError, setListingError] = useState(null)
     const [checkinDate, setCheckinDate] = useState(null)
     const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
@@ -55,9 +54,6 @@ function ListingPage({ history }) {
         dispatch(setCurrentBooking(bookingObj))
     }
 
-    console.log(params)
-
-
     useEffect(() => {
         dispatch(getListing(params.id))
         .unwrap()
@@ -78,7 +74,7 @@ function ListingPage({ history }) {
 
     function distanceFromUser(data) {
 
-        if (data.planet_name !== "Earth") {
+        if (data.planet !== "Earth") {
             setDistance(` - ${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`)
             return
         } else if (!data.distance_from_user) {
@@ -102,7 +98,7 @@ function ListingPage({ history }) {
                 <p style={{
                     fontSize: "13px"
                 }}
-                >
+            >
                      {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country}{distance}
                 </p>
             </TitleContainer>

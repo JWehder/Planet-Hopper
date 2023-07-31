@@ -25,7 +25,7 @@ function ListingCard({ listing }) {
 
     return (
             <ListingContainer>
-                <LinkStyle to={`/${listing.name}/${listing.id}`}>
+                <LinkStyle to={`/listings/${listing.name}/${listing.id}`}>
                 <ListingButton>
                         <PhotoGallery photos={listing.photos} />
                 </ListingButton>

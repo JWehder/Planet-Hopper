@@ -12,19 +12,24 @@ function HomePage() {
     const dispatch = useDispatch()
 
     const homepageListings = useSelector((state) => state.listings.entities)
-    const booked = useSelector((state) => state.listings.booked)
     const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
     const user = useSelector((state) => state.auth.user)
+
+    console.log("hello?")
 
     useEffect(() => {
         if (!homepageListings) {
             dispatch(fetchListings(usersCoordinates))
         }
-    }, [])
 
-    if (booked) {
-        dispatch(turnOffBooked())
-    }
+        if (!user) {
+            let timer = setTimeout(() => {
+                dispatch(setLoginModal(true))
+            }, 3000)
+    
+            return () => clearTimeout(timer)
+        }
+    }, [])
 
     if (!homepageListings) return <LoadingPage />
 
@@ -32,13 +37,7 @@ function HomePage() {
         dispatch(getAlienListings())
     }
 
-    if (!user) {
-        let timer = setTimeout(() => {
-            dispatch(setLoginModal(true))
-        }, 3000)
-
-        return () => clearTimeout(timer)
-    }
+    console.log("we're here!")
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>
