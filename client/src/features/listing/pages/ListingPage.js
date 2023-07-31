@@ -55,9 +55,11 @@ function ListingPage({ history }) {
         dispatch(setCurrentBooking(bookingObj))
     }
 
+    console.log(params)
+
 
     useEffect(() => {
-        dispatch(getListing(params.value))
+        dispatch(getListing(params.id))
         .unwrap()
         .then((data) => distanceFromUser(data))
         .catch(() => history.push("/"))
@@ -76,7 +78,7 @@ function ListingPage({ history }) {
 
     function distanceFromUser(data) {
 
-        if (data.planet !== "Earth") {
+        if (data.planet_name !== "Earth") {
             setDistance(` - ${getAlienDistance().distanceFromEarth} ${getAlienDistance().alienMetric}`)
             return
         } else if (!data.distance_from_user) {

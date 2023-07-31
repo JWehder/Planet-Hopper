@@ -92,7 +92,7 @@ function App() {
           <LoginModal show={show} setShow={setShow} />
           <HomePage />
       </Route>
-      <Route exact path='/listings/:value'>
+      <Route exact path='/:listing_name/:id'>
           <ListingPage />
       </Route>
       <Route exact path='/search_results/:value'>

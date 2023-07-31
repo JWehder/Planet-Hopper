@@ -33,12 +33,12 @@ function HomePage() {
     }
 
     if (!user) {
-        setTimeout(() => {
+        let timer = setTimeout(() => {
             dispatch(setLoginModal(true))
         }, 3000)
-    }
 
-    console.log(homepageListings)
+        return () => clearTimeout(timer)
+    }
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>

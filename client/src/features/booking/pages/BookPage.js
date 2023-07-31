@@ -94,16 +94,19 @@ function BookPage(props) {
     const handleGuestsShow = () => setShowGuestsModal(true)
 
     function successMessage() {
-        setTimeout(() => {
+        let timer = setTimeout(() => {
             dispatch(setCurrentBooking(null))
             props.history.push("/");
         }, 3000);
 
-        return (
-            <>
-            <SuccessMessage message= "Booked! Please check your email for your receipt. Returning you to the homepage page now...." />
-            </>
-        )
+        return () => {
+            clearTimeout(timer); 
+            return (
+                <>
+                <SuccessMessage message= "Booked! Please check your email for your receipt. Returning you to the homepage page now...." />
+                </>
+            )
+        }
     }
 
     function handleClick() {
