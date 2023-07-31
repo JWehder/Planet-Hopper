@@ -58,11 +58,10 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => 465,
-    :port                 => 'smtp.zoho.com',
+    :address              => 'smtp.zoho.com',
+    :port                 => 465,
     :user_name            => ENV['MAIL_USERNAME'],
     :password             => ENV['MAIL_PASSWORD'],
     :authentication       => 'plain',
@@ -71,4 +70,5 @@ Rails.application.configure do
   }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
+  
 end
