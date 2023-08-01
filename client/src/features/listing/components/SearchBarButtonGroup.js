@@ -81,19 +81,6 @@ function SearchBarButtonGroup() {
 
     const dateErrorAnchorPosition = startDateInputRect ? { top: startDateInputRect.top + 12, left: startDateInputRect.right - 55 } : undefined
 
-    function resetStateVariables() {
-        // once a search is complete, reset the state variables so future searches are not using past data on accident
-        setSearchAddress({
-            address: "",
-            latitude: "",
-            longitude: ""
-        })
-        setStartDate(dayjs())
-        setEndDate(dayjs(dayjs().add(1, 'day')))
-        setGuests(1)
-    }
-
-
     async function handleSubmit(e) {
         e.preventDefault()
 
@@ -117,7 +104,13 @@ function SearchBarButtonGroup() {
 
         dispatch(searchListings(query))
         .unwrap()
-        .then(() => resetStateVariables())
+        .then(() => setSearchAddress(
+            {
+            ...searchAddress, 
+            latitude: "", 
+            longitude: ""
+            }
+            ))
         .catch((err) => setErrors(err))
     }
 
