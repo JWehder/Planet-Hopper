@@ -9,11 +9,12 @@ import { useHistory, useParams, withRouter } from "react-router-dom/cjs/react-ro
 import DateRangeModal from "../components/DateRangeModal";
 import EditGuestsModal from "../components/EditGuestsModal";
 import { createBooking } from "../../listing/state/listingsSlice";
-import { setCurrentBooking } from "../state/bookingsSlice";
 import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
 import { setLoginModal } from "../../auth/state/authSlice";
-import SuccessMessage from "../../common/SuccessMessage";
 import IconButton from "@mui/material/IconButton";
+import SuccessMessagePage from "../components/SuccessMessagePage"
+
+
 
 function ListItem ({ item, action }) {
     return (
@@ -46,6 +47,7 @@ function BookPage(props) {
     const [showDatesModal, setShowDatesModal] = useState(false)
     const [showGuestsModal, setShowGuestsModal] = useState(false)
     const [bookingErrors, setBookingErrors] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(false)
 
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
@@ -78,7 +80,7 @@ function BookPage(props) {
 
         dispatch(createBooking(bookingObj))
         .unwrap()
-        .then(() => successMessage())
+        .then(() => setSuccessMessage(true))
         .catch((err) => console.log(err))
     }
 
@@ -93,24 +95,12 @@ function BookPage(props) {
     const handleDateShow = () => setShowDatesModal(true)
     const handleGuestsShow = () => setShowGuestsModal(true)
 
-    function successMessage() {
-        let timer = setTimeout(() => {
-            dispatch(setCurrentBooking(null))
-            props.history.push("/");
-        }, 3000);
-
-        return () => {
-            clearTimeout(timer); 
-            return (
-                <>
-                <SuccessMessage message= "Booked! Please check your email for your receipt. Returning you to the homepage page now...." />
-                </>
-            )
-        }
-    }
-
     function handleClick() {
         dispatch(setLoginModal(true))
+    }
+
+    if (successMessage) {
+        return <SuccessMessagePage />
     }
 
     return (

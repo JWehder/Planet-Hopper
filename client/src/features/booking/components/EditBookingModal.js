@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import ErrorMessage from "../../common/ErrorMessage";
+import { CenterDiv } from "../../../styles/Styles";
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
@@ -73,13 +74,13 @@ function EditBookingModal({ booking, show, setShow, listing }) {
               checkinDate={initialCheckinDate}
               checkoutDate={initialCheckoutDate}
               />
-              <div style={{marginTop: "10px"}}>
+              <CenterDiv style={{marginTop: "10px"}}>
               <GuestsInputBox 
               setGuests={setGuests}
               guests={guests}
               max_guests={listing.max_guests_allowed}
               />
-              </div>
+              </CenterDiv>
               {bookingError && handleErrors(bookingError)}
       </Modal.Body>
       <Modal.Footer>

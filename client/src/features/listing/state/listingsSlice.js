@@ -38,7 +38,6 @@ export const updateBooking = createAsyncThunk("/listings/updateBooking", async(b
     const { id, ...rest } = bookingObj
     try {
         const response = await axios.patch(`/bookings/${id}`, rest);
-        console.log(response.data)
         return { data: response.data, bookingId: id };
     } catch (err) {
         const error = err.response.data.errors

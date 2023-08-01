@@ -15,8 +15,6 @@ function HomePage() {
     const usersCoordinates = useSelector((state) => state.listings.usersCoordinates)
     const user = useSelector((state) => state.auth.user)
 
-    console.log("hello?")
-
     useEffect(() => {
         if (!homepageListings) {
             dispatch(fetchListings(usersCoordinates))
@@ -36,8 +34,6 @@ function HomePage() {
     const handleSpaceClick = () => {
         dispatch(getAlienListings())
     }
-
-    console.log("we're here!")
 
     return (
             <div style={{ width: '1000px', textAlign: 'center', margin: '0 auto', backgroundColor: '#F8F5FF' }}>

@@ -14,6 +14,9 @@ class UsersController < ApplicationController
 
     def update
         user = find_user_by_sessionID
+        if user_params[:password] && user_params[:password_confirmation]
+            user.updating_password = true 
+        end
         user.update!(user_params)
         render json: user, status: :ok
     end

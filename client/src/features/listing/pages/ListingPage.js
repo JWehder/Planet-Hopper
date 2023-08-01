@@ -179,6 +179,7 @@ function ListingPage({ history }) {
                             marginTop: "5px"
                         }}
                         >
+                        <CenterDiv style={{margin: "10px"}}>
                         <GuestsInputBox                     
                         max_guests={listing.max_guests_allowed}
                         setGuests={setGuests}
@@ -189,8 +190,9 @@ function ListingPage({ history }) {
                         {guestsError}
                         </ErrorMessage>
                         }
+                        </CenterDiv>
                         </div>
-                        <div style={{textAlign: "left"}}>
+                        <div style={{textAlign: "center"}}>
                         {nights <= 0 ? "" : `
                         ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
                         </div>
@@ -200,13 +202,15 @@ function ListingPage({ history }) {
                         </ErrorMessage>
                         }
                         <hr />
-                        <Button 
-                        color="secondary" 
-                        variant="outlined"
-                        type="submit"
-                        >
-                        Book
-                        </Button>
+                        <CenterDiv>
+                            <Button 
+                            color="secondary" 
+                            variant="outlined"
+                            type="submit"
+                            >
+                            Book
+                            </Button>
+                        </CenterDiv>
                 </BookingContainer>
                 </form>
             </Container>
