@@ -24,7 +24,7 @@ export const checkDatesInvalidity = (d1, d2) => {
     return datesObj.date2 && (isSameDay(datesObj.date1, datesObj.date2) || datesObj.date1 > datesObj.date2)
 }
 
-function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate, checkoutDate, listing }) {
+function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, checkinDate, checkoutDate, listing }) {
     const dispatch = useDispatch()
 
     const shouldDisableDate = (date) => {
@@ -59,7 +59,9 @@ function DateCalendars({ setCheckoutDate, setNights, setCheckinDate, checkinDate
 
         setCheckinDate(dayjs(newValue))
         setCheckoutDate(checkout)
-        setNights(calculateNights(newValue, checkout))
+        if (nights) {
+            setNights(calculateNights(newValue, checkout))
+        }
     }
 
     const handleCheckoutDateChange = (newValue) => {

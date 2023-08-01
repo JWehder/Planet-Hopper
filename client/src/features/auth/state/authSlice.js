@@ -26,7 +26,8 @@ export const signup = createAsyncThunk(
 })
 
 export const updateUser = createAsyncThunk("/auth/updateUser", async(userObj, thunkAPI) => {
-        return fetchWrapper.patch(`/users/:id`, userObj, thunkAPI)
+        const { id, obj } = userObj
+        return fetchWrapper.patch(`/users/${id}`, obj, thunkAPI)
 })
 
 export const logout = createAsyncThunk("/auth/logout", async( thunkAPI) => {

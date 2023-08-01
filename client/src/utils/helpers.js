@@ -51,8 +51,6 @@ const show = async(url, thunkAPI) => {
 }
 
 const patch = async(url, obj, thunkAPI) => {
-    console.log(obj)
-    console.log(url)
     try {
         const response = await fetch(url, {
             method: "PATCH",

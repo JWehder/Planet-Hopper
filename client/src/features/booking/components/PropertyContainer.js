@@ -65,7 +65,7 @@ function PropertyContainer({ booking }) {
                   aria-label="see listing"
                   style={{width: '40px', height: '40px'}}
             >
-                    <LinkStyle to={`/listings/${booking.listing.id}`}>              <NearMeIcon color="primary" />
+                    <LinkStyle to={`/listings/${booking.listing.name}/${booking.listing.id}}`}>              <NearMeIcon color="primary" />
                     </LinkStyle>
 
             </IconButton>

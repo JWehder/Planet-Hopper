@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import DateCalendars from "../../common/DateCalendars";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateBooking, deleteBooking } from "../../listing/state/listingsSlice"
 import { Button } from "@mui/material";
 import GuestsInputBox from "../../listing/components/GuestsInputBox"
@@ -12,7 +12,7 @@ import ErrorMessage from "../../common/ErrorMessage";
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
-  const bookingError = useSelector((state) => state.listings.bookingError)
+  const [bookingError, setBookingError] = useState(null)
 
   const [initialCheckinDate, setInitialCheckinDate] = useState(dayjs(booking.start_date)) 
   const [initialCheckoutDate, setInitialCheckoutDate] = useState(dayjs(booking.end_date))
@@ -37,6 +37,9 @@ function EditBookingModal({ booking, show, setShow, listing }) {
     }
 
     dispatch(updateBooking(bookingObj))
+    .unwrap()
+    .then(() => setShow(false))
+    .catch((err) => setBookingError(err))
 
   }
 
@@ -50,8 +53,6 @@ function EditBookingModal({ booking, show, setShow, listing }) {
     setShow(false)
     dispatch(deleteBooking(booking.id))
   }
-
-  console.log(initialCheckinDate, initialCheckoutDate)
 
   return (
       <Modal
@@ -72,11 +73,13 @@ function EditBookingModal({ booking, show, setShow, listing }) {
               checkinDate={initialCheckinDate}
               checkoutDate={initialCheckoutDate}
               />
+              <div style={{marginTop: "10px"}}>
               <GuestsInputBox 
               setGuests={setGuests}
               guests={guests}
               max_guests={listing.max_guests_allowed}
               />
+              </div>
               {bookingError && handleErrors(bookingError)}
       </Modal.Body>
       <Modal.Footer>

@@ -18,12 +18,27 @@ class Booking < ApplicationRecord
     validates_uniqueness_of :end_date, scope: :listing_id
 
     after_create :book_dates
+    after_update :book_new_dates, :delete_unused_dates
 
     def determine_price
         number_of_nights = ((self.start_date...self.end_date).to_a).count 
         price = number_of_nights * self.listing.unit_price
         self.price = price
         self.add_fees(price)
+    end
+
+    def book_new_dates
+        date_range = self.start_date...self.end_date
+        date_range.each do |date|
+            if self.booked_dates.where(date: date).empty?
+                self.booked_dates.create!(listing_id: self.listing_id, booking_id: self.id, date: date)
+            end
+        end
+    end
+
+    def delete_unused_dates
+        date_range = self.start_date...self.end_date
+        self.booked_dates.where.not(date: date_range).delete_all
     end
 
     def book_dates

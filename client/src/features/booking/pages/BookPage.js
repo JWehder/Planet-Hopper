@@ -51,8 +51,6 @@ function BookPage(props) {
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
 
-    console.log(currentListing)
-
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
     }

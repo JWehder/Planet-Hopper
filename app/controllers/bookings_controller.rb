@@ -36,26 +36,21 @@ class BookingsController < ApplicationController
         booking = find_booking(user) 
       
         if booking
-          booking_date_range = (booking.start_date...booking.end_date)
-          params_date_range = (booking_params[:start_date]...booking_params[:end_date])
-      
-          if booking_date_range.count < params_date_range.count
-            booking.update!(booking_params)
-            booking_date_range.each do |date|
-              if booking.booked_dates.where(date: date).empty?
-                booking.booked_dates.create!(listing_id: booking.listing_id, booking_id: booking.id, date: date)
-              end
-            end
-          elsif booking_date_range.count > params_date_range.count
-            booking.update!(booking_params)
-            booking.booked_dates.where.not(date: booking_date_range).delete_all
-          end
-      
+          # booking_date_range = booking.start_date...booking.end_date
+          # params_date_range = booking_params[:start_date]...booking_params[:end_date]
+
+          # if booking_params[:start_date] < booking_params[:end_date]
+
+          booking.update!(booking_params)
           render json: booking, status: :ok
+
+          # else
+          #   render json: {error: "booking start date must be before end date" }, status: :unprocessable_entity
+          # end
         else
           render_unauthorized_user_response("booking")
         end
-      end
+    end
 
     def destroy
         user = current_user
@@ -79,7 +74,7 @@ class BookingsController < ApplicationController
     end
 
     def booking_params
-        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
+        parsed_params = params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests, :id)
         # params.permit(:user_id, :listing_id, :start_date, :end_date, :number_of_guests)
         parsed_params[:start_date] = Date.parse(parsed_params[:start_date])
         parsed_params[:end_date] = Date.parse(parsed_params[:end_date])
