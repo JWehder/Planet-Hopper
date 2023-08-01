@@ -11,6 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LoadingPage from "../../common/LoadingPage";
 import SuccessMessage from "../../common/SuccessMessage";
+import SaveIcon from '@mui/icons-material/Save';
 
 function ProfilePage() {
     const user = useSelector((state) => state.auth.user)
@@ -38,7 +39,7 @@ function ProfilePage() {
                 username: user.username,
                 password: user.password,
                 email: user.email,
-                bio: user.bio,
+                bio: user.bio
             });
         }
     }, [user]);
@@ -68,6 +69,18 @@ function ProfilePage() {
     
             return <SuccessMessage message="Saved Changes" />
         }
+    }
+
+    function resetForm() {
+        setUserObject({                
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            username: user.username,
+            password: user.password,
+            email: user.email,
+            bio: user.bio
+        })
     }
 
     return (  
@@ -156,13 +169,26 @@ function ProfilePage() {
                     {error && error.bio && displayErrors(error.bio)}
                     </FloatingLabel>
                     <CenterDiv>
+                    <CenterDiv>
                             <Button 
-                                color="secondary" 
-                                variant="contained" 
+                                variant="text" 
+                                startIcon={<SaveIcon />}
+                                color="primary"
                                 type="submit"
-                                >
-                                Save Changes
+                            >
+                                Save
                             </Button>
+                    </CenterDiv>
+                    <CenterDiv style={{marginLeft: "10px"}}>
+                            <Button 
+                                color="error" 
+                                variant="text" 
+                                type="button"
+                                onClick={resetForm}
+                                >
+                                Cancel
+                            </Button>
+                    </CenterDiv>
                     </CenterDiv>
                 </form>
             </CenterDiv>

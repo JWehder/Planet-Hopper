@@ -39,6 +39,7 @@ function SearchBarButtonGroup() {
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs(dayjs().add(1, 'day')));
     const [guests, setGuests] = useState(1)
+    const [guestsError, setGuestsError] = useState(null)
     
     const [anchorEnd, setAnchorEnd] = useState(null);
     const [anchorStart, setAnchorStart] = useState(null)
@@ -50,13 +51,7 @@ function SearchBarButtonGroup() {
 
     // guests handlers
 
-    const handleDecreaseGuests = () => {
-        if (guests === 1) {
-            setGuests(1)
-        } else {
-            setGuests(guests - 1)
-        }
-    }
+
 
     // calendar and date handlers
   
@@ -249,9 +244,9 @@ function SearchBarButtonGroup() {
                 <VerticalLine />
                 <TextSection>
                     <GuestsInputBox 
-                    handleDecreaseGuests={handleDecreaseGuests} 
                     setGuests={setGuests}
                     guests={guests}
+                    setDateError={setDateError}
                     />
                     <span>
                     <Fab type="submit" size="small" color="secondary" aria-label="edit">

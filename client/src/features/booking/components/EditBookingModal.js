@@ -8,16 +8,20 @@ import GuestsInputBox from "../../listing/components/GuestsInputBox"
 import dayjs from "dayjs";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import ErrorMessage from "../../common/ErrorMessage";
+import { ErrorMessage } from "../../../styles/Styles";
 import { CenterDiv } from "../../../styles/Styles";
+
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
-  const [bookingError, setBookingError] = useState(null)
+  const [bookingError, setBookingError] = useState()
 
   const [initialCheckinDate, setInitialCheckinDate] = useState(dayjs(booking.start_date)) 
   const [initialCheckoutDate, setInitialCheckoutDate] = useState(dayjs(booking.end_date))
   const [guests, setGuests] = useState(booking.number_of_guests)
+
+  const [guestsError, setGuestsError] = useState(null)
+  const [dateError, setDateError] = useState(null)
 
   const handleClose = () => {
     if (bookingError) {
@@ -41,7 +45,6 @@ function EditBookingModal({ booking, show, setShow, listing }) {
     .unwrap()
     .then(() => setShow(false))
     .catch((err) => setBookingError(err))
-
   }
 
   const handleErrors = (errors) => {
@@ -67,20 +70,42 @@ function EditBookingModal({ booking, show, setShow, listing }) {
       </Modal.Header>
       <form onSubmit={handleSubmit}>
       <Modal.Body>
-              <DateCalendars
-              setCheckinDate={setInitialCheckinDate}
-              setCheckoutDate={setInitialCheckoutDate}
-              listing={listing}
-              checkinDate={initialCheckinDate}
-              checkoutDate={initialCheckoutDate}
-              />
-              <CenterDiv style={{marginTop: "10px"}}>
-              <GuestsInputBox 
-              setGuests={setGuests}
-              guests={guests}
-              max_guests={listing.max_guests_allowed}
-              />
+              <div>
+                <CenterDiv>
+                  {dateError && 
+                    <ErrorMessage>
+                    {dateError}
+                    </ErrorMessage>
+                  }   
+                </CenterDiv>
+                <CenterDiv>
+                <DateCalendars
+                setCheckinDate={setInitialCheckinDate}
+                setCheckoutDate={setInitialCheckoutDate}
+                listing={listing}
+                checkinDate={initialCheckinDate}
+                checkoutDate={initialCheckoutDate}
+                setDateError={setDateError}
+                />
+                </CenterDiv>
+                <div style={{marginTop: "10px"}}>
+                <CenterDiv>
+                    {guestsError && 
+                    <ErrorMessage>
+                    {guestsError}
+                    </ErrorMessage>
+                    }  
+                </CenterDiv>
+              </div>
+              <CenterDiv>
+                <GuestsInputBox 
+                setGuests={setGuests}
+                guests={guests}
+                max_guests={listing.max_guests_allowed}
+                setGuestsError={setGuestsError}
+                />
               </CenterDiv>
+              </div>
               {bookingError && handleErrors(bookingError)}
       </Modal.Body>
       <Modal.Footer>

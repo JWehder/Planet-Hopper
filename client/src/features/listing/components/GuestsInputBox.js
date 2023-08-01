@@ -12,6 +12,11 @@ function GuestsInputBox({ setGuestsError, setGuests, guests, max_guests }) {
     const idGuests = openGuests ? 'simple-popover' : undefined;
 
     const handleDecreaseGuests = () => {
+        if (guests <= max_guests) {
+            setGuestsError(null)
+        }
+
+
         if (guests === 1) {
             setGuests(1)
         } else {
@@ -20,7 +25,9 @@ function GuestsInputBox({ setGuestsError, setGuests, guests, max_guests }) {
     }
 
     const handleIncreaseGuests = () => {
-        if ((guests + 1) <= max_guests) {
+        if (!max_guests) {
+            setGuests(guests + 1)
+        } else if ((guests + 1) <= max_guests) {
             setGuests(guests + 1)
         } else {
             setGuestsError(`You may not have more than ${max_guests} guests`)
@@ -35,10 +42,10 @@ function GuestsInputBox({ setGuestsError, setGuests, guests, max_guests }) {
     const anchorPosition = searchInputBoxRect ? { top: searchInputBoxRect.bottom, left: searchInputBoxRect.right - 35 } : undefined;
 
     useEffect(() => {
-        if (guests <= max_guests) {
+        if (setGuestsError && guests <= max_guests) {
           setGuestsError(null)
         }
-      }, [guests, max_guests])
+    }, [])
 
     return (
         <span style={{marginRight: "10px"}}>
