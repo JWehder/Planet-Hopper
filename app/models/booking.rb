@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
     validate :greater_than_start_date
     validate :start_date_type?
     validate :end_date_type?
+    validate :dates_taken?
 
     validates :user_id, presence: true
     validates :listing_id, presence: true
@@ -53,6 +54,15 @@ class Booking < ApplicationRecord
     end
 
     private
+
+    def dates_taken?
+        date_range = self.start_date...self.end_date
+        listing = Listing.find(self.listing_id)
+        if listing.booked_dates.where(date: date_range).exists?
+            errors.add(:start_date, "date range includes booked dates")
+            errors.add(:end_date, "date range includes booked dates")
+        end
+    end
 
     def start_date_type?
         if !self.start_date.is_a?(Date)
