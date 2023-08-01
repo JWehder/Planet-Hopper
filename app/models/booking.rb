@@ -59,8 +59,7 @@ class Booking < ApplicationRecord
         date_range = self.start_date...self.end_date
         listing = Listing.find(self.listing_id)
         if listing.booked_dates.where(date: date_range).exists?
-            errors.add(:start_date, "date range includes booked dates")
-            errors.add(:end_date, "date range includes booked dates")
+            errors.add(:booking, "the date range you chose includes booked dates. Please edit your booking.")
         end
     end
 

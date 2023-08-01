@@ -2,8 +2,6 @@ import React from "react";
 import isSameDay from "date-fns/isSameDay";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useDispatch } from "react-redux";
-import { setDateError } from "../booking/state/bookingsSlice";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
@@ -24,8 +22,7 @@ export const checkDatesInvalidity = (d1, d2) => {
     return datesObj.date2 && (isSameDay(datesObj.date1, datesObj.date2) || datesObj.date1 > datesObj.date2)
 }
 
-function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, checkinDate, checkoutDate, listing }) {
-    const dispatch = useDispatch()
+function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, checkinDate, checkoutDate, listing, setDateError }) {
 
     const shouldDisableDate = (date) => {
         const currentDate = new Date(date)
@@ -46,16 +43,16 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
         const checkout = dayjs(newValue).add(1, 'day')
 
         if (shouldDisableDate(newValue)) {
-            dispatch(setDateError("Please enter a date that has not been taken."))
+            setDateError("Please enter a date that has not been taken.")
             return
         }
 
         if (checkDatesInvalidity(newValue, checkout)) {
-            dispatch(setDateError("Please enter a check in date that comes before the check out date"))
+            setDateError("Please enter a check in date that comes before the check out date")
             return
         }
             
-        dispatch(setDateError(null))
+        setDateError(null)
 
         setCheckinDate(dayjs(newValue))
         setCheckoutDate(checkout)
@@ -67,11 +64,11 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
     const handleCheckoutDateChange = (newValue) => {
 
         if (checkDatesInvalidity(checkinDate, newValue)){
-            dispatch(setDateError("Please enter a check in date that comes before the check out date"))
+            setDateError("Please enter a check in date that comes before the check out date")
             return
         }
         else {
-            dispatch(setDateError(null))
+            setDateError(null)
         }
 
         setCheckoutDate(dayjs(newValue))

@@ -1,14 +1,11 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { SearchInputBox } from "./SearchBarButtonGroup";
 import Popover from '@mui/material/Popover';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { useDispatch } from "react-redux";
-import { setGuestsError } from "../../booking/state/bookingsSlice";
 
-function GuestsInputBox({ setGuests, guests, max_guests }) {
+function GuestsInputBox({ setGuestsError, setGuests, guests, max_guests }) {
     const searchInputBoxRef = useRef(null)
-    const dispatch = useDispatch()
 
     const [anchorGuests, setAnchorGuests] = useState(null)
     const openGuests = Boolean(anchorGuests);
@@ -23,12 +20,10 @@ function GuestsInputBox({ setGuests, guests, max_guests }) {
     }
 
     const handleIncreaseGuests = () => {
-        console.log(max_guests)
-        if ((guests + 1) > max_guests) {
-            dispatch(setGuestsError(`You may not have more than ${max_guests} guests`))
-            return
-        } else {
+        if ((guests + 1) <= max_guests) {
             setGuests(guests + 1)
+        } else {
+            setGuestsError(`You may not have more than ${max_guests} guests`)
         }
     }
 
@@ -38,6 +33,12 @@ function GuestsInputBox({ setGuests, guests, max_guests }) {
 
     const searchInputBoxRect = searchInputBoxRef.current?.getBoundingClientRect();
     const anchorPosition = searchInputBoxRect ? { top: searchInputBoxRect.bottom, left: searchInputBoxRect.right - 35 } : undefined;
+
+    useEffect(() => {
+        if (guests <= max_guests) {
+          setGuestsError(null)
+        }
+      }, [guests, max_guests])
 
     return (
         <span style={{marginRight: "10px"}}>

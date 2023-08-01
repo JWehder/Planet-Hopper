@@ -13,7 +13,7 @@ import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
 import { setLoginModal } from "../../auth/state/authSlice";
 import IconButton from "@mui/material/IconButton";
 import SuccessMessagePage from "../components/SuccessMessagePage"
-
+import { displayErrors } from "../../../utils/helpers";
 
 
 function ListItem ({ item, action }) {
@@ -48,6 +48,8 @@ function BookPage(props) {
     const [showGuestsModal, setShowGuestsModal] = useState(false)
     const [bookingErrors, setBookingErrors] = useState(null)
     const [successMessage, setSuccessMessage] = useState(false)
+    const [errors, setErrors] = useState(null)
+    const [guestsError, setGuestsError] = useState(null)
 
     const currentListing = useSelector((state) => state.listings.currentListing)
     const user = useSelector((state) => state.auth.user)
@@ -81,7 +83,7 @@ function BookPage(props) {
         dispatch(createBooking(bookingObj))
         .unwrap()
         .then(() => setSuccessMessage(true))
-        .catch((err) => console.log(err))
+        .catch((err) => setErrors(err))
     }
 
     if (!booking) {
@@ -117,6 +119,7 @@ function BookPage(props) {
             <Container>
                 <LeftContainer>
                     <BookingInfoContainer>
+                        {errors && errors.booking && displayErrors(errors.booking)}
                         <ListItem item={`Dates: ${startDate} to ${endDate}`} action={<Button color="secondary" onClick={handleDateShow} variant="text">Edit</Button>} />
                         <DateRangeModal 
                         booking={booking} 
@@ -124,6 +127,7 @@ function BookPage(props) {
                         show={showDatesModal} 
                         setShow={setShowDatesModal} 
                         />
+                        {errors && errors.guests && displayErrors(errors.guests)}
                         <ListItem item={`Guests: ${booking.number_of_guests}`} action={<Button onClick={handleGuestsShow} color="secondary" variant="text">Edit</Button>} />
                         <EditGuestsModal
                         booking={booking}

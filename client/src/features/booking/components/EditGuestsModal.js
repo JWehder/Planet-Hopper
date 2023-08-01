@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import GuestsInputBox from "../../listing/components/GuestsInputBox";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrentGuests } from "../state/bookingsSlice";
@@ -9,16 +9,17 @@ import Button from '@mui/material/Button';
 function EditGuestsModal({ show, setShow }) {
     const dispatch = useDispatch()
 
+    const [guestsError, setGuestsError] = useState(null)
+
     const guests = useSelector((state) => state.bookings.currentBooking.number_of_guests)
     const max_guests = useSelector((state) => state.listings.currentListing.max_guests_allowed)
-    const guestsError = useSelector((state) => state.bookings.guestsError)
 
     const setGuests = (numGuests) => {
         dispatch(changeCurrentGuests(numGuests))
     }
 
     const handleClose = () => {
-        if (guests > max_guests) {
+        if (guestsError) {
             return
         }
 
@@ -31,22 +32,25 @@ function EditGuestsModal({ show, setShow }) {
         onHide={handleClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id="contained-modal-title-center">
             Edit the Number of Guests
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
                 <CenterDiv>
+                  {guestsError && 
+                  <ErrorMessage>
+                  {guestsError}
+                  </ErrorMessage>
+                  }  
+                </CenterDiv>
+                <CenterDiv>
                 <GuestsInputBox
                 setGuests={setGuests}
                 guests={guests}
                 max_guests={max_guests}
-                />
-                {guestsError && 
-                <ErrorMessage>
-                {guestsError}
-                </ErrorMessage>
-                }   
+                setGuestsError={setGuestsError}
+                /> 
                 </CenterDiv>
         </Modal.Body>
         <Modal.Footer>

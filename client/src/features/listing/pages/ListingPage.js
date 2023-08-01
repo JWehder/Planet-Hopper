@@ -9,7 +9,7 @@ import styled from "styled-components"
 import GuestsInputBox from "../components/GuestsInputBox";
 import Button from '@mui/material/Button';
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
-import { setCurrentBooking, setDateError } from "../../booking/state/bookingsSlice";
+import { setCurrentBooking } from "../../booking/state/bookingsSlice";
 import DateCalendars from "../../common/DateCalendars";
 import { checkDatesInvalidity } from "../../common/DateCalendars";
 import { ErrorMessage } from "../../../styles/Styles";
@@ -23,20 +23,20 @@ function ListingPage({ history }) {
     const dispatch = useDispatch()
 
     const listing = useSelector((state) => state.listings.currentListing)
-    const guestsError = useSelector((state) => state.bookings.guestsError)
-    const dateError = useSelector((state) => state.bookings.dateError)
 
     const [checkinDate, setCheckinDate] = useState(null)
     const [checkoutDate, setCheckoutDate] = useState(null)
     const [nights, setNights] = useState(1)
     const [guests, setGuests] = useState(1)
     const [distance, setDistance] = useState()
+    const [guestsError, setGuestsError] = useState(null)
+    const [dateError, setDateError] = useState(null)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (checkDatesInvalidity(checkinDate, checkoutDate)) {
-            dispatch(setDateError("Please enter valid dates."))
+            setDateError("Please enter valid dates.")
             return
         }
 
@@ -48,7 +48,7 @@ function ListingPage({ history }) {
             numberOfNights: nights
         }
 
-        dispatch(setDateError(null))
+        setDateError(null)
 
         history.push(`/book/${listing.name}/${listing.id}`)
         dispatch(setCurrentBooking(bookingObj))
@@ -166,6 +166,13 @@ function ListingPage({ history }) {
                             <h4 style={{marginBottom:"0px"}}>Book Now</h4>
                         </CenterDiv>
                         <hr />
+                        <CenterDiv>
+                        {dateError && 
+                        <ErrorMessage>
+                        {dateError}
+                        </ErrorMessage>
+                        }
+                        </CenterDiv>
                         <DateCalendars
                         setCheckinDate={setCheckinDate}
                         setCheckoutDate={setCheckoutDate}
@@ -179,28 +186,28 @@ function ListingPage({ history }) {
                             marginTop: "5px"
                         }}
                         >
-                        <CenterDiv style={{margin: "10px"}}>
-                        <GuestsInputBox                     
-                        max_guests={listing.max_guests_allowed}
-                        setGuests={setGuests}
-                        guests={guests}
-                        />
+                        <CenterDiv>
                         {guestsError && 
                         <ErrorMessage>
                         {guestsError}
                         </ErrorMessage>
                         }
                         </CenterDiv>
+                        <CenterDiv style={{margin: "10px"}}>
+                        <GuestsInputBox                     
+                        max_guests={listing.max_guests_allowed}
+                        setGuests={setGuests}
+                        guests={guests}
+                        setGuestsError={setGuestsError}
+                        />
+                        </CenterDiv>
+ 
+                        
                         </div>
                         <div style={{textAlign: "center"}}>
                         {nights <= 0 ? "" : `
                         ${nights} night(s) X $${listing.unit_price} = $${nights * listing.unit_price} total`}
                         </div>
-                        {dateError && 
-                        <ErrorMessage>
-                        {dateError}
-                        </ErrorMessage>
-                        }
                         <hr />
                         <CenterDiv>
                             <Button 
