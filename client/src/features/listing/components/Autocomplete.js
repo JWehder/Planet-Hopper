@@ -32,6 +32,8 @@ const CustomTextField = ({ setSearchAddress, searchAddress }) => {
   )
 }
 
+const libraries = ["places"];
+
 const Autocomplete = ({ setSearchAddress, searchAddress }) => {
   const googleMapsApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -62,7 +64,7 @@ const Autocomplete = ({ setSearchAddress, searchAddress }) => {
 
   return (
       <>
-        <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={["places"]}>
+        <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries}>
         <StandaloneSearchBox
           onLoad={(ref) => (searchBoxRef.current = ref)}
           onPlacesChanged={handlePlaceChanged}

@@ -38,10 +38,11 @@ function SearchBarButtonGroup() {
     })
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs(dayjs().add(1, 'day')));
+    const [guests, setGuests] = useState(1)
+    
     const [anchorEnd, setAnchorEnd] = useState(null);
     const [anchorStart, setAnchorStart] = useState(null)
-    
-    const [guests, setGuests] = useState(1)
+
 
     const handleSearchButtonClick = () =>  setClicked(!clicked)
     const showTextField = () => setDestinationClicked(true)
@@ -80,6 +81,18 @@ function SearchBarButtonGroup() {
 
     const dateErrorAnchorPosition = startDateInputRect ? { top: startDateInputRect.top + 12, left: startDateInputRect.right - 55 } : undefined
 
+    function resetStateVariables() {
+        // once a search is complete, reset the state variables so future searches are not using past data on accident
+        setSearchAddress({
+            address: "",
+            latitude: "",
+            longitude: ""
+        })
+        setStartDate(dayjs())
+        setEndDate(dayjs(dayjs().add(1, 'day')))
+        setGuests(1)
+    }
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -95,7 +108,7 @@ function SearchBarButtonGroup() {
             guests: guests
         }
 
-        // if the user's allowing my site to access their location, I will add the users_latitude to show the user how close they are to the listing
+        // if the user's allowing my site to access their location, I will add the users_latitude to show the user how close they are to each listing in the listing card
 
         const query = coordinates ?
         { ...searchEntry, users_latitude: coordinates.users_latitude, users_longitude: coordinates.users_longitude }
@@ -104,6 +117,7 @@ function SearchBarButtonGroup() {
 
         dispatch(searchListings(query))
         .unwrap()
+        .then(() => resetStateVariables())
         .catch((err) => setErrors(err))
     }
 

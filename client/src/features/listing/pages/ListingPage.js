@@ -99,7 +99,7 @@ function ListingPage({ history }) {
                     fontSize: "13px"
                 }}
             >
-                     {listing.city}, {listing.state_province === "" ? "" : listing.state_province}, {listing.country}{distance}
+                     {listing.city}{listing.state_province === "" ? "" :`, ${listing.state_province}`}, {listing.country}{distance}
                 </p>
             </TitleContainer>
             <div>

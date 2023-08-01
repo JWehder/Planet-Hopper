@@ -2,6 +2,8 @@ import React, { useMemo, useState, useCallback } from 'react'
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { LoadScript } from '@react-google-maps/api';
 
+const libraries = ["places"]
+
 function Map({ center, listings, zoom }) {
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
@@ -36,7 +38,7 @@ function Map({ center, listings, zoom }) {
     
     return (
         <div>
-                <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={["places"]}>
+                <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={libraries}>
                 <GoogleMap
                 mapContainerStyle={{
                     width: '500px',

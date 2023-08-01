@@ -3,7 +3,7 @@ import GuestsInputBox from "../../listing/components/GuestsInputBox";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrentGuests } from "../state/bookingsSlice";
 import { Modal } from "react-bootstrap";
-import { ErrorMessage } from "../../../styles/Styles";
+import { CenterDiv, ErrorMessage } from "../../../styles/Styles";
 import Button from '@mui/material/Button';
 
 function EditGuestsModal({ show, setShow }) {
@@ -36,6 +36,7 @@ function EditGuestsModal({ show, setShow }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+                <CenterDiv>
                 <GuestsInputBox
                 setGuests={setGuests}
                 guests={guests}
@@ -46,6 +47,7 @@ function EditGuestsModal({ show, setShow }) {
                 {guestsError}
                 </ErrorMessage>
                 }   
+                </CenterDiv>
         </Modal.Body>
         <Modal.Footer>
           <Button color="secondary" variant="text" onClick={handleClose}>Close</Button>
