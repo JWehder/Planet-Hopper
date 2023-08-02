@@ -50,7 +50,10 @@ function ProfilePage() {
         e.preventDefault()
         dispatch(updateUser(userObject))
         .unwrap()
-        .then(() => setSavedChanges(true))
+        .then((userObj) => {
+            setSavedChanges(true)
+            console.log(userObj)
+        })
         .catch((err) => setError(err))
     }
 

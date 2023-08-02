@@ -6,7 +6,6 @@ import axios from "axios";
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
-    console.log(locationObj)
     return fetchWrapper.post("/listings/suggested_listings", locationObj, thunkAPI)
 });
 
