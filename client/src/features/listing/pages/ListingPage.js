@@ -84,6 +84,8 @@ function ListingPage({ history }) {
         setDistance(` - ${Math.floor(data.distance_from_user)}mi away`)
     }
 
+    console.log(listing)
+
     return (
         <div>
         <div style={{
@@ -99,7 +101,7 @@ function ListingPage({ history }) {
                     fontSize: "13px"
                 }}
             >
-                     {listing.city}{listing.state_province === "" ? "" :`, ${listing.state_province}`}, {listing.country}{distance}
+                     {listing.city}{listing.state_province ? `, ${listing.state_province}` : ""}, {listing.country}{distance}
                 </p>
             </TitleContainer>
             <div>

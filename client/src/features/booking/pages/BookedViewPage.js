@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Container from '@mui/system/Container';
 import Stack from '@mui/system/Stack';
 import { FullPageContainer, StyledBox } from "../../../styles/Styles";
@@ -23,35 +23,56 @@ function BookedViewPage() {
     const usersListings = useSelector((state) => state.listings.usersListings)
     const user = useSelector((state) => state.auth.user)
 
-    useEffect(() => {
-        dispatch(getUsersListings())
-    }, [])
+    const [usersBookings, setUsersBookings] = useState(determineUsersBookings())
 
-    if (!usersListings) return <LoadingPage />
+    useEffect(() => {
+        if (!usersListings) {
+            dispatch(getUsersListings())
+        }
+
+    }, [dispatch, user, usersListings])
+
+    useEffect(() => {
+        setUsersBookings(determineUsersBookings())
+    }, [usersListings])
+
+    if (!usersListings || !usersBookings) return <LoadingPage />
 
     if (usersListings.length < 1) {
         return <NoBookings />
     }
 
-    const usersBookings = usersListings.reduce((accumulator, listing) => {
-        const filteredBookings = listing.bookings.filter((booking) => {
-            return booking.user_id === user.id;
-        });
-    
-        if (filteredBookings.length > 0) {
-        const bookingsWithListing = filteredBookings.map((booking) => {
-            return {
-            ...booking,
-            listing: listing,
-            };
-        });
-    
-        return accumulator.concat(bookingsWithListing);
+    function determineUsersBookings() {
+        if (!user || !usersListings) {
+            return []
         }
-       
-    
-        return accumulator;
-    }, []);
+
+        const usersBookings = usersListings.reduce((accumulator, listing) => {
+            const filteredBookings = listing.bookings.filter((booking) => {
+                return booking.user_id === user.id;
+            });
+        
+            if (filteredBookings.length > 0) {
+            const bookingsWithListing = filteredBookings.map((booking) => {
+                return {
+                ...booking,
+                listing: listing,
+                };
+            });
+        
+            return accumulator.concat(bookingsWithListing);
+            }
+           
+        
+            return accumulator;
+        }, []);
+        
+        let today = new Date();
+
+        return usersBookings.sort((a, b) => {
+            return Math.abs(today - new Date(a.start_date)) - Math.abs(today - new Date(b.start_date));
+        });
+    }
 
     return (
         <>

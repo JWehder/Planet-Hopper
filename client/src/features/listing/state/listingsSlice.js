@@ -5,6 +5,12 @@ import axios from "axios";
 
 // posts the user's location to my backend. uses that data to find listings nearby the user
 
+// once I receive the booking back from the backend, I need to re stringify all of the booked dates. 
+
+// create a method that stringifys the entirety of dates sent to it
+
+// 
+
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
     return fetchWrapper.post("/listings/suggested_listings", locationObj, thunkAPI)
 });
@@ -60,6 +66,18 @@ export const searchListings = createAsyncThunk("/listings/searchListings", async
     return fetchWrapper.post("/listings/search", query, thunkAPI)
 })
 
+function stringifyBookedDates(listing, keyword="fetch", user_id) {
+    return listing.bookings.reduce((accumulator, booking) => {
+        if (keyword === "user" && booking.user_id === user_id) {
+            return accumulator;
+        }
+
+        return accumulator.concat(booking.stringified_dates.map((booked_date) => {
+          return dayjs(booked_date).toDate();
+        }));
+    }, []);
+}
+
 
 const initialState = {
     entities: null,
@@ -68,7 +86,6 @@ const initialState = {
     status: "idle",
     currentListing: null,
     usersCoordinates: null,
-    booked: false,
     bookingError: null, 
     usersListings: null
 }
@@ -119,12 +136,12 @@ const listingsSlice = createSlice({
         },
         [getListing.fulfilled]: (state, action) => {
             state.currentListing = action.payload
-            state.currentListing.booked_dates = state.currentListing.bookings.reduce((accumulator, booking) => {
-                return accumulator.concat(booking.stringified_dates.map((booked_date) => {
-                  return dayjs(booked_date).toDate();
-                }));
-            }, []);
-            console.log(state.currentListing)
+            state.currentListing.booked_dates = stringifyBookedDates(state.currentListing)
+            // state.currentListing.bookings.reduce((accumulator, booking) => {
+            //     return accumulator.concat(booking.stringified_dates.map((booked_date) => {
+            //       return dayjs(booked_date).toDate();
+            //     }));
+            // }, []);
             state.status = "idle";
         },
         [getListing.rejected]: (state, action) => {
@@ -134,13 +151,25 @@ const listingsSlice = createSlice({
             state.status = "loading";
         },
         [createBooking.fulfilled]: (state, action) => {
-            state.currentListing.bookings.push(action.payload)
-            state.status = "idle"
-            state.booked = true
+            state.currentListing.bookings = [...state.currentListing.bookings, action.payload];
+            state.currentListing.booked_dates = stringifyBookedDates(state.currentListing);
+
+            if (state.usersListings) {
+                let listing = state.usersListings.find((lis) => lis.id === action.payload.listing_id);
+                if (!listing) {
+                    console.log("listing not here")
+                    listing = state.currentListing;
+                } else {
+                    listing.bookings = [...listing.bookings, action.payload];
+                    listing.booked_dates = stringifyBookedDates(listing, "user", action.payload.user_id);
+                }
+            
+                state.usersListings = state.usersListings.map((lis) => lis.id === listing.id ? listing : lis);
+            }
+        
+            state.status = "idle";
         },
         [createBooking.rejected]: (state, action) => {
-            console.log("rejected!")
-            console.log(action.payload)
             state.bookingError = action.payload
         },
         [getUsersListings.pending]: (state) => {
@@ -150,16 +179,19 @@ const listingsSlice = createSlice({
             state.usersListings = action.payload.data
             state.bookingError = null
             state.usersListings.forEach((listing) => {
-                listing.booked_dates = listing.bookings.reduce((accumulator, booking) => {
-                    if (booking.user_id === action.payload.userId) {
-                        return accumulator;
-                    }
-                    return accumulator.concat(
-                        booking.stringified_dates.map((booked_date) => {
-                      return dayjs(booked_date).toDate();
-                    }));
-                }, []);
+                listing.booked_dates = stringifyBookedDates(listing, "user", action.payload.userId)
             })
+
+            // listing.bookings.reduce((accumulator, booking) => {
+            //     if (booking.user_id === action.payload.userId) {
+            //         return accumulator;
+            //     }
+            //     return accumulator.concat(
+            //         booking.stringified_dates.map((booked_date) => {
+            //       return dayjs(booked_date).toDate();
+            //     }));
+            // }, []);
+            
             state.status = "idle";
         },
         [getUsersListings.rejected]: (state, action) => {
@@ -172,10 +204,8 @@ const listingsSlice = createSlice({
             state.bookingError = null
             const bookingId = action.payload
             state.usersListings = state.usersListings.map((listing) => {
-                const bookingIndex = listing.bookings.findIndex((booking) => booking.id === bookingId)
-                if (bookingIndex > -1) {
-                    listing.bookings.splice(bookingIndex, 1);
-                }
+                listing.bookings = listing.bookings.filter((booking) => booking.id !== bookingId)
+
                 return listing
             })
             state.status = "idle"
@@ -189,10 +219,27 @@ const listingsSlice = createSlice({
         [updateBooking.fulfilled]: (state, action) => {
             state.bookingError = null
             const bookingId = action.payload.bookingId
+            const listingId = action.payload.data.listing_id
+
+            console.log(action.payload.data)
+            
             state.usersListings = state.usersListings.map((listing) => {
-                const filteredBookings = listing.bookings.filter((b) => b.id !== bookingId)
-                return {...listing, bookings: [...filteredBookings, action.payload.data]}
+                if (listing.id === listingId) {
+                    listing.bookings = listing.bookings.map((booking) => {
+                        if (booking.id === bookingId) {
+                            return action.payload.data
+                        }
+                        return booking
+                    })
+                }
+
+                return listing
             })
+
+            state.usersListings.forEach((listing) => {
+                listing.booked_dates = stringifyBookedDates(listing, "user", action.payload.data.user_id)
+            })
+            
         },
         [updateBooking.rejected]: (state, action) => {
             console.log("rejected!")

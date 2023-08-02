@@ -36,17 +36,8 @@ class BookingsController < ApplicationController
         booking = find_booking(user) 
       
         if booking
-          # booking_date_range = booking.start_date...booking.end_date
-          # params_date_range = booking_params[:start_date]...booking_params[:end_date]
-
-          # if booking_params[:start_date] < booking_params[:end_date]
-
           booking.update!(booking_params)
           render json: booking, status: :ok
-
-          # else
-          #   render json: {error: "booking start date must be before end date" }, status: :unprocessable_entity
-          # end
         else
           render_unauthorized_user_response("booking")
         end

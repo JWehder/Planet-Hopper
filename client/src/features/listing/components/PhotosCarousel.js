@@ -9,8 +9,8 @@ function PhotosCarousel({ photos }) {
 
     return (
         <Carousel autoPlay= {false} interval={null} activeIndex={index} onSelect={handleSelect}>
-          {photos.map((photo) => (
-          <Carousel.Item>
+          {photos.map((photo, index) => (
+          <Carousel.Item key={`${photo} - ${index}`}>
             <PanelImage
               className="d-block w-100"
               src={photo}

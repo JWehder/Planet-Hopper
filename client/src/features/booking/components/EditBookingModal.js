@@ -23,12 +23,26 @@ function EditBookingModal({ booking, show, setShow, listing }) {
   const [guestsError, setGuestsError] = useState(null)
   const [dateError, setDateError] = useState(null)
 
-  const handleClose = () => {
-    if (bookingError) {
-        return
-    }
+  function resetErrors() {
+    setDateError(null)
+    setGuestsError(null)
+    setBookingError(null)
+  }
 
+  function resetStateVariables() {
+    setInitialCheckinDate(dayjs(booking.start_date))
+    setInitialCheckoutDate(dayjs(booking.end_date))
+    setGuests(booking.number_of_guests)
+  } 
+
+  function resetForm() {
+    resetStateVariables()
+    resetErrors()
+  }
+
+  const handleClose = () => {
     setShow(false)
+    resetForm()
   }
 
   const handleSubmit = (e) => {
@@ -43,14 +57,21 @@ function EditBookingModal({ booking, show, setShow, listing }) {
 
     dispatch(updateBooking(bookingObj))
     .unwrap()
-    .then(() => setShow(false))
-    .catch((err) => console.log(err))
+    .then((data) => {
+      console.log(data)
+      setShow(false)
+    })
+    .catch((err) => setBookingError(err.data))
   }
 
   const handleErrors = (errors) => {
+    let errorMessages = []
     for (let error in errors) {
-      return <ErrorMessage error={errors[error]} />
+      errors[error].forEach((errorMessage, index) => {
+        errorMessages.push(<CenterDiv><ErrorMessage key={`${error}-${index}`}>{errorMessage}</ErrorMessage></CenterDiv>)
+      });
     }
+    return errorMessages
   }
 
   const handleDelete = () => {

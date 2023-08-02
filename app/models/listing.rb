@@ -34,7 +34,7 @@ class Listing < ApplicationRecord
         else
             listings = Listing.search_listings_by_coords(coords, listing_params)
         end
-
+        
         listings
     end
 

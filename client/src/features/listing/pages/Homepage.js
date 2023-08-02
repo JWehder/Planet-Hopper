@@ -46,9 +46,12 @@ function HomePage() {
                     <p style={{fontSize: '10px', marginBottom: '2px'}}>Blast Off!</p>
                 </IconContainer>
                 </ div>
-                {homepageListings.map((listing) => {
+                {homepageListings.map((listing, index) => {
                     return (
-                            <ListingCard listing={listing} />
+                            <ListingCard 
+                            key={`${listing.name} - ${listing.index}`} 
+                            listing={listing} 
+                            />
                             )
                 })}
             </div>

@@ -55,6 +55,7 @@ function BookPage(props) {
     const user = useSelector((state) => state.auth.user)
     const booking = useSelector((state) => state.bookings.currentBooking)
 
+
     const unitTotal = () => {
         return currentListing.unit_price * booking.numberOfNights
     }
@@ -70,8 +71,6 @@ function BookPage(props) {
     const handleBookingSubmit = (e) => {
         e.preventDefault()
 
-        console.log(booking.startDate, booking.endDate)
-
         const bookingObj = {
             start_date: dayjs(booking.startDate).format("YYYY-MM-DD"),
             end_date: dayjs(booking.endDate).format("YYYY-MM-DD"),
@@ -82,7 +81,9 @@ function BookPage(props) {
 
         dispatch(createBooking(bookingObj))
         .unwrap()
-        .then(() => setSuccessMessage(true))
+        .then(() => {
+            setSuccessMessage(true)
+        })
         .catch((err) => setErrors(err))
     }
 

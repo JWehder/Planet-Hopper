@@ -29,10 +29,26 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
         return listing.booked_dates.some((booked_date) => isSameDay(booked_date, currentDate));
     }
 
+    const disableStartDates = (date) => {
+        const currentDate = dayjs(date).format("YYYY-MM-DD")
+        const findStartDate = listing.bookings.find((booking) => booking.start_date === currentDate)
+        const findEndDate = listing.bookings.find((booking) => booking.end_date === currentDate)
+        if (findStartDate && findEndDate) {
+            return shouldDisableDate(date)
+        } else if (findEndDate) {
+            return false
+        }
+
+        return shouldDisableDate(date)
+    }
+
     const disableEndDates = (date) => {
         const currentDate = dayjs(date).format("YYYY-MM-DD")
-        const findDate = listing.bookings.find((booking) => booking.start_date === currentDate)
-        if (findDate) {
+        const findStartDate = listing.bookings.find((booking) => booking.start_date === currentDate)
+        const findEndDate = listing.bookings.find((booking) => booking.end_date === currentDate)
+        if (findStartDate && findEndDate) {
+            return shouldDisableDate(date)
+        } else if (findStartDate) {
             return false
         }
 
@@ -97,7 +113,7 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
         value={checkinDate}
         onChange={handleCheckinDateChange}
         showDaysOutsideCurrentMonth
-        shouldDisableDate={shouldDisableDate}
+        shouldDisableDate={disableStartDates}
         disablePast
         />
         <DatePicker
