@@ -14,7 +14,7 @@ import { CenterDiv } from "../../../styles/Styles";
 
 function EditBookingModal({ booking, show, setShow, listing }) {
   const dispatch = useDispatch()
-  const [bookingError, setBookingError] = useState()
+  const [bookingError, setBookingError] = useState(null)
 
   const [initialCheckinDate, setInitialCheckinDate] = useState(dayjs(booking.start_date)) 
   const [initialCheckoutDate, setInitialCheckoutDate] = useState(dayjs(booking.end_date))
@@ -44,7 +44,7 @@ function EditBookingModal({ booking, show, setShow, listing }) {
     dispatch(updateBooking(bookingObj))
     .unwrap()
     .then(() => setShow(false))
-    .catch((err) => setBookingError(err))
+    .catch((err) => console.log(err))
   }
 
   const handleErrors = (errors) => {

@@ -51,7 +51,6 @@ class Listing < ApplicationRecord
         end
 
         listings
-
     end
 
     def self.search_listings_by_coords(coords, listing_params)
