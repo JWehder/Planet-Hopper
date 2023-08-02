@@ -107,6 +107,7 @@ function EditBookingModal({ booking, show, setShow, listing }) {
                 checkinDate={initialCheckinDate}
                 checkoutDate={initialCheckoutDate}
                 setDateError={setDateError}
+                booking={booking}
                 />
                 </CenterDiv>
                 <div style={{marginTop: "10px"}}>

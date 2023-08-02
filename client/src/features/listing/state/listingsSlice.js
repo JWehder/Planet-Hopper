@@ -68,9 +68,9 @@ export const searchListings = createAsyncThunk("/listings/searchListings", async
 
 function stringifyBookedDates(listing, keyword="fetch", user_id) {
     return listing.bookings.reduce((accumulator, booking) => {
-        if (keyword === "user" && booking.user_id === user_id) {
-            return accumulator;
-        }
+        // if (keyword === "user" && booking.user_id === user_id) {
+        //     return accumulator;
+        // }
 
         return accumulator.concat(booking.stringified_dates.map((booked_date) => {
           return dayjs(booked_date).toDate();
@@ -156,8 +156,7 @@ const listingsSlice = createSlice({
 
             if (state.usersListings) {
                 let listing = state.usersListings.find((lis) => lis.id === action.payload.listing_id);
-                if (!listing) {
-                    console.log("listing not here")
+                if (!listing) { 
                     listing = state.currentListing;
                 } else {
                     listing.bookings = [...listing.bookings, action.payload];

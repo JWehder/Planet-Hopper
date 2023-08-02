@@ -27,7 +27,12 @@ function PropertyContainer({ booking }) {
             texAlign: 'center'
             }}>
             <BookingWrapper>
-                <EditBookingModal booking={booking} listing={booking.listing} show={show} setShow={setShow}  />
+                <EditBookingModal 
+                booking={booking} 
+                listing={booking.listing} 
+                show={show} 
+                setShow={setShow}  
+                />
                 <div style={{ width: '175px' }}>
                     <PhotoGallery photos={booking.listing.photos} />
                 </div>

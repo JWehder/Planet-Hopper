@@ -22,7 +22,9 @@ export const checkDatesInvalidity = (d1, d2) => {
     return datesObj.date2 && (isSameDay(datesObj.date1, datesObj.date2) || datesObj.date1 > datesObj.date2)
 }
 
-function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, checkinDate, checkoutDate, listing, setDateError }) {
+function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, checkinDate, checkoutDate, listing, setDateError, booking }) {
+
+    // if (booking) then don't disable this date
 
     const shouldDisableDate = (date) => {
         const currentDate = new Date(date)
@@ -31,6 +33,11 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
 
     const disableStartDates = (date) => {
         const currentDate = dayjs(date).format("YYYY-MM-DD")
+
+        if (booking && currentDate >= booking.start_date && currentDate < booking.end_date) {
+            return false
+        }
+
         const findStartDate = listing.bookings.find((booking) => booking.start_date === currentDate)
         const findEndDate = listing.bookings.find((booking) => booking.end_date === currentDate)
         if (findStartDate && findEndDate) {
@@ -44,6 +51,11 @@ function DateCalendars({ setCheckoutDate, setNights, nights, setCheckinDate, che
 
     const disableEndDates = (date) => {
         const currentDate = dayjs(date).format("YYYY-MM-DD")
+
+        if (booking && currentDate > booking.start_date && currentDate <= booking.end_date) {
+            return false
+        }
+
         const findStartDate = listing.bookings.find((booking) => booking.start_date === currentDate)
         const findEndDate = listing.bookings.find((booking) => booking.end_date === currentDate)
         if (findStartDate && findEndDate) {
