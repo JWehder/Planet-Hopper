@@ -2,6 +2,11 @@
 
 ## Description
 
+Planet Hopper is a simple Ruby on Rails and ReactJS web application that duplicates many of the features of the popular website Airbnb. The slight distinction is users have the ability to book listings on other planets! 
+
+The frontend javascript is built primarily with ReactJS. I am using Redux for all of the complex state management. For styling, I am using a combination of Material UI, React Bootstrap, CSS, and Styled Components based on the needs for a specific feature. I am using Google Maps APIs for Maps and an Autocomplete search bar.
+
+On the backend I am using Ruby on Rails as my API and mailer. The database that I am using is Postgresql.
 
 ## Requirements
 
@@ -45,96 +50,106 @@ your project. Here's a list of some [awesome readmes][] for inspiration.
 
 ### Google API Keys
 
-My app requires two particular API keys in order to utilize the search autocomplete and maps components. These components both pull from the 
+My app requires two particular API keys in order to utilize the search autocomplete and maps components. These components both pull from the Google Maps API but they are not a necessity to my application. The react code is already set up and all that is required from you is the API key.
 
-## Deploying
+### Step 1: Go to the Google Cloud Console
 
-This application has all the starter code needed to help you deploy your
-application to Render. It's recommended to deploy your project early and push up
-changes often to ensure that your code works equally well in production and
-development environments.
+Visit [Google Cloud Console](https://console.cloud.google.com) and sign in with your Google account.
 
-The instructions in this section assume that you've already set up a Render
-account, created a PostgreSQL instance in your account, and set up your
-environment to deploy to Render. If you have not yet completed these steps, see
-the Environment Setup section below.
+### Step 2: Create a New Project
 
-### Create a Master Key File
+From the project drop-down, select 'New Project', give it a name, and click 'Create'.
 
-In the project files, delete the `config/credentials.yml.enc` file. Then, in the
-terminal, run the following:
+### Step 3: Enable the APIs
 
-```sh
-$ EDITOR="code --wait" bin/rails credentials:edit
+For **Google Maps**, navigate to **'APIs & Services' -> 'Library'**, and search for **'Maps JavaScript API', 'Geocoding API',** and **'Places API'**. Enable them for your project.
+
+For **Google Places**, navigate to **'APIs & Services' -> 'Library'**, and search for **'Places API'**. Enable it for your project.
+
+### Step 4: Get the API key
+
+Navigate to **'APIs & Services' -> 'Credentials'**, and click on **'Create Credentials' -> 'API key'**. Your new API key will appear in a pop-up window.
+
+## Setup Google APIs in your React Application
+
+### Step 1: Create .env File
+
+In the client directory, where the package-json files are, create a new file named **`.env`**. In this file, add your environment variable in the following format: REACT_APP_GOOGLE_API_KEY=your_api_key_here
+
+Remember to replace `your_api_key_here` with your actual API key.
+
+Please remember to add the .env file you just created to the .gitignore file so that no one will have access to your API key if you push your changes to github.
+
+### Step 2: Restart your Development Server
+
+Restart your development server by typing in Control & C simultaneously on your keyboard on the terminal running the server. Then run npm start --prefix client if you are currently not in the client directory. If you are in the client directory, type in npm start.
+
+## Setting up the Mailer Service
+
+### Using ZohoMail
+
+For this particular project, I used ZohoMail as the SMTP server delivering my emails initiated through my application. If you have another SMTP service that you would like to utilize, feel free to use it and hopefully the instructions I share below translate to that service as well. Also, please keep in mind that I am utilizing a free email through their website, so usage is limited.
+
+### Sign in
+
+Visit [Zoho Mail](https://www.zoho.com/mail/) and create an account.
+
+### Connect your Account to the App
+
+Find the config directory within app and create a file called "local_env.yml". Add this particular file to the .gitignore file.
+
+## Setting up a `local_env.yml` file in Rails
+
+Rails allows for the loading of environment-specific variables during application initialization. You can use a `local_env.yml` file for this purpose.
+
+Here's how to set it up:
+
+1. **Create a `local_env.yml` file**
+  In the project files, delete the `config/credentials.yml.enc` file. Then, in the
+  terminal, run the following:
+
+  ```sh
+  $ EDITOR="code --wait" bin/rails credentials:edit
+  ```
+
+  **Note**: if you use a different text editor than VS Code, you will need to replace
+  `code` with the appropriate command.
+
+  The command above will open a file in VS Code and wait for you to close it
+  before completing the process of creating the credential files. Once you've done
+  that, you should see both the `credentials.yml.enc` and `master.key` files in
+  the `config` folder. You will need the value in the `master.key` file to set up
+  the web service in Render.
+
+  Commit your changes and push them to GitHub.
+
+2. **Add your Variables**
+    Open `local_env.yml` file and add your credentials:
+    ```yaml
+    MAIL_USERNAME: 'johndoe@zohomail.com'
+    MAIL_PASSWORD: 'password123'
+    ```
+
+3. **Update `.gitignore`**
+    Make sure to add `config/local_env.yml` to your `.gitignore` file. This step is crucial, as it prevents sensitive data from being exposed in your version control system.
+
+If you look within the config directory then the environments you will see that each look like the following:
+
+```ruby
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => 'smtp.zoho.com',
+    :port                 => 465,
+    :user_name            => ENV['MAIL_USERNAME'],
+    :password             => ENV['MAIL_PASSWORD'],
+    :authentication       => 'plain',
+    :ssl                  => true,
+    :enable_starttls_auto => true  
+  }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 ```
-
-**Note**: if you use a different text editor than VS Code, you will need to replace
-`code` with the appropriate command.
-
-The command above will open a file in VS Code and wait for you to close it
-before completing the process of creating the credential files. Once you've done
-that, you should see both the `credentials.yml.enc` and `master.key` files in
-the `config` folder. You will need the value in the `master.key` file to set up
-the web service in Render.
-
-Commit your changes and push them to GitHub.
-
-### Create the App Database
-
-Render allows users to create [multiple databases within a single PostgreSQL
-instance][multiple dbs] using the PostgreSQL interactive terminal,
-[`psql`][psql].
-
-Navigate to your PostgreSQL instance from the Render dashboard, click the
-"Connect" dropdown, then the External Connection tab, and copy the PSQL command.
-Paste it into your terminal and press enter. This command connects you to the
-remote PostgreSQL instance.
-
-To create the database, run this SQL command:
-
-```sql
-CREATE DATABASE new_db_name;
-```
-
-Now if you run `\l` from the PSQL prompt, you should see a table that includes
-your main PostgreSQL instance as well as the database you just created.
-
-Run the `\q` command to exit PSQL.
-
-[multiple dbs]: https://render.com/docs/databases#multiple-databases-in-a-single-postgresql-instance
-[psql]: https://www.postgresql.org/docs/current/app-psql.html
-
-### Create the Render Web Service
-
-To deploy, click the "New +" button in Render and select "Web Service". You'll
-see a list of all the repositories in your GitHub account. Find the repo you
-want to deploy and click the "Select" button.
-
-In the page that opens, enter a name for your app and make sure the Environment
-is set to Ruby.
-
-Scroll down and set the Build Command to `./bin/render-build.sh` and the Start
-Command to `bundle exec puma -C config/puma.rb`.
-
-Open a separate tab in your browser, navigate to the Render dashboard, and click
-on your PostgreSQL instance. Scroll down to the "Connection" section, find the
-"Internal Database URL", and copy it.
-
-Return to the other tab. Scroll down and click the "Advanced" button, then click
-"Add Environment Variable." Enter `DATABASE_URL` as the key, then paste in the
-URL you just copied. Note that the URL will end with the name you gave your
-PostgreSQL instance when you initially created it; be sure to remove that name
-and replace it with the name of the database you created in the last section.
-
-Click "Add Environment Variable" again. Add `RAILS_MASTER_KEY` as the key, and
-paste the value in the `config/master.key` file you created earlier.
-
-The completed page should look like this:
-
-![Web service settings](https://curriculum-content.s3.amazonaws.com/phase-4/project-template/web-service-settings.png)
-
-Scroll down to the bottom of the page and click "Create Web Service". The deploy
-process will begin automatically.
+The ENV variables are automatically initialized when the application is first initialized.
 
 ## Environment Setup
 
@@ -184,7 +199,6 @@ npm i -g npm
 
 ### Install Postgresql
 
-Render requires that you use PostgreSQL for your database instead of SQLite.
 PostgreSQL (or just Postgres for short) is an advanced database management
 system with more features than SQLite. If you don't already have it installed,
 you'll need to set it up.
@@ -253,31 +267,6 @@ service:
 brew services start postgresql
 ```
 
-### Set Up a Render Account
-
-You can sign up for a free account at
-[https://dashboard.render.com/register][Render signup]. We recommend that you
-sign up using GitHub as that will make it a little easier for you to connect
-Render to your GitHub account. The instructions below assume you've done that.
-
-[Render signup]: https://dashboard.render.com/register
-
-Once you've completed the signup process, you will be taken to the Render
-dashboard. In order to connect Render to your GitHub account, you'll need to
-click the "New Web Service" button in the "Web Services" box. On the next page,
-you will see a GitHub heading on the right side and below that a link labeled
-"Connect account". (If you didn't sign up using GitHub, it will say "Connect
-account" instead.) Click that link, then in the modal that appears click
-"Install." You should then be taken back to the "Create a New Web Service" page,
-which should now show a list of your GitHub repos. We won't actually create a
-web service just yet so you are free to navigate away from the page at this
-point.
-
-Next, we'll set up a PostgreSQL instance. Click the "New +" button at the top of
-the page and select "PostgreSQL". Enter a name for your PostgreSQL instance. The
-remaining fields can be left as is. Click "Create Database" at the bottom of the
-page. You should now be all set to follow the steps in the "Deploying" section.
-
 ## Troubleshooting
 
 If you ran into any errors along the way, here are some things you can try to
@@ -314,7 +303,25 @@ troubleshoot:
 
 [postgres downloads page]: https://postgresapp.com/downloads.html
 
+## Usage
+
+In order to see a working form of my application as well as how to use it, I created a [YouTube Video!](https://youtu.be/663LK_NGLY4)
+
+## Contributing and Support
+
+For any major changes or questions, please feel free to reach out to me directly via email at jake.wehder@gmail.com.
+
+Reach out to me on [LinkedIn!](https://www.linkedin.com/in/jake-wehder/) 
+
 ## Resources
 
-- [Getting Started with Ruby on Rails on Render](https://render.com/docs/deploy-rails)
-- [Render Databases Guide](https://render.com/docs/databases)
+- [styled components](https://styled-components.com/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [Rails Guides Mailers](https://guides.rubyonrails.org/action_mailer_basics.html)
+- [Zoho Mail SMTP Guide](https://www.zoho.com/mail/help/zoho-smtp.html)
+- [Getting Started with Google Maps Platform](https://developers.google.com/maps/get-started)
+
+## License 
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
