@@ -10,8 +10,8 @@ On the backend I am using Ruby on Rails as my API and mailer. The database that 
 
 ## Table of Contents
 - [Requirements](#requirements)
-- [Requirements](#setup)
-- [Google APIs](#google-apis)
+- [Setup](#setup)
+- [Google APIs](#google-api-keys)
 - [Mailer](#mailer)
 - [License](#license)
 - [Troubleshooting](#troubleshooting)
@@ -205,7 +205,7 @@ Please remember to add the .env file you just created to the .gitignore file so 
 
 Restart your development server by typing in Control & C simultaneously on your keyboard within the terminal command line running the server. Then run npm start --prefix client if you are currently not in the client directory. If you are in the client directory, type in npm start.
 
-## Setting up the Mailer Service
+## Mailer Service
 
 ### Using ZohoMail
 
