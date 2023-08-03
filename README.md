@@ -82,7 +82,7 @@ Please remember to add the .env file you just created to the .gitignore file so 
 
 ### Step 2: Restart your Development Server
 
-Restart your development server by typing in Control & C simultaneously on your keyboard on the terminal running the server. Then run npm start --prefix client if you are currently not in the client directory. If you are in the client directory, type in npm start.
+Restart your development server by typing in Control & C simultaneously on your keyboard within the terminal command line running the server. Then run npm start --prefix client if you are currently not in the client directory. If you are in the client directory, type in npm start.
 
 ## Setting up the Mailer Service
 
@@ -98,13 +98,13 @@ Visit [Zoho Mail](https://www.zoho.com/mail/) and create an account.
 
 Find the config directory within app and create a file called "local_env.yml". Add this particular file to the .gitignore file.
 
-## Setting up a `local_env.yml` file in Rails
+### Setting up a `local_env.yml` file in Rails
 
 Rails allows for the loading of environment-specific variables during application initialization. You can use a `local_env.yml` file for this purpose.
 
 Here's how to set it up:
 
-1. **Create a `local_env.yml` file**
+1. **Create a `local_env.yml` file**: 
   In the project files, delete the `config/credentials.yml.enc` file. Then, in the
   terminal, run the following:
 
@@ -123,17 +123,17 @@ Here's how to set it up:
 
   Commit your changes and push them to GitHub.
 
-2. **Add your Variables**
+2. **Add your Variables**:
     Open `local_env.yml` file and add your credentials:
     ```yaml
     MAIL_USERNAME: 'johndoe@zohomail.com'
     MAIL_PASSWORD: 'password123'
     ```
 
-3. **Update `.gitignore`**
+3. **Update `.gitignore`**:
     Make sure to add `config/local_env.yml` to your `.gitignore` file. This step is crucial, as it prevents sensitive data from being exposed in your version control system.
 
-If you look within the config directory then the environments you will see that each look like the following:
+If you open up the config directory and then the environments directory you will see that each contain the following code at the bottom of the file:
 
 ```ruby
   config.action_mailer.delivery_method = :smtp
@@ -149,7 +149,7 @@ If you look within the config directory then the environments you will see that 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 ```
-The ENV variables are automatically initialized when the application is first initialized.
+The ENV variables are automatically initialized when the application is first initialized. Similar to the client side development server, you will need to shut off your rails server by pressing Control & C on your keyboard simultaneously within the terminal window running your server. Turn the server back on with 'rails s' and your ENV variables should be working properly.
 
 ## Environment Setup
 
@@ -161,7 +161,7 @@ Verify which version of Ruby you're running by entering this in the terminal:
 $ ruby -v
 ```
 
-We recommend version 2.7.4. If you need to upgrade you can install it using rvm:
+I recommend version 2.7.4. If you need to upgrade you can install it using rvm:
 
 ```console
 $ rvm install 2.7.4 --default
@@ -291,15 +291,10 @@ troubleshoot:
   one possible fix.
 
 - If your app failed to deploy at the build stage, make sure your local
-  environment is set up correctly by following the steps at the beginning of
-  this lesson. Check that you have the latest versions of Ruby and Bundler, and
+  environment is set up correctly by following the steps at the top of the page. 
+  Check that you have the latest versions of Ruby and Bundler, and
   ensure that PostgreSQL was installed successfully.
 
-- If you deployed successfully, but you ran into issues when you visited the
-  site, make sure you migrated and seeded the database. Also, make sure that
-  your application works locally and try to debug any issues on your local
-  machine before re-deploying. You can also check the deployment log on the
-  app's page in the Render dashboard.
 
 [postgres downloads page]: https://postgresapp.com/downloads.html
 
@@ -315,11 +310,12 @@ Reach out to me on [LinkedIn!](https://www.linkedin.com/in/jake-wehder/)
 
 ## Resources
 
-- [styled components](https://styled-components.com/)
+- [Styled Components](https://styled-components.com/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [Rails Guides Mailers](https://guides.rubyonrails.org/action_mailer_basics.html)
 - [Zoho Mail SMTP Guide](https://www.zoho.com/mail/help/zoho-smtp.html)
 - [Getting Started with Google Maps Platform](https://developers.google.com/maps/get-started)
+- [Material UI](https://mui.com/)
 
 ## License 
 
