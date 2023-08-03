@@ -9,10 +9,13 @@ The frontend javascript is built primarily with ReactJS. I am using Redux for al
 On the backend I am using Ruby on Rails as my API and mailer. The database that I am using is Postgresql.
 
 ## Table of Contents
-- [Introduction](#requirements)
+- [Requirements](#requirements)
 - [Requirements](#setup)
-- [Contribution](#plugins)
+- [Google APIs](#google-apis)
+- [Mailer](#mailer)
 - [License](#license)
+- [Troubleshooting](#troubleshooting)
+- [Usage](#usage)
 
 ## Requirements
 
