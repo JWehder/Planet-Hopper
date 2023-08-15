@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersListings } from "../../listing/state/listingsSlice";
 import ListingGallery from "../../listing/components/ListingGallery";
 import LoadingPage from "../../common/LoadingPage";
+import dayjs from "dayjs";
 
 function NoBookings() {
     return (
@@ -67,10 +68,14 @@ function BookedViewPage() {
             return accumulator;
         }, []);
         
-        let today = new Date();
+        let today = dayjs();
+        const duration = require('dayjs/plugin/duration')
+        dayjs.extend(duration)
 
         return usersBookings.sort((a, b) => {
-            return Math.abs(today - new Date(a.start_date)) - Math.abs(today - new Date(b.start_date));
+            const durationA = dayjs.duration(today.diff(dayjs(a.start_date))).asDays()
+            const durationB = dayjs.duration(today.diff(dayjs(b.start_date))).asDays()
+            return durationB - durationA
         });
     }
 

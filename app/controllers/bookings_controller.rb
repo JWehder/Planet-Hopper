@@ -32,15 +32,25 @@ class BookingsController < ApplicationController
     end
 
     def update
-        user = current_user
-        booking = find_booking(user) 
-      
-        if booking
-          booking.update!(booking_params)
-          render json: booking, status: :ok
-        else
+      user = current_user
+      booking = find_booking(user)
+  
+      if booking
+          booking.assign_attributes(booking_params)
+  
+          price = booking.determine_price
+          booking.price = price
+          booking.fees = booking.add_fees(price)
+  
+          if booking.save!
+              BookingsMailer.booking_email(booking, booking.user).deliver_now
+              render json: booking, status: :ok
+          else
+              render json: booking.errors, status: :unprocessable_entity
+          end
+      else
           render_unauthorized_user_response("booking")
-        end
+      end
     end
 
     def destroy

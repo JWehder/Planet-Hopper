@@ -3,14 +3,6 @@ import { fetchWrapper } from "../../../utils/helpers";
 import dayjs from "dayjs";
 import axios from "axios";
 
-// posts the user's location to my backend. uses that data to find listings nearby the user
-
-// once I receive the booking back from the backend, I need to re stringify all of the booked dates. 
-
-// create a method that stringifys the entirety of dates sent to it
-
-// 
-
 export const fetchListings = createAsyncThunk("listings/fetchListings", (locationObj, thunkAPI) => {
     return fetchWrapper.post("/listings/suggested_listings", locationObj, thunkAPI)
 });
@@ -77,7 +69,6 @@ function stringifyBookedDates(listing, keyword="fetch", user_id) {
         }));
     }, []);
 }
-
 
 const initialState = {
     entities: null,
