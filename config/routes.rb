@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :booked_dates
   resources :bookings, only: [:index, :create, :show, :update, :destroy]
-  resources :listings, only: [:index, :show, :create, :update, :destroy]
+  resources :listings, only: [:index, :show, :destroy]
   resources :users, only: [:create, :update, :destroy]
   resources :planets, only: [:index]
   post "/signup", to: "users#create"

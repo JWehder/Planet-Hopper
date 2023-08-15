@@ -64,11 +64,6 @@ function App() {
     });
   };
 
-  // one button with a button group inside of it that are all disabled buttons but there for esthetics, needs to be hoverable
-  // when clicked, it shows another button group with each being clickable. When clicked, they will show a popover with the input
-  // how will I have a description underneath the button title 
-
-
   if (!render) return 
   <CenterDiv>    
   <Spinner 

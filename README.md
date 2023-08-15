@@ -12,10 +12,11 @@ On the backend I am using Ruby on Rails as my API and mailer. The database that 
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Google APIs](#google-api-keys)
-- [Mailer](#mailer)
-- [License](#license)
+- [Mailer](#mailer-service)
 - [Troubleshooting](#troubleshooting)
 - [Usage](#usage)
+- [License](#license)
+
 
 ## Requirements
 
