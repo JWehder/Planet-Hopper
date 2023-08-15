@@ -56,7 +56,7 @@ $listings.each do |listing|
     Listing.create!(
         name: listing[:title],
         address: address.address,
-        city: address.city,
+        city: city,
         state_province: address.state,
         country: address.country,
         planet_id: Planet.where(name: "Earth").sample.id,
@@ -86,7 +86,7 @@ $listings2.each do |listing|
     Listing.create!(
         name: listing[:title],
         address: address.address,
-        city: address.city,
+        city: city,
         state_province: address.state,
         country: address.country,
         planet_id: Planet.where(name: "Earth").sample.id,

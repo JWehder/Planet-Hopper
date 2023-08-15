@@ -32,12 +32,6 @@ class ListingsController < ApplicationController
         render json: listings, status: :ok
     end
 
-    def create
-        user = User.find(session[:user_id])
-        listing = user.listings.create!(listing_params)
-        render json: listing, status: :created
-    end
-
     def show
         listing = Listing.find(listing_params[:id])
         if listing
@@ -46,28 +40,6 @@ class ListingsController < ApplicationController
             render_unauthorized_user_response("listing")
         end
     end
-
-    def update
-        user = User.find(session[:user_id])
-        listing = find_listing(user) 
-        if listing
-            listing.update!(listing_params)
-            render json: listing, status: :ok
-        else
-            render_unauthorized_user_response("listing")
-        end
-    end
-
-    def destroy
-        user = User.find(session[:user_id])
-        listing = find_listing(user)
-        if listing
-            listing.destroy
-            head :no_content
-        else
-            render_unauthorized_user_response("listing")
-        end
-    end 
 
     private
 
