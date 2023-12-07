@@ -306,7 +306,7 @@ troubleshoot:
 
 ## Usage
 
-In order to see a working form of my application as well as how to use it, I created a [YouTube Video!](https://youtu.be/6Ah9jHYYV8E)
+
 
 ## Contributing and Support
 
